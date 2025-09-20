@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Master - CCNA Chapter 5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Rajdhani', sans-serif; background-color:#0f172a; }
+        .title-font { font-family: 'Orbitron', sans-serif; }
+        .topic-card { background-color:#1e293b; border:1px solid #334155; transition:transform .3s, box-shadow .3s; box-shadow:0 4px 6px rgba(0,0,0,.2), inset 0 0 10px rgba(79,70,229,.2); }
+        .topic-card:hover { transform:translateY(-5px) scale(1.02); box-shadow:0 10px 15px rgba(0,0,0,.3),0 0 25px rgba(129,140,248,.4), inset 0 0 15px rgba(79,70,229,.3); border-color:#4f46e5; }
+        #studyModal { display:none; opacity:0; }
+        #studyModal.visible { display:flex; opacity:1; }
+        #modalContent { transform:scale(.95); opacity:0; }
+        #modalContent.visible { transform:scale(1); opacity:1; }
+        #modalVisual { background:radial-gradient(circle,#1e293b,#0f172a); border-bottom:1px solid #334155; }
+        #detailsModal { display:none; opacity:0; }
+        #detailsModal.visible { display:flex; opacity:1; }
+        #detailsContent { transform:scale(.9); opacity:0; }
+        #detailsContent.visible { transform:scale(1); opacity:1; }
+        .game-container { border:1px solid #334155; border-radius:.5rem; background-color:rgba(30,41,59,.5);} 
+        button:focus { outline:none; }
+        
+        /* Styles for completed topics */
+        .studied { position: relative; }
+        .studied::after {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            color: #22c55e;
+            font-size: 18px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="text-slate-300">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <!-- Master Progress Bar -->
+        <div class="mb-6">
+            <div class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-semibold text-slate-300">CCNA 200-301 Progress</span>
+                    <span id="progressText" class="text-sm text-indigo-400 font-semibold">0%</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div id="progressBar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-slate-400 mt-2">
+                    <span>Chapters 1-6</span>
+                    <span id="progressDetails">0 of 30 topics completed</span>
+                </div>
+            </div>
+        </div>
+
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-400 title-font tracking-wider">
+                <i class="fas fa-gamepad mr-3 text-indigo-500"></i>CCNA - Chapter 5
+            </h1>
+            <p class="text-lg text-slate-400 mt-2">Interactive Study Guide for Exam 200-301</p>
+            <p class="text-sm text-slate-500 mt-1">Select a topic to begin your training module.</p>
+            <a href="chapters.html" class="inline-block mt-4 px-4 py-2 bg-slate-700 text-white rounded hover:bg-indigo-600 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Chapters
+            </a>
+        </header>
+
+        <div id="progress-container" class="w-full max-w-4xl mx-auto mb-10">
+            <div class="flex justify-center items-center space-x-4 mb-2">
+                <span class="text-sm font-semibold text-indigo-300">Chapter 5 Progress</span>
+                <span id="progress-text" class="text-sm font-bold text-white">0%</span>
+            </div>
+            <div class="w-full bg-slate-700 rounded-full h-2.5">
+                <div id="progress-bar" class="bg-indigo-500 h-2.5 rounded-full" style="width: 0%; transition: width 0.5s ease-in-out;"></div>
+            </div>
+        </div>
+
+        <main>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">5.1 Network Automation Fundamentals</h2>
+                <div id="automationGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">5.2 Configuration Management</h2>
+                <div id="configGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">5.3 REST APIs and JSON</h2>
+                <div id="apiGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">5.4 Data Formats and Models</h2>
+                <div id="dataGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">5.5 Automation Tools</h2>
+                <div id="toolsGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">5.6 SDN and Controller-Based Networks</h2>
+                <div id="sdnGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Study Modal -->
+    <div id="studyModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0 z-50">
+        <div id="modalContent" class="bg-slate-800 border-2 border-indigo-500/50 rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden transform scale-95 transition-all duration-300 opacity-0">
+            <div id="modalVisual" class="p-4 h-48 flex-shrink-0 flex items-center justify-center">
+                <div id="modalSvg"></div>
+            </div>
+            <div id="modalMainArea" class="p-4 md:p-6 relative">
+                <button id="closeModal" class="absolute top-3 right-3 text-slate-400 hover:text-white font-semibold py-1 px-3 rounded-lg text-2xl transition-colors">&times;</button>
+                <div class="flex items-start mb-4">
+                    <i id="modalIcon" class="text-3xl text-indigo-400 mr-4 mt-1"></i>
+                    <div>
+                        <h2 id="modalTitle" class="text-2xl font-bold text-slate-100 title-font"></h2>
+                    </div>
+                </div>
+                <div id="modalBody" class="text-slate-300 leading-relaxed space-y-3 text-sm">
+                    <div id="modalDescription"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-3 mt-6">
+                    <button id="detailsBtn" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <i class="fas fa-info-circle mr-2"></i>Details
+                    </button>
+                </div>
+
+                <button id="modalMarkStudied" class="mt-6 w-full bg-indigo-600 text-white font-semibold py-3 px-4 rounded-md hover:bg-indigo-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Mark as Mastered</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Modal -->
+    <div id="detailsModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0 z-50">
+        <div id="detailsContent" class="bg-slate-800 border-2 border-blue-500/50 rounded-lg shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden transform scale-95 transition-all duration-300 opacity-0">
+            <div class="flex justify-between items-center p-4 border-b border-slate-700">
+                <h3 id="detailsTitle" class="text-2xl font-bold text-blue-300 title-font"></h3>
+                <button id="closeDetailsModal" class="text-slate-400 hover:text-white text-2xl font-bold"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="detailsBody" class="p-6 overflow-y-auto max-h-[calc(90vh-120px)] text-slate-300 leading-relaxed"></div>
+            <div class="p-6 pt-0 border-t border-slate-600">
+                <button id="backToStudyModal" class="w-full bg-slate-600 hover:bg-slate-700 text-white py-2 px-4 rounded-md transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Topic Overview
+                </button>
+            </div>
+        </div>
+    </div>    <!-- Load the unified progress tracker -->
+    <script src="js/shared-progress.js"></script>
+
+    <script>
+        // Initialize progress tracker
+        let progressTracker;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            progressTracker = new UnifiedCCNAProgressTracker(5);
+            // 5.1 Network Automation Fundamentals
+            const automationTopics = [
+                {
+                    title: "Benefits of Automation",
+                    icon: "fa-robot",
+                    description: "Understand the key benefits of network automation including reduced human error, faster deployment, consistency, and improved operational efficiency.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="50" width="80" height="30" fill="#ef4444" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="90" y="70" text-anchor="middle" fill="white" font-size="10">Manual Config</text>
+                            <rect x="270" y="50" width="80" height="30" fill="#10b981" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="310" y="70" text-anchor="middle" fill="white" font-size="10">Automated</text>
+                            <rect x="50" y="100" width="80" height="25" fill="#fbbf24" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="90" y="117" text-anchor="middle" fill="white" font-size="9">Error Prone</text>
+                            <rect x="270" y="100" width="80" height="25" fill="#10b981" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="310" y="117" text-anchor="middle" fill="white" font-size="9">Consistent</text>
+                            <rect x="50" y="140" width="80" height="25" fill="#f97316" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="90" y="157" text-anchor="middle" fill="white" font-size="9">Slow</text>
+                            <rect x="270" y="140" width="80" height="25" fill="#10b981" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="310" y="157" text-anchor="middle" fill="white" font-size="9">Fast</text>
+                            <path d="M 150 105 L 250 105" stroke="#4f46e5" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">Automation Benefits</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "Traditional vs Modern Networks",
+                    icon: "fa-exchange-alt",
+                    description: "Compare traditional manual network management approaches with modern automated, programmable network infrastructure.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="30" y="60" width="120" height="80" fill="#1e293b" stroke="#ef4444" stroke-width="2" rx="5"/>
+                            <text x="90" y="85" text-anchor="middle" fill="#e2e8f0" font-size="12">Traditional</text>
+                            <text x="90" y="105" text-anchor="middle" fill="#94a3b8" font-size="9">CLI/SNMP</text>
+                            <text x="90" y="125" text-anchor="middle" fill="#94a3b8" font-size="9">Device-by-Device</text>
+                            <rect x="250" y="60" width="120" height="80" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="310" y="85" text-anchor="middle" fill="#e2e8f0" font-size="12">Modern</text>
+                            <text x="310" y="105" text-anchor="middle" fill="#94a3b8" font-size="9">APIs/Controllers</text>
+                            <text x="310" y="125" text-anchor="middle" fill="#94a3b8" font-size="9">Centralized</text>
+                            <path d="M 170 100 L 230 100" stroke="#fbbf24" stroke-width="3"/>
+                            <text x="200" y="90" text-anchor="middle" fill="#fbbf24" font-size="12">Evolution</text>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">Network Evolution</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 5.2 Configuration Management
+            const configTopics = [
+                {
+                    title: "Configuration Files",
+                    icon: "fa-file-code",
+                    description: "Understand network device configuration files, including startup-config, running-config, and their management through automation.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="50" width="100" height="40" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="100" y="75" text-anchor="middle" fill="#e2e8f0" font-size="11">startup-config</text>
+                            <rect x="50" y="120" width="100" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="100" y="145" text-anchor="middle" fill="#e2e8f0" font-size="11">running-config</text>
+                            <rect x="250" y="80" width="100" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="300" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Config Server</text>
+                            <path d="M 150 70 L 250 90" stroke="#fbbf24" stroke-width="2"/>
+                            <path d="M 150 140 L 250 110" stroke="#10b981" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">Configuration Management</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "Version Control",
+                    icon: "fa-code-branch",
+                    description: "Implement version control systems for network configurations to track changes, maintain history, and enable rollback capabilities.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="60" width="80" height="30" fill="#ef4444" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="90" y="80" text-anchor="middle" fill="white" font-size="10">Version 1.0</text>
+                            <rect x="160" y="60" width="80" height="30" fill="#fbbf24" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="200" y="80" text-anchor="middle" fill="white" font-size="10">Version 1.1</text>
+                            <rect x="270" y="60" width="80" height="30" fill="#10b981" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="310" y="80" text-anchor="middle" fill="white" font-size="10">Version 1.2</text>
+                            <rect x="160" y="120" width="80" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="200" y="145" text-anchor="middle" fill="#e2e8f0" font-size="11">Git Repository</text>
+                            <path d="M 130 75 L 160 75" stroke="#4f46e5" stroke-width="2"/>
+                            <path d="M 240 75 L 270 75" stroke="#4f46e5" stroke-width="2"/>
+                            <path d="M 200 90 L 200 120" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">Version Control</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 5.3 REST APIs and JSON
+            const apiTopics = [
+                {
+                    title: "REST API Fundamentals",
+                    icon: "fa-plug",
+                    description: "Understand RESTful API principles including HTTP methods (GET, POST, PUT, DELETE) and their use in network automation.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="80" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Client App</text>
+                            <rect x="270" y="80" width="80" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="310" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">REST API</text>
+                            <rect x="160" y="40" width="80" height="20" fill="#10b981" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="200" y="55" text-anchor="middle" fill="white" font-size="9">GET /devices</text>
+                            <rect x="160" y="70" width="80" height="20" fill="#fbbf24" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="200" y="85" text-anchor="middle" fill="white" font-size="9">POST /config</text>
+                            <rect x="160" y="100" width="80" height="20" fill="#f97316" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="200" y="115" text-anchor="middle" fill="white" font-size="9">PUT /update</text>
+                            <rect x="160" y="130" width="80" height="20" fill="#ef4444" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="200" y="145" text-anchor="middle" fill="white" font-size="9">DELETE /old</text>
+                            <path d="M 130 100 L 160 100" stroke="#4f46e5" stroke-width="2"/>
+                            <path d="M 240 100 L 270 100" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">REST API Methods</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "JSON Data Format",
+                    icon: "fa-code",
+                    description: "Learn JSON (JavaScript Object Notation) structure and syntax for data exchange in network automation and API communications.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="50" width="300" height="120" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="60" y="75" fill="#10b981" font-size="12" font-family="monospace">{</text>
+                            <text x="80" y="95" fill="#fbbf24" font-size="11" font-family="monospace">"device": "Router1",</text>
+                            <text x="80" y="115" fill="#fbbf24" font-size="11" font-family="monospace">"ip": "192.168.1.1",</text>
+                            <text x="80" y="135" fill="#fbbf24" font-size="11" font-family="monospace">"status": "active"</text>
+                            <text x="60" y="155" fill="#10b981" font-size="12" font-family="monospace">}</text>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">JSON Structure</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "API Authentication",
+                    icon: "fa-key",
+                    description: "Configure API authentication methods including tokens, API keys, and OAuth for secure network automation access.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="80" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Client</text>
+                            <rect x="270" y="80" width="80" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="310" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">API Server</text>
+                            <rect x="160" y="50" width="80" height="25" fill="#fbbf24" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="200" y="67" text-anchor="middle" fill="white" font-size="9">API Key</text>
+                            <rect x="160" y="85" width="80" height="25" fill="#10b981" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="200" y="102" text-anchor="middle" fill="white" font-size="9">Bearer Token</text>
+                            <rect x="160" y="120" width="80" height="25" fill="#ef4444" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="200" y="137" text-anchor="middle" fill="white" font-size="9">OAuth 2.0</text>
+                            <path d="M 130 100 L 160 100" stroke="#4f46e5" stroke-width="2"/>
+                            <path d="M 240 100 L 270 100" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">API Authentication</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 5.4 Data Formats and Models
+            const dataTopics = [
+                {
+                    title: "YAML Format",
+                    icon: "fa-file-alt",
+                    description: "Understand YAML (YAML Ain't Markup Language) syntax and structure for configuration files and automation playbooks.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="50" width="300" height="120" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="60" y="75" fill="#10b981" font-size="11" font-family="monospace">network:</text>
+                            <text x="80" y="95" fill="#fbbf24" font-size="11" font-family="monospace">- name: Router1</text>
+                            <text x="100" y="115" fill="#fbbf24" font-size="11" font-family="monospace">ip: 192.168.1.1</text>
+                            <text x="100" y="135" fill="#fbbf24" font-size="11" font-family="monospace">type: cisco</text>
+                            <text x="80" y="155" fill="#fbbf24" font-size="11" font-family="monospace">- name: Switch1</text>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">YAML Configuration</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "XML Format",
+                    icon: "fa-code",
+                    description: "Learn XML (eXtensible Markup Language) structure for network device configuration and data exchange in enterprise environments.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="50" width="300" height="120" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="60" y="75" fill="#10b981" font-size="10" font-family="monospace">&lt;device&gt;</text>
+                            <text x="80" y="95" fill="#fbbf24" font-size="10" font-family="monospace">&lt;name&gt;Router1&lt;/name&gt;</text>
+                            <text x="80" y="115" fill="#fbbf24" font-size="10" font-family="monospace">&lt;ip&gt;192.168.1.1&lt;/ip&gt;</text>
+                            <text x="80" y="135" fill="#fbbf24" font-size="10" font-family="monospace">&lt;status&gt;active&lt;/status&gt;</text>
+                            <text x="60" y="155" fill="#10b981" font-size="10" font-family="monospace">&lt;/device&gt;</text>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">XML Structure</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 5.5 Automation Tools
+            const toolsTopics = [
+                {
+                    title: "Ansible Automation",
+                    icon: "fa-cogs",
+                    description: "Use Ansible for network automation including playbooks, inventory management, and configuration deployment across network devices.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="150" y="50" width="100" height="40" fill="#1e293b" stroke="#ef4444" stroke-width="2" rx="5"/>
+                            <text x="200" y="75" text-anchor="middle" fill="#e2e8f0" font-size="12">Ansible</text>
+                            <rect x="50" y="120" width="80" height="30" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="90" y="140" text-anchor="middle" fill="#e2e8f0" font-size="10">Router 1</text>
+                            <rect x="160" y="120" width="80" height="30" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="200" y="140" text-anchor="middle" fill="#e2e8f0" font-size="10">Router 2</text>
+                            <rect x="270" y="120" width="80" height="30" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="310" y="140" text-anchor="middle" fill="#e2e8f0" font-size="10">Switch 1</text>
+                            <path d="M 180 90 L 110 120" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 200 90 L 200 120" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 220 90 L 290 120" stroke="#10b981" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#ef4444" font-size="16">Ansible Playbooks</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "Python Scripting",
+                    icon: "fa-python",
+                    description: "Develop Python scripts for network automation using libraries like Netmiko, NAPALM, and Paramiko for device interaction.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="60" width="120" height="80" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="110" y="85" text-anchor="middle" fill="#e2e8f0" font-size="12">Python Script</text>
+                            <text x="110" y="105" text-anchor="middle" fill="#94a3b8" font-size="9">import netmiko</text>
+                            <text x="110" y="125" text-anchor="middle" fill="#94a3b8" font-size="9">connect()</text>
+                            <rect x="230" y="60" width="120" height="80" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="290" y="85" text-anchor="middle" fill="#e2e8f0" font-size="12">Network Devices</text>
+                            <text x="290" y="105" text-anchor="middle" fill="#94a3b8" font-size="9">SSH Connection</text>
+                            <text x="290" y="125" text-anchor="middle" fill="#94a3b8" font-size="9">Config Changes</text>
+                            <path d="M 170 100 L 230 100" stroke="#10b981" stroke-width="3"/>
+                            <text x="200" y="90" text-anchor="middle" fill="#10b981" font-size="10">API Calls</text>
+                            <text x="200" y="25" text-anchor="middle" fill="#fbbf24" font-size="16">Python Automation</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 5.6 SDN and Controller-Based Networks
+            const sdnTopics = [
+                {
+                    title: "SDN Architecture",
+                    icon: "fa-network-wired",
+                    description: "Understand Software-Defined Networking architecture including control plane, data plane separation and centralized management.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="150" y="30" width="100" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="200" y="55" text-anchor="middle" fill="#e2e8f0" font-size="12">SDN Controller</text>
+                            <rect x="50" y="120" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="145" text-anchor="middle" fill="#e2e8f0" font-size="10">Switch 1</text>
+                            <rect x="160" y="120" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="200" y="145" text-anchor="middle" fill="#e2e8f0" font-size="10">Switch 2</text>
+                            <rect x="270" y="120" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="310" y="145" text-anchor="middle" fill="#e2e8f0" font-size="10">Switch 3</text>
+                            <path d="M 180 70 L 110 120" stroke="#fbbf24" stroke-width="2"/>
+                            <path d="M 200 70 L 200 120" stroke="#fbbf24" stroke-width="2"/>
+                            <path d="M 220 70 L 290 120" stroke="#fbbf24" stroke-width="2"/>
+                            <text x="140" y="90" text-anchor="middle" fill="#fbbf24" font-size="9">Control Plane</text>
+                            <text x="200" y="15" text-anchor="middle" fill="#4f46e5" font-size="16">SDN Architecture</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "OpenFlow Protocol",
+                    icon: "fa-stream",
+                    description: "Learn OpenFlow protocol fundamentals for communication between SDN controllers and network switches in software-defined networks.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="50" width="100" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="100" y="75" text-anchor="middle" fill="#e2e8f0" font-size="12">Controller</text>
+                            <rect x="250" y="50" width="100" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="300" y="75" text-anchor="middle" fill="#e2e8f0" font-size="12">OpenFlow Switch</text>
+                            <rect x="160" y="120" width="80" height="30" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="200" y="140" text-anchor="middle" fill="#e2e8f0" font-size="11">Flow Table</text>
+                            <path d="M 150 70 L 250 70" stroke="#ef4444" stroke-width="2"/>
+                            <text x="200" y="60" text-anchor="middle" fill="#ef4444" font-size="10">OpenFlow Messages</text>
+                            <path d="M 280 90 L 220 120" stroke="#10b981" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">OpenFlow Protocol</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "Cisco DNA Center",
+                    icon: "fa-sitemap",
+                    description: "Explore Cisco DNA Center as a network controller platform for intent-based networking and centralized management.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <circle cx="200" cy="80" r="50" fill="#1e293b" stroke="#4f46e5" stroke-width="3"/>
+                            <text x="200" y="85" text-anchor="middle" fill="#e2e8f0" font-size="12">DNA Center</text>
+                            <rect x="50" y="140" width="70" height="30" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="85" y="160" text-anchor="middle" fill="#e2e8f0" font-size="10">Switches</text>
+                            <rect x="165" y="140" width="70" height="30" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="200" y="160" text-anchor="middle" fill="#e2e8f0" font-size="10">Routers</text>
+                            <rect x="280" y="140" width="70" height="30" fill="#1e293b" stroke="#ef4444" stroke-width="2" rx="5"/>
+                            <text x="315" y="160" text-anchor="middle" fill="#e2e8f0" font-size="10">Wireless</text>
+                            <path d="M 170 110 L 105 140" stroke="#4f46e5" stroke-width="2"/>
+                            <path d="M 200 130 L 200 140" stroke="#4f46e5" stroke-width="2"/>
+                            <path d="M 230 110 L 295 140" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">Intent-Based Networking</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // Create topic cards for each section
+            function createTopicCards(topics, gridElement) {
+                topics.forEach(topic => {
+                    const card = document.createElement('div');
+                    card.className = 'topic-card p-6 flex flex-col justify-center items-center text-center cursor-pointer h-56 w-60';
+                    card.innerHTML = `
+                        <i class="fas ${topic.icon} text-5xl text-indigo-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-200 title-font">${topic.title}</h3>
+                    `;
+                    card.onclick = () => openStudyModal(topic, card);
+                    gridElement.appendChild(card);
+                });
+            }
+
+            // Populate all grids
+            createTopicCards(automationTopics, document.getElementById('automationGrid'));
+            createTopicCards(configTopics, document.getElementById('configGrid'));
+            createTopicCards(apiTopics, document.getElementById('apiGrid'));
+            createTopicCards(dataTopics, document.getElementById('dataGrid'));
+            createTopicCards(toolsTopics, document.getElementById('toolsGrid'));
+            createTopicCards(sdnTopics, document.getElementById('sdnGrid'));
+
+            // Sync visual state after cards are created
+            setTimeout(() => progressTracker.syncVisualState(), 100);
+
+            // Modal DOM elements
+            const modal = document.getElementById('studyModal');
+            const modalContent = document.getElementById('modalContent');
+            const closeModalBtn = document.getElementById('closeModal');
+            
+            const detailsModal = document.getElementById('detailsModal');
+            const detailsContent = document.getElementById('detailsContent');
+            const detailsBtn = document.getElementById('detailsBtn');
+
+            const closeDetailsBtn = document.getElementById('closeDetailsModal');
+            const modalMarkStudiedBtn = document.getElementById('modalMarkStudied');
+
+            // Current topic data
+            let currentTopic = null;
+            let currentCardElement = null;
+
+            // Comprehensive CCNA 200-301 topic information for Chapter 5 - Network Management and Automation
+            const topicDetails = {
+                'Benefits of Automation': {
+                    title: 'Benefits of Network Automation - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Key Benefits</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Consistency:</strong> Eliminates human configuration errors</li>
+                                    <li><strong>Speed:</strong> Rapid deployment and changes across devices</li>
+                                    <li><strong>Scale:</strong> Manage hundreds of devices efficiently</li>
+                                    <li><strong>Cost Reduction:</strong> Lower operational expenses</li>
+                                    <li><strong>Compliance:</strong> Enforce security and policy standards</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Traditional vs Automated Networks</h3>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-slate-800 p-4 rounded-lg">
+                                        <h4 class="text-yellow-400 font-semibold mb-2">Traditional</h4>
+                                        <ul class="text-sm text-slate-300 space-y-1">
+                                            <li>• Manual CLI configuration</li>
+                                            <li>• Device-by-device changes</li>
+                                            <li>• Human error prone</li>
+                                            <li>• Time consuming</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-slate-800 p-4 rounded-lg">
+                                        <h4 class="text-green-400 font-semibold mb-2">Automated</h4>
+                                        <ul class="text-sm text-slate-300 space-y-1">
+                                            <li>• Script-based deployment</li>
+                                            <li>• Bulk configuration changes</li>
+                                            <li>• Consistent and reliable</li>
+                                            <li>• Rapid implementation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand automation benefits and drivers</li>
+                                    <li>Compare traditional vs automated approaches</li>
+                                    <li>Identify use cases for network automation</li>
+                                    <li>Recognize impact on network operations</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'Traditional vs Modern Networks': {
+                    title: 'Traditional vs Modern Networks - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Network Evolution</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <div>
+                                            <h4 class="text-yellow-400 font-semibold mb-3">Traditional Networks</h4>
+                                            <ul class="text-sm text-slate-300 space-y-2">
+                                                <li>• Static configurations</li>
+                                                <li>• Manual provisioning</li>
+                                                <li>• Device-centric management</li>
+                                                <li>• Limited scalability</li>
+                                                <li>• Reactive troubleshooting</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-green-400 font-semibold mb-3">Modern Networks</h4>
+                                            <ul class="text-sm text-slate-300 space-y-2">
+                                                <li>• Dynamic configurations</li>
+                                                <li>• Automated provisioning</li>
+                                                <li>• Centralized management</li>
+                                                <li>• Infinite scalability</li>
+                                                <li>• Proactive monitoring</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Key Technologies</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>APIs:</strong> Programmatic interface for network control</li>
+                                    <li><strong>Controllers:</strong> Centralized network management platforms</li>
+                                    <li><strong>Orchestration:</strong> Automated workflow management</li>
+                                    <li><strong>Intent-based:</strong> Policy-driven network behavior</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Compare traditional and modern network architectures</li>
+                                    <li>Understand controller-based networking concepts</li>
+                                    <li>Identify benefits of centralized management</li>
+                                    <li>Recognize modern network technologies</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'Configuration Files': {
+                    title: 'Configuration Files - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Configuration Management</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        Router# copy running-config startup-config<br>
+                                        Router# copy startup-config tftp:<br>
+                                        Router# archive<br>
+                                        Router(config)# archive<br>
+                                        Router(config-archive)# path tftp://server/configs/$h-$t<br>
+                                        Router(config-archive)# time-period 1440
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Configuration Types</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Running-config:</strong> Active configuration in RAM</li>
+                                    <li><strong>Startup-config:</strong> Boot configuration in NVRAM</li>
+                                    <li><strong>Archive:</strong> Historical configuration backups</li>
+                                    <li><strong>Templates:</strong> Standardized configuration snippets</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Best Practices</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Regular configuration backups to external servers</li>
+                                    <li>Version control with timestamps and descriptions</li>
+                                    <li>Configuration templates for consistency</li>
+                                    <li>Automated backup scheduling</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Backup and restore device configurations</li>
+                                    <li>Use configuration archive features</li>
+                                    <li>Understand configuration file types</li>
+                                    <li>Implement configuration management practices</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'Version Control': {
+                    title: 'Version Control - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Configuration Version Control</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        Router(config)# archive<br>
+                                        Router(config-archive)# path bootflash:archive-config<br>
+                                        Router(config-archive)# maximum 10<br>
+                                        Router(config-archive)# time-period 1440<br><br>
+                                        Router# show archive<br>
+                                        Router# configure replace bootflash:archive-config-1
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Version Control Benefits</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Change Tracking:</strong> Monitor configuration modifications</li>
+                                    <li><strong>Rollback:</strong> Revert to previous working configurations</li>
+                                    <li><strong>Compliance:</strong> Audit configuration changes</li>
+                                    <li><strong>Documentation:</strong> Maintain change history</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Git for Network Configs</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        # Network configuration repository<br>
+                                        git init network-configs<br>
+                                        git add router1-config.txt<br>
+                                        git commit -m "Initial router1 configuration"<br>
+                                        git tag v1.0-production
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Configure configuration archiving</li>
+                                    <li>Use rollback features for recovery</li>
+                                    <li>Understand version control concepts</li>
+                                    <li>Implement change management processes</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'REST API Fundamentals': {
+                    title: 'REST API Fundamentals - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">REST API Principles</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Stateless:</strong> Each request contains all needed information</li>
+                                    <li><strong>Resource-based:</strong> URLs represent network resources</li>
+                                    <li><strong>HTTP Methods:</strong> GET, POST, PUT, DELETE operations</li>
+                                    <li><strong>JSON/XML:</strong> Structured data exchange formats</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">HTTP Methods</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <div class="space-y-2 text-sm">
+                                        <div><span class="text-green-400 font-bold">GET</span> <span class="text-slate-300">- Retrieve resource information</span></div>
+                                        <div><span class="text-blue-400 font-bold">POST</span> <span class="text-slate-300">- Create new resources</span></div>
+                                        <div><span class="text-yellow-400 font-bold">PUT</span> <span class="text-slate-300">- Update existing resources</span></div>
+                                        <div><span class="text-red-400 font-bold">DELETE</span> <span class="text-slate-300">- Remove resources</span></div>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Network API Examples</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        GET /api/v1/interfaces<br>
+                                        POST /api/v1/vlans<br>
+                                        PUT /api/v1/interfaces/GigabitEthernet0/1<br>
+                                        DELETE /api/v1/vlans/100
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand REST API concepts and principles</li>
+                                    <li>Identify HTTP methods and their purposes</li>
+                                    <li>Recognize API URL structure for network resources</li>
+                                    <li>Understand JSON/XML data formats</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'API Authentication': {
+                    title: 'API Authentication - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Authentication Methods</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Basic Auth:</strong> Username/password in HTTP headers</li>
+                                    <li><strong>API Keys:</strong> Unique tokens for API access</li>
+                                    <li><strong>OAuth:</strong> Token-based authorization framework</li>
+                                    <li><strong>JWT:</strong> JSON Web Tokens for stateless auth</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">API Key Example</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        curl -X GET "https://controller.example.com/api/v1/devices" \<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;-H "X-API-Key: abc123def456ghi789" \<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;-H "Content-Type: application/json"
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Security Best Practices</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Use HTTPS for all API communications</li>
+                                    <li>Implement proper authentication mechanisms</li>
+                                    <li>Rotate API keys regularly</li>
+                                    <li>Apply rate limiting and access controls</li>
+                                    <li>Log API access for security monitoring</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand API authentication methods</li>
+                                    <li>Recognize security best practices for APIs</li>
+                                    <li>Identify authentication headers in API calls</li>
+                                    <li>Understand token-based authentication</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'JSON Data Format': {
+                    title: 'JSON Data Format - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">JSON Structure</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        {<br>
+                                        &nbsp;&nbsp;"interface": {<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;"name": "GigabitEthernet0/1",<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;"ip-address": "192.168.1.1",<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;"subnet-mask": "255.255.255.0",<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;"status": "up",<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;"vlan": 10<br>
+                                        &nbsp;&nbsp;}<br>
+                                        }
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">JSON Data Types</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>String:</strong> Text values in double quotes</li>
+                                    <li><strong>Number:</strong> Integer or floating-point values</li>
+                                    <li><strong>Boolean:</strong> true or false values</li>
+                                    <li><strong>Array:</strong> Ordered list of values</li>
+                                    <li><strong>Object:</strong> Collection of key-value pairs</li>
+                                    <li><strong>null:</strong> Empty or undefined value</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Network Device JSON</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        {<br>
+                                        &nbsp;&nbsp;"devices": [<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"hostname": "Router1",<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"model": "ISR4331",<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"interfaces": ["Gi0/0", "Gi0/1"]<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                                        &nbsp;&nbsp;]<br>
+                                        }
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand JSON syntax and structure</li>
+                                    <li>Identify JSON data types</li>
+                                    <li>Parse network device information in JSON</li>
+                                    <li>Compare JSON vs XML formats</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'YAML Format': {
+                    title: 'YAML Format - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">YAML Syntax</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        # Network Configuration<br>
+                                        router:<br>
+                                        &nbsp;&nbsp;hostname: Router1<br>
+                                        &nbsp;&nbsp;model: ISR4331<br>
+                                        &nbsp;&nbsp;interfaces:<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;- name: GigabitEthernet0/0<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ip: 192.168.1.1<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mask: 255.255.255.0<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;- name: GigabitEthernet0/1<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ip: 10.0.0.1<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mask: 255.255.255.0
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">YAML Features</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Human-readable:</strong> Easy to read and write</li>
+                                    <li><strong>Indentation:</strong> Uses spaces (not tabs) for structure</li>
+                                    <li><strong>Comments:</strong> Lines starting with # are comments</li>
+                                    <li><strong>Data types:</strong> Strings, numbers, booleans, lists, dictionaries</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Ansible Playbook Example</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        ---<br>
+                                        - name: Configure VLAN<br>
+                                        &nbsp;&nbsp;hosts: switches<br>
+                                        &nbsp;&nbsp;tasks:<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;- name: Create VLAN 10<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ios_vlan:<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vlan_id: 10<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: Production
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand YAML syntax and structure</li>
+                                    <li>Recognize YAML in automation tools</li>
+                                    <li>Compare YAML with JSON and XML</li>
+                                    <li>Identify YAML data representation</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'XML Format': {
+                    title: 'XML Format - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">XML Structure</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        &lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+                                        &lt;router&gt;<br>
+                                        &nbsp;&nbsp;&lt;hostname&gt;Router1&lt;/hostname&gt;<br>
+                                        &nbsp;&nbsp;&lt;model&gt;ISR4331&lt;/model&gt;<br>
+                                        &nbsp;&nbsp;&lt;interface&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;GigabitEthernet0/0&lt;/name&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;ip&gt;192.168.1.1&lt;/ip&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;mask&gt;255.255.255.0&lt;/mask&gt;<br>
+                                        &nbsp;&nbsp;&lt;/interface&gt;<br>
+                                        &lt;/router&gt;
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">XML Characteristics</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Tags:</strong> Enclosed in angle brackets &lt;tag&gt;</li>
+                                    <li><strong>Hierarchy:</strong> Nested parent-child relationships</li>
+                                    <li><strong>Attributes:</strong> Additional data in opening tags</li>
+                                    <li><strong>Well-formed:</strong> Must follow strict syntax rules</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">NETCONF XML Example</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        &lt;rpc message-id="1"&gt;<br>
+                                        &nbsp;&nbsp;&lt;edit-config&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;target&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;running/&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/target&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;config&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;interface&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;Gi0/1&lt;/name&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/interface&gt;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/config&gt;<br>
+                                        &nbsp;&nbsp;&lt;/edit-config&gt;<br>
+                                        &lt;/rpc&gt;
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand XML syntax and structure</li>
+                                    <li>Recognize XML in network protocols</li>
+                                    <li>Compare XML with JSON and YAML</li>
+                                    <li>Identify XML use in NETCONF</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'Ansible Automation': {
+                    title: 'Ansible Automation - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Ansible Components</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Playbooks:</strong> YAML files defining automation tasks</li>
+                                    <li><strong>Inventory:</strong> List of managed network devices</li>
+                                    <li><strong>Modules:</strong> Pre-built functions for device interaction</li>
+                                    <li><strong>Tasks:</strong> Individual automation actions</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Sample Playbook</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        ---<br>
+                                        - name: Configure Switch VLANs<br>
+                                        &nbsp;&nbsp;hosts: switches<br>
+                                        &nbsp;&nbsp;gather_facts: no<br>
+                                        &nbsp;&nbsp;tasks:<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;- name: Create VLAN 10<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ios_vlan:<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vlan_id: 10<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: Sales<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state: present
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Network Modules</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>ios_command:</strong> Execute show commands</li>
+                                    <li><strong>ios_config:</strong> Apply configuration changes</li>
+                                    <li><strong>ios_vlan:</strong> Manage VLAN configuration</li>
+                                    <li><strong>ios_interface:</strong> Configure interfaces</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand Ansible automation concepts</li>
+                                    <li>Recognize playbook structure and syntax</li>
+                                    <li>Identify network automation modules</li>
+                                    <li>Understand inventory management</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'Python Scripting': {
+                    title: 'Python Scripting - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Python Libraries</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Netmiko:</strong> SSH connections to network devices</li>
+                                    <li><strong>NAPALM:</strong> Network abstraction and programming layer</li>
+                                    <li><strong>Paramiko:</strong> SSH and SCP client implementation</li>
+                                    <li><strong>Requests:</strong> HTTP library for API calls</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Netmiko Example</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <code class="text-green-400">
+                                        from netmiko import ConnectHandler<br><br>
+                                        device = {<br>
+                                        &nbsp;&nbsp;'device_type': 'cisco_ios',<br>
+                                        &nbsp;&nbsp;'host': '192.168.1.1',<br>
+                                        &nbsp;&nbsp;'username': 'admin',<br>
+                                        &nbsp;&nbsp;'password': 'cisco123'<br>
+                                        }<br><br>
+                                        net_connect = ConnectHandler(**device)<br>
+                                        output = net_connect.send_command('show ip interface brief')<br>
+                                        print(output)
+                                    </code>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Use Cases</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Automated configuration deployment</li>
+                                    <li>Network device monitoring and reporting</li>
+                                    <li>Bulk configuration changes</li>
+                                    <li>Network discovery and inventory</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand Python for network automation</li>
+                                    <li>Recognize common networking libraries</li>
+                                    <li>Identify Python scripting use cases</li>
+                                    <li>Understand API interaction with Python</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'SDN Architecture': {
+                    title: 'SDN Architecture - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">SDN Planes</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <div class="space-y-3">
+                                        <div class="border-l-4 border-blue-400 pl-3">
+                                            <h4 class="text-blue-400 font-semibold">Control Plane</h4>
+                                            <p class="text-sm text-slate-300">Centralized controller makes routing decisions</p>
+                                        </div>
+                                        <div class="border-l-4 border-green-400 pl-3">
+                                            <h4 class="text-green-400 font-semibold">Data Plane</h4>
+                                            <p class="text-sm text-slate-300">Network devices forward packets based on controller instructions</p>
+                                        </div>
+                                        <div class="border-l-4 border-yellow-400 pl-3">
+                                            <h4 class="text-yellow-400 font-semibold">Management Plane</h4>
+                                            <p class="text-sm text-slate-300">Network monitoring, configuration, and policy management</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">SDN Benefits</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Centralized Control:</strong> Single point of network control</li>
+                                    <li><strong>Programmability:</strong> Software-based network management</li>
+                                    <li><strong>Flexibility:</strong> Dynamic network behavior changes</li>
+                                    <li><strong>Innovation:</strong> Rapid deployment of new features</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">SDN Controllers</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>OpenDaylight - Open source SDN controller</li>
+                                    <li>Cisco APIC - Application Policy Infrastructure Controller</li>
+                                    <li>VMware NSX - Network virtualization platform</li>
+                                    <li>Juniper Contrail - Cloud networking platform</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand SDN architecture and planes</li>
+                                    <li>Compare traditional vs SDN networking</li>
+                                    <li>Recognize SDN benefits and use cases</li>
+                                    <li>Identify SDN controller functions</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'OpenFlow Protocol': {
+                    title: 'OpenFlow Protocol - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">OpenFlow Overview</h3>
+                                <p class="text-slate-300 mb-4">OpenFlow is a communication protocol that enables SDN controllers to interact with network switches and routers in a software-defined network.</p>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Southbound API:</strong> Controller-to-switch communication</li>
+                                    <li><strong>Flow Tables:</strong> Rules for packet forwarding</li>
+                                    <li><strong>Flow Entries:</strong> Match criteria and actions</li>
+                                    <li><strong>Secure Channel:</strong> Encrypted communication path</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Flow Table Structure</h3>
+                                <div class="bg-slate-800 p-4 rounded-lg">
+                                    <div class="overflow-x-auto">
+                                        <table class="text-sm text-slate-300 min-w-full">
+                                            <thead>
+                                                <tr class="border-b border-slate-600">
+                                                    <th class="text-left p-2">Match Fields</th>
+                                                    <th class="text-left p-2">Priority</th>
+                                                    <th class="text-left p-2">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="border-b border-slate-700">
+                                                    <td class="p-2">dst_ip=10.0.0.0/24</td>
+                                                    <td class="p-2">100</td>
+                                                    <td class="p-2">output:port1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-2">src_mac=aa:bb:cc:*</td>
+                                                    <td class="p-2">50</td>
+                                                    <td class="p-2">drop</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">OpenFlow Messages</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Flow-Mod:</strong> Add, modify, or delete flow entries</li>
+                                    <li><strong>Packet-In:</strong> Switch sends unmatched packets to controller</li>
+                                    <li><strong>Packet-Out:</strong> Controller sends packets through switch</li>
+                                    <li><strong>Flow-Removed:</strong> Notification when flow expires</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand OpenFlow protocol basics</li>
+                                    <li>Recognize controller-switch communication</li>
+                                    <li>Identify flow table concepts</li>
+                                    <li>Understand SDN southbound APIs</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                },
+                'Cisco DNA Center': {
+                    title: 'Cisco DNA Center - CCNA 200-301 Guide',
+                    content: `
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">DNA Center Overview</h3>
+                                <p class="text-slate-300 mb-4">Cisco DNA Center is an intent-based network management platform that provides centralized control, automation, and analytics for enterprise networks.</p>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li><strong>Intent-based:</strong> Translate business intent into network policies</li>
+                                    <li><strong>Assurance:</strong> Continuous monitoring and analytics</li>
+                                    <li><strong>Automation:</strong> Zero-touch provisioning and configuration</li>
+                                    <li><strong>Fabric:</strong> Software-defined access architecture</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">Key Capabilities</h3>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-slate-800 p-4 rounded-lg">
+                                        <h4 class="text-green-400 font-semibold mb-2">Design</h4>
+                                        <ul class="text-sm text-slate-300 space-y-1">
+                                            <li>• Network topology</li>
+                                            <li>• Device templates</li>
+                                            <li>• Policy design</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-slate-800 p-4 rounded-lg">
+                                        <h4 class="text-blue-400 font-semibold mb-2">Policy</h4>
+                                        <ul class="text-sm text-slate-300 space-y-1">
+                                            <li>• Group-based policies</li>
+                                            <li>• Application recognition</li>
+                                            <li>• QoS enforcement</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-slate-800 p-4 rounded-lg">
+                                        <h4 class="text-yellow-400 font-semibold mb-2">Provision</h4>
+                                        <ul class="text-sm text-slate-300 space-y-1">
+                                            <li>• Device onboarding</li>
+                                            <li>• Configuration deployment</li>
+                                            <li>• Software management</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-slate-800 p-4 rounded-lg">
+                                        <h4 class="text-red-400 font-semibold mb-2">Assurance</h4>
+                                        <ul class="text-sm text-slate-300 space-y-1">
+                                            <li>• Network insights</li>
+                                            <li>• Issue detection</li>
+                                            <li>• Performance analytics</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-blue-400 mb-3">CCNA Exam Focus</h3>
+                                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                                    <li>Understand intent-based networking concepts</li>
+                                    <li>Recognize DNA Center capabilities and functions</li>
+                                    <li>Identify software-defined access benefits</li>
+                                    <li>Understand centralized network management</li>
+                                </ul>
+                            </section>
+                        </div>
+                    `
+                }
+            };
+
+            function openStudyModal(topic, cardElement) {
+                currentTopic = topic.title;
+                currentCardElement = cardElement;
+                document.getElementById('modalTitle').textContent = topic.title;
+                document.getElementById('modalSvg').innerHTML = topic.visual;
+                document.getElementById('modalDescription').innerHTML = topic.description;
+
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('visible');
+                    modalContent.classList.add('visible');
+                }, 10);
+            }
+
+            function closeStudyModal() {
+                modal.classList.remove('visible');
+                modalContent.classList.remove('visible');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    currentTopic = null;
+                }, 300);
+            }
+
+            function openDetailsModal() {
+                if (!currentTopic || !topicDetails[currentTopic]) return;
+                
+                const details = topicDetails[currentTopic];
+                document.getElementById('detailsTitle').textContent = details.title;
+                document.getElementById('detailsBody').innerHTML = details.content;
+                
+                detailsModal.style.display = 'flex';
+                setTimeout(() => {
+                    detailsModal.classList.add('visible');
+                    detailsContent.classList.add('visible');
+                }, 10);
+            }
+
+            function closeDetailsModal() {
+                detailsContent.classList.remove('visible');
+                detailsModal.classList.remove('visible');
+                setTimeout(() => {
+                    detailsModal.style.display = 'none';
+                }, 300);
+            }
+
+            // Event listeners
+            closeModalBtn.addEventListener('click', closeStudyModal);
+            closeDetailsBtn.addEventListener('click', closeDetailsModal);
+            detailsBtn.addEventListener('click', openDetailsModal);
+            document.getElementById('backToStudyModal').addEventListener('click', function() {
+                if (currentTopic) {
+                    closeDetailsModal();
+                    setTimeout(() => openStudyModal(currentTopic, currentCardElement), 100);
+                }
+            });
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeStudyModal();
+                }
+            });
+
+            detailsModal.addEventListener('click', function(e) {
+                if (e.target === detailsModal) {
+                    closeDetailsModal();
+                }
+            });
+
+            // Mark as Mastered functionality (persist + update master progress bar)
+            modalMarkStudiedBtn.addEventListener('click', () => {
+                if (currentCardElement && !currentCardElement.classList.contains('studied')) {
+                    currentCardElement.classList.add('studied');
+                    if (currentTopic) {
+                        const idx = progressTracker.chapters[progressTracker.currentChapter].indexOf(currentTopic);
+                        if (idx > -1) {
+                            progressTracker.toggleTopic(progressTracker.currentChapter, idx);
+                        } else {
+                            progressTracker.updateProgressDisplay();
+                        }
+                    } else {
+                        progressTracker.updateProgressDisplay();
+                    }
+                }
+                closeStudyModal();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (detailsModal.style.display === 'flex') {
+                        closeDetailsModal();
+                    } else if (modal.style.display === 'flex') {
+                        closeStudyModal();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

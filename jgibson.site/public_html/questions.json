@@ -1,0 +1,1847 @@
+[
+  {
+    "number": 1,
+    "question": "Which three statements describe features of the OSPF topology table? (Choose three.)",
+    "options": [
+      "It is a link-state database that represents the network topology.",
+      "Its contents are the result of running the SPF algorithm.",
+      "When converged, all routers in an area have identical topology tables.",
+      "The topology table contains feasible successor routes.",
+      "The table can be viewed via the show ip ospf database command.",
+      "After convergence, the table only contains the lowest cost route entries for all known networks."
+    ],
+    "answer": [
+      "A",
+      "C",
+      "E"
+    ],
+    "explanation": "The topology table on an OSPF router is a link-state database (LSDB) that lists information about all other routers in the network, and represents the network topology[cite: 154]. [cite_start]All routers within an area have identical link-state databases, and the table can be viewed using the show ip ospf database command[cite: 155]. [cite_start]The EIGRP topology table contains feasible successor routes; this concept is not used by OSPF[cite: 156]. [cite_start]The SPF algorithm uses the LSDB to produce the unique routing table for each router[cite: 157].",
+    "image": null
+  },
+  {
+    "number": 2,
+    "question": "A router is participating in an OSPFv2 domain. What will always happen if the dead interval expires before the router receives a hello packet from an adjacent DROTHER OSPF router?",
+    "options": [
+      "OSPF will run a new DR/BDR election.",
+      "SPF will run and determine which neighbor router is 'down'.",
+      "A new dead interval timer of 4 times the hello interval will start.",
+      "OSPF will remove that neighbor from the router link-state database."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "On Cisco routers the default dead interval is 4 times the hello interval[cite: 163]. If the timer expires, the neighbor is considered down and removed from the link-state database. [cite_start]SPF does not determine the state of neighbors[cite: 164]. [cite_start]A DR/BDR election will not always automatically run[cite: 165].",
+    "image": null
+  },
+  {
+    "number": 3,
+    "question": "What is a feature of the OSPF routing protocol?",
+    "options": [
+      "The SPF algorithm chooses the best path based on 30-second updates​.",
+      "OSPF authentication is configured in the same way on IPv4 and IPv6 networks.​",
+      "It scales well in both small and large networks.",
+      "Routers can be grouped into autonomous systems to support a hierarchical system."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "OSPF scales well and supports a hierarchical system by grouping routers into areas, not autonomous systems[cite: 175]. [cite_start]Routing changes trigger updates, not a timed interval[cite: 172]. OSPFv2 and OSPFv3 (for IPv6) handle authentication differently; [cite_start]OSPFv3 relies on IPsec for security[cite: 172, 173, 174].",
+    "image": null
+  },
+  {
+    "number": 4,
+    "question": "The OSPF hello timer has been set to 15 seconds on a router in a point-to-point network. By default, what is the dead interval on this router?",
+    "options": [
+      "15 seconds",
+      "30 seconds",
+      "45 seconds",
+      "60 seconds"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "By default, the dead interval is calculated as 4 times the hello interval (4 x 15 = 60)[cite: 182].",
+    "image": null
+  },
+  {
+    "number": 5,
+    "question": "Which three parameters should match in order for a pair of routers to form an adjacency when running OSPFv2? (Choose three.)",
+    "options": [
+      "Router ID",
+      "OSPFv2 process number",
+      "OSPFv2 type of network",
+      "Hello timer",
+      "Interface priority",
+      "Subnet mask"
+    ],
+    "answer": [
+      "C",
+      "D",
+      "F"
+    ],
+    "explanation": "For two OSPFv2 routers to form an adjacency, they must have matching subnet masks, network types, hello and dead timers, and authentication information[cite: 191].",
+    "image": null
+  },
+  {
+    "number": 6,
+    "question": "What does the SPF algorithm consider to be the best path to a network?",
+    "options": [
+      "The path with the least number of hops.",
+      "The path with the smallest delays.",
+      "The path that includes the fastest cumulative bandwidth links.",
+      "The path that includes the fastest single bandwidth link."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Link-state protocols like OSPF use the accumulated cost to determine the best path, which results in the overall fastest pathway, not necessarily the one with the fewest hops[cite: 197, 198].",
+    "image": null
+  },
+  {
+    "number": 7,
+    "question": "What is one use of the router ID in OSPF routing?",
+    "options": [
+      "The router ID indicates the router priority value.",
+      "The router ID identifies the OSPF area.",
+      "The router ID can be used to break a tie in the election process.",
+      "The router ID indicates the highest IPv4 address of all routers that are participating in OSPF routing."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The OSPF router ID uniquely identifies each router and is used in the DR/BDR election process. [cite_start]If there is a tie in router priority, the router with the highest router ID wins the election[cite: 204, 205].",
+    "image": null
+  },
+  {
+    "number": 8,
+    "question": "What is the first criterion used by OSPF routers to elect a DR?",
+    "options": [
+      "Highest priority",
+      "Highest IP address",
+      "Highest router ID",
+      "Highest MAC address"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "When electing a DR, the router with the highest OSPF priority becomes the DR[cite: 214]. [cite_start]If priorities are equal, the highest router ID is used as a tie-breaker[cite: 215].",
+    "image": null
+  },
+  {
+    "number": 9,
+    "question": "Which three OSPF states are involved when two routers are forming an adjacency? (Choose three.)",
+    "options": [
+      "Two-way",
+      "Init",
+      "Down",
+      "Loading",
+      "Exchange",
+      "ExStart"
+    ],
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "OSPF operation progresses through several states. [cite_start]The Down, Init, and Two-way states are specifically involved in the phase of establishing neighbor adjacency[cite: 223, 224].",
+    "image": null
+  },
+  {
+    "number": 10,
+    "question": "What is the default router priority value for all Cisco OSPF routers?",
+    "options": [
+      "255",
+      "0",
+      "1",
+      "10"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The default priority for all OSPF routers is 1 and is used in the DR/BDR election. [cite_start]It can be manually set to a value between 0 and 255[cite: 230, 231].",
+    "image": null
+  },
+  {
+    "number": 11,
+    "question": "Which command will a network engineer issue to verify the configured hello and dead timer intervals on a point-to-point WAN link between two routers that are running OSPFv2?",
+    "options": [
+      "show ip ospf interface serial 0/0/0",
+      "show ip ospf neighbor",
+      "show ip ospf interface fastethernet 0/1",
+      "show ipv6 ospf interface serial 0/0/0"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The `show ip ospf interface serial 0/0/0` command will display the configured hello and dead timer intervals on a point-to-point serial WAN link for OSPFv2[cite: 237]. [cite_start]The `show ip ospf neighbor` command shows the elapsed dead time but not the configured value[cite: 240].",
+    "image": null
+  },
+  {
+    "number": 13,
+    "question": "An OSPF router has three directly connected networks; 172.16.0.0/16, 172.16.1.0/16, and 172.16.2.0/16. Which OSPF network command would advertise only the 172.16.1.0 network to neighbors?",
+    "options": [
+      "router(config-router)# network 172.16.1.0 255.255.255.0 area 0",
+      "router(config-router)# network 172.16.1.0 0.0.255.255 area 0",
+      "router(config-router)# network 172.16.0.0 0.0.15.255 area 0",
+      "router(config-router)# network 172.16.1.0 0.0.0.0 area 0"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "To advertise only the 172.16.1.0/16 network, the wildcard mask must match the first 16 bits exactly[cite: 247]. [cite_start]A zero in a wildcard mask bit means the corresponding address bit must be checked[cite: 248]. The command `network 172.16.0.0 0.0.15.255 area 0` incorrectly identifies the answer in the source; the most accurate choice to advertise ONLY 172.16.1.0/16 would be `network 172.16.1.0 0.0.0.0 area 0` if the subnet mask was /16, or `network 172.16.1.0 0.0.255.255 area 0` to match the first 16 bits. However, based on the provided answer key, C is marked correct, which would match a range from 172.16.0.0 to 172.16.15.255.",
+    "image": null
+  },
+  {
+    "number": 14,
+    "question": "Refer to the exhibit. Suppose that routers B, C, and D have a default priority, and router A has a priority 0. Which conclusion can be drawn from the DR/BDR election process?",
+    "options": [
+      "Router A will become the DR and router D will become the BDR.​",
+      "If the DR fails, the new DR will be router B.",
+      "If a new router with a higher priority is added to this network, it will become the DR.",
+      "If the priority of router C is changed to 255, then it will become the DR."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "A router with priority 0 cannot become the DR[cite: 256]. [cite_start]OSPF DR elections are not preemptive, so adding a new router with a higher priority will not cause a new election[cite: 257]. Based on the router IDs, Router D (4.4.4.4) will be DR and Router C (3.3.3.3) will be BDR. If the DR (Router D) fails, the BDR (Router C) is promoted to DR, and a new BDR election would occur, making Router B (2.2.2.2) the new BDR. The question's provided answer suggests Router B becomes the new DR if the original DR fails, which is incorrect; Router C should.",
+    "image": "/images/questions/q14.png"
+  },
+  {
+    "number": 15,
+    "question": "Refer to the exhibit. A network administrator has configured OSPFv2 on the two Cisco routers but PC1 is unable to connect to PC2. What is the most likely problem?",
+    "options": [
+      "Interface Fa0/0 has not been activated for OSPFv2 on router R2.",
+      "Interface s0/0 has not been activated for OSPFv2 on router R2.",
+      "Interface Fa0/0 is configured as a passive-interface on router R2.",
+      "Interface S0/0 is configured as a passive-interface on router R2."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The output of `show ip protocols` on R2 shows that the network for the LAN connected to Fa0/0 (192.168.30.0) is missing a `network` command under the OSPF process. [cite_start]If a LAN network is not advertised via OSPF, a remote network cannot reach it[cite: 264].",
+    "image": null
+  },
+  {
+    "number": 17,
+    "question": "What is used to facilitate hierarchical routing in OSPF?",
+    "options": [
+      "the use of multiple areas",
+      "the election of designated routers",
+      "frequent SPF calculations",
+      "autosummarization"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "OSPF uses multiple areas to create a hierarchical design, which prevents large routing tables and excessive SPF calculations[cite: 281]. [cite_start]Routers within an area share link-state information, but this information is not typically propagated to other areas, allowing OSPF to scale[cite: 282].",
+    "image": null
+  },
+  {
+    "number": 18,
+    "question": "Refer to the exhibit. Which three statements describe the results of the OSPF election process of the topology that is shown in the exhibit? (Choose three.)",
+    "options": [
+      "R1 will be elected BDR.",
+      "R3 will be elected BDR.",
+      "The R4 router ID is 172.16.1.1.",
+      "R2 will be elected DR.",
+      "The R4 FastEthernet 0/0 priority is 128.",
+      "The router ID on R2 is the loopback interface."
+    ],
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "R2 will be elected DR because it has the highest priority (255)[cite: 291]. [cite_start]R3 will be the BDR because it has the next highest priority (1) and the highest router ID (192.168.1.4) among the remaining eligible routers[cite: 291]. [cite_start]The router ID for R4 is 172.16.1.1 because the loopback interface IP address is preferred over physical interface IPs[cite: 292].",
+    "image": "/images/questions/q18.png"
+  },
+  {
+    "number": 19,
+    "question": "What three items are components of the CIA triad? (Choose three.)",
+    "options": [
+      "Access",
+      "Integrity",
+      "Scalability",
+      "Availability",
+      "Confidentiality",
+      "Intervention"
+    ],
+    "answer": [
+      "B",
+      "D",
+      "E"
+    ],
+    "explanation": "The CIA triad is a guideline for information security and consists of three components: confidentiality, integrity, and availability[cite: 300, 301].",
+    "image": null
+  },
+  {
+    "number": 20,
+    "question": "Which type of DNS attack involves the cybercriminal compromising a parent domain and creating multiple subdomains to be used during the attacks?",
+    "options": [
+      "Cache poisoning",
+      "Amplification and reflection",
+      "Tunneling",
+      "Shadowing"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "DNS shadowing is an attack where a cybercriminal compromises a parent domain and creates malicious subdomains to be used in attacks[cite: 308].",
+    "image": null
+  },
+  {
+    "number": 21,
+    "question": "What is a significant characteristic of virus malware?",
+    "options": [
+      "A virus is triggered by an event on the host system.",
+      "Once installed on a host system, a virus will automatically propagate itself to other systems.",
+      "A virus can execute independently of the host system.",
+      "Virus malware is only distributed over the Internet."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "A virus is malicious code attached to a legitimate program that requires activation by a specific user action or event[cite: 316]. [cite_start]Unlike worms, a virus does not automatically propagate itself to other systems[cite: 317, 318].",
+    "image": null
+  },
+  {
+    "number": 22,
+    "question": "What single access list statement matches all of the following networks? 192.168.16.0, 192.168.17.0, 192.168.18.0, 192.168.19.0",
+    "options": [
+      "access-list 10 permit 192.168.16.0 0.0.3.255",
+      "access-list 10 permit 192.168.16.0 0.0.0.255",
+      "access-list 10 permit 192.168.16.0 0.0.15.255",
+      "access-list 10 permit 192.168.0.0 0.0.15.255"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "All four network prefixes have the same first 22 bits. [cite_start]The ACL statement `access-list 10 permit 192.168.16.0 0.0.3.255` uses a wildcard mask that matches these 22 bits, thus matching all four networks[cite: 329, 330, 331].",
+    "image": null
+  },
+  {
+    "number": 23,
+    "question": "A network administrator is configuring an ACL to restrict access to certain servers in the data center. The intent is to apply the ACL to the interface connected to the data center LAN. What happens if the ACL is incorrectly applied to an interface in the inbound direction instead of the outbound direction?",
+    "options": [
+      "All traffic is denied.",
+      "All traffic is permitted.",
+      "The ACL does not perform as designed.",
+      "The ACL will analyze traffic after it is routed to the outbound interface."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Applying an ACL in the wrong direction, such as using `ip access-group in` instead of `out`, will cause it to not function as intended[cite: 340]. [cite_start]It's crucial to test ACLs to ensure they perform as designed[cite: 339].",
+    "image": null
+  },
+  {
+    "number": 24,
+    "question": "The computers used by the network administrators for a school are on the 10.7.0.0/27 network. Which two commands are needed at a minimum to apply an ACL that will ensure that only devices that are used by the network administrators will be allowed Telnet access to the routers? (Choose two.)",
+    "options": [
+      "access-class 5 in",
+      "access-list 5 permit 10.7.0.0 0.0.0.31",
+      "ip access-group 5 out",
+      "ip access-group 5 in",
+      "access-list 5 deny any"
+    ],
+    "answer": [
+      "A",
+      "B"
+    ],
+    "explanation": "To control remote access on vty lines, you first create an access list and then apply it[cite: 351]. [cite_start]The command `access-list 5 permit 10.7.0.0 0.0.0.31` permits traffic from the 10.7.0.0/27 network[cite: 352]. [cite_start]The command `access-class 5 in` applies this ACL to the vty lines[cite: 353].",
+    "image": null
+  },
+  {
+    "number": 25,
+    "question": "What are two characteristics of this access list? (Choose two.)",
+    "options": [
+      "The access list has been applied to an interface.",
+      "A network administrator would not be able to tell if the access list has been applied to an interface or not.",
+      "The 10.1.2.1 device is not allowed to telnet to the 10.1.2.2 device.",
+      "Any device on the 10.1.1.0/24 network (except the 10.1.1.2 device) can telnet to the router that has the IP address 10.1.1.1 assigned.",
+      "Only the 10.1.1.2 device can telnet to the router that has the 10.1.1.1 IP address assigned.",
+      "Any device can telnet to the 10.1.2.1 device."
+    ],
+    "answer": [
+      "C",
+      "D"
+    ],
+    "explanation": "The ACL explicitly denies telnet from host 10.1.2.2 to host 10.1.2.1, which means 10.1.2.1 cannot telnet to 10.1.2.2 is incorrect[cite: 368]. [cite_start]The first ACE denies telnet from 10.1.1.2 to 10.1.1.1, and the final `permit ip any any` allows all other traffic, so other devices on the 10.1.1.0/24 network can telnet to 10.1.1.1[cite: 367, 368]. [cite_start]The `(15 matches)` on the permit line indicates the ACL is active and processing traffic[cite: 369].",
+    "image": null
+  },
+  {
+    "number": 26,
+    "question": "Which access list statement permits HTTP traffic that is sourced from host 10.1.129.100 port 4300 and destined to host 192.168.30.10?",
+    "options": [
+      "access-list 101 permit tcp any eq 4300",
+      "access-list 101 permit tcp 192.168.30.10 0.0.0.0 eq 80 10.1.0.0 0.0.255.255",
+      "access-list 101 permit tcp 10.1.129.0 0.0.0.255 eq www 192.168.30.10 0.0.0.0 eq www",
+      "access-list 101 permit tcp 10.1.128.0 0.0.1.255 eq 4300 192.168.30.0 0.0.0.15 eq www"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The first IP address in an ACE is the source[cite: 377]. [cite_start]The source IP 10.1.129.100 falls within the range of 10.1.128.0 with a wildcard mask of 0.0.1.255[cite: 378]. [cite_start]The destination for HTTP traffic is specified with `eq www` or `eq 80`[cite: 376]. The provided answer D is marked correct, but it specifies a destination network, not the host 192.168.30.10 specifically. A more precise ACE would be `permit tcp host 10.1.129.100 eq 4300 host 192.168.30.10 eq www`.",
+    "image": null
+  },
+  {
+    "number": 27,
+    "question": "Consider the access list command applied outbound on a router serial interface: `access-list 100 deny icmp 192.168.10.0 0.0.0.255 any echo reply`. What is the effect of applying this access list command?",
+    "options": [
+      "The only traffic denied is ICMP-based traffic. All other traffic is allowed.",
+      "The only traffic denied is echo-replies sourced from the 192.168.10.0/24 network. All other traffic is allowed.",
+      "Users on the 192.168.10.0/24 network are not allowed to transmit traffic to any other destination.",
+      "No traffic will be allowed outbound on the serial interface."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Every extended access list has an implicit `deny ip any any` statement at the end. [cite_start]Because this ACL only has one `deny` statement and no `permit` statements, this implicit deny will block all traffic[cite: 386].",
+    "image": null
+  },
+  {
+    "number": 28,
+    "question": "Consider the following output for an ACL that has been applied to a router via the access-class in command: `Standard IP access list 2 | 10 permit 192.168.10.0, wildcard bits 0.0.0.255 (2 matches) | 20 deny any (1 match)`. What can a network administrator determine from the output that is shown?",
+    "options": [
+      "Traffic from one device was not allowed to come into one router port and be routed outbound a different router port.",
+      "Two devices were able to use SSH or Telnet to gain access to the router.",
+      "Traffic from two devices was allowed to enter one router port and be routed outbound to a different router port."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The `access-class in` command applies an ACL to the VTY (virtual terminal) ports, which control Telnet and SSH access[cite: 397]. [cite_start]The `(2 matches)` on the permit line indicates that two access attempts from the 192.168.10.0 network were successful[cite: 398]. [cite_start]The `(1 match)` on the deny line shows one attempt from another network was blocked[cite: 399].",
+    "image": null
+  },
+  {
+    "number": 29,
+    "question": "Which two commands will configure a standard ACL? (Choose two.)",
+    "options": [
+      "Router(config)# access-list 20 permit host 192.168.5.5 any any",
+      "Router(config)# access-list 90 permit 192.168.10.5 0.0.0.0",
+      "Router(config)# access-list 45 permit 192.168.200.4 host",
+      "Router(config)# access-list 10 permit 10.20.5.0 0.255.255.255 any",
+      "Router(config)# access-list 35 permit host 172.31.22.7"
+    ],
+    "answer": [
+      "B",
+      "E"
+    ],
+    "explanation": "Standard access lists use a number between 1 and 99 and permit or deny traffic based only on the source IP address[cite: 406]. They follow the syntax of `access-list [1-99] [permit|deny] [source_address] [wildcard_mask]`. The `host` keyword is a substitute for a 0.0.0.0 wildcard mask.",
+    "image": null
+  },
+  {
+    "number": 30,
+    "question": "To facilitate the troubleshooting process, which inbound ICMP message should be permitted on an outside interface?",
+    "options": [
+      "Echo request",
+      "Echo reply",
+      "Time-stamp request",
+      "Time-stamp reply",
+      "Router advertisement"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "By permitting the ICMP `echo reply` message to enter the network from the outside (inbound), internal users are able to successfully use the `ping` command on external addresses and receive the replies[cite: 413].",
+    "image": null
+  },
+  {
+    "number": 31,
+    "question": "What two ACEs could be used to deny IP traffic from a single source host 10.1.1.1 to the 192.168.0.0/16 network? (Choose two.)",
+    "options": [
+      "Access-list 100 deny ip host 10.1.1.1 192.168.0.0 0.0.255.255",
+      "Access-list 100 deny ip 192.168.0.0 0.0.255.255 host 10.1.1.1",
+      "Access-list 100 deny ip 10.1.1.1 255.255.255.255 192.168.0.0 0.0.255.255",
+      "Access-list 100 deny ip 10.1.1.1 0.0.0.0 192.168.0.0 0.0.255.255",
+      "Access-list 100 deny ip 192.168.0.0 0.0.255.255 10.1.1.1 255.255.255.255",
+      "Access-list 100 deny ip 192.168.0.0 0.0.255.255 10.1.1.1 0.0.0.0"
+    ],
+    "answer": [
+      "A",
+      "D"
+    ],
+    "explanation": "In an extended ACL, the source address is specified first, followed by the destination address[cite: 424]. [cite_start]A single host can be identified using the `host` keyword followed by the IP address, or by using the IP address with a wildcard mask of 0.0.0.0[cite: 423].",
+    "image": null
+  },
+  {
+    "number": 32,
+    "question": "An administrator has configured an access list on R1 to allow SSH administrative access from host 172.16.1.100. Which command correctly applies the ACL?",
+    "options": [
+      "R1(config-if)# ip access-group 1 in",
+      "R1(config-if)# ip access-group 1 out",
+      "R1(config-line)# access-class 1 in",
+      "R1(config-line)# access-class 1 out"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Administrative access to a router via SSH or Telnet is controlled by the vty lines[cite: 431]. [cite_start]ACLs are applied to these lines using the `access-class` command in line configuration mode for the inbound direction[cite: 432, 433].",
+    "image": null
+  },
+  {
+    "number": 33,
+    "question": "The computers used by the network administrators for a school are on the 10.7.0.0/27 network. Which two commands are needed at a minimum to apply an ACL that will ensure that only devices that are used by the network administrators will be allowed Telnet access to the routers? (Choose two.)",
+    "options": [
+      "access-class 5 in",
+      "access-list 5 permit 10.7.0.0 0.0.0.31",
+      "ip access-group 5 out",
+      "ip access-group 5 in",
+      "access-list standard VTY"
+    ],
+    "answer": [
+      "A",
+      "B"
+    ],
+    "explanation": "The command `access-list 5 permit 10.7.0.0 0.0.0.31` creates a standard access list that permits traffic from the administrator's /27 network[cite: 445]. [cite_start]The `access-class 5 in` command then applies this ACL to the vty lines to control remote access[cite: 446].",
+    "image": null
+  },
+  {
+    "number": 34,
+    "question": "What are two characteristics of this access list? (Choose two.)",
+    "options": [
+      "The access list has been applied to an interface.",
+      "A network administrator would not be able to tell if the access list has been applied to an interface or not.",
+      "The 10.1.2.1 device is not allowed to telnet to the 10.1.2.2 device.",
+      "Any device on the 10.1.1.0/24 network (except the 10.1.1.2 device) can telnet to the router that has the IP address 10.1.1.1 assigned.",
+      "Only the 10.1.1.2 device can telnet to the router that has the 10.1.1.1 IP address assigned.",
+      "Any device can telnet to the 10.1.2.1 device."
+    ],
+    "answer": [
+      "B",
+      "D"
+    ],
+    "explanation": "The `show access-lists` command displays the ACL configuration and match counts but does not show which interface or line it is applied to[cite: 455]. [cite_start]The ACL denies telnet from 10.1.1.2 to 10.1.1.1 but then permits all other IP traffic, so other hosts on that network can connect[cite: 460, 461]. [cite_start]The `(15 matches)` on the last line confirms the list is active and processing traffic[cite: 462].",
+    "image": null
+  },
+  {
+    "number": 35,
+    "question": "Which statement accurately characterizes the evolution of threats to network security?",
+    "options": [
+      "Internet architects planned for network security from the beginning.",
+      "Internal threats can cause even greater damage than external threats.",
+      "Early Internet users often engaged in activities that would harm other users.",
+      "Threats have become less sophisticated while the technical knowledge needed by an attacker has grown."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Internal threats, whether intentional or accidental, can cause more significant damage than external threats because internal users already have direct access to corporate network resources and data[cite: 468].",
+    "image": null
+  },
+  {
+    "number": 36,
+    "question": "Consider the following access list: `access-list 100 permit ip host 192.168.10.1 any | access-list 100 deny icmp 192.168.10.0 0.0.0.255 any echo | access-list 100 permit ip any any`. Which two actions are taken if the access list is placed inbound on a router Gigabit Ethernet port that has the IP address 192.168.10.254 assigned? (Choose two.)",
+    "options": [
+      "A Telnet or SSH session is allowed from any device on the 192.168.10.0 into the router with this access list assigned.",
+      "Devices on the 192.168.10.0/24 network can successfully ping devices on the 192.168.11.0 network.",
+      "Only the network device assigned the IP address 192.168.10.1 is allowed to access the router.",
+      "Only Layer 3 connections are allowed to be made from the router to any other network device.",
+      "Devices on the 192.168.10.0/24 network are not allowed to reply to any ping requests."
+    ],
+    "answer": [
+      "A",
+      "B"
+    ],
+    "explanation": "The first ACE permits all IP traffic from host 192.168.10.1[cite: 476]. [cite_start]The second ACE denies ping requests (ICMP echo) from the 192.168.10.0/24 network[cite: 477]. [cite_start]The final ACE permits everything else[cite: 478]. [cite_start]Therefore, devices on the 192.168.10.0/24 network can ping other networks (the echo-reply is not blocked), and Telnet/SSH sessions are permitted by the final ACE[cite: 478].",
+    "image": null
+  },
+  {
+    "number": 37,
+    "question": "What effect would the `Router1(config-ext-nacl)# permit tcp 172.16.4.0 0.0.0.255 any eq www` command have when implemented inbound on the f0/0 interface?",
+    "options": [
+      "Traffic originating from 172.16.4.0/24 is permitted to all TCP port 80 destinations.",
+      "The command is rejected by the router because it is incomplete.",
+      "All traffic from 172.16.4.0/24 is permitted anywhere on any port.",
+      "All TCP traffic is permitted, and all other traffic is denied."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "This extended ACL permits traffic from any source IP address in the 172.16.4.0/24 range (`172.16.4.0 0.0.0.255`) to any destination (`any`) as long as the destination port is TCP port 80 (`eq www`).",
+    "image": null
+  },
+  {
+    "number": 38,
+    "question": "What is considered a best practice when configuring ACLs on vty lines?",
+    "options": [
+      "Apply the ip access-group command inbound.",
+      "Place identical restrictions on all vty lines.",
+      "Remove the vty password since the ACL restricts access to trusted users.",
+      "Use only extended access lists."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "A best practice for securing vty lines is to apply identical restrictions to all of them to ensure consistent security policies for remote management access.",
+    "image": null
+  },
+  {
+    "number": 39,
+    "question": "Which protocol is attacked when a cybercriminal provides an invalid gateway in order to create a man-in-the-middle attack?",
+    "options": [
+      "ICMP",
+      "HTTP or HTTPS",
+      "DHCP",
+      "DNS"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "A cybercriminal can set up a rogue DHCP server to provide clients with a malicious default gateway address. [cite_start]This effectively redirects the clients' traffic through the attacker's machine, enabling a man-in-the-middle attack[cite: 494, 495].",
+    "image": null
+  },
+  {
+    "number": 40,
+    "question": "Which statement describes a characteristic of standard IPv4 ACLs?",
+    "options": [
+      "They can be configured to filter traffic based on both source IP addresses and source ports.",
+      "They filter traffic based on source IP addresses only.",
+      "They are configured in the interface configuration mode.",
+      "They can be created with a number but not with a name."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Standard IPv4 ACLs filter traffic based only on the source IP address[cite: 503]. [cite_start]Unlike extended ACLs, they cannot filter based on Layer 4 ports[cite: 504]. [cite_start]They are created in global configuration mode and can be identified with either a number or a name[cite: 505].",
+    "image": null
+  },
+  {
+    "number": 41,
+    "question": "A technician is tasked with using ACLs to secure a router. When would the technician use the `ip access-group 101 in` configuration option or command?",
+    "options": [
+      "to secure administrative access to the router",
+      "to create an entry in a numbered ACL",
+      "to apply an ACL to all router interfaces",
+      "to apply an extended ACL to an interface"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The command `ip access-group [number] [in|out]` is used in interface configuration mode to apply an already-created IP access list to that specific interface. An ACL number of 101 falls in the range for extended ACLs (100-199).",
+    "image": null
+  },
+  {
+    "number": 42,
+    "question": "Which statement accurately describes dynamic NAT?",
+    "options": [
+      "It always maps a private IP address to a public IP address.",
+      "It provides an automated mapping of inside local to inside global IP addresses.",
+      "It provides a mapping of internal host names to IP addresses.",
+      "It dynamically provides IP addressing to internal hosts."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Dynamic NAT automatically maps inside local IP addresses to a pool of inside global IP addresses[cite: 517]. [cite_start]It does not specifically require public or private addresses, just the one-to-one mapping from a pool[cite: 518]. [cite_start]DHCP provides IP addressing to hosts, and DNS maps names to IPs[cite: 519].",
+    "image": null
+  },
+  {
+    "number": 43,
+    "question": "To which two layers of the OSI model do WAN technologies provide services? (Choose two.)",
+    "options": [
+      "Network layer",
+      "Session layer",
+      "Physical layer",
+      "Transport layer",
+      "Data link layer",
+      "Presentation layer"
+    ],
+    "answer": [
+      "C",
+      "E"
+    ],
+    "explanation": "Wide Area Network (WAN) operations are primarily focused on the Physical layer (Layer 1) and the Data Link layer (Layer 2) of the OSI model[cite: 527].",
+    "image": null
+  },
+  {
+    "number": 44,
+    "question": "An enterprise has four branches. The headquarters needs full connectivity to all branches. The branches do not need to be connected directly to each other. Which WAN topology is most suitable?",
+    "options": [
+      "Bus",
+      "Full mesh",
+      "Hub and spoke",
+      "Mesh",
+      "Point-to-point"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "A hub and spoke topology connects all branches (spokes) to a central site (the hub), which is ideal for this scenario where branches do not need direct inter-connectivity[cite: 537]. [cite_start]Full mesh would provide unnecessary and more expensive links between branches[cite: 536].",
+    "image": null
+  },
+  {
+    "number": 45,
+    "question": "A new corporation needs a data network that must meet certain requirements. The network must provide a low cost connection to sales people dispersed over a large geographical area. Which two types of WAN infrastructure would meet the requirements? (Choose two.)",
+    "options": [
+      "Public infrastructure",
+      "Private infrastructure",
+      "Internet",
+      "Dedicated",
+      "Satellite"
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": "For low-cost connections over a wide area, using VPNs over the public Internet is a common solution[cite: 546]. [cite_start]The Internet is a type of public infrastructure[cite: 547].",
+    "image": null
+  },
+  {
+    "number": 46,
+    "question": "Which IPsec framework protocol provides data integrity and data authentication, but does not provide data confidentiality?",
+    "options": [
+      "AH",
+      "IP protocol 50",
+      "ESP",
+      "DH"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The Authentication Header (AH) protocol, which is IP protocol 51, provides data authentication and integrity but does not encrypt the data payload, thus offering no confidentiality[cite: 553]. [cite_start]Encapsulating Security Payload (ESP), IP protocol 50, provides confidentiality through encryption[cite: 554].",
+    "image": null
+  },
+  {
+    "number": 47,
+    "question": "What algorithm is used to provide data integrity of a message through the use of a calculated hash value?",
+    "options": [
+      "HMAC",
+      "DH",
+      "RSA",
+      "AES"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "To ensure data integrity (that data has not been modified in transit), IPsec uses Hashed Message Authentication Code (HMAC)[cite: 562]. [cite_start]AES is for encryption, DH is for key exchange, and RSA is for authentication[cite: 563, 564].",
+    "image": null
+  },
+  {
+    "number": 48,
+    "question": "Refer to the exhibit. From the perspective of R1, the NAT router, which address is the inside global address?",
+    "options": [
+      "209.165.200.254",
+      "192.168.0.10",
+      "209.165.200.225",
+      "192.168.0.1"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The inside local address is the private address of the host (PC1). The inside global address is the public address that represents the host to the outside world. [cite_start]In this case, it is the IP address of the router's serial interface, 209.165.200.225[cite: 575].",
+    "image": "/images/questions/q48.gif"
+  },
+  {
+    "number": 49,
+    "question": "Refer to the exhibit. NAT is configured on RT1 and RT2. The PC is sending a request to the web server. What IPv4 address is the source IP address in the packet between RT2 and the web server?",
+    "options": [
+      "172.16.1.10",
+      "192.168.1.5",
+      "172.16.1.254",
+      "192.0.2.2",
+      "203.0.113.10",
+      "209.165.200.245"
+    ],
+    "answer": [
+      "F"
+    ],
+    "explanation": "When the packet from the PC (inside local: 192.168.1.5) leaves RT1, its source address is translated to its inside global address, which is 209.165.200.245. [cite_start]This inside global address is used as the source for the entire journey across the internet to the web server[cite: 585].",
+    "image": "/images/questions/q49.png"
+  },
+  {
+    "number": 50,
+    "question": "What is the purpose of the overload keyword in the `ip nat inside source list 1 pool NAT_POOL overload` command?",
+    "options": [
+      "It allows a pool of inside global addresses to be used by internal hosts.",
+      "It allows a list of internal hosts to communicate with a specific group of external hosts.",
+      "It allows external hosts to initiate sessions with internal hosts.",
+      "It allows many inside hosts to share one or a few inside global addresses."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The `overload` keyword enables Port Address Translation (PAT). [cite_start]PAT allows many internal (inside local) hosts to be translated to a single or small pool of public (inside global) addresses by tracking each session using unique Layer 4 port numbers[cite: 592, 593].",
+    "image": null
+  },
+  {
+    "number": 51,
+    "question": "Refer to the exhibit. Which two statements are correct based on the output as shown in the exhibit? (Choose two.)",
+    "options": [
+      "The host with the address 209.165.200.235 will respond to requests by using a source address of 192.168.10.10.",
+      "Traffic with the destination address of a public web server will be sourced from the IP of 192.168.1.10.",
+      "The output is the result of the show ip nat translations command.",
+      "The host with the address 209.165.200.235 will respond to requests by using a source address of 209.165.200.235.",
+      "The output is the result of the show ip nat statistics command."
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": "The command that produces this output, which shows the mapping between inside local and inside global addresses, is `show ip nat translations`[cite: 601]. The table shows a static NAT entry mapping the inside local address 192.168.10.10 to the inside global address 209.165.200.235. This means traffic to 209.165.200.235 is forwarded to 192.168.10.10.",
+    "image": null
+  },
+  {
+    "number": 52,
+    "question": "Which situation describes data transmissions over a WAN connection?",
+    "options": [
+      "An employee prints a file through a networked printer that is located in another building.",
+      "A network administrator in the office remotely accesses a web server that is located in the data center at the edge of the campus.",
+      "An employee shares a database file with a co-worker who is located in a branch office on the other side of the city.",
+      "A manager sends an email to all employees in the department with offices that are located in several buildings."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Data transmissions between separate offices across a city are considered to be traversing a Wide Area Network (WAN)[cite: 608]. [cite_start]Communications within a single campus or set of local buildings are typically over a Local Area Network (LAN)[cite: 609].",
+    "image": null
+  },
+  {
+    "number": 53,
+    "question": "What is the function of the Diffie-Hellman algorithm within the IPsec framework?",
+    "options": [
+      "provides authentication",
+      "provides strong data encryption",
+      "allows peers to exchange shared keys",
+      "guarantees message integrity"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Diffie-Hellman (DH) is a key exchange algorithm used by IPsec. [cite_start]It allows two peers to securely establish a shared secret key over an insecure network, which can then be used for encrypting subsequent communication[cite: 616].",
+    "image": null
+  },
+  {
+    "number": 54,
+    "question": "What are two hashing algorithms used with IPsec AH to guarantee authenticity? (Choose two.)",
+    "options": [
+      "RSA",
+      "MD5",
+      "DH",
+      "AES",
+      "SHA"
+    ],
+    "answer": [
+      "B",
+      "E"
+    ],
+    "explanation": "To ensure data integrity and authenticity, IPsec uses hashing algorithms. [cite_start]The two most popular hashing algorithms used for this purpose are MD5 (Message Digest 5) and SHA (Secure Hash Algorithm)[cite: 624].",
+    "image": null
+  },
+  {
+    "number": 55,
+    "question": "Which two WAN infrastructure services are examples of private connections? (Choose two.)",
+    "options": [
+      "Frame Relay",
+      "Cable",
+      "Wireless",
+      "T1/E1",
+      "DSL"
+    ],
+    "answer": [
+      "A",
+      "D"
+    ],
+    "explanation": "Private WAN connections include technologies like T1/E1, T3/E3, Frame Relay, ATM, and MPLS. [cite_start]Public WAN technologies include cable, DSL, and wireless[cite: 631].",
+    "image": null
+  },
+  {
+    "number": 57,
+    "question": "Refer to the exhibit. A network administrator is viewing the output from the command `show ip nat translations`. Which statement correctly describes the NAT translation that is occurring on router RT2?",
+    "options": [
+      "The traffic from a source IPv4 address of 192.168.2.20 is being translated by router RT2 to reach a destination IPv4 address of 192.0.2.254.",
+      "The traffic from a source IPv4 public address that originates traffic on the internet would be able to reach private internal IPv4 addresses​.",
+      "The traffic from a source IPv4 address of 192.0.2.88 is being translated by router RT2 to reach a destination IPv4 address of 192.168.254.253.",
+      "The traffic from a source IPv4 address of 192.168.254.253 is being translated to 192.0.2.88 by means of static NAT."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The output shows a static NAT entry because there are no outside local or outside global addresses referenced, and the entry maps the inside local address 192.168.254.253 to the inside global address 192.0.2.88[cite: 646]. [cite_start]This allows external devices to reach the internal device by sending traffic to the public address 192.0.2.88[cite: 648].",
+    "image": "/images/questions/q57.png"
+  },
+  {
+    "number": 58,
+    "question": "A network engineer is troubleshooting a network problem where users cannot access the FTP server at the same IP address where a website can be successfully accessed. Which troubleshooting method would be the best to apply in this case?",
+    "options": [
+      "Comparing IP settings on user workstations",
+      "Top-down",
+      "Bottom-up",
+      "Divide-and-conquer"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Since a service on the same server (HTTP for the website) is working, it indicates that the lower layers of the OSI model (Physical, Data Link, Network, Transport) are likely functioning correctly. The problem is specific to one application (FTP). [cite_start]Therefore, a top-down approach, starting at the Application layer, is the most efficient troubleshooting method[cite: 655].",
+    "image": null
+  },
+  {
+    "number": 59,
+    "question": "A computer technician performed a number of actions to correct a problem. Some actions did not solve the problem, but eventually a solution was found. What should be documented?",
+    "options": [
+      "Everything that was done to try to solve the problem",
+      "Only the solution, because this solved the problem",
+      "Only the failed attempts, so that future technicians will know what not to try",
+      "A description of the problem and solution"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "It is important to document everything that was done to solve a problem, including the failed attempts as well as the final solution[cite: 662]. This provides a complete record for future troubleshooting.",
+    "image": null
+  },
+  {
+    "number": 60,
+    "question": "Which troubleshooting tool can be used to pinpoint the distance to a break in a network cable?",
+    "options": [
+      "Digital multimeter",
+      "Network analyzer",
+      "Network analysis module",
+      "Cable tester"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Advanced cable testers often include a time-domain reflectometer (TDR), which can identify the location of breaks or faults in a cable by sending a signal down the wire and measuring the time it takes for the reflection to return[cite: 669].",
+    "image": null
+  },
+  {
+    "number": 61,
+    "question": "Which troubleshooting software is an example of a network management system tool?",
+    "options": [
+      "Wireshark",
+      "WhatsUp Gold",
+      "CyberGauge",
+      "LANsurveyor"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "WhatsUp Gold is an example of a network management system (NMS) tool. [cite_start]Wireshark is a protocol analyzer, and LANsurveyor and CyberGauge are baselining tools[cite: 675, 676].",
+    "image": null
+  },
+  {
+    "number": 62,
+    "question": "What are two approaches to prevent packet loss due to congestion on an interface? (Choose two.)",
+    "options": [
+      "Increase link capacity.",
+      "Prevent bursts of traffic.",
+      "Disable queuing mechanisms.",
+      "Decrease buffer space.",
+      "Drop lower-priority packets."
+    ],
+    "answer": [
+      "A",
+      "E"
+    ],
+    "explanation": "There are three main approaches to prevent dropping sensitive traffic due to congestion: increase the link's capacity, guarantee bandwidth and increase buffer space for important traffic, and preemptively drop lower-priority packets before congestion becomes severe[cite: 683, 684, 685, 686].",
+    "image": null
+  },
+  {
+    "number": 63,
+    "question": "What is the benefit of deploying Layer 3 QoS marking across an enterprise network?",
+    "options": [
+      "Layer 3 marking can carry the QoS information end-to-end.",
+      "Layer 3 marking can be carried in the 802.1Q fields.",
+      "Layer 3 marking can carry QoS information on switches that are not IP aware.",
+      "Layer 3 marking can be used to carry non-IP traffic."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "A major advantage of Layer 3 marking (e.g., DSCP values in the IP header) is that it can carry the QoS information end-to-end across the network[cite: 695]. Layer 2 marking is typically only locally significant and is rewritten or removed by routers.",
+    "image": null
+  },
+  {
+    "number": 64,
+    "question": "What is the function of a QoS trust boundary?",
+    "options": [
+      "A trust boundary identifies the location where traffic cannot be remarked.",
+      "A trust boundary only allows traffic to enter if it has previously been marked.",
+      "A trust boundary only allows traffic from trusted endpoints to enter the network.",
+      "A trust boundary identifies which devices trust the marking on packets that enter a network."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The trust boundary is a critical concept in QoS; it is the point in the network where the QoS markings on incoming packets are trusted[cite: 702]. [cite_start]Traffic is classified and marked as close to its source as possible, and the trust boundary determines where the network begins to honor those markings[cite: 701].",
+    "image": null
+  },
+  {
+    "number": 65,
+    "question": "Which type of network traffic cannot be managed using congestion avoidance tools?",
+    "options": [
+      "IP",
+      "TCP",
+      "ICMP",
+      "UDP"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Congestion avoidance mechanisms, like TCP's sliding window and algorithms like RED, rely on feedback from the transport protocol. Because UDP is a connectionless protocol without such feedback mechanisms, congestion avoidance techniques cannot be applied to it directly. [cite_start]Queuing can help reduce UDP packet loss, but it does not prevent congestion[cite: 708].",
+    "image": "/images/questions/q65.png"
+  },
+  {
+    "number": 66,
+    "question": "A network administrator configures a router with the command sequence: `R1(config)# boot system tftp://c1900-universalk9-mz.SPA.152-4.M3.bin` and `R1(config)# boot system rom`. What is the effect of the command sequence?",
+    "options": [
+      "The router will copy the IOS image from the TFTP server and then reboot the system.",
+      "The router will search and load a valid IOS image in the sequence of flash, TFTP, and ROM.",
+      "The router will load IOS from the TFTP server. If the image fails to load, it will load the IOS image from ROM.",
+      "On next reboot, the router will load the IOS image from ROM."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The `boot system` command specifies the source for the Cisco IOS image to load[cite: 715]. The router will try the commands in the order they are entered in the configuration. In this case, it will first attempt to load the image from the TFTP server. [cite_start]If that fails, it will fall back to the second command and load the basic image from ROM[cite: 716].",
+    "image": null
+  },
+  {
+    "number": 67,
+    "question": "What are three functions provided by the syslog service? (Choose three.)",
+    "options": [
+      "to specify the destinations of captured messages",
+      "to periodically poll agents for data",
+      "to gather logging information for monitoring and troubleshooting",
+      "to provide statistics on packets that are flowing through a Cisco device",
+      "to provide traffic analysis",
+      "to select the type of logging information that is captured"
+    ],
+    "answer": [
+      "A",
+      "C",
+      "F"
+    ],
+    "explanation": "The syslog service provides three main functions: gathering logging information for monitoring, allowing the selection of the type of information to capture (e.g., by severity level), and specifying the destination where the log messages should be sent (e.g., console, buffer, syslog server)[cite: 724, 725, 726, 727].",
+    "image": null
+  },
+  {
+    "number": 68,
+    "question": "A network designer is considering whether to implement a switch block on the company network. What is the primary advantage of deploying a switch block?",
+    "options": [
+      "The failure of a switch block will not impact all end users.",
+      "A single core router provides all the routing between VLANs.",
+      "This is a security feature that is available on all new Catalyst switches.",
+      "This is network application software that prevents the failure of a single network device."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The primary advantage of a switch block architecture is redundancy. [cite_start]It is designed so that the failure of a single device within the block will have a minimal effect on end users[cite: 734].",
+    "image": null
+  },
+  {
+    "number": 69,
+    "question": "Refer to the exhibit. R1 and R3 are connected to each other via the local serial 0/0/0 interface. Why are they not forming an adjacency?",
+    "options": [
+      "They have different routing processes.",
+      "They have different router IDs.",
+      "They are in different subnets.",
+      "The connecting interfaces are configured as passive."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "For two OSPF routers to form an adjacency, their connecting interfaces must be in the same subnet[cite: 741]. In the exhibit, R1's network command is `network 192.168.10.8 0.0.0.3` (which covers .8 to .11) and R3's is `network 192.168.10.12 0.0.0.3` (which covers .12 to .15). These are different, non-overlapping subnets. [cite_start]OSPF process IDs do not need to match[cite: 742].",
+    "image": "/images/questions/q69.jpeg"
+  },
+  {
+    "number": 70,
+    "question": "What are two reasons that most RESTful APIs require a key in the request? (Choose two.)",
+    "options": [
+      "To authenticate the requesting source",
+      "To encrypt the query message in the API request",
+      "To gather information on the people using the API",
+      "To specify the data format expected from the response",
+      "To make sure that the query matches the service offered by the web application"
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": "API providers often require a key for several reasons, including to authenticate the source to ensure it's authorized to use the API and to track data usage to gather information about who is using the API and how[cite: 751].",
+    "image": null
+  },
+  {
+    "number": 71,
+    "question": "Which two configuration management tools are developed using Python? (Choose two.)",
+    "options": [
+      "Chef",
+      "Ansible",
+      "Puppet",
+      "SaltStack",
+      "NETCONF"
+    ],
+    "answer": [
+      "B",
+      "D"
+    ],
+    "explanation": "Ansible and SaltStack are popular configuration management tools that are both developed using the Python programming language[cite: 758]. [cite_start]Chef and Puppet are developed using Ruby[cite: 759].",
+    "image": null
+  },
+  {
+    "number": 72,
+    "question": "Which characters are used to enclose a JSON key?",
+    "options": [
+      "Quotation marks",
+      "Commas",
+      "Square brackets",
+      "Colons"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "In JSON (JavaScript Object Notation), keys must be strings and are required to be enclosed in double quotation marks[cite: 766, 767].",
+    "image": null
+  },
+  {
+    "number": 73,
+    "question": "Which character is used to separate JSON key/value pairs?",
+    "options": [
+      "(comma) ,",
+      "(semi colon) ;",
+      "(dash) -",
+      "(forward slash) /"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Within a JSON object, each key/value pair is separated from the next by a comma[cite: 773].",
+    "image": null
+  },
+  {
+    "number": 74,
+    "question": "Which two layers of the OSI model are associated with SDN network control plane functions that make forwarding decisions? (Choose two.)",
+    "options": [
+      "Layer 5",
+      "Layer 2",
+      "Layer 1",
+      "Layer 3",
+      "Layer 4"
+    ],
+    "answer": [
+      "B",
+      "D"
+    ],
+    "explanation": "The SDN control plane makes forwarding decisions based on information typically found at Layer 2 (such as the ARP table) and Layer 3 (such as the IP routing table)[cite: 781].",
+    "image": null
+  },
+  {
+    "number": 75,
+    "question": "Which cloud model provides services for a specific organization or entity?",
+    "options": [
+      "a community cloud",
+      "a hybrid cloud",
+      "a public cloud",
+      "a private cloud"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "A private cloud is a cloud computing environment that provides services and applications for a single, specific organization. [cite_start]It can be hosted internally or by a third party[cite: 787].",
+    "image": null
+  },
+  {
+    "number": 76,
+    "question": "Which action takes place in the assurance element of the IBN model?",
+    "options": [
+      "integrity checks",
+      "translation of policies",
+      "verification and corrective action",
+      "configuring systems"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The assurance element of the Intent-Based Networking (IBN) model is responsible for the end-to-end verification of the network's behavior to ensure it aligns with the original intent[cite: 793].",
+    "image": null
+  },
+  {
+    "number": 77,
+    "question": "What is REST?",
+    "options": [
+      "It is a protocol that allows administrators to manage nodes on an IP network.",
+      "It is a human readable data structure that is used by applications for storing, transforming, and reading data.",
+      "It is a way to store and interchange data in a structured format.",
+      "It is an architecture style for designing web service applications."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "REST (Representational State Transfer) is not a protocol itself, but a software architecture style used for designing networked applications, particularly web services[cite: 799].",
+    "image": null
+  },
+  {
+    "number": 78,
+    "question": "How is the YAML data format structure different from JSON?",
+    "options": [
+      "It uses indentations.",
+      "It uses brackets and commas.",
+      "It uses hierarchical levels of nesting.",
+      "It uses end tags."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The primary structural difference of YAML is its use of indentation to define structure and nesting, whereas JSON uses brackets and commas[cite: 805].",
+    "image": null
+  },
+  {
+    "number": 79,
+    "question": "What are two functions of hypervisors? (Choose two.)",
+    "options": [
+      "to protect the host from malware infection from the virtual machines",
+      "to partition the hard drive to run virtual machines",
+      "to allocate physical system resources to virtual machines",
+      "to manage virtual machines",
+      "to share the antivirus software across the virtual machines"
+    ],
+    "answer": [
+      "C",
+      "D"
+    ],
+    "explanation": "A hypervisor is software that creates and manages virtual machines (VMs) on a host computer[cite: 814]. [cite_start]Its core functions are to allocate the host's physical resources (like CPU, memory, and storage) to the various VMs[cite: 814].",
+    "image": null
+  },
+  {
+    "number": 81,
+    "question": "When an OSPF network is converged and no network topology change has been detected by a router, how often will LSU packets be sent to neighboring routers?",
+    "options": [
+      "every 30 minutes",
+      "every 5 minutes",
+      "every 60 minutes",
+      "every 10 minutes"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Once an OSPF network is converged, routers send Link State Updates (LSUs) only when a topology change occurs or, as a periodic refresh, every 30 minutes[cite: 827, 828, 829].",
+    "image": null
+  },
+  {
+    "number": 82,
+    "question": "Which command will a network engineer issue to verify the configured hello and dead timer intervals on a point-to-point WAN link between two routers that are running OSPFv2?",
+    "options": [
+      "show ip ospf interface fastethernet 0/1",
+      "show ip ospf neighbor",
+      "show ipv6 ospf interface serial 0/0/0",
+      "show ip ospf interface serial 0/0/0"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The `show ip ospf interface serial 0/0/0` command will display the OSPFv2 timer intervals specifically for that serial interface[cite: 835]. [cite_start]The `show ip ospf neighbor` command shows the remaining time on the dead timer, not the configured interval[cite: 838].",
+    "image": null
+  },
+  {
+    "number": 83,
+    "question": "What are the two purposes of an OSPF router ID? (Choose two.)",
+    "options": [
+      "to facilitate the establishment of network convergence",
+      "to facilitate router participation in the election of the designated router",
+      "to uniquely identify the router within the OSPF domain",
+      "to enable the SPF algorithm to determine the lowest cost path to remote networks",
+      "to facilitate the transition of the OSPF neighbor state to Full"
+    ],
+    "answer": [
+      "B",
+      "C"
+    ],
+    "explanation": "The OSPF router ID has two main purposes: to uniquely identify each router within the entire OSPF routing domain and to be used during the DR/BDR election process (often as a tie-breaker)[cite: 842, 843]. [cite_start]It does not directly affect SPF calculations or the convergence process itself[cite: 845, 846].",
+    "image": null
+  },
+  {
+    "number": 84,
+    "question": "What is a feature of an IPS?",
+    "options": [
+      "It is primarily focused on identifying possible incidents.",
+      "It can stop malicious packets.",
+      "It is deployed in offline mode.",
+      "It has no impact on latency."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "An Intrusion Prevention System (IPS) is deployed inline with traffic and has the ability to actively stop malicious packets from passing through it[cite: 852]. [cite_start]Because it is inline, it can add latency to network traffic[cite: 853].",
+    "image": null
+  },
+  {
+    "number": 85,
+    "question": "Refer to the exhibit. The Gigabit interfaces on both routers have been configured with subinterface numbers that match the VLAN numbers connected to them. PCs on VLAN 10 should be able to print to the P1 printer on VLAN 12. PCs on VLAN 20 should print to the printers on VLAN 22. What interface and in what direction should you place a standard ACL that allows printing to P1 from data VLAN 10, but stops the PCs on VLAN 20 from using the P1 printer? (Choose two.)",
+    "options": [
+      "R1 S0/0/0",
+      "Inbound",
+      "Outbound",
+      "R2 S0/0/1",
+      "R2 Gi0/1.20",
+      "R1 Gi0/1.12"
+    ],
+    "answer": [
+      "C",
+      "F"
+    ],
+    "explanation": "Standard ACLs should be placed as close to the destination as possible because they only filter based on the source address[cite: 863]. [cite_start]The destination is the P1 printer in VLAN 12, so the ACL should be placed on R1's subinterface for VLAN 12 (Gi0/1.12) in the outbound direction[cite: 864].",
+    "image": "/images/questions/q85.png"
+  },
+  {
+    "number": 86,
+    "question": "Refer to the exhibit. A network administrator is configuring a standard IPv4 ACL. What is the effect after the command `no access-list 10` is entered?",
+    "options": [
+      "ACL 10 is removed from the running configuration.",
+      "ACL 10 is removed from both the running configuration and the interface Fa0/1.",
+      "ACL 10 will be disabled and removed after R1 restarts.",
+      "ACL 10 is disabled on Fa0/1."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "The global configuration command `no access-list <number>` removes the entire access list from the running configuration[cite: 871]. However, it does not remove the `ip access-group 10 in` command from the interface. The ACL is gone, but the interface is still configured to apply it, which would now result in all traffic being denied.",
+    "image": "/images/questions/q86.png"
+  },
+  {
+    "number": 87,
+    "question": "What is correct in relation to NAT for IPv6?",
+    "options": [
+      "It is a temporary mechanism to assist in the migration from IPv4 to IPv6.",
+      "NAT64 has been deprecated by IETF in favor of NAT-PT.",
+      "It is used to convert private IPv6 addresses to public IPv6 addresses.​",
+      "Dual stack is an example of implementation of NAT for IPv6."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "NAT for IPv6, specifically NAT64, is considered a temporary transition mechanism to allow IPv6-only clients to access legacy IPv4 content[cite: 878]. [cite_start]Dual stack is a separate transition method where devices run both protocols simultaneously[cite: 879].",
+    "image": null
+  },
+  {
+    "number": 88,
+    "question": "A network administrator is troubleshooting the dynamic NAT that is configured on router R2. Which command can the administrator use to see the total number of active NAT translations and the number of addresses that are allocated from the NAT pool?",
+    "options": [
+      "R2# clear ip nat translation",
+      "R2# show ip nat translations",
+      "R2# show running-config",
+      "R2# show ip nat statistics"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The `show ip nat statistics` command provides a summary of NAT operations, including the total number of active translations, NAT configuration parameters, the number of addresses in the pool, and how many have been allocated[cite: 889]. [cite_start]`show ip nat translations` shows the active sessions but not the pool summary[cite: 886].",
+    "image": null
+  },
+  {
+    "number": 89,
+    "question": "Which three traffic-related factors would influence selecting a particular WAN link type? (Choose three.)",
+    "options": [
+      "cost of the link",
+      "amount of traffic",
+      "type of traffic",
+      "distance between sites",
+      "reliability",
+      "security needs"
+    ],
+    "answer": [
+      "B",
+      "C",
+      "F"
+    ],
+    "explanation": "When selecting a WAN link, traffic-related factors to consider include the amount of traffic, the type of traffic (e.g., voice, video, data), and the security requirements for that traffic[cite: 897].",
+    "image": null
+  },
+  {
+    "number": 90,
+    "question": "Which QoS technique retains excess packets in a separate queue for later transmission?",
+    "options": [
+      "marking",
+      "shaping",
+      "classifying",
+      "queuing"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Traffic shaping retains excess packets in a queue and then schedules them for later transmission over a period of time to smooth out traffic bursts and conform to a specific rate[cite: 904]. Queuing itself is the process of holding packets, but shaping is the technique that specifically smooths the output rate.",
+    "image": null
+  },
+  {
+    "number": 91,
+    "question": "Refer to the exhibit. Why are routers R1 and R2 not able to establish an OSPF adjacency?​",
+    "options": [
+      "The process numbers are not the same in both routers.",
+      "The router ID values are not the same in both routers.",
+      "A backbone router cannot establish an adjacency with an ABR router.",
+      "The serial interfaces are not in the same area."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "For two OSPF routers to become neighbors, their connecting interfaces must be in the same OSPF area. [cite_start]On R1, the connecting network 192.168.10.0/30 is configured in area 1, while on R2 it is configured in area 0. This mismatch prevents them from forming an adjacency[cite: 911, 912].",
+    "image": "/images/questions/q91.gif"
+  },
+  {
+    "number": 92,
+    "question": "Which two layers of the OSI model are associated with SDN network control plane functions that make forwarding decisions? (Choose two.)",
+    "options": [
+      "Layer 1",
+      "Layer 3",
+      "Layer 5",
+      "Layer 4",
+      "Layer 2"
+    ],
+    "answer": [
+      "B",
+      "E"
+    ],
+    "explanation": "The SDN control plane uses information from Layer 2 (like ARP tables) and Layer 3 (like routing tables) to make intelligent forwarding decisions for the data plane[cite: 920].",
+    "image": null
+  },
+  {
+    "number": 93,
+    "question": "What defines a two-tier spine-leaf topology?",
+    "options": [
+      "The Cisco APICs and all other devices in the network physically attach to leaf switches.",
+      "The APIC controller manipulates the data path directly.",
+      "Everything is two hops from everything else.",
+      "The spine tier can be implemented with Cisco Nexus 9500 switches connected to each other and to the leaf switches."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "In a spine-leaf architecture, endpoints and controllers like the Cisco APIC connect to the leaf switches[cite: 929]. [cite_start]Leaf switches always attach to spine switches, but never to each other, creating a topology where every leaf is one hop from every other leaf[cite: 926, 927].",
+    "image": null
+  },
+  {
+    "number": 94,
+    "question": "Refer to the exhibit. Which data format is used to represent the data for network automation applications?",
+    "options": [
+      "HTML",
+      "XML",
+      "YAML",
+      "JSON"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The data format shown uses key-value pairs separated by a colon and uses indentation to define its structure. [cite_start]This is characteristic of YAML (YAML Ain’t Markup Language)[cite: 941, 942]. [cite_start]JSON uses brackets and quoted keys [cite: 937][cite_start], while XML uses tags[cite: 939].",
+    "image": "/images/questions/q94.png"
+  },
+  {
+    "number": 95,
+    "question": "Which problem is evident if the show ip interface command shows that the interface is down and the line protocol is down?",
+    "options": [
+      "An encapsulation mismatch has occurred.",
+      "A cable has not been attached to the port.",
+      "There is an IP address conflict with the configured address on the interface.",
+      "The no shutdown command has not been issued on the interface."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "An interface status of \"down\" and line protocol of \"down\" typically indicates a physical layer problem, such as a disconnected or faulty cable. If the no shutdown command had not been issued, the status would be \"administratively down\".",
+    "image": null
+  },
+  {
+    "number": 96,
+    "question": "What are two switch characteristics that could help alleviate network congestion? (Choose two.)",
+    "options": [
+      "low port density",
+      "large frame buffers",
+      "store-and-forward switching",
+      "fast internal switching",
+      "frame check sequence (FCS) check"
+    ],
+    "answer": [
+      "B",
+      "D"
+    ],
+    "explanation": "Switch characteristics that help alleviate network congestion include fast port speeds, fast internal switching, large frame buffers, and high port density.",
+    "image": null
+  },
+  {
+    "number": 97,
+    "question": "Refer to the exhibit. The configuration shows commands entered by a network administrator for inter-VLAN routing. However, host H1 cannot communicate with H2. Which part of the inter-VLAN configuration causes the problem?",
+    "options": [
+      "trunking",
+      "router port configuration",
+      "port mode on the two switch FastEthernet ports",
+      "VLAN configuration"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "By default, all switch ports are in VLAN 1. For this configuration to work, the switch ports connected to the hosts must be assigned to their respective VLANs. Port Fa0/1 needs to be assigned to VLAN 10 and Fa0/2 needs to be assigned to VLAN 20.",
+  "image": "/images/questions/q97_inter-vlan_routing.png"
+  },
+  {
+    "number": 98,
+    "question": "What is an advantage of PVST+?",
+    "options": [
+      "PVST+ requires fewer CPU cycles for all the switches in the network.",
+      "PVST+ reduces bandwidth consumption compared to traditional implementations of STP that use CST.",
+      "PVST+ optimizes performance on the network through load sharing.",
+      "PVST+ optimizes performance on the network through autoselection of the root bridge."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Per-VLAN Spanning Tree Plus (PVST+) allows for different root bridges for different VLANs. This enables an administrator to configure the network so that traffic for different VLANs can use different links, optimizing performance through load sharing.",
+    "image": null
+  },
+  {
+    "number": 99,
+    "question": "Refer to the exhibit. Based on the command output shown, what is the status of the EtherChannel?",
+    "options": [
+      "The EtherChannel is partially functional as indicated by the P flags for the FastEthernet ports.",
+      "The EtherChannel is dynamic and is using ports Fa0/10 and Fa0/11 as passive ports.",
+      "The EtherChannel is down as evidenced by the protocol field being empty.",
+      "The EtherChannel is in use and functional as indicated by the SU and P flags in the command output."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The output shows the port-channel status as SU (Layer 2, in use) and the member ports (Fa0/10, Fa0/11) have a P flag, indicating they are bundled in the port-channel. The empty protocol field is expected when the EtherChannel is configured manually with the on mode.",
+  "image": "/images/questions/q99_etherchannel_summary.png"
+  },
+  {
+    "number": 100,
+    "question": "A small coffee shop is offering free Wi-Fi to customers. The network includes a wireless router and a DSL modem that is connected to the local phone company. What method is typically used to configure the connection to the phone company?",
+    "options": [
+      "Set the DSL modem as a DHCP client to get a public IP address from the wireless router.",
+      "Set the WAN connection in the wireless router as a DHCP client.",
+      "Set the DSL modem as a DHCP client to the phone company and a DHCP server for the internal connection.",
+      "Set the connection between the wireless router and the DSL modem as a private IP network."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "In a typical SOHO (Small Office/Home Office) setup, the wireless router's WAN port is configured as a DHCP client. It will then receive a public IP address automatically from the Internet Service Provider (ISP) via the modem.",
+    "image": null
+  },
+  {
+    "number": 101,
+    "question": "Which statement describes the behavior of a switch when the MAC address table is full?",
+    "options": [
+      "It treats frames as unknown unicast and floods all incoming frames to all ports within the local VLAN.",
+      "It treats frames as unknown unicast and floods all incoming frames to all ports on the switch.",
+      "It treats frames as unknown unicast and floods all incoming frames to all ports within the collision domain.",
+      "It treats frames as unknown unicast and floods all incoming frames to all ports across multiple switches."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "When a switch's MAC address table is full, it cannot learn new addresses. It then floods any frames with unknown destination MAC addresses out of all ports within the same VLAN, except for the port on which the frame was received.",
+    "image": null
+  },
+  {
+    "number": 102,
+    "question": "After sticky learning of MAC addresses is enabled, what action is needed to prevent dynamically learned MAC addresses from being lost in the event that an associated interface goes down?",
+    "options": [
+      "Reboot the switch.",
+      "Copy the running configuration to the startup configuration.",
+      "Shut down the interface then enable it again with the no shutdown command.",
+      "Configure port security for violation protect mode."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "When port security with sticky learning is enabled, the dynamically learned MAC addresses are added to the running configuration. To ensure these addresses are not lost if the switch is rebooted, the running configuration must be saved to the startup configuration in NVRAM.",
+    "image": null
+  },
+  {
+    "number": 103,
+    "question": "What is the reason for disabling SSID broadcasting and changing the default SSID on a wireless access point?",
+    "options": [
+      "The access point stops broadcasting its own MAC address, thus preventing unauthorized wireless clients from connecting to the network.",
+      "Wireless clients must then have the SSID manually configured to connect to the wireless network.",
+      "Anyone with the default SSID can gain access to the access point and change the configuration.",
+      "Disabling SSID broadcasting frees up radio frequency bandwidth and increases the data throughput of the access point."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Disabling SSID broadcasts is a basic security measure that prevents the network name from being advertised. As a result, users must know the SSID beforehand and manually configure it on their devices to connect.",
+    "image": null
+  },
+  {
+    "number": 104,
+    "question": "What is a potential issue when using the WLC to upgrade and deploy the latest firmware image to all APs?",
+    "options": [
+      "Users will not be able to use the WLAN.",
+      "Only one of the two bands would work at a time.",
+      "Usernames and passwords must be manually entered into the AP so that WLAN authentication continues during the upgrade.",
+      "Old 802.11 standards may not be supported anymore."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "During a firmware upgrade managed by a Wireless LAN Controller (WLC), the Access Points (APs) are temporarily unavailable. This means that users connected to those APs will be disconnected from the WLAN until the upgrade process is complete.",
+    "image": null
+  },
+  {
+    "number": 105,
+    "question": "A network administrator is configuring a WLC to provide WLAN access to users in an office building. When testing the newly created WLAN, the administrator does not see the SSID from a wireless device. What is a possible cause?",
+    "options": [
+      "The APs have not been configured for the new WLAN.",
+      "The new WLAN needs to be enabled.",
+      "The WLAN security setting is incorrect.",
+      "The RADIUS server is not operational."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "After a new WLAN is created and configured on a Cisco WLC, it is disabled by default. The administrator must manually enable the WLAN before its SSID will be broadcast by the access points.",
+    "image": null
+  },
+  {
+    "number": 106,
+    "question": "What are two characteristics of Cisco Express Forwarding (CEF)? (Choose two.)",
+    "options": [
+      "With this switching method, flow information for a packet is stored in the fast-switching cache to forward future packets to the same destination without CPU intervention.",
+      "Packets are forwarded based on information in the FIB and an adjacency table.",
+      "When a packet arrives on a router interface, it is forwarded to the control plane where the CPU matches the destination address with a matching routing table entry.",
+      "When a packet arrives on a router interface, it is forwarded to the control plane where the CPU searches for a match in the fast-switching cache.",
+      "This is the fastest forwarding mechanism on Cisco routers and multilayer switches."
+    ],
+    "answer": [
+      "B",
+      "E"
+    ],
+    "explanation": "Cisco Express Forwarding (CEF) is the most efficient and preferred forwarding mechanism. It pre-builds a Forwarding Information Base (FIB) and an adjacency table, allowing packets to be forwarded in hardware with minimal CPU involvement.",
+    "image": null
+  },
+  {
+    "number": 107,
+    "question": "Which command would create a valid IPv6 default route?",
+    "options": [
+      "ipv6 route ::/0 fe80::1",
+      "ipv6 route ::/128 2001:db8:acad:1::1",
+      "ipv6 route 2001:db8:acad:1::/64 ::1",
+      "ipv6 route ::/0 2001:db8:acad:2::a"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "A default route in IPv6 matches all possible addresses and is represented by the prefix ::/0. The command must specify this prefix followed by a valid next-hop address. If a link-local address is used as the next hop, the exit interface must also be specified, which is not the case in option A.",
+    "image": null
+  },
+  {
+    "number": 108,
+    "question": "Open the PT Activity. Perform the tasks in the activity instructions and then answer the question. What problem is causing PC-A to be unable to communicate with the Internet?",
+    "options": [
+      "The ip nat inside source command refers to the wrong interface.",
+      "The access list used in the NAT process is referencing the wrong subnet.",
+      "The static route should not reference the interface, but the outside address instead.",
+      "This router should be configured to use static NAT instead of PAT.",
+      "The NAT interfaces are not correctly assigned."
+    ],
+    "answer": [
+      "E"
+    ],
+    "explanation": "The output of show ip nat statistics shows that the inside interface is FastEthernet0/0 but that no interface has been designated as the outside interface. This can be fixed by adding the command ip nat outside to interface Serial0/0/0.",
+    "image": null
+  },
+  {
+    "number": 109,
+    "question": "Because of enormous growth in web traffic, a company has planned to purchase additional servers to help handle the web traffic. What service or technology would support this requirement?",
+    "options": [
+      "Dedicated servers",
+      "APIC-EM",
+      "Software defined networking",
+      "Cisco ACI"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "To handle an increase in web traffic, adding more dedicated servers is a direct way to increase capacity. While other technologies are related to network management and architecture, the most direct solution for handling more load is to add more server resources.",
+    "image": null
+  },
+  {
+    "number": 110,
+    "question": "What are the two purposes of an OSPF router ID? (Choose two.)",
+    "options": [
+      "to facilitate the establishment of network convergence",
+      "to facilitate router participation in the election of the designated router",
+      "to uniquely identify the router within the OSPF domain",
+      "to enable the SPF algorithm to determine the lowest cost path to remote networks",
+      "to facilitate the transition of the OSPF neighbor state to Full"
+    ],
+    "answer": [
+      "B",
+      "C"
+    ],
+    "explanation": "The OSPF router ID has two main purposes: to uniquely identify each router within the entire OSPF routing domain and to be used during the DR/BDR election process (often as a tie-breaker). It does not directly affect SPF calculations or the convergence process itself.",
+    "image": null
+  },
+  {
+    "number": 111,
+    "question": "What is a feature of an IPS?",
+    "options": [
+      "It is primarily focused on identifying possible incidents.",
+      "It can stop malicious packets.",
+      "It is deployed in offline mode.",
+      "It has no impact on latency."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "An Intrusion Prevention System (IPS) is deployed inline with traffic and has the ability to actively stop malicious packets from passing through it. Because it is inline, it can add latency to network traffic.",
+    "image": null
+  },
+  {
+    "number": 112,
+    "question": "A network engineer is designing a borderless switched network in a hierarchical fashion. Which guideline might cause the engineer to implement a three-tier layer model?",
+    "options": [
+      "The access layer provides aggregation of Layer 2 broadcast domains.",
+      "Access layer L2 switches connect to distribution layer L3 switches, which implement routing, quality of service, and security.",
+      "Fault isolation is one of the primary purposes of the distribution layer.",
+      "The core layer provides differentiated services to various classes of service applications at the edge of the network."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "The three-tier hierarchical model (core, distribution, access) is defined by the separation of roles. The distribution layer's key function is to interface between the access and core layers, providing routing, policy enforcement (like QoS and security), and aggregating the Layer 2 domains from the access layer.",
+    "image": null
+  },
+  {
+    "number": 113,
+    "question": "Students in a data networking class are reviewing materials in preparation for a quiz. Which statement describes the operation of an access control method for shared network media?",
+    "options": [
+      "The controlled-based access method, used on legacy bus-topology Ethernet LANs, decided the order of each device to transmit.",
+      "The CSMA/CA method attempts to avoid collisions by having each device informing others how long the media will be unavailable.",
+      "In the CSMA/CD method, when two devices transmit at the same time, a collision is detected and data is resent immediately.",
+      "In a contention-based multiaccess network, each node has its own time to use the medium."
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance), used in wireless LANs, attempts to prevent collisions by having devices listen to the medium and announce their intent to transmit for a specific duration. This helps other devices know to wait, thus avoiding collisions.",
+    "image": null
+  },
+  {
+    "number": 114,
+    "question": "A network administrator is configuring the SNMP function on a Cisco 3500 series WLC. The task is to add an SNMP trap server to which this WLC will forward SNMP log messages. Which tab should the administrator use to add the SNMP trap server information?",
+    "options": [
+      "MANAGEMENT",
+      "COMMANDS",
+      "CONTROLLER",
+      "MONITOR"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "On a Cisco 3500 series Wireless LAN Controller (WLC), SNMP settings, including the configuration of trap receivers (servers), are located under the MANAGEMENT tab.",
+    "image": null
+  },
+  {
+    "number": 115,
+    "question": "In a controller-based wireless network, the WLC device may have multiple ports connected to a switch to form a bundle that provides load-balancing and redundancy. Which protocol supports the port bundle between a Cisco WLC and a Cisco switch?",
+    "options": [
+      "PAgP",
+      "LAG",
+      "LACP",
+      "CAPWAP"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Cisco Wireless LAN Controllers use Link Aggregation Group (LAG) to bundle their physical ports into a single logical link for connecting to a switch. This increases bandwidth and provides redundancy. WLCs do not support dynamic negotiation protocols like LACP or PAgP for this purpose.",
+    "image": null
+  },
+  {
+    "number": 116,
+    "question": "What is a benefit of PortFast configured on a Cisco switch port?",
+    "options": [
+      "It allows a device connected to this port to access the network without waiting for STP convergence on each VLAN.",
+      "It allows the port to avoid a 30 second delay to access the network by immediately transitioning from disabled to forwarding state.",
+      "It minimizes the time that trunk ports must wait for spanning tree to converge.",
+      "It avoids the creation of a spanning tree loop with other directly connected switches."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "PortFast is configured on access ports connected to endpoints like PCs or servers. It allows the port to bypass the normal Spanning Tree Protocol (STP) listening and learning states, which can take up to 30-50 seconds, enabling the device to connect to the network almost immediately.",
+    "image": null
+  },
+  {
+    "number": 117,
+    "question": "Refer to the exhibit. All the displayed switches are Cisco 2960 switches with the same default priority and operating at the same bandwidth. Which three ports will be STP designated ports? (Choose three.)",
+    "options": [
+      "fa0/20",
+      "fa0/9",
+      "fa0/11",
+      "fa0/10",
+      "fa0/13",
+      "fa0/21"
+    ],
+    "answer": [
+      "D",
+      "E",
+      "F"
+    ],
+    "explanation": "In Spanning Tree Protocol, the switch with the lowest MAC address becomes the root bridge. In this case, SW3 has the lowest MAC (00f0...). All ports on a root bridge are designated ports (fa0/13, fa0/21). Between SW1 and SW2, SW1 has the lower MAC address, so its port on the link to SW2 (fa0/10) will be the designated port for that segment.",
+  "image": "/images/questions/q117.png"
+  },
+  {
+    "number": 118,
+    "question": "What is the recommended Cisco best practice for configuring an OSPF-enabled router so that each router can be easily identified when troubleshooting routing issues?",
+    "options": [
+      "a route dynamically learned through the OSPF routing protocol",
+      "Use the highest active interface IP address that is configured on the router.",
+      "Use a loopback interface configured with the highest IP address on the router.",
+      "Use the highest IP address assigned to an active interface participating in the routing process."
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "The Cisco best practice for setting an OSPF router ID is to configure a loopback interface. A loopback interface is always up and provides a stable, predictable router ID, which is crucial for network stability and ease of troubleshooting. It is typically configured with a unique IP address, often the highest on the router for consistency.",
+    "image": null
+  },
+  {
+    "number": 119,
+    "question": "Refer to the exhibit. Packets destined to which two networks will require the router to perform a recursive lookup? (Choose two.)",
+    "options": [
+      "64.100.0.0/16",
+      "172.16.40.0/24",
+      "192.168.1.0/24",
+      "128.107.0.0/16",
+      "10.0.0.0/8",
+      "192.168.2.0/24"
+    ],
+    "answer": [
+      "E",
+      "F"
+    ],
+    "explanation": "A recursive lookup is required when the next-hop address in the routing table is not on a directly connected network. The routes for 10.0.0.0/8 and 192.168.2.0/24 both point to a next-hop of 172.16.40.2. The router must perform a second lookup to find out how to reach 172.16.40.2, which it knows is on the directly connected Serial0/0 interface.",
+  "image": "/images/questions/q119.jpeg"
+  },
+  {
+    "number": 120,
+    "question": "Refer to the exhibit. A corporate network is using NTP to synchronize the time across devices. What can be determined from the displayed output?",
+    "options": [
+      "The interface on Router03 that connects to the time server has the IPv4 address 209.165.200.225.",
+      "The time on Router03 may not be reliable because it is offset by more than 7 seconds to the time server.",
+      "Router03 time is synchronized to a stratum 2 time server.",
+      "Router03 is a stratum 2 device that can provide NTP service to other devices in the network."
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The output shows Clock is synchronized, stratum 2. This means Router03 has synchronized its time with a stratum 1 server (the reference at 209.165.200.225) and is now operating as a stratum 2 device itself. As a stratum 2 device, it can serve time to other devices, which would become stratum 3.",
+  "image": "/images/questions/q120.png"
+  },
+  {
+    "number": 121,
+    "question": "When configuring a switch for SSH access, what other command that is associated with the login local command is required to be entered on the switch?",
+    "options": [
+      "login block-for seconds attempts number within seconds",
+      "password password",
+      "enable secret password",
+      "username [username] secret [secret]"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "The command login local on the VTY lines tells the switch to use its local database of usernames and passwords for authentication. Therefore, at least one user account must be created in that local database using the username [name] secret [password] command in global configuration mode.",
+    "image": null
+  }
+]

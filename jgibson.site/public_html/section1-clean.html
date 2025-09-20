@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCNA Section 1 - Network Fundamentals</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+    <style>
+        body { font-family: 'Rajdhani', sans-serif; background-color: #0f172a; }
+        .title-font { font-family: 'Orbitron', sans-serif; }
+        .topic-card { background-color:#1e293b; border:1px solid #334155; transition:transform .3s, box-shadow .3s; box-shadow:0 4px 6px rgba(0,0,0,.2), inset 0 0 10px rgba(79,70,229,.2);} 
+        .topic-card:hover { transform:translateY(-5px) scale(1.02); box-shadow:0 10px 15px rgba(0,0,0,.3),0 0 25px rgba(129,140,248,.4), inset 0 0 15px rgba(79,70,229,.3); border-color:#4f46e5; }
+        .studied { position:relative; }
+        .studied::after { content:'\f058'; font-family:'Font Awesome 6 Free'; font-weight:900; position:absolute; top:10px; right:10px; font-size:24px; color:#22c55e; text-shadow:0 0 10px #22c55e; }
+        #studyModal { display:none; opacity:0; }
+        #studyModal.visible { display:flex; opacity:1; }
+        #modalContent { transform:scale(.95); opacity:0; }
+        #modalContent.visible { transform:scale(1); opacity:1; }
+        #modalVisual { background:radial-gradient(circle,#1e293b,#0f172a); border-bottom:1px solid #334155; }
+        #detailsModal { display:none; opacity:0; }
+        #detailsModal.visible { display:flex; opacity:1; }
+        #detailsContent { transform:scale(.9); opacity:0; }
+        #detailsContent.visible { transform:scale(1); opacity:1; }
+        .game-container { border:1px solid #334155; border-radius:.5rem; background-color:rgba(30,41,59,.5);} 
+        button:focus { outline:none; }
+    </style>
+</head>
+<body class="text-slate-300">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <!-- Master Progress Bar -->
+        <div class="mb-6">
+            <div class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-semibold text-slate-300">CCNA 200-301 Progress</span>
+                    <span id="progressText" class="text-sm text-indigo-400 font-semibold">0%</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div id="progressBar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-slate-400 mt-2">
+                    <span>Chapters 1-6</span>
+                    <span id="progressDetails">0 of 44 topics completed</span>
+                </div>
+            </div>
+        </div>
+
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-400 title-font tracking-wider">
+                <i class="fas fa-network-wired mr-3 text-indigo-500"></i>CCNA - Chapter 1
+            </h1>
+            <p class="text-lg text-slate-400 mt-2">Network Fundamentals - Interactive Study Guide</p>
+            <p class="text-sm text-slate-500 mt-1">Select a topic to begin your training module.</p>
+            <a href="chapters.html" class="inline-block mt-4 px-4 py-2 bg-slate-700 text-white rounded hover:bg-indigo-600 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Chapters
+            </a>
+        </header>
+
+        <div id="progress-container" class="w-full max-w-4xl mx-auto mb-10">
+            <div class="flex justify-center items-center space-x-4 mb-2">
+                <span class="text-sm font-semibold text-indigo-300">Chapter 1 Progress</span>
+                <span id="progress-text" class="text-sm font-bold text-white">0%</span>
+            </div>
+            <div class="w-full bg-slate-700 rounded-full h-2.5">
+                <div id="progress-bar" class="bg-indigo-500 h-2.5 rounded-full" style="width: 0%; transition: width 0.5s ease-in-out;"></div>
+            </div>
+        </div>
+
+        <main>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">1.1 Network Components</h2>
+                <div id="componentsGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">1.2 Network Topology Architectures</h2>
+                <div id="topologyGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">1.3 Physical Interfaces and Cabling</h2>
+                <div id="cablingGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">1.4 Interface and Cable Issues</h2>
+                <div id="issuesGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">1.5 TCP vs UDP</h2>
+                <div id="protocolsGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Study Modal -->
+    <div id="studyModal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-all duration-300">
+        <div id="modalContent" class="bg-slate-800 border border-slate-600 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden transition-all duration-300">
+            <div id="modalVisual" class="p-6 text-center">
+                <h2 id="modalTitle" class="text-2xl font-bold text-indigo-300 title-font mb-4"></h2>
+                <div id="modalDescription" class="text-slate-300 mb-4"></div>
+                <div id="modalSvg" class="flex justify-center mb-4"></div>
+            </div>
+            <div class="p-6 border-t border-slate-600">
+                <div class="flex justify-between items-center">
+                    <button id="detailsBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-book-open mr-2"></i>Study Guide
+                    </button>
+                    <div class="flex gap-3">
+                        <button id="modalMarkStudied" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-check mr-2"></i>Mark as Studied
+                        </button>
+                        <button id="closeModal" class="bg-slate-600 hover:bg-slate-700 text-white px-4 py-2 rounded-lg transition-colors">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Modal -->
+    <div id="detailsModal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-all duration-300">
+        <div id="detailsContent" class="bg-slate-800 border border-slate-600 rounded-xl max-w-5xl w-full max-h-[90vh] overflow-y-auto transition-all duration-300">
+            <div class="sticky top-0 bg-slate-800 border-b border-slate-600 p-4 flex justify-between items-center">
+                <h2 id="detailsTitle" class="text-xl font-bold text-indigo-300 title-font"></h2>
+                <button id="closeDetailsModal" class="text-slate-400 hover:text-white text-xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="detailsBody" class="p-6">
+                <div class="flex justify-center items-center py-8">
+                    <i class="fas fa-spinner fa-spin text-indigo-400 text-2xl mr-3"></i>
+                    <span class="text-slate-300">Loading study content...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/shared-progress.js"></script>
+    <script src="js/database-api.js"></script>
+    
+    <script>
+        // Initialize progress tracker for Section 1
+        const progressTracker = new UnifiedCCNAProgressTracker(1);
+        
+        // Initialize database API
+        const ccnaAPI = new CCNADatabaseAPI();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1.1 Network Components
+            const componentsTopics = [
+                {
+                    title: "Routers",
+                    icon: "fa-route",
+                    description: "Forward data packets between different networks based on IP addresses",
+                    slug: "routers"
+                },
+                {
+                    title: "Layer 2 Switches", 
+                    icon: "fa-network-wired",
+                    description: "Forward frames based on MAC addresses within a local network",
+                    slug: "l2_and_l3_switches"
+                },
+                {
+                    title: "Next-Generation Firewall",
+                    icon: "fa-shield-alt", 
+                    description: "Advanced security appliance with deep packet inspection",
+                    slug: "ngfw_and_ips"
+                },
+                {
+                    title: "Wireless Access Points",
+                    icon: "fa-wifi",
+                    description: "Provide wireless connectivity to wired network infrastructure", 
+                    slug: "access_points"
+                },
+                {
+                    title: "Controllers",
+                    icon: "fa-tower-broadcast",
+                    description: "Centrally manage network infrastructure and wireless devices",
+                    slug: "controllers_wlc"
+                }
+            ];
+
+            // 1.2 Network Topology Architectures  
+            const topologyTopics = [
+                {
+                    title: "Two-Tier Architecture",
+                    icon: "fa-layer-group",
+                    description: "Collapsed core design with distribution and access layers",
+                    slug: "two_tier_architecture"
+                },
+                {
+                    title: "Three-Tier Architecture", 
+                    icon: "fa-sitemap",
+                    description: "Core, distribution, and access layer hierarchical design",
+                    slug: "three_tier_architecture"
+                },
+                {
+                    title: "Spine-Leaf Architecture",
+                    icon: "fa-project-diagram", 
+                    description: "Modern data center fabric with spine and leaf switches",
+                    slug: "spine_leaf_architecture"
+                },
+                {
+                    title: "WAN Architectures",
+                    icon: "fa-globe",
+                    description: "Wide area network connectivity options and designs",
+                    slug: "wan_architectures"
+                },
+                {
+                    title: "SOHO Architecture",
+                    icon: "fa-home",
+                    description: "Small office/home office network design patterns", 
+                    slug: "soho_architecture"
+                },
+                {
+                    title: "On-Premises vs Cloud",
+                    icon: "fa-cloud",
+                    description: "Comparison of deployment models and architectures",
+                    slug: "onpremises_vs_cloud"
+                }
+            ];
+
+            // Create topic cards for each section
+            function createTopicCards(topics, gridElement) {
+                topics.forEach(topic => {
+                    const card = document.createElement('div');
+                    card.className = 'topic-card p-6 flex flex-col justify-center items-center text-center cursor-pointer h-56 w-60';
+                    card.innerHTML = `
+                        <i class="fas ${topic.icon} text-5xl text-indigo-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-200 title-font">${topic.title}</h3>
+                    `;
+                    card.onclick = () => openStudyModal(topic, card);
+                    gridElement.appendChild(card);
+                });
+            }
+
+            // Populate grids
+            createTopicCards(componentsTopics, document.getElementById('componentsGrid'));
+            createTopicCards(topologyTopics, document.getElementById('topologyGrid'));
+
+            // Modal elements
+            const modal = document.getElementById('studyModal');
+            const modalContent = document.getElementById('modalContent');
+            const closeModalBtn = document.getElementById('closeModal');
+            
+            const detailsModal = document.getElementById('detailsModal');
+            const detailsContent = document.getElementById('detailsContent');
+            const detailsBtn = document.getElementById('detailsBtn');
+            const closeDetailsBtn = document.getElementById('closeDetailsModal');
+            const modalMarkStudiedBtn = document.getElementById('modalMarkStudied');
+
+            let currentTopic = null;
+            let currentCardElement = null;
+
+            // Open study modal
+            function openStudyModal(topic, cardElement) {
+                currentTopic = topic;
+                currentCardElement = cardElement;
+                
+                document.getElementById('modalTitle').textContent = topic.title;
+                document.getElementById('modalDescription').textContent = topic.description;
+                
+                // Show modal
+                modal.classList.add('visible');
+                setTimeout(() => {
+                    modalContent.classList.add('visible');
+                }, 10);
+            }
+
+            // Open details modal with database content
+            async function openDetailsModal() {
+                document.getElementById('detailsTitle').textContent = currentTopic.title + ' - Study Guide';
+                
+                // Show modal first
+                detailsModal.classList.add('visible');
+                setTimeout(() => {
+                    detailsContent.classList.add('visible');
+                }, 10);
+
+                try {
+                    // Query database for detailed content
+                    const topicData = await ccnaAPI.executeQuery(
+                        'SELECT title, principles_content, examples_content, configuration_content, tips_content FROM topics WHERE slug = ?',
+                        [currentTopic.slug]
+                    );
+
+                    if (topicData && topicData.length > 0) {
+                        const topic = topicData[0];
+                        const detailsBody = document.getElementById('detailsBody');
+                        
+                        detailsBody.innerHTML = `
+                            <div class="space-y-6">
+                                ${topic.principles_content ? `
+                                    <section>
+                                        <h3 class="text-xl font-semibold text-blue-400 mb-3">Core Principles</h3>
+                                        <div class="bg-slate-700 p-4 rounded-lg">
+                                            ${topic.principles_content}
+                                        </div>
+                                    </section>
+                                ` : ''}
+                                
+                                ${topic.examples_content ? `
+                                    <section>
+                                        <h3 class="text-xl font-semibold text-green-400 mb-3">Real-World Examples</h3>
+                                        <div class="bg-slate-700 p-4 rounded-lg">
+                                            ${topic.examples_content}
+                                        </div>
+                                    </section>
+                                ` : ''}
+                                
+                                ${topic.configuration_content ? `
+                                    <section>
+                                        <h3 class="text-xl font-semibold text-yellow-400 mb-3">Configuration Guide</h3>
+                                        <div class="bg-slate-700 p-4 rounded-lg">
+                                            ${topic.configuration_content}
+                                        </div>
+                                    </section>
+                                ` : ''}
+                                
+                                ${topic.tips_content ? `
+                                    <section>
+                                        <h3 class="text-xl font-semibold text-purple-400 mb-3">Exam Tips</h3>
+                                        <div class="bg-slate-700 p-4 rounded-lg">
+                                            ${topic.tips_content}
+                                        </div>
+                                    </section>
+                                ` : ''}
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById('detailsBody').innerHTML = `
+                            <div class="text-center py-8">
+                                <i class="fas fa-exclamation-triangle text-yellow-400 text-3xl mb-4"></i>
+                                <p class="text-slate-300">Content not found in database for this topic.</p>
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    console.error('Error loading topic details:', error);
+                    document.getElementById('detailsBody').innerHTML = `
+                        <div class="text-center py-8">
+                            <i class="fas fa-exclamation-circle text-red-400 text-3xl mb-4"></i>
+                            <p class="text-slate-300">Error loading content. Please try again.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // Close modals
+            function closeModal() {
+                modalContent.classList.remove('visible');
+                setTimeout(() => {
+                    modal.classList.remove('visible');
+                }, 300);
+            }
+
+            function closeDetailsModal() {
+                detailsContent.classList.remove('visible');
+                setTimeout(() => {
+                    detailsModal.classList.remove('visible');
+                }, 300);
+            }
+
+            // Mark topic as studied
+            function markAsStudied() {
+                if (currentCardElement) {
+                    currentCardElement.classList.add('studied');
+                    progressTracker.markTopicCompleted(currentTopic.title);
+                    closeModal();
+                }
+            }
+
+            // Event listeners
+            closeModalBtn.addEventListener('click', closeModal);
+            detailsBtn.addEventListener('click', openDetailsModal);
+            closeDetailsBtn.addEventListener('click', closeDetailsModal);
+            modalMarkStudiedBtn.addEventListener('click', markAsStudied);
+
+            // Close modals when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            
+            detailsModal.addEventListener('click', (e) => {
+                if (e.target === detailsModal) closeDetailsModal();
+            });
+
+            // Make functions globally available
+            window.openStudyModal = openStudyModal;
+            window.openDetailsModal = openDetailsModal;
+        });
+    </script>
+</body>
+</html>
