@@ -1,0 +1,107 @@
+[
+  {
+    "number": 112,
+    "question": "A network engineer is designing a borderless switched network in a hierarchical fashion. Which guideline might cause the engineer to implement a three-tier layer model?",
+    "options": [
+      "The access layer provides aggregation of Layer 2 broadcast domains.",
+      "Access layer L2 switches connect to distribution layer L3 switches, which implement routing, quality of service, and security.",
+      "Fault isolation is one of the primary purposes of the distribution layer.",
+      "The core layer provides differentiated services to various classes of service applications at the edge of the network."
+    ],
+    "answer": ["B"],
+    "explanation": "The three-tier hierarchical model (core, distribution, access) is defined by the separation of roles. The distribution layer's key function is to interface between the access and core layers, providing routing, policy enforcement (like QoS and security), and aggregating the Layer 2 domains from the access layer.",
+    "image": null
+  },
+  {
+    "number": 113,
+    "question": "Students in a data networking class are reviewing materials in preparation for a quiz. Which statement describes the operation of an access control method for shared network media?",
+    "options": [
+      "The controlled-based access method, used on legacy bus-topology Ethernet LANs, decided the order of each device to transmit.",
+      "The CSMA/CA method attempts to avoid collisions by having each device informing others how long the media will be unavailable.",
+      "In the CSMA/CD method, when two devices transmit at the same time, a collision is detected and data is resent immediately.",
+      "In a contention-based multiaccess network, each node has its own time to use the medium."
+    ],
+    "answer": ["B"],
+    "explanation": "CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance), used in wireless LANs, attempts to prevent collisions by having devices listen to the medium and announce their intent to transmit for a specific duration. This helps other devices know to wait, thus avoiding collisions.",
+    "image": null
+  },
+  {
+    "number": 114,
+    "question": "A network administrator is configuring the SNMP function on a Cisco 3500 series WLC. The task is to add an SNMP trap server to which this WLC will forward SNMP log messages. Which tab should the administrator use to add the SNMP trap server information?",
+    "options": ["MANAGEMENT","COMMANDS","CONTROLLER","MONITOR"],
+    "answer": ["A"],
+    "explanation": "On a Cisco 3500 series Wireless LAN Controller (WLC), SNMP settings, including the configuration of trap receivers (servers), are located under the MANAGEMENT tab.",
+    "image": null
+  },
+  {
+    "number": 115,
+    "question": "In a controller-based wireless network, the WLC device may have multiple ports connected to a switch to form a bundle that provides load-balancing and redundancy. Which protocol supports the port bundle between a Cisco WLC and a Cisco switch?",
+    "options": ["PAgP","LAG","LACP","CAPWAP"],
+    "answer": ["B"],
+    "explanation": "Cisco Wireless LAN Controllers use Link Aggregation Group (LAG) to bundle their physical ports into a single logical link for connecting to a switch. This increases bandwidth and provides redundancy. WLCs do not support dynamic negotiation protocols like LACP or PAgP for this purpose.",
+    "image": null
+  },
+  {
+    "number": 116,
+    "question": "What is a benefit of PortFast configured on a Cisco switch port?",
+    "options": [
+      "It allows a device connected to this port to access the network without waiting for STP convergence on each VLAN.",
+      "It allows the port to avoid a 30 second delay to access the network by immediately transitioning from disabled to forwarding state.",
+      "It minimizes the time that trunk ports must wait for spanning tree to converge.",
+      "It avoids the creation of a spanning tree loop with other directly connected switches."
+    ],
+    "answer": ["A"],
+    "explanation": "PortFast is configured on access ports connected to endpoints like PCs or servers. It allows the port to bypass the normal Spanning Tree Protocol (STP) listening and learning states, which can take up to 30-50 seconds, enabling the device to connect to the network almost immediately.",
+    "image": null
+  },
+  {
+    "number": 117,
+    "question": "Refer to the exhibit. All the displayed switches are Cisco 2960 switches with the same default priority and operating at the same bandwidth. Which three ports will be STP designated ports? (Choose three.)",
+    "options": ["fa0/20","fa0/9","fa0/11","fa0/10","fa0/13","fa0/21"],
+    "answer": ["D","E","F"],
+    "explanation": "In Spanning Tree Protocol, the switch with the lowest MAC address becomes the root bridge. In this case, SW3 has the lowest MAC (00f0...). All ports on a root bridge are designated ports (fa0/13, fa0/21). Between SW1 and SW2, SW1 has the lower MAC address, so its port on the link to SW2 (fa0/10) will be the designated port for that segment.",
+  "image": "/images/questions/q117.png"
+  },
+  {
+    "number": 118,
+    "question": "What is the recommended Cisco best practice for configuring an OSPF-enabled router so that each router can be easily identified when troubleshooting routing issues?",
+    "options": [
+      "a route dynamically learned through the OSPF routing protocol",
+      "Use the highest active interface IP address that is configured on the router.",
+      "Use a loopback interface configured with the highest IP address on the router.",
+      "Use the highest IP address assigned to an active interface participating in the routing process."
+    ],
+    "answer": ["C"],
+    "explanation": "The Cisco best practice for setting an OSPF router ID is to configure a loopback interface. A loopback interface is always up and provides a stable, predictable router ID, which is crucial for network stability and ease of troubleshooting. It is typically configured with a unique IP address, often the highest on the router for consistency.",
+    "image": null
+  },
+  {
+    "number": 119,
+    "question": "Refer to the exhibit. Packets destined to which two networks will require the router to perform a recursive lookup? (Choose two.)",
+    "options": ["64.100.0.0/16","172.16.40.0/24","192.168.1.0/24","128.107.0.0/16","10.0.0.0/8","192.168.2.0/24"],
+    "answer": ["E","F"],
+    "explanation": "A recursive lookup is required when the next-hop address in the routing table is not on a directly connected network. The routes for 10.0.0.0/8 and 192.168.2.0/24 both point to a next-hop of 172.16.40.2. The router must perform a second lookup to find out how to reach 172.16.40.2, which it knows is on the directly connected Serial0/0 interface.",
+  "image": "/images/questions/q119.jpeg"
+  },
+  {
+    "number": 120,
+    "question": "Refer to the exhibit. A corporate network is using NTP to synchronize the time across devices. What can be determined from the displayed output?",
+    "options": [
+      "The interface on Router03 that connects to the time server has the IPv4 address 209.165.200.225.",
+      "The time on Router03 may not be reliable because it is offset by more than 7 seconds to the time server.",
+      "Router03 time is synchronized to a stratum 2 time server.",
+      "Router03 is a stratum 2 device that can provide NTP service to other devices in the network."
+    ],
+    "answer": ["D"],
+    "explanation": "The output shows Clock is synchronized, stratum 2. This means Router03 has synchronized its time with a stratum 1 server (the reference at 209.165.200.225) and is now operating as a stratum 2 device itself. As a stratum 2 device, it can serve time to other devices, which would become stratum 3.",
+  "image": "/images/questions/q120.png"
+  },
+  {
+    "number": 121,
+    "question": "When configuring a switch for SSH access, what other command that is associated with the login local command is required to be entered on the switch?",
+    "options": ["login block-for seconds attempts number within seconds","password password","enable secret password","username [username] secret [secret]"],
+    "answer": ["D"],
+    "explanation": "The command login local on the VTY lines tells the switch to use its local database of usernames and passwords for authentication. Therefore, at least one user account must be created in that local database using the username [name] secret [password] command in global configuration mode.",
+    "image": null
+  }
+]
