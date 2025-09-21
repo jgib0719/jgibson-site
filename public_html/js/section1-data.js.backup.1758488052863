@@ -554,9 +554,9 @@ const SECTION1_DATA = {
                                     <text x="200" y="20" text-anchor="middle" font-size="8" font-family="monospace">Fa</text>
                                     <path d="M65 25 L 65 35 L 50 45" stroke="#64748b" fill="none"/>
                                     <path d="M135 25 L 135 35 L 150 45" stroke="#64748b" fill="none"/>
-                                    <text x="-254" y="52" text-anchor="middle" font-size="8" font-family="monospace">Fa</text>
-                                    <text x="657" y="52" text-anchor="middle" font-size="8" font-family="monospace">Fa</text>
-                                    <rect x="60" y="45" width="280" height="106" fill="#166534" rx="2"/>
+                                    <text x="-205" y="52" text-anchor="middle" font-size="8" font-family="monospace">Fa</text>
+                                    <text x="608" y="52" text-anchor="middle" font-size="8" font-family="monospace">Fa</text>
+                                    <rect x="75" y="45" width="250" height="95" fill="#166534" rx="2"/>
                                     <text x="200" y="55" text-anchor="middle" font-size="8" fill="#6ee7b7">Fa</text>
                                     <text x="200" y="80" text-anchor="middle" font-size="8" font-family="monospace">Fa</text>
                                 </svg>`
