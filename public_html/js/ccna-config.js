@@ -12,11 +12,11 @@ const CCNAConfig = {
         // Visual area configuration  
         visualAreaClasses: "w-full flex-shrink-0 flex items-center justify-center p-6",
         
-        // SVG container classes
-        svgContainerClasses: "w-full",
+        // SVG container classes - FORCED STYLING
+        svgContainerClasses: "w-full flex items-center justify-center",
         
-        // SVG element classes
-        svgClasses: "w-full h-auto max-w-xl",
+        // SVG element classes - FORCED STYLING
+        svgClasses: "w-full h-auto max-w-xl block mx-auto",
         
         // Modal overlay classes
         overlayClasses: "fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0 z-50",
@@ -466,6 +466,23 @@ const CCNAConfig = {
                 font-size: ${this.styles.studied.after.fontSize};
                 z-index: ${this.styles.studied.after.zIndex};
             }
+            
+            /* FORCE SVG STYLING - OVERRIDE EVERYTHING */
+            #modalSvg {
+                width: 100% !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                min-height: 200px !important;
+            }
+            
+            #modalSvg svg {
+                width: 100% !important;
+                height: auto !important;
+                max-width: 36rem !important;
+                display: block !important;
+                margin: 0 auto !important;
+            }
         `;
         
         // Remove any existing embedded styles
@@ -542,9 +559,20 @@ const CCNAConfig = {
         const modalSvg = document.getElementById('modalSvg');
         if (modalSvg) {
             const svgElements = modalSvg.querySelectorAll('svg');
-            svgElements.forEach(svg => {
+            console.log('Found', svgElements.length, 'SVG elements to style');
+            svgElements.forEach((svg, index) => {
+                console.log('Styling SVG', index, svg);
+                // Clear any existing classes and apply our styling
                 svg.className = this.modal.svgClasses;
+                // Force explicit styling as backup
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '36rem'; // max-w-xl equivalent
+                svg.style.display = 'block';
+                svg.style.margin = '0 auto';
             });
+        } else {
+            console.log('modalSvg container not found');
         }
     },
     

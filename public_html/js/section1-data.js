@@ -57,30 +57,17 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>NGFW protecting a LAN from the Internet</title>
-                                    <!-- LAN cloud - scaled up -->
                                     <ellipse cx="60" cy="100" rx="40" ry="30" fill="#4a4a0f" stroke="#eab308" stroke-width="2"/>
                                     <text x="60" y="108" text-anchor="middle" font-size="16" font-family="Rajdhani, sans-serif" fill="#eab308" font-weight="bold">LAN</text>
-                                    
-                                    <!-- Connection line -->
-                                    <line x1="100" y1="100" x2="140" y2="100" stroke="#64748b" stroke-width="3"/>
-                                    
-                                    <!-- NGFW firewall - scaled up -->
+                                    <line x1="100" y1="100" x2="140" y2="100" stroke="#64748b" stroke-width="3"/>                                    
                                     <rect x="140" y="70" width="60" height="60" rx="8" fill="#9a3412" stroke="#f97316" stroke-width="3"/>
                                     <text x="170" y="108" text-anchor="middle" font-size="16" fill="white" font-family="Rajdhani, sans-serif" font-weight="bold">NGFW</text>
-                                    
-                                    <!-- Connection line -->
-                                    <line x1="200" y1="100" x2="240" y2="100" stroke="#64748b" stroke-width="3"/>
-                                    
-                                    <!-- IPS system - scaled up -->
+                                    <line x1="200" y1="100" x2="240" y2="100" stroke="#64748b" stroke-width="3"/>                                    
                                     <rect x="240" y="75" width="80" height="50" rx="8" fill="#14532d" stroke="#4ade80" stroke-width="3"/>
                                     <text x="280" y="108" text-anchor="middle" font-size="16" font-family="Rajdhani, sans-serif" fill="#bbf7d0" font-weight="bold">IPS</text>
-                                    
-                                    <!-- Connection to Internet -->
                                     <line x1="320" y1="100" x2="360" y2="100" stroke="#64748b" stroke-width="3"/>
                                     <circle cx="370" cy="100" r="15" fill="#374151" stroke="#9ca3af" stroke-width="2"/>
                                     <text x="370" y="108" text-anchor="middle" font-size="12" font-family="Rajdhani, sans-serif" fill="#9ca3af">WAN</text>
-                                    
-                                    <!-- Threat blocking visualization -->
                                     <path d="M 110 85 L 125 100 M 125 85 L 110 100" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
                                     <path d="M 210 85 L 225 100 M 225 85 L 210 100" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
                                 </svg>
@@ -93,16 +80,20 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Access Point connecting wireless devices to a wired network</title>
-                                    <rect x="10" y="42.5" width="50" height="15" rx="2" fill="#4f46e5"/>
-                                    <text x="35" y="51.5" text-anchor="middle" font-size="7" fill="#c7d2fe" font-family="Rajdhani, sans-serif">R</text>
-                                    <circle cx="100" cy="50" r="10" fill="#2563eb"/>
-                                    <text x="100" y="53" text-anchor="middle" font-size="8" fill="white" font-family="Rajdhani, sans-serif">R</text>
-                                    <line x1="60" y1="50" x2="90" y2="50" stroke="#64748b" stroke-width="1.5"/>
-                                    <rect x="150" y="20" width="20" height="15" rx="2" fill="#475569"/>
-                                    <rect x="155" y="70" width="10" height="15" rx="2" fill="#475569"/>
-                                    <path d="M 110 50 A 20 20 0 0 1 125 35" stroke="#3b82f6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                                    <path d="M 115 50 A 40 40 0 0 1 150 15" stroke="#3b82f6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                                    <path d="M 110 50 A 30 30 0 0 0 130 75" stroke="#3b82f6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                                    <rect x="60" y="72.5" width="50" height="15" rx="2" fill="#4f46e5"/>
+                                    <text x="85" y="81.5" text-anchor="middle" font-size="10" fill="#c7d2fe" font-family="Rajdhani, sans-serif">Device</text>
+                                    <circle cx="150" cy="80" r="15" fill="#2563eb"/>
+                                    <text x="150" y="85" text-anchor="middle" font-size="12" fill="white" font-family="Rajdhani, sans-serif">AP</text>
+                                    <line x1="110" y1="80" x2="135" y2="80" stroke="#64748b" stroke-width="2"/>
+                                    <rect x="250" y="50" width="30" height="20" rx="3" fill="#475569"/>
+                                    <text x="265" y="63" text-anchor="middle" font-size="8" fill="#94a3b8" font-family="Rajdhani, sans-serif">Device</text>
+                                    <rect x="250" y="120" width="30" height="20" rx="3" fill="#475569"/>
+                                    <text x="265" y="133" text-anchor="middle" font-size="8" fill="#94a3b8" font-family="Rajdhani, sans-serif">Device</text>
+                                    <path d="M 165 80 A 25 25 0 0 1 185 55" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linecap="round"/>
+                                    <path d="M 170 80 A 45 45 0 0 1 215 35" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linecap="round"/>
+                                    <path d="M 165 80 A 35 35 0 0 0 190 110" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linecap="round"/>
+                                    <line x1="190" y1="60" x2="250" y2="60" stroke="#64748b" stroke-width="2"/>
+                                    <line x1="190" y1="130" x2="250" y2="130" stroke="#64748b" stroke-width="2"/>
                                 </svg>
                             `
                         },
@@ -113,20 +104,20 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Wireless LAN Controller managing multiple Access Points</title>
-                                    <rect x="10" y="42.5" width="40" height="15" rx="2" fill="#be185d"/>
-                                    <text x="30" y="51.5" text-anchor="middle" font-size="7" fill="white" font-family="Rajdhani, sans-serif">LAN</text>
-                                    <rect x="70" y="30" width="60" height="40" rx="5" fill="#334155"/>
-                                    <text x="100" y="55" text-anchor="middle" font-size="8" fill="#94a3b8" font-family="Rajdhani, sans-serif">R</text>
-                                    <line x1="50" y1="50" x2="70" y2="50" stroke="#64748b" stroke-width="1.5"/>
-                                    <circle cx="150" cy="20" r="8" fill="#2563eb"/>
-                                    <text x="150" y="23" font-size="6" fill="white" text-anchor="middle" font-family="Rajdhani, sans-serif">R</text>
-                                    <circle cx="170" cy="50" r="8" fill="#2563eb"/>
-                                    <text x="170" y="53" font-size="6" fill="white" text-anchor="middle" font-family="Rajdhani, sans-serif">R</text>
-                                    <circle cx="150" cy="80" r="8" fill="#2563eb"/>
-                                    <text x="150" y="83" font-size="6" fill="white" text-anchor="middle" font-family="Rajdhani, sans-serif">R</text>
-                                    <path d="M 50 50 Q 100 -10 150 15" stroke="#db2777" stroke-width="1.5" fill="none" stroke-dasharray="3"/>
-                                    <path d="M 50 50 Q 110 50 162 50" stroke="#db2777" stroke-width="1.5" fill="none" stroke-dasharray="3"/>
-                                    <path d="M 50 50 Q 100 110 150 85" stroke="#db2777" stroke-width="1.5" fill="none" stroke-dasharray="3"/>
+                                    <rect x="140" y="42.5" width="40" height="15" rx="2" fill="#be185d"/>
+                                    <text x="160" y="51.5" text-anchor="middle" font-size="7" fill="white" font-family="Rajdhani, sans-serif">WLC</text>
+                                    <rect x="200" y="30" width="60" height="40" rx="5" fill="#334155"/>
+                                    <text x="230" y="55" text-anchor="middle" font-size="8" fill="#94a3b8" font-family="Rajdhani, sans-serif">Controller</text>
+                                    <line x1="180" y1="50" x2="200" y2="50" stroke="#64748b" stroke-width="1.5"/>
+                                    <circle cx="280" cy="20" r="8" fill="#2563eb"/>
+                                    <text x="280" y="23" font-size="6" fill="white" text-anchor="middle" font-family="Rajdhani, sans-serif">AP</text>
+                                    <circle cx="300" cy="50" r="8" fill="#2563eb"/>
+                                    <text x="300" y="53" font-size="6" fill="white" text-anchor="middle" font-family="Rajdhani, sans-serif">AP</text>
+                                    <circle cx="280" cy="80" r="8" fill="#2563eb"/>
+                                    <text x="280" y="83" font-size="6" fill="white" text-anchor="middle" font-family="Rajdhani, sans-serif">AP</text>
+                                    <path d="M 180 50 Q 230 -10 280 15" stroke="#db2777" stroke-width="1.5" fill="none" stroke-dasharray="3"/>
+                                    <path d="M 180 50 Q 240 50 292 50" stroke="#db2777" stroke-width="1.5" fill="none" stroke-dasharray="3"/>
+                                    <path d="M 180 50 Q 230 110 280 85" stroke="#db2777" stroke-width="1.5" fill="none" stroke-dasharray="3"/>
                                 </svg>
                             `
                         },
@@ -137,16 +128,16 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Various endpoints connecting to a network</title>
-                                    <path d="M 80 50 C 70 30, 130 30, 120 50 C 140 60, 110 80, 100 70 C 90 80, 60 60, 80 50 Z" fill="#334155"/>
-                                    <text x="100" y="55" text-anchor="middle" font-size="8" font-family="Rajdhani, sans-serif" fill="#94a3b8">Fa</text>
-                                    <rect x="30" y="10" width="20" height="15" rx="2" fill="#475569"/>
-                                    <line x1="40" y1="25" x2="85" y2="45" stroke="#64748b" stroke-width="1.5"/>
-                                    <rect x="20" y="70" width="15" height="20" rx="2" fill="#475569"/>
-                                    <line x1="27" y1="70" x2="80" y2="55" stroke="#64748b" stroke-width="1.5"/>
-                                    <rect x="150" y="10" width="20" height="15" rx="2" fill="#475569"/>
-                                    <line x1="160" y1="25" x2="115" y2="45" stroke="#64748b" stroke-width="1.5"/>
-                                    <circle cx="160" cy="80" r="8" fill="#475569"/>
-                                    <line x1="155" y1="75" x2="115" y2="60" stroke="#64748b" stroke-width="1.5"/>
+                                    <path d="M 180 100 C 170 80, 230 80, 220 100 C 240 110, 210 130, 200 120 C 190 130, 160 110, 180 100 Z" fill="#334155"/>
+                                    <text x="200" y="105" text-anchor="middle" font-size="8" font-family="Rajdhani, sans-serif" fill="#94a3b8">Hub</text>
+                                    <rect x="130" y="60" width="20" height="15" rx="2" fill="#475569"/>
+                                    <line x1="140" y1="75" x2="185" y2="95" stroke="#64748b" stroke-width="1.5"/>
+                                    <rect x="120" y="120" width="15" height="20" rx="2" fill="#475569"/>
+                                    <line x1="127" y1="120" x2="180" y2="105" stroke="#64748b" stroke-width="1.5"/>
+                                    <rect x="250" y="60" width="20" height="15" rx="2" fill="#475569"/>
+                                    <line x1="260" y1="75" x2="215" y2="95" stroke="#64748b" stroke-width="1.5"/>
+                                    <circle cx="260" cy="130" r="8" fill="#475569"/>
+                                    <line x1="255" y1="125" x2="215" y2="110" stroke="#64748b" stroke-width="1.5"/>
                                 </svg>
                             `
                         },
@@ -157,19 +148,19 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Client-Server network model</title>
-                                    <rect x="85" y="10" width="30" height="35" rx="3" fill="#15803d" stroke="#34d399"/>
-                                    <text x="100" y="32" text-anchor="middle" font-size="8" font-family="Rajdhani, sans-serif" fill="#d1fae5">Fa</text>
-                                    <line x1="100" y1="45" x2="100" y2="55" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="20" y1="55" x2="180" y2="55" stroke="#64748b" stroke-width="1.5"/>
-                                    <rect x="30" y="65" width="20" height="15" rx="2" fill="#475569"/>
-                                    <text x="40" y="86" font-size="6" font-family="Rajdhani, sans-serif" text-anchor="middle">Fa</text>
-                                    <line x1="40" y1="65" x2="40" y2="55" stroke="#64748b" stroke-width="1.5"/>
-                                    <rect x="90" y="65" width="20" height="15" rx="2" fill="#475569"/>
-                                    <text x="100" y="86" font-size="6" font-family="Rajdhani, sans-serif" text-anchor="middle">Fa</text>
-                                    <line x1="100" y1="65" x2="100" y2="55" stroke="#64748b" stroke-width="1.5"/>
-                                    <rect x="150" y="65" width="20" height="15" rx="2" fill="#475569"/>
-                                    <text x="160" y="86" font-size="6" font-family="Rajdhani, sans-serif" text-anchor="middle">Fa</text>
-                                    <line x1="160" y1="65" x2="160" y2="55" stroke="#64748b" stroke-width="1.5"/>
+                                    <rect x="185" y="10" width="30" height="35" rx="3" fill="#15803d" stroke="#34d399"/>
+                                    <text x="200" y="32" text-anchor="middle" font-size="8" font-family="Rajdhani, sans-serif" fill="#d1fae5">Server</text>
+                                    <line x1="200" y1="45" x2="200" y2="55" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="120" y1="55" x2="280" y2="55" stroke="#64748b" stroke-width="1.5"/>
+                                    <rect x="130" y="65" width="20" height="15" rx="2" fill="#475569"/>
+                                    <text x="140" y="86" font-size="6" font-family="Rajdhani, sans-serif" text-anchor="middle">PC</text>
+                                    <line x1="140" y1="65" x2="140" y2="55" stroke="#64748b" stroke-width="1.5"/>
+                                    <rect x="190" y="65" width="20" height="15" rx="2" fill="#475569"/>
+                                    <text x="200" y="86" font-size="6" font-family="Rajdhani, sans-serif" text-anchor="middle">PC</text>
+                                    <line x1="200" y1="65" x2="200" y2="55" stroke="#64748b" stroke-width="1.5"/>
+                                    <rect x="250" y="65" width="20" height="15" rx="2" fill="#475569"/>
+                                    <text x="260" y="86" font-size="6" font-family="Rajdhani, sans-serif" text-anchor="middle">PC</text>
+                                    <line x1="260" y1="65" x2="260" y2="55" stroke="#64748b" stroke-width="1.5"/>
                                 </svg>
                             `
                         },
@@ -180,15 +171,15 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>PoE switch providing power and data</title>
-                                    <rect x="75" y="10" width="50" height="20" rx="2" fill="#5b21b6"/>
-                                    <text x="100" y="23" text-anchor="middle" font-size="7" font-family="Rajdhani, sans-serif" fill="#ddd6fe">SW</text>
-                                    <rect x="20" y="70" width="25" height="18" rx="2" fill="#475569"/>
-                                    <text x="32.5" y="93" text-anchor="middle" font-size="7" font-family="Rajdhani, sans-serif">Fa</text>
-                                    <path d="M 85 30 V 50 H 45 V 70" stroke="#64748b" stroke-width="1.5" fill="none"/>
-                                    <rect x="155" y="70" width="25" height="18" rx="2" fill="#475569"/>
-                                    <text x="167.5" y="93" text-anchor="middle" font-size="6" font-family="Rajdhani, sans-serif">Fa</text>
-                                    <path d="M 115 30 V 50 H 155 V 70" stroke="#64748b" stroke-width="1.5" fill="none"/>
-                                    <path d="M 130 40 L 127 47 L 133 47 L 130 54" stroke="#facc15" fill="#facc15" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+                                    <rect x="175" y="10" width="50" height="20" rx="2" fill="#5b21b6"/>
+                                    <text x="200" y="23" text-anchor="middle" font-size="7" font-family="Rajdhani, sans-serif" fill="#ddd6fe">PoE Switch</text>
+                                    <rect x="120" y="70" width="25" height="18" rx="2" fill="475569"/>
+                                    <text x="132.5" y="93" text-anchor="middle" font-size="7" font-family="Rajdhani, sans-serif">AP</text>
+                                    <path d="M 185 30 V 50 H 145 V 70" stroke="#64748b" stroke-width="1.5" fill="none"/>
+                                    <rect x="255" y="70" width="25" height="18" rx="2" fill="#475569"/>
+                                    <text x="267.5" y="93" text-anchor="middle" font-size="6" font-family="Rajdhani, sans-serif">Camera</text>
+                                    <path d="M 215 30 V 50 H 255 V 70" stroke="#64748b" stroke-width="1.5" fill="none"/>
+                                    <path d="M 230 40 L 227 47 L 233 47 L 230 54" stroke="#facc15" fill="#facc15" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
                                 </svg>
                             `
                         },
@@ -203,14 +194,14 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Two-Tier Architecture</title>
-                                    <rect x="60" y="15" width="80" height="20" rx="3" fill="#818cf8"/>
-                                    <text x="100" y="28" text-anchor="middle" font-size="8" fill="white" font-family="Rajdhani, sans-serif">Fa</text>
-                                    <rect x="20" y="70" width="50" height="15" rx="2" fill="#a5b4fc"/>
-                                    <text x="45" y="79" text-anchor="middle" font-size="7" fill="#3730a3" font-family="Rajdhani, sans-serif">Fa</text>
-                                    <rect x="130" y="70" width="50" height="15" rx="2" fill="#a5b4fc"/>
-                                    <text x="155" y="79" text-anchor="middle" font-size="7" fill="#3730a3" font-family="Rajdhani, sans-serif">Fa</text>
-                                    <path d="M 45 70 V 50 C 45 40, 80 40, 80 35" stroke="#64748b" stroke-width="1.5" fill="none"/>
-                                    <path d="M 155 70 V 50 C 155 40, 120 40, 120 35" stroke="#64748b" stroke-width="1.5" fill="none"/>
+                                    <rect x="160" y="15" width="80" height="20" rx="3" fill="#818cf8"/>
+                                    <text x="200" y="28" text-anchor="middle" font-size="8" fill="white" font-family="Rajdhani, sans-serif">Core/Distribution</text>
+                                    <rect x="120" y="70" width="50" height="15" rx="2" fill="#a5b4fc"/>
+                                    <text x="145" y="79" text-anchor="middle" font-size="7" fill="#3730a3" font-family="Rajdhani, sans-serif">Access</text>
+                                    <rect x="230" y="70" width="50" height="15" rx="2" fill="#a5b4fc"/>
+                                    <text x="255" y="79" text-anchor="middle" font-size="7" fill="#3730a3" font-family="Rajdhani, sans-serif">Access</text>
+                                    <path d="M 145 70 V 50 C 145 40, 180 40, 180 35" stroke="#64748b" stroke-width="1.5" fill="none"/>
+                                    <path d="M 255 70 V 50 C 255 40, 220 40, 220 35" stroke="#64748b" stroke-width="1.5" fill="none"/>
                                 </svg>
                             `
                         },
@@ -221,20 +212,20 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Three-Tier Architecture</title>
-                                    <rect x="80" y="5" width="40" height="15" rx="2" fill="#6366f1"/>
-                                    <text x="100" y="14" text-anchor="middle" font-size="7" fill="white">Label</text>
-                                    <rect x="30" y="40" width="50" height="15" rx="2" fill="#818cf8"/>
-                                    <text x="55" y="49" text-anchor="middle" font-size="7" fill="white">Label</text>
-                                    <rect x="120" y="40" width="50" height="15" rx="2" fill="#818cf8"/>
-                                    <text x="145" y="49" text-anchor="middle" font-size="7" fill="white">Label</text>
-                                    <rect x="5" y="80" width="40" height="15" rx="2" fill="#a5b4fc"/>
-                                    <text x="25" y="89" text-anchor="middle" font-size="7" fill="#3730a3">Label</text>
-                                    <rect x="55" y="80" width="40" height="15" rx="2" fill="#a5b4fc"/>
-                                    <text x="75" y="89" text-anchor="middle" font-size="7" fill="#3730a3">Label</text>
-                                    <line x1="100" y1="20" x2="55" y2="40" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="100" y1="20" x2="145" y2="40" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="55" y1="55" x2="25" y2="80" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="55" y1="55" x2="75" y2="80" stroke="#64748b" stroke-width="1.5"/>
+                                    <rect x="180" y="5" width="40" height="15" rx="2" fill="#6366f1"/>
+                                    <text x="200" y="14" text-anchor="middle" font-size="7" fill="white">Core</text>
+                                    <rect x="130" y="40" width="50" height="15" rx="2" fill="#818cf8"/>
+                                    <text x="155" y="49" text-anchor="middle" font-size="7" fill="white">Distribution</text>
+                                    <rect x="220" y="40" width="50" height="15" rx="2" fill="#818cf8"/>
+                                    <text x="245" y="49" text-anchor="middle" font-size="7" fill="white">Distribution</text>
+                                    <rect x="105" y="80" width="40" height="15" rx="2" fill="#a5b4fc"/>
+                                    <text x="125" y="89" text-anchor="middle" font-size="7" fill="#3730a3">Access</text>
+                                    <rect x="155" y="80" width="40" height="15" rx="2" fill="#a5b4fc"/>
+                                    <text x="175" y="89" text-anchor="middle" font-size="7" fill="#3730a3">Access</text>
+                                    <line x1="200" y1="20" x2="155" y2="40" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="200" y1="20" x2="245" y2="40" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="155" y1="55" x2="125" y2="80" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="155" y1="55" x2="175" y2="80" stroke="#64748b" stroke-width="1.5"/>
                                 </svg>
                             `
                         },
@@ -245,22 +236,22 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Spine-Leaf Architecture</title>
-                                    <rect x="30" y="15" width="40" height="15" rx="2" fill="#166534"/>
-                                    <text x="50" y="24" text-anchor="middle" font-size="7" fill="white">Label</text>
                                     <rect x="130" y="15" width="40" height="15" rx="2" fill="#166534"/>
-                                    <text x="150" y="24" text-anchor="middle" font-size="7" fill="white">Label</text>
-                                    <rect x="10" y="75" width="40" height="15" rx="2" fill="#34d399"/>
-                                    <text x="30" y="84" text-anchor="middle" font-size="7" fill="#065f46">Label</text>
-                                    <rect x="80" y="75" width="40" height="15" rx="2" fill="#34d399"/>
-                                    <text x="100" y="84" text-anchor="middle" font-size="7" fill="#065f46">Label</text>
-                                    <rect x="150" y="75" width="40" height="15" rx="2" fill="#34d399"/>
-                                    <text x="170" y="84" text-anchor="middle" font-size="7" fill="#065f46">Label</text>
-                                    <line x1="30" y1="75" x2="50" y2="30" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="30" y1="75" x2="150" y2="30" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="100" y1="75" x2="50" y2="30" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="100" y1="75" x2="150" y2="30" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="170" y1="75" x2="50" y2="30" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="170" y1="75" x2="150" y2="30" stroke="#64748b" stroke-width="1.5"/>
+                                    <text x="150" y="24" text-anchor="middle" font-size="7" fill="white">Spine</text>
+                                    <rect x="230" y="15" width="40" height="15" rx="2" fill="#166534"/>
+                                    <text x="250" y="24" text-anchor="middle" font-size="7" fill="white">Spine</text>
+                                    <rect x="110" y="75" width="40" height="15" rx="2" fill="#34d399"/>
+                                    <text x="130" y="84" text-anchor="middle" font-size="7" fill="#065f46">Leaf</text>
+                                    <rect x="180" y="75" width="40" height="15" rx="2" fill="#34d399"/>
+                                    <text x="200" y="84" text-anchor="middle" font-size="7" fill="#065f46">Leaf</text>
+                                    <rect x="250" y="75" width="40" height="15" rx="2" fill="#34d399"/>
+                                    <text x="270" y="84" text-anchor="middle" font-size="7" fill="#065f46">Leaf</text>
+                                    <line x1="130" y1="75" x2="150" y2="30" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="130" y1="75" x2="250" y2="30" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="200" y1="75" x2="150" y2="30" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="200" y1="75" x2="250" y2="30" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="270" y1="75" x2="150" y2="30" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="270" y1="75" x2="250" y2="30" stroke="#64748b" stroke-width="1.5"/>
                                 </svg>
                             `
                         },
@@ -271,14 +262,14 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>WAN connecting two sites</title>
-                                    <rect x="10" y="30" width="50" height="40" rx="5" fill="#334155"/>
-                                    <text x="35" y="55" text-anchor="middle" font-size="8" fill="#94a3b8">Port</text>
-                                    <rect x="140" y="30" width="50" height="40" rx="5" fill="#334155"/>
-                                    <text x="165" y="55" text-anchor="middle" font-size="8" fill="#94a3b8">Port</text>
-                                    <path d="M 80 50 C 70 30, 130 30, 120 50 C 140 60, 110 80, 100 70 C 90 80, 60 60, 80 50 Z" fill="#581c87" stroke="#a855f7"/>
-                                    <text x="100" y="55" text-anchor="middle" font-size="8" fill="#e9d5ff">Port</text>
-                                    <line x1="60" y1="50" x2="82" y2="50" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="118" y1="50" x2="140" y2="50" stroke="#64748b" stroke-width="1.5"/>
+                                    <rect x="110" y="30" width="50" height="40" rx="5" fill="#334155"/>
+                                    <text x="135" y="55" text-anchor="middle" font-size="8" fill="#94a3b8">Site A</text>
+                                    <rect x="240" y="30" width="50" height="40" rx="5" fill="#334155"/>
+                                    <text x="265" y="55" text-anchor="middle" font-size="8" fill="#94a3b8">Site B</text>
+                                    <path d="M 180 50 C 170 30, 230 30, 220 50 C 240 60, 210 80, 200 70 C 190 80, 160 60, 180 50 Z" fill="#581c87" stroke="#a855f7"/>
+                                    <text x="200" y="55" text-anchor="middle" font-size="8" fill="#e9d5ff">WAN</text>
+                                    <line x1="160" y1="50" x2="182" y2="50" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="218" y1="50" x2="240" y2="50" stroke="#64748b" stroke-width="1.5"/>
                                 </svg>
                             `
                         },
@@ -289,15 +280,15 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>SOHO Network</title>
-                                    <path d="M 20 50 C 10 30, 50 30, 40 50 C 60 60, 30 80, 20 70 C 10 80, -10 60, 20 50 Z" fill="#4a4a0f"/>
-                                    <text x="30" y="55" text-anchor="middle" font-size="8" font-family="Rajdhani, sans-serif">Fa</text>
-                                    <rect x="70" y="40" width="50" height="20" rx="3" fill="#991b1b"/>
-                                    <text x="95" y="53" text-anchor="middle" font-size="7" fill="#fecaca">Fa</text>
-                                    <line x1="45" y1="50" x2="70" y2="50" stroke="#64748b" stroke-width="1.5"/>
-                                    <rect x="150" y="20" width="20" height="15" rx="2" fill="#475569"/>
-                                    <rect x="150" y="70" width="20" height="15" rx="2" fill="#475569"/>
-                                    <line x1="120" y1="50" x2="150" y2="27.5" stroke="#64748b" stroke-width="1.5"/>
-                                    <line x1="120" y1="50" x2="150" y2="77.5" stroke="#64748b" stroke-width="1.5"/>
+                                    <path d="M 120 50 C 110 30, 150 30, 140 50 C 160 60, 130 80, 120 70 C 110 80, 90 60, 120 50 Z" fill="#4a4a0f"/>
+                                    <text x="130" y="55" text-anchor="middle" font-size="8" font-family="Rajdhani, sans-serif">ISP</text>
+                                    <rect x="170" y="40" width="50" height="20" rx="3" fill="#991b1b"/>
+                                    <text x="195" y="53" text-anchor="middle" font-size="7" fill="#fecaca">Gateway</text>
+                                    <line x1="145" y1="50" x2="170" y2="50" stroke="#64748b" stroke-width="1.5"/>
+                                    <rect x="250" y="20" width="20" height="15" rx="2" fill="#475569"/>
+                                    <rect x="250" y="70" width="20" height="15" rx="2" fill="#475569"/>
+                                    <line x1="220" y1="50" x2="250" y2="27.5" stroke="#64748b" stroke-width="1.5"/>
+                                    <line x1="220" y1="50" x2="250" y2="77.5" stroke="#64748b" stroke-width="1.5"/>
                                 </svg>
                             `
                         },
@@ -308,15 +299,15 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>On-Premises vs Cloud</title>
-                                    <rect x="10" y="25" width="60" height="50" rx="3" fill="#334155"/>
-                                    <path d="M 15 25 L 40 10 L 65 25" stroke="#94a3b8" fill="none" stroke-width="2"/>
-                                    <rect x="35" y="35" width="10" height="30" rx="1" fill="#94a3b8"/>
-                                    <text x="40" y="85" text-anchor="middle" font-size="8" font-family="Rajdhani, sans-serif">Fa</text>
-                                    <path d="M 140 30 C 130 10, 170 10, 160 30 C 180 30, 180 50, 160 50 L 140 50 C 120 50, 120 30, 140 30 Z" fill="#0c4a6e"/>
-                                    <rect x="130" y="70" width="20" height="15" rx="2" fill="#475569"/>
-                                    <line x1="140" y1="70" x2="150" y2="50" stroke="#64748b" stroke-width="1.5"/>
-                                    <text x="150" y="85" text-anchor="middle" font-size="8" font-family="Rajdhani, sans-serif">Fa</text>
-                                    <line x1="95" y1="10" x2="95" y2="90" stroke-dasharray="2" stroke="#475569"/>
+                                    <rect x="110" y="25" width="60" height="50" rx="3" fill="#334155"/>
+                                    <path d="M 115 25 L 140 10 L 165 25" stroke="#94a3b8" fill="none" stroke-width="2"/>
+                                    <rect x="135" y="35" width="10" height="30" rx="1" fill="#94a3b8"/>
+                                    <text x="140" y="85" text-anchor="middle" font-size="8" font-family="Rajdhani, sans-serif">On-Prem</text>
+                                    <path d="M 240 30 C 230 10, 270 10, 260 30 C 280 30, 280 50, 260 50 L 240 50 C 220 50, 220 30, 240 30 Z" fill="#0c4a6e"/>
+                                    <rect x="230" y="70" width="20" height="15" rx="2" fill="#475569"/>
+                                    <line x1="240" y1="70" x2="250" y2="50" stroke="#64748b" stroke-width="1.5"/>
+                                    <text x="250" y="85" text-anchor="middle" font-size="8" font-family="Rajdhani, sans-serif">Cloud</text>
+                                    <line x1="195" y1="10" x2="195" y2="90" stroke-dasharray="2" stroke="#475569"/>
                                 </svg>
                             `
                         },
@@ -331,13 +322,13 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Twisted Pair Copper Cable</title>
-                                    <rect x="20" y="40" width="160" height="20" rx="10" fill="#b45309"/>
-                                    <text x="100" y="53" text-anchor="middle" font-size="8" fill="#fed7aa">Port</text>
-                                    <path d="M 30 25 Q 35 15 40 25 Q 45 35 50 25 Q 55 15 60 25" stroke="#0ea5e9" stroke-width="2" fill="none"/>
-                                    <path d="M 30 75 Q 35 85 40 75 Q 45 65 50 75 Q 55 85 60 75" stroke="#10b981" stroke-width="2" fill="none"/>
-                                    <path d="M 140 25 Q 145 15 150 25 Q 155 35 160 25 Q 165 15 170 25" stroke="#f59e0b" stroke-width="2" fill="none"/>
-                                    <path d="M 140 75 Q 145 85 150 75 Q 155 65 160 75 Q 165 85 170 75" stroke="#ef4444" stroke-width="2" fill="none"/>
-                                    <text x="100" y="90" text-anchor="middle" font-size="7" fill="#92400e">Label</text>
+                                    <rect x="120" y="40" width="160" height="20" rx="10" fill="#b45309"/>
+                                    <text x="200" y="53" text-anchor="middle" font-size="8" fill="#fed7aa">Cat6 Cable</text>
+                                    <path d="M 130 25 Q 135 15 140 25 Q 145 35 150 25 Q 155 15 160 25" stroke="#0ea5e9" stroke-width="2" fill="none"/>
+                                    <path d="M 130 75 Q 135 85 140 75 Q 145 65 150 75 Q 155 85 160 75" stroke="#10b981" stroke-width="2" fill="none"/>
+                                    <path d="M 240 25 Q 245 15 250 25 Q 255 35 260 25 Q 265 15 270 25" stroke="#f59e0b" stroke-width="2" fill="none"/>
+                                    <path d="M 240 75 Q 245 85 250 75 Q 255 65 260 75 Q 265 85 270 75" stroke="#ef4444" stroke-width="2" fill="none"/>
+                                    <text x="200" y="90" text-anchor="middle" font-size="7" fill="#92400e">Twisted Pairs</text>
                                 </svg>
                             `
                         },
@@ -348,12 +339,12 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Single Mode Fiber</title>
-                                    <rect x="20" y="45" width="160" height="10" rx="5" fill="#fbbf24"/>
-                                    <circle cx="15" cy="50" r="8" fill="#0ea5e9"/>
-                                    <circle cx="185" cy="50" r="8" fill="#0ea5e9"/>
-                                    <path d="M 23 50 L 177 50" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)"/>
-                                    <text x="100" y="35" text-anchor="middle" font-size="8" fill="#0ea5e9">Port</text>
-                                    <text x="100" y="75" text-anchor="middle" font-size="7" fill="#0ea5e9">Label</text>
+                                    <rect x="120" y="45" width="160" height="10" rx="5" fill="#fbbf24"/>
+                                    <circle cx="115" cy="50" r="8" fill="#0ea5e9"/>
+                                    <circle cx="285" cy="50" r="8" fill="#0ea5e9"/>
+                                    <path d="M 123 50 L 277 50" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)"/>
+                                    <text x="200" y="35" text-anchor="middle" font-size="8" fill="#0ea5e9">Single Mode</text>
+                                    <text x="200" y="75" text-anchor="middle" font-size="7" fill="#0ea5e9">9/125 μm</text>
                                     <defs>
                                     <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
                                     <polygon points="0,0 0,6 6,3" fill="#ef4444"/>
@@ -392,17 +383,17 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Cable Categories</title>
-                                    <rect x="10" y="20" width="50" height="15" rx="2" fill="#10b981"/>
-                                    <text x="35" y="30" text-anchor="middle" font-size="8" fill="white">Port</text>
-                                    <text x="35" y="45" text-anchor="middle" font-size="7" fill="#10b981">Label</text>
-                                    <rect x="75" y="20" width="50" height="15" rx="2" fill="#3b82f6"/>
-                                    <text x="100" y="30" text-anchor="middle" font-size="8" fill="white">Port</text>
-                                    <text x="100" y="45" text-anchor="middle" font-size="7" fill="#3b82f6">Label</text>
-                                    <rect x="140" y="20" width="50" height="15" rx="2" fill="#8b5cf6"/>
-                                    <text x="165" y="30" text-anchor="middle" font-size="8" fill="white">Port</text>
-                                    <text x="165" y="45" text-anchor="middle" font-size="7" fill="#8b5cf6">Label</text>
-                                    <rect x="50" y="65" width="100" height="20" rx="3" fill="#ef4444"/>
-                                    <text x="100" y="78" text-anchor="middle" font-size="8" fill="white">Port</text>
+                                    <rect x="110" y="20" width="50" height="15" rx="2" fill="#10b981"/>
+                                    <text x="135" y="30" text-anchor="middle" font-size="8" fill="white">Cat5e</text>
+                                    <text x="135" y="45" text-anchor="middle" font-size="7" fill="#10b981">1 Gbps</text>
+                                    <rect x="175" y="20" width="50" height="15" rx="2" fill="#3b82f6"/>
+                                    <text x="200" y="30" text-anchor="middle" font-size="8" fill="white">Cat6</text>
+                                    <text x="200" y="45" text-anchor="middle" font-size="7" fill="#3b82f6">10 Gbps</text>
+                                    <rect x="240" y="20" width="50" height="15" rx="2" fill="#8b5cf6"/>
+                                    <text x="265" y="30" text-anchor="middle" font-size="8" fill="white">Cat6a</text>
+                                    <text x="265" y="45" text-anchor="middle" font-size="7" fill="#8b5cf6">10 Gbps+</text>
+                                    <rect x="150" y="65" width="100" height="20" rx="3" fill="#ef4444"/>
+                                    <text x="200" y="78" text-anchor="middle" font-size="8" fill="white">Limitations by Distance</text>
                                 </svg>
                             `
                         },
@@ -413,15 +404,15 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Network Connectors</title>
-                                    <rect x="30" y="25" width="40" height="20" rx="3" fill="#475569"/>
-                                    <rect x="32" y="30" width="36" height="10" rx="2" fill="#fbbf24"/>
-                                    <text x="50" y="37" text-anchor="middle" font-size="7" fill="#1e293b">Label</text>
-                                    <text x="50" y="55" text-anchor="middle" font-size="7" fill="#475569">Label</text>
-                                    <rect x="130" y="25" width="25" height="20" rx="3" fill="#475569"/>
-                                    <rect x="132" y="30" width="21" height="10" rx="5" fill="#0ea5e9"/>
-                                    <text x="142.5" y="37" text-anchor="middle" font-size="7" fill="white">Label</text>
-                                    <text x="142.5" y="55" text-anchor="middle" font-size="7" fill="#475569">Label</text>
-                                    <line x1="75" y1="35" x2="125" y2="35" stroke="#64748b" stroke-width="1.5"/>
+                                    <rect x="130" y="25" width="40" height="20" rx="3" fill="#475569"/>
+                                    <rect x="132" y="30" width="36" height="10" rx="2" fill="#fbbf24"/>
+                                    <text x="150" y="37" text-anchor="middle" font-size="7" fill="#1e293b">RJ45</text>
+                                    <text x="150" y="55" text-anchor="middle" font-size="7" fill="#475569">Copper</text>
+                                    <rect x="230" y="25" width="25" height="20" rx="3" fill="#475569"/>
+                                    <rect x="232" y="30" width="21" height="10" rx="5" fill="#0ea5e9"/>
+                                    <text x="242.5" y="37" text-anchor="middle" font-size="7" fill="white">LC</text>
+                                    <text x="242.5" y="55" text-anchor="middle" font-size="7" fill="#475569">Fiber</text>
+                                    <line x1="175" y1="35" x2="225" y2="35" stroke="#64748b" stroke-width="1.5"/>
                                 </svg>
                             `
                         },
@@ -432,21 +423,21 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Shared Media vs Point-to-Point</title>
-                                    <text x="50" y="15" text-anchor="middle" font-size="8" font-weight="bold">Port</text>
-                                    <circle cx="50" cy="35" r="10" fill="#dc2626"/>
-                                    <text x="50" y="39" text-anchor="middle" font-size="6" fill="white">Label</text>
-                                    <rect x="20" y="55" width="15" height="10" rx="1" fill="#475569"/>
-                                    <rect x="65" y="55" width="15" height="10" rx="1" fill="#475569"/>
-                                    <rect x="35" y="70" width="15" height="10" rx="1" fill="#475569"/>
-                                    <line x1="30" y1="45" x2="27" y2="55" stroke="#64748b"/>
-                                    <line x1="70" y1="45" x2="73" y2="55" stroke="#64748b"/>
-                                    <line x1="50" y1="45" x2="42" y2="70" stroke="#64748b"/>
-                                    <text x="150" y="15" text-anchor="middle" font-size="8" font-weight="bold">Port</text>
-                                    <rect x="125" y="30" width="20" height="15" rx="2" fill="#16a34a"/>
-                                    <text x="135" y="40" text-anchor="middle" font-size="6" fill="white">Label</text>
-                                    <rect x="155" y="30" width="20" height="15" rx="2" fill="#16a34a"/>
-                                    <text x="165" y="40" text-anchor="middle" font-size="6" fill="white">Label</text>
-                                    <line x1="145" y1="37" x2="155" y2="37" stroke="#64748b" stroke-width="2"/>
+                                    <text x="150" y="15" text-anchor="middle" font-size="8" font-weight="bold">Shared Media</text>
+                                    <circle cx="150" cy="35" r="10" fill="#dc2626"/>
+                                    <text x="150" y="39" text-anchor="middle" font-size="6" fill="white">Hub</text>
+                                    <rect x="120" y="55" width="15" height="10" rx="1" fill="#475569"/>
+                                    <rect x="165" y="55" width="15" height="10" rx="1" fill="#475569"/>
+                                    <rect x="135" y="70" width="15" height="10" rx="1" fill="#475569"/>
+                                    <line x1="130" y1="45" x2="127" y2="55" stroke="#64748b"/>
+                                    <line x1="170" y1="45" x2="173" y2="55" stroke="#64748b"/>
+                                    <line x1="150" y1="45" x2="142" y2="70" stroke="#64748b"/>
+                                    <text x="250" y="15" text-anchor="middle" font-size="8" font-weight="bold">Point-to-Point</text>
+                                    <rect x="225" y="30" width="20" height="15" rx="2" fill="#16a34a"/>
+                                    <text x="235" y="40" text-anchor="middle" font-size="6" fill="white">PC</text>
+                                    <rect x="255" y="30" width="20" height="15" rx="2" fill="#16a34a"/>
+                                    <text x="265" y="40" text-anchor="middle" font-size="6" fill="white">SW</text>
+                                    <line x1="245" y1="37" x2="255" y2="37" stroke="#64748b" stroke-width="2"/>
                                 </svg>
                             `
                         },
@@ -461,15 +452,15 @@ const SECTION1_DATA = {
                             visual: `
                                 <svg viewBox="0 0 400 200">
                                     <title>Duplex Mismatch causing errors</title>
-                                    <rect x="10" y="40" width="50" height="20" rx="2" fill="#4f46e5"/>
-                                    <text x="35" y="53" text-anchor="middle" font-size="7">Label</text>
-                                    <text x="35" y="35" text-anchor="middle" font-size="7" fill="#16a34a">Label</text>
-                                    <rect x="140" y="40" width="50" height="20" rx="2" fill="#4f46e5"/>
-                                    <text x="165" y="53" text-anchor="middle" font-size="7">Label</text>
-                                    <text x="165" y="35" text-anchor="middle" font-size="7" fill="#dc2626">Label</text>
-                                    <line x1="60" y1="50" x2="140" y2="50" stroke="#64748b" stroke-width="1.5"/>
-                                    <path d="M 95 40 L 105 60 M 105 40 L 95 60" stroke="#ef4444" stroke-width="2.5"/>
-                                    <text x="100" y="70" text-anchor="middle" font-size="8" fill="#ef4444">Port</text>
+                                    <rect x="110" y="40" width="50" height="20" rx="2" fill="#4f46e5"/>
+                                    <text x="135" y="53" text-anchor="middle" font-size="7">Device A</text>
+                                    <text x="135" y="35" text-anchor="middle" font-size="7" fill="#16a34a">Full Duplex</text>
+                                    <rect x="240" y="40" width="50" height="20" rx="2" fill="#4f46e5"/>
+                                    <text x="265" y="53" text-anchor="middle" font-size="7">Device B</text>
+                                    <text x="265" y="35" text-anchor="middle" font-size="7" fill="#dc2626">Half Duplex</text>
+                                    <line x1="160" y1="50" x2="240" y2="50" stroke="#64748b" stroke-width="1.5"/>
+                                    <path d="M 195 40 L 205 60 M 205 40 L 195 60" stroke="#ef4444" stroke-width="2.5"/>
+                                    <text x="200" y="70" text-anchor="middle" font-size="8" fill="#ef4444">Errors</text>
                                 </svg>
                             `
                         },

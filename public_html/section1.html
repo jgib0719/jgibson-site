@@ -184,6 +184,11 @@
             
             CCNAConfig.openModal(modal, content);
             
+            // Force SVG styling after a delay to ensure content is rendered
+            setTimeout(() => {
+                CCNAConfig.applySvgStyling();
+            }, 100);
+            
             // Update mark completed button
             const markBtn = document.getElementById('markCompleted');
             const isCompleted = progressTracker.isTopicCompleted(topic.title);
