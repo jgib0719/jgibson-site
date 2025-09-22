@@ -88,6 +88,22 @@
                 <button id="markCompleted">
                     Mark as Studied
                 </button>
+                <button id="viewDetails" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white py-3 px-4 rounded-md transition-all duration-200 transform hover:scale-105">
+                    <i class="fas fa-info-circle mr-2"></i>View Details
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Modal -->
+    <div id="detailsModal">
+        <div id="detailsModalContent">
+            <div id="detailsModalMain">
+                <button id="closeDetails">&times;</button>
+                <h2 id="detailsModalTitle"></h2>
+                <div id="detailsModalBody">
+                    <!-- Dynamic details content loads here -->
+                </div>
             </div>
         </div>
     </div>
@@ -95,6 +111,7 @@
     <script src="js/ccna-study-guide-config.js"></script>
     <script src="js/shared-progress.js"></script>
     <script src="js/section6-data.js"></script>
+    <script src="js/section6-details.js"></script>
     <script>
         let progressTracker;
         let currentTopic;
@@ -185,11 +202,49 @@
             }, CCNAConfig.ui.timing.modalCleanup);
         }
 
+        function openDetailsModal(topic, cardElement) {
+            document.getElementById('detailsModalTitle').textContent = topic.title;
+            
+            // Load details content from section6-details.js
+            const detailsContent = CCNAConfig.loadDetailsContent(6, topic.title);
+            document.getElementById('detailsModalBody').innerHTML = detailsContent;
+            
+            const modal = document.getElementById('detailsModal');
+            const content = document.getElementById('detailsModalContent');
+            
+            CCNAConfig.openDetailsModal(modal, content);
+        }
+
+        function closeDetailsModal() {
+            const modal = document.getElementById('detailsModal');
+            const modalContent = document.getElementById('detailsModalContent');
+            
+            CCNAConfig.closeDetailsModal(modal, modalContent);
+        }
+
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('closeModal').addEventListener('click', closeStudyModal);
             document.getElementById('studyModal').addEventListener('click', function(e) {
                 if (e.target === this) closeStudyModal();
+            });
+
+            // View Details button in study modal
+            document.getElementById('viewDetails').addEventListener('click', function() {
+                if (currentTopic) {
+                    // Close study modal first
+                    closeStudyModal();
+                    // Open details modal
+                    setTimeout(() => {
+                        openDetailsModal(currentTopic, currentCardElement);
+                    }, 200);
+                }
+            });
+
+            // Details modal event listeners
+            document.getElementById('closeDetails').addEventListener('click', closeDetailsModal);
+            document.getElementById('detailsModal').addEventListener('click', function(e) {
+                if (e.target === this) closeDetailsModal();
             });
 
             document.getElementById('markCompleted').addEventListener('click', function() {
@@ -210,9 +265,13 @@
             // Add keyboard support
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    const modal = document.getElementById('studyModal');
-                    if (CCNAConfig.isModalVisible(modal)) {
+                    const studyModal = document.getElementById('studyModal');
+                    const detailsModal = document.getElementById('detailsModal');
+                    
+                    if (CCNAConfig.isModalVisible(studyModal)) {
                         closeStudyModal();
+                    } else if (CCNAConfig.isModalVisible(detailsModal)) {
+                        closeDetailsModal();
                     }
                 }
             });

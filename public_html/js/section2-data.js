@@ -47,7 +47,7 @@ const SECTION2_DATA = {
             </svg>`
         },
         {
-            title: "Verifying VLAN Connectivity",
+            title: "Connectivity",
             icon: "fa-check-circle",
             description: "Use `show vlan brief` to see VLAN assignments. To test connectivity, ensure devices in the same VLAN can ping each other, while devices in different VLANs cannot (without a Layer 3 device).",
             visual: `<svg viewBox="0 0 400 200">
@@ -86,7 +86,7 @@ const SECTION2_DATA = {
             </svg>`
         },
         {
-            title: "802.1Q Encapsulation",
+            title: "802.1Q",
             icon: "fa-tag",
             description: "The IEEE 802.1Q standard defines a system of VLAN tagging for Ethernet frames. It inserts a 4-byte tag into the frame header to identify the VLAN the frame belongs to as it traverses trunk links.",
             visual: `<svg viewBox="0 0 400 150">
@@ -122,7 +122,7 @@ const SECTION2_DATA = {
     ],
     discovery: [
         {
-            title: "Cisco Discovery Protocol (CDP)",
+            title: "CDP & LLDP",
             icon: "fa-search-location",
             description: "A Cisco proprietary Layer 2 protocol used to share information about other directly connected Cisco equipment, such as device ID, port ID, and software version. Enabled by default. `show cdp neighbors` is a key verification command.",
             visual: `<svg viewBox="0 0 400 150">
@@ -137,27 +137,12 @@ const SECTION2_DATA = {
                 <path d="M 270 80 L 130 80" stroke="#94a3b8" fill="none" marker-end="url(#arrow)"/>
                 <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker></defs>
             </svg>`
-        },
-        {
-            title: "Link Layer Discovery Protocol (LLDP)",
-            icon: "fa-sitemap",
-            description: "An industry-standard (IEEE 802.1AB) neighbor discovery protocol, similar to CDP but vendor-neutral. It allows network devices to advertise their identity and capabilities to neighboring devices.",
-            visual: `<svg viewBox="0 0 400 150">
-                <title>LLDP between different vendors</title>
-                <!-- Cisco Switch -->
-                <rect x="50" y="55" width="80" height="40" rx="5" fill="#334155"/><text x="90" y="80" fill="white" font-size="10">Cisco SW</text>
-                <!-- Juniper Router -->
-                <circle cx="270" cy="75" r="30" fill="#10b981"/><text x="270" y="80" fill="white" font-size="10">Juniper R</text>
-                <!-- LLDP Arrows -->
-                <text x="190" y="50" text-anchor="middle" font-size="12" fill="#94a3b8">LLDP (Vendor-Neutral)</text>
-                <path d="M 135 70 L 235 70" stroke="#94a3b8" fill="none" marker-end="url(#arrow)"/>
-                <path d="M 235 80 L 135 80" stroke="#94a3b8" fill="none" marker-end="url(#arrow)"/>
-            </svg>`
         }
     ],
+    
     etherchannel: [
         {
-            title: "LACP EtherChannel",
+            title: "LACP Configuration",
             icon: "fa-link",
             description: "Link Aggregation Control Protocol (LACP) is an IEEE standard (802.3ad) used to bundle multiple physical ports into a single logical channel (EtherChannel). This increases bandwidth and provides redundancy.",
             visual: `<svg viewBox="0 0 400 200">
@@ -175,7 +160,7 @@ const SECTION2_DATA = {
     ],
     spanningTree: [
         {
-            title: "STP: Root Bridge & Port Roles",
+            title: "Rapid PVST+",
             icon: "fa-tree",
             description: "STP elects a single Root Bridge per broadcast domain. All other switches determine the best path to the root. Ports are assigned roles: Root Port (best path to root), Designated Port (forwards traffic onto a segment), and Blocking Port (prevents loops).",
             visual: `<svg viewBox="0 0 400 200">
@@ -188,44 +173,11 @@ const SECTION2_DATA = {
                 <line x1="100" y1="165" x2="300" y2="165" stroke="#f87171" stroke-width="2"/><text x="200" y="180" font-size="9" fill="#f87171">Blocking</text>
                 <text x="180" y="15" font-size="10" fill="#e2e8f0">RP=Root Port</text>
             </svg>`
-        },
-        {
-            title: "STP Port States",
-            icon: "fa-traffic-light",
-            description: "Ports in STP transition through several states: Disabled, Blocking (won't forward frames to prevent loops), Listening, Learning (populates MAC address table), and Forwarding (sends and receives data).",
-            visual: `<svg viewBox="0 0 400 200">
-                <title>STP Port States</title>
-                <text x="200" y="25" text-anchor="middle" font-size="14" fill="#e2e8f0">Port State Transitions</text>
-                <circle cx="80" cy="60" r="20" fill="#f87171"/><text x="80" y="65" font-size="10" fill="white" text-anchor="middle">Block</text>
-                <circle cx="160" cy="100" r="20" fill="#f59e0b"/><text x="160" y="105" font-size="10" fill="white" text-anchor="middle">Listen</text>
-                <circle cx="240" cy="140" r="20" fill="#3b82f6"/><text x="240" y="145" font-size="10" fill="white" text-anchor="middle">Learn</text>
-                <circle cx="320" cy="180" r="20" fill="#10b981"/><text x="320" y="185" font-size="10" fill="white" text-anchor="middle">Forward</text>
-                <path d="M 98 72 L 142 88" stroke="#94a3b8" marker-end="url(#arrow)"/>
-                <path d="M 178 112 L 222 128" stroke="#94a3b8" marker-end="url(#arrow)"/>
-                <path d="M 258 152 L 302 168" stroke="#94a3b8" marker-end="url(#arrow)"/>
-            </svg>`
-        },
-        {
-            title: "PortFast",
-            icon: "fa-fast-forward",
-            description: "A Cisco feature that immediately brings an access port into the STP forwarding state, bypassing the Listening and Learning states. This allows clients to connect to the network quickly. It should only be used on ports connected to end devices.",
-            visual: `<svg viewBox="0 0 400 200">
-                <title>PortFast Benefit</title>
-                <text x="200" y="40" font-size="12" fill="#e2e8f0" text-anchor="middle">Without PortFast (30-50s)</text>
-                <rect x="50" y="60" width="80" height="20" fill="#f87171"/><text x="90" y="74" font-size="10" fill="white">Blocking</text>
-                <rect x="130" y="60" width="80" height="20" fill="#f59e0b"/><text x="170" y="74" font-size="10" fill="white">Listening</text>
-                <rect x="210" y="60" width="80" height="20" fill="#3b82f6"/><text x="250" y="74" font-size="10" fill="white">Learning</text>
-                <rect x="290" y="60" width="80" height="20" fill="#10b981"/><text x="330" y="74" font-size="10" fill="white">Forwarding</text>
-                
-                <text x="200" y="130" font-size="12" fill="#e2e8f0" text-anchor="middle">With PortFast (Instant)</text>
-                <rect x="50" y="150" width="320" height="20" fill="#10b981"/>
-                <text x="210" y="164" font-size="10" fill="white">Straight to Forwarding</text>
-            </svg>`
-        },
+        }
     ],
     wireless: [
         {
-            title: "Wireless Architectures & AP Modes",
+            title: "Cisco Wireless Architectures",
             icon: "fa-wifi",
             description: "Architectures include Autonomous APs (standalone) and Controller-based (Lightweight APs managed by a WLC). AP modes include Local (default), FlexConnect (for remote sites), Monitor, and Rogue Detector.",
             visual: `<svg viewBox="0 0 400 200">
@@ -243,7 +195,7 @@ const SECTION2_DATA = {
             </svg>`
         },
         {
-            title: "WLAN Component Connections",
+            title: "WLAN Physical Infrastructure",
             icon: "fa-plug",
             description: "APs connect to switch access ports. Wireless LAN Controllers (WLCs) connect to switch trunk ports to manage APs across multiple VLANs. Link Aggregation (LAG) can bundle multiple ports to connect a WLC for higher throughput and redundancy.",
             visual: `<svg viewBox="0 0 400 200">
@@ -257,7 +209,7 @@ const SECTION2_DATA = {
             </svg>`
         },
         {
-            title: "AP & WLC Management Access",
+            title: "AP & WLC Management",
             icon: "fa-user-cog",
             description: "Management access to APs and WLCs can be achieved through various methods: Telnet (insecure), SSH (secure), HTTP (insecure), HTTPS (secure), a direct console port, and centralized authentication using TACACS+ or RADIUS.",
             visual: `<svg viewBox="0 0 400 150">
@@ -271,7 +223,7 @@ const SECTION2_DATA = {
             </svg>`
         },
         {
-            title: "GUI WLAN Configuration",
+            title: "WLAN GUI Configuration",
             icon: "fa-sliders-h",
             description: "Wireless LANs are typically configured via a GUI on the WLC. Key settings include creating the WLAN (SSID), defining security settings (like WPA2 PSK), and setting QoS profiles to prioritize different types of traffic.",
             visual: `<svg viewBox="0 0 400 200">
@@ -290,17 +242,14 @@ const SECTION2_DATA = {
     metadata: {
         sectionNumber: 2,
         title: "Network Access",
-        totalTopics: 16,
+        totalTopics: 13,
         subsections: {
             vlans: { title: "2.1 VLANs", count: 3 },
             trunks: { title: "2.2 Interswitch Connectivity", count: 3 },
-            discovery: { title: "2.3 Layer 2 Discovery Protocols", count: 2 },
+            discovery: { title: "2.3 Layer 2 Discovery Protocols", count: 1 },
             etherchannel: { title: "2.4 EtherChannel", count: 1 },
-            spanningTree: { title: "2.5 Rapid PVST+", count: 3 },
-            wireless1: { title: "2.6 Wireless Architectures", count: 1 },
-            wireless2: { title: "2.7 WLAN Infrastructure", count: 1 },
-            wireless3: { title: "2.8 Management Access", count: 1 },
-            wireless4: { title: "2.9 GUI Configuration", count: 1 },
+            spanningTree: { title: "2.5 Rapid PVST+", count: 1 },
+            wireless: { title: "2.6-2.9 Wireless", count: 4 }
         }
     }
 };
