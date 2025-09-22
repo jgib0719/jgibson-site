@@ -51,24 +51,25 @@
         </div>
 
         <main>
+            <!-- Sections updated with summarized titles and correct grid IDs -->
             <section>
-                <h2>2.1 Configure and verify VLANs (normal range) spanning multiple switches</h2>
+                <h2>2.1 VLANs</h2>
                 <div id="vlansGrid"></div>
             </section>
             <section>
-                <h2>2.2 Configure and verify interswitch connectivity</h2>
-                <div id="interswitchGrid"></div>
+                <h2>2.2 Interswitch Connectivity</h2>
+                <div id="trunksGrid"></div>
             </section>
             <section>
-                <h2>2.3 Configure and verify Layer 2 discovery protocols (Cisco Discovery Protocol and LLDP)</h2>
+                <h2>2.3 Layer 2 Discovery Protocols</h2>
                 <div id="discoveryGrid"></div>
             </section>
             <section>
-                <h2>2.4 Configure and verify (Layer 2/Layer 3) EtherChannel (LACP)</h2>
-                <div id="etherChannelGrid"></div>
+                <h2>2.4 EtherChannel</h2>
+                <div id="etherchannelGrid"></div>
             </section>
             <section>
-                <h2>2.5 Interpret basic operations of Rapid PVST+ Spanning Tree Protocol</h2>
+                <h2>2.5 Rapid PVST+</h2>
                 <div id="spanningTreeGrid"></div>
             </section>
             <section>
@@ -96,7 +97,6 @@
         </div>
     </div>
 
-    <!-- Load the unified progress tracker -->
     <script src="js/ccna-study-guide-config.js"></script>
     <script src="js/shared-progress.js"></script>
     <script src="js/section2-data.js"></script>
@@ -106,7 +106,7 @@
         let currentCardElement;
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize progress tracker
+            // Initialize progress tracker for Section 2
             progressTracker = new UnifiedCCNAProgressTracker(2);
             
             // Initialize ALL global styling (replaces embedded CSS)
@@ -116,7 +116,7 @@
             const data = window.SECTION2_DATA;
             
             if (!data) {
-                console.error('Section data not loaded');
+                console.error('Section 2 data not loaded');
                 return;
             }
             
@@ -131,11 +131,13 @@
                 });
             }
             
-            // Populate all grids with external data
+            // Populate all grids with external data by iterating through the metadata
             Object.keys(data.metadata.subsections).forEach(key => {
                 const gridElement = document.getElementById(key + 'Grid');
                 if (gridElement && data[key]) {
                     createTopicCards(data[key], gridElement);
+                } else if (!gridElement) {
+                    console.warn(`Grid element not found for key: ${key}Grid`);
                 }
             });
             
