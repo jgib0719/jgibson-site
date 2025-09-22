@@ -10,7 +10,7 @@ class UnifiedCCNAProgressTracker {
         this.userStatsKey = 'ccna_user_stats';
         this.currentChapter = currentChapter;
         this.storageKey = `ccna_progress_${this.userId}`;
-        this.dataVersion = '2.0'; // Version to handle data migrations
+        this.dataVersion = '2.1'; // Version to handle data migrations - Updated for section 2 topic count fix
         
         // CRITICAL: Each chapter defines ONLY its own topics
         // This prevents the cross-contamination issue
@@ -62,7 +62,7 @@ class UnifiedCCNAProgressTracker {
     getDefaultTopicCounts() {
         return {
             1: 35, // Network Fundamentals - updated after removing OSI/TCP-IP, Ethernet, and troubleshooting topics
-            2: 22, // Network Access topics - updated to reflect actual topic count 
+            2: 15, // Layer 3 Technologies - updated to match section2-data.js metadata
             3: 21, // IP Connectivity
             4: 19, // IP Services
             5: 14, // Security Fundamentals
