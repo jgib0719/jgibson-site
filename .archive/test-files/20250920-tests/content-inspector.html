@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter Content Inspector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
+        <h1 class="text-2xl font-bold mb-4">Chapter Content Inspector</h1>
+        
+        <div class="mb-4">
+            <button id="check-chapter1" class="bg-blue-600 text-white px-4 py-2 rounded mr-2">Check Chapter 1</button>
+            <button id="check-chapter2" class="bg-green-600 text-white px-4 py-2 rounded mr-2">Check Chapter 2</button>
+            <button id="check-chapter3" class="bg-purple-600 text-white px-4 py-2 rounded mr-2">Check Chapter 3</button>
+        </div>
+        
+        <div id="results" class="bg-gray-100 p-4 rounded min-h-[400px] font-mono text-sm"></div>
+    </div>
+
+    <script>
+        function checkChapter(chapterNum) {
+            const results = document.getElementById('results');
+            results.innerHTML = `Checking Chapter ${chapterNum}...<br><br>`;
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = `chapter${chapterNum}.html`;
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            
+            iframe.onload = function() {
+                try {
+                    const doc = iframe.contentDocument;
+                    let output = [];
+                    
+                    // Check for grid elements
+                    const gridIds = ['componentsGrid', 'topologyGrid', 'cablingGrid', 'issuesGrid', 'transportGrid', 'ipGrid', 'ipv6Grid', 'clientOsGrid', 'wirelessGrid', 'virtualizationGrid', 'switchingGrid'];
+                    
+                    if (chapterNum === 2) {
+                        // Chapter 2 has different grid IDs
+                        gridIds.length = 0;
+                        gridIds.push('routingTableGrid', 'forwardingGrid', 'staticRoutingGrid', 'ospfGrid', 'fhrpGrid');
+                    }
+                    
+                    output.push(`=== Chapter ${chapterNum} Analysis ===`);
+                    output.push('');
+                    
+                    // Check page title
+                    output.push(`Title: ${doc.title}`);
+                    output.push('');
+                    
+                    // Check if grids exist and have content
+                    output.push('Grid Elements:');
+                    gridIds.forEach(gridId => {
+                        const element = doc.getElementById(gridId);
+                        if (element) {
+                            output.push(`  ${gridId}: Found (${element.children.length} cards)`);
+                            if (element.children.length > 0) {
+                                // Show first card content
+                                const firstCard = element.children[0];
+                                output.push(`    First card: ${firstCard.innerHTML.substring(0, 100)}...`);
+                            }
+                        } else {
+                            output.push(`  ${gridId}: NOT FOUND`);
+                        }
+                    });
+                    
+                    output.push('');
+                    
+                    // Check for progress tracker
+                    output.push('JavaScript Objects:');
+                    const scripts = doc.getElementsByTagName('script');
+                    output.push(`  Script tags: ${scripts.length}`);
+                    
+                    // Look for common variables/objects
+                    const bodyText = doc.body.innerHTML;
+                    output.push(`  Contains 'studyData': ${bodyText.includes('studyData')}`);
+                    output.push(`  Contains 'progressTracker': ${bodyText.includes('progressTracker')}`);
+                    output.push(`  Contains 'CCNAProgressTracker': ${bodyText.includes('CCNAProgressTracker')}`);
+                    
+                    results.innerHTML = output.join('<br>');
+                    
+                    // Clean up
+                    setTimeout(() => {
+                        document.body.removeChild(iframe);
+                    }, 1000);
+                    
+                } catch (e) {
+                    results.innerHTML += `<br>ERROR: ${e.message}`;
+                }
+            };
+            
+            iframe.onerror = function() {
+                results.innerHTML += `<br>Failed to load chapter${chapterNum}.html`;
+            };
+        }
+        
+        document.getElementById('check-chapter1').addEventListener('click', () => checkChapter(1));
+        document.getElementById('check-chapter2').addEventListener('click', () => checkChapter(2));
+        document.getElementById('check-chapter3').addEventListener('click', () => checkChapter(3));
+    </script>
+</body>
+</html>

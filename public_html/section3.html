@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Master - CCNA Section 3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Rajdhani', sans-serif; background-color: #0f172a; }
+        .title-font { font-family: 'Orbitron', sans-serif; }
+        .topic-card { background-color:#1e293b; border:1px solid #334155; transition:transform .3s, box-shadow .3s; box-shadow:0 4px 6px rgba(0,0,0,.2), inset 0 0 10px rgba(79,70,229,.2);} 
+        .topic-card:hover { transform:translateY(-5px) scale(1.02); box-shadow:0 10px 15px rgba(0,0,0,.3),0 0 25px rgba(129,140,248,.4), inset 0 0 15px rgba(79,70,229,.3); border-color:#4f46e5; }
+        .studied { position: relative; }
+        .studied::after {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            color: #22c55e;
+            font-size: 18px;
+            z-index: 10;
+        }
+        #studyModal { display:none; opacity:0; }
+        #studyModal.visible { display:flex; opacity:1; }
+        #modalContent { transform:scale(.95); opacity:0; }
+        #modalContent.visible { transform:scale(1); opacity:1; }
+        #modalVisual { background:radial-gradient(circle,#1e293b,#0f172a); border-bottom:1px solid #334155; }
+        #detailsModal { display:none; opacity:0; }
+        #detailsModal.visible { display:flex; opacity:1; }
+        #detailsContent { transform:scale(.9); opacity:0; }
+        #detailsContent.visible { transform:scale(1); opacity:1; }
+        .game-container { border:1px solid #334155; border-radius:.5rem; background-color:rgba(30,41,59,.5);} 
+        button:focus { outline:none; }
+    </style>
+</head>
+<body class="text-slate-300">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <!-- Master Progress Bar -->
+        <div class="mb-6">
+            <div class="bg-slate-800 rounded-lg p-4 border border-slate-700">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-semibold text-slate-300">CCNA 200-301 Progress</span>
+                    <span id="progressText" class="text-sm text-indigo-400 font-semibold">0%</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2">
+                    <div id="progressBar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-slate-400 mt-2">
+                    <span>Sections 1-6</span>
+                    <span id="progressDetails">0 of 30 topics completed</span>
+                </div>
+            </div>
+        </div>
+
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-400 title-font tracking-wider">
+                <i class="fas fa-gamepad mr-3 text-indigo-500"></i>CCNA - Section 3
+            </h1>
+            <p class="text-lg text-slate-400 mt-2">Interactive Study Guide for Exam 200-301</p>
+            <p class="text-sm text-slate-500 mt-1">Select a topic to begin your training module.</p>
+            <a href="chapters.html" class="inline-block mt-4 px-4 py-2 bg-slate-700 text-white rounded hover:bg-indigo-600 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Sections
+            </a>
+        </header>
+
+        <div id="progress-container" class="w-full max-w-4xl mx-auto mb-10">
+            <div class="flex justify-center items-center space-x-4 mb-2">
+                <span class="text-sm font-semibold text-indigo-300">Section 3 Progress</span>
+                <span id="progress-text" class="text-sm font-bold text-white">0%</span>
+            </div>
+            <div class="w-full bg-slate-700 rounded-full h-2.5">
+                <div id="progress-bar" class="bg-indigo-500 h-2.5 rounded-full" style="width: 0%; transition: width 0.5s ease-in-out;"></div>
+            </div>
+        </div>
+
+        <main>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">3.1 DHCP Client and Server</h2>
+                <div id="dhcpGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">3.2 DNS Client and Server</h2>
+                <div id="dnsGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">3.3 SNMP Configuration</h2>
+                <div id="snmpGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">3.4 Syslog Configuration</h2>
+                <div id="syslogGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">3.5 Remote Access and File Transfer</h2>
+                <div id="sshGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">3.6 NTP Configuration</h2>
+                <div id="ntpGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">3.7 NAT Configuration</h2>
+                <div id="natGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+            <section class="mb-12 text-center">
+                <h2 class="text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block">3.8 Quality of Service (QoS)</h2>
+                <div id="qosGrid" class="flex flex-wrap justify-center gap-6"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Study Modal -->
+    <div id="studyModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0 z-50">
+        <div id="modalContent" class="bg-slate-800 border-2 border-indigo-500/50 rounded-lg shadow-2xl w-full max-w-2xl overflow-hidden transform scale-95 transition-all duration-300 opacity-0">
+            <div id="modalVisual" class="p-4 h-48 flex-shrink-0 flex items-center justify-center">
+                <div id="modalSvg"></div>
+            </div>
+            <div id="modalMainArea" class="p-4 md:p-6 relative">
+                <button id="closeModal" class="absolute top-3 right-3 text-slate-400 hover:text-white font-semibold py-1 px-3 rounded-lg text-2xl transition-colors">&times;</button>
+                <div class="flex items-start mb-4">
+                    <i id="modalIcon" class="text-3xl text-indigo-400 mr-4 mt-1"></i>
+                    <div>
+                        <h2 id="modalTitle" class="text-2xl font-bold text-slate-100 title-font"></h2>
+                    </div>
+                </div>
+                <div id="modalBody" class="text-slate-300 leading-relaxed space-y-3 text-sm">
+                    <div id="modalDescription"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-3 mt-6">
+                    <button id="detailsBtn" class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <i class="fas fa-info-circle mr-2"></i>Details
+                    </button>
+                </div>
+
+                <button id="modalMarkStudied" class="mt-6 w-full bg-indigo-600 text-white font-semibold py-3 px-4 rounded-md hover:bg-indigo-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Mark as Mastered</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Modal -->
+    <div id="detailsModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0 z-50">
+        <div id="detailsContent" class="bg-slate-800 border-2 border-blue-500/50 rounded-lg shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden transform scale-95 transition-all duration-300 opacity-0">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="detailsTitle" class="text-2xl font-bold text-indigo-300 title-font"></h3>
+                <button id="closeDetailsModal" class="text-slate-400 hover:text-white text-2xl font-bold"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="detailsBody" class="p-6 overflow-y-auto max-h-[calc(90vh-120px)] text-slate-300 leading-relaxed"></div>
+            <div class="p-6 pt-0 border-t border-slate-600">
+                <button id="backToStudyModal" class="w-full bg-slate-600 hover:bg-slate-700 text-white py-2 px-4 rounded-md transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Topic Overview
+                </button>
+            </div>
+        </div>
+    </div>    <!-- Load the unified progress tracker -->
+    <script src="js/shared-progress.js"></script>
+
+    <script>
+        // Initialize progress tracker
+        const progressTracker = new UnifiedCCNAProgressTracker(3);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 3.1 DHCP Client and Server
+            const dhcpTopics = [
+                {
+                    title: "DHCP Server Configuration",
+                    icon: "fa-server",
+                    description: "Configure DHCP server to automatically assign IP addresses, subnet masks, default gateway, and DNS servers to network clients.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="60" width="100" height="80" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="100" y="85" text-anchor="middle" fill="#e2e8f0" font-size="12">DHCP Server</text>
+                            <text x="100" y="105" text-anchor="middle" fill="#94a3b8" font-size="9">Pool: 192.168.1.10-100</text>
+                            <text x="100" y="120" text-anchor="middle" fill="#94a3b8" font-size="9">Gateway: 192.168.1.1</text>
+                            <rect x="250" y="80" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="290" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Client</text>
+                            <path d="M 150 100 L 250 100" stroke="#fbbf24" stroke-width="2"/>
+                            <text x="200" y="90" text-anchor="middle" fill="#fbbf24" font-size="10">IP Assignment</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "DHCP Client Configuration",
+                    icon: "fa-desktop",
+                    description: "Configure clients to obtain IP configuration automatically from DHCP server using the ip address dhcp command.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="80" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Client</text>
+                            <rect x="270" y="60" width="100" height="80" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="320" y="85" text-anchor="middle" fill="#e2e8f0" font-size="12">DHCP Server</text>
+                            <text x="320" y="105" text-anchor="middle" fill="#94a3b8" font-size="9">192.168.1.1</text>
+                            <text x="320" y="120" text-anchor="middle" fill="#94a3b8" font-size="9">Available IPs</text>
+                            <path d="M 130 100 Q 200 80 270 100" stroke="#ef4444" stroke-width="2" fill="none"/>
+                            <text x="200" y="75" text-anchor="middle" fill="#ef4444" font-size="9">DHCP Discover</text>
+                            <path d="M 270 100 Q 200 120 130 100" stroke="#10b981" stroke-width="2" fill="none"/>
+                            <text x="200" y="135" text-anchor="middle" fill="#10b981" font-size="9">DHCP Offer</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "DHCP Relay Agent",
+                    icon: "fa-exchange-alt",
+                    description: "Configure DHCP relay to forward DHCP requests across subnets when clients and server are on different networks.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="30" y="80" width="60" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="60" y="105" text-anchor="middle" fill="#e2e8f0" font-size="10">Client</text>
+                            <rect x="170" y="80" width="60" height="40" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="200" y="105" text-anchor="middle" fill="#e2e8f0" font-size="10">Relay</text>
+                            <rect x="310" y="80" width="60" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="340" y="105" text-anchor="middle" fill="#e2e8f0" font-size="10">Server</text>
+                            <path d="M 90 100 L 170 100" stroke="#ef4444" stroke-width="2"/>
+                            <path d="M 230 100 L 310 100" stroke="#10b981" stroke-width="2"/>
+                            <text x="200" y="50" text-anchor="middle" fill="#fbbf24" font-size="12">DHCP Relay</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "DHCP Options",
+                    icon: "fa-cogs",
+                    description: "Configure advanced DHCP options including option 43 (vendor-specific), option 150 (TFTP server), and custom DHCP parameters.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="150" y="60" width="100" height="80" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="200" y="85" text-anchor="middle" fill="#e2e8f0" font-size="12">DHCP Server</text>
+                            <text x="200" y="105" text-anchor="middle" fill="#94a3b8" font-size="9">Advanced Options</text>
+                            <rect x="50" y="40" width="70" height="25" fill="#10b981" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="85" y="57" text-anchor="middle" fill="white" font-size="9">Option 43</text>
+                            <rect x="280" y="40" width="70" height="25" fill="#fbbf24" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="315" y="57" text-anchor="middle" fill="white" font-size="9">Option 150</text>
+                            <rect x="50" y="155" width="70" height="25" fill="#ef4444" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="85" y="172" text-anchor="middle" fill="white" font-size="9">Option 66</text>
+                            <rect x="280" y="155" width="70" height="25" fill="#8b5cf6" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="315" y="172" text-anchor="middle" fill="white" font-size="9">Custom</text>
+                            <path d="M 120 52 L 150 75" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 280 52 L 250 75" stroke="#fbbf24" stroke-width="2"/>
+                            <path d="M 120 167 L 150 125" stroke="#ef4444" stroke-width="2"/>
+                            <path d="M 280 167 L 250 125" stroke="#8b5cf6" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="16">DHCP Options</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 3.2 DNS Client and Server
+            const dnsTopics = [
+                {
+                    title: "DNS Server Configuration",
+                    icon: "fa-server",
+                    description: "Configure DNS server to resolve domain names to IP addresses and provide name resolution services for the network.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="150" y="50" width="100" height="60" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="200" y="75" text-anchor="middle" fill="#e2e8f0" font-size="12">DNS Server</text>
+                            <text x="200" y="95" text-anchor="middle" fill="#94a3b8" font-size="9">company.com</text>
+                            <rect x="50" y="140" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="165" text-anchor="middle" fill="#e2e8f0" font-size="10">Client A</text>
+                            <rect x="270" y="140" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="310" y="165" text-anchor="middle" fill="#e2e8f0" font-size="10">Client B</text>
+                            <path d="M 130 160 L 170 110" stroke="#fbbf24" stroke-width="2"/>
+                            <path d="M 270 160 L 230 110" stroke="#fbbf24" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#4f46e5" font-size="14">DNS Resolution</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "DNS Client Configuration",
+                    icon: "fa-laptop",
+                    description: "Configure DNS client settings including primary and secondary DNS servers for hostname resolution.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="80" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Client</text>
+                            <rect x="270" y="60" width="100" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="320" y="85" text-anchor="middle" fill="#e2e8f0" font-size="11">Primary DNS</text>
+                            <rect x="270" y="120" width="100" height="40" fill="#1e293b" stroke="#64748b" stroke-width="2" rx="5"/>
+                            <text x="320" y="145" text-anchor="middle" fill="#94a3b8" font-size="11">Secondary DNS</text>
+                            <path d="M 130 100 L 270 80" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 130 100 L 270 140" stroke="#64748b" stroke-width="2" stroke-dasharray="5,5"/>
+                            <text x="200" y="30" text-anchor="middle" fill="#10b981" font-size="12">DNS Lookup</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "DNS Record Types",
+                    icon: "fa-list-alt",
+                    description: "Understand DNS record types: A (IPv4), AAAA (IPv6), CNAME (aliases), MX (mail), NS (nameserver), PTR (reverse).",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="30" width="60" height="25" fill="#ef4444" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="80" y="47" text-anchor="middle" fill="white" font-size="10">A Record</text>
+                            <rect x="130" y="30" width="60" height="25" fill="#f97316" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="160" y="47" text-anchor="middle" fill="white" font-size="10">AAAA</text>
+                            <rect x="210" y="30" width="60" height="25" fill="#eab308" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="240" y="47" text-anchor="middle" fill="white" font-size="10">CNAME</text>
+                            <rect x="290" y="30" width="60" height="25" fill="#22c55e" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="320" y="47" text-anchor="middle" fill="white" font-size="10">MX</text>
+                            <text x="80" y="80" text-anchor="middle" fill="#ef4444" font-size="9">IPv4 Address</text>
+                            <text x="160" y="80" text-anchor="middle" fill="#f97316" font-size="9">IPv6 Address</text>
+                            <text x="240" y="80" text-anchor="middle" fill="#eab308" font-size="9">Alias</text>
+                            <text x="320" y="80" text-anchor="middle" fill="#22c55e" font-size="9">Mail Server</text>
+                            <text x="200" y="120" text-anchor="middle" fill="#4f46e5" font-size="14">DNS Record Types</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 3.3 SNMP Configuration
+            const snmpTopics = [
+                {
+                    title: "SNMP Community Strings",
+                    icon: "fa-key",
+                    description: "Configure SNMP community strings for read-only and read-write access to network device management information.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="70" width="100" height="60" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="100" y="95" text-anchor="middle" fill="#e2e8f0" font-size="11">Network Device</text>
+                            <text x="100" y="115" text-anchor="middle" fill="#94a3b8" font-size="9">SNMP Agent</text>
+                            <rect x="250" y="70" width="100" height="60" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="300" y="95" text-anchor="middle" fill="#e2e8f0" font-size="11">SNMP Manager</text>
+                            <text x="300" y="115" text-anchor="middle" fill="#94a3b8" font-size="9">NMS</text>
+                            <path d="M 150 100 L 250 100" stroke="#fbbf24" stroke-width="2"/>
+                            <text x="200" y="90" text-anchor="middle" fill="#fbbf24" font-size="10">Community: public</text>
+                            <text x="200" y="40" text-anchor="middle" fill="#4f46e5" font-size="14">SNMP Communication</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "SNMP Versions",
+                    icon: "fa-code-branch",
+                    description: "Configure different SNMP versions: v1 (basic), v2c (community-based), v3 (secure with authentication and encryption).",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="50" width="80" height="30" fill="#ef4444" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="90" y="70" text-anchor="middle" fill="white" font-size="11">SNMPv1</text>
+                            <rect x="160" y="50" width="80" height="30" fill="#f97316" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="200" y="70" text-anchor="middle" fill="white" font-size="11">SNMPv2c</text>
+                            <rect x="270" y="50" width="80" height="30" fill="#10b981" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="310" y="70" text-anchor="middle" fill="white" font-size="11">SNMPv3</text>
+                            <text x="90" y="100" text-anchor="middle" fill="#ef4444" font-size="9">Basic</text>
+                            <text x="200" y="100" text-anchor="middle" fill="#f97316" font-size="9">Community</text>
+                            <text x="310" y="100" text-anchor="middle" fill="#10b981" font-size="9">Secure</text>
+                            <text x="200" y="130" text-anchor="middle" fill="#4f46e5" font-size="14">SNMP Version Evolution</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 3.4 Syslog Configuration
+            const syslogTopics = [
+                {
+                    title: "Syslog Server Configuration",
+                    icon: "fa-database",
+                    description: "Configure syslog server to collect and store log messages from network devices for monitoring and troubleshooting.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="50" width="80" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="90" y="75" text-anchor="middle" fill="#e2e8f0" font-size="10">Router</text>
+                            <rect x="50" y="110" width="80" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="90" y="135" text-anchor="middle" fill="#e2e8f0" font-size="10">Switch</text>
+                            <rect x="270" y="80" width="100" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="320" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Syslog Server</text>
+                            <path d="M 130 70 L 270 90" stroke="#fbbf24" stroke-width="2"/>
+                            <path d="M 130 130 L 270 110" stroke="#fbbf24" stroke-width="2"/>
+                            <text x="200" y="30" text-anchor="middle" fill="#4f46e5" font-size="14">Centralized Logging</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "Syslog Severity Levels",
+                    icon: "fa-layer-group",
+                    description: "Configure syslog severity levels from 0 (Emergency) to 7 (Debug) to control which messages are logged and sent.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="30" y="30" width="60" height="20" fill="#ef4444" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="60" y="45" text-anchor="middle" fill="white" font-size="9">0-Emergency</text>
+                            <rect x="110" y="30" width="60" height="20" fill="#f97316" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="140" y="45" text-anchor="middle" fill="white" font-size="9">1-Alert</text>
+                            <rect x="190" y="30" width="60" height="20" fill="#eab308" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="220" y="45" text-anchor="middle" fill="white" font-size="9">2-Critical</text>
+                            <rect x="270" y="30" width="60" height="20" fill="#f59e0b" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="300" y="45" text-anchor="middle" fill="white" font-size="9">3-Error</text>
+                            <rect x="30" y="70" width="60" height="20" fill="#84cc16" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="60" y="85" text-anchor="middle" fill="white" font-size="9">4-Warning</text>
+                            <rect x="110" y="70" width="60" height="20" fill="#22c55e" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="140" y="85" text-anchor="middle" fill="white" font-size="9">5-Notice</text>
+                            <rect x="190" y="70" width="60" height="20" fill="#10b981" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="220" y="85" text-anchor="middle" fill="white" font-size="9">6-Info</text>
+                            <rect x="270" y="70" width="60" height="20" fill="#06b6d4" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="300" y="85" text-anchor="middle" fill="white" font-size="9">7-Debug</text>
+                            <text x="200" y="120" text-anchor="middle" fill="#4f46e5" font-size="14">Syslog Severity Levels</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 3.5 Remote Access and File Transfer
+            const sshTopics = [
+                {
+                    title: "SSH Configuration",
+                    icon: "fa-shield-alt",
+                    description: "Configure secure shell (SSH) for encrypted remote access to network devices. SSH provides secure authentication and data encryption.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="80" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Admin PC</text>
+                            <rect x="270" y="80" width="80" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="310" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Router</text>
+                            <path d="M 130 100 L 270 100" stroke="#10b981" stroke-width="3"/>
+                            <text x="200" y="90" text-anchor="middle" fill="#10b981" font-size="12">SSH (Port 22)</text>
+                            <text x="200" y="50" text-anchor="middle" fill="#10b981" font-size="14">Encrypted Connection</text>
+                            <rect x="160" y="130" width="80" height="20" fill="#10b981" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="200" y="145" text-anchor="middle" fill="white" font-size="9">🔒 Secure</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "Telnet Configuration",
+                    icon: "fa-terminal",
+                    description: "Configure Telnet for basic remote access (not recommended for production due to lack of encryption). Used mainly for local management.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="80" width="80" height="40" fill="#1e293b" stroke="#f97316" stroke-width="2" rx="5"/>
+                            <text x="90" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Admin PC</text>
+                            <rect x="270" y="80" width="80" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="310" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Router</text>
+                            <path d="M 130 100 L 270 100" stroke="#f97316" stroke-width="3" stroke-dasharray="5,5"/>
+                            <text x="200" y="90" text-anchor="middle" fill="#f97316" font-size="12">Telnet (Port 23)</text>
+                            <text x="200" y="50" text-anchor="middle" fill="#ef4444" font-size="14">Unencrypted Connection</text>
+                            <rect x="160" y="130" width="80" height="20" fill="#ef4444" stroke="#4f46e5" stroke-width="1" rx="3"/>
+                            <text x="200" y="145" text-anchor="middle" fill="white" font-size="9">⚠️ Insecure</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "FTP and TFTP",
+                    icon: "fa-file-arrow-up",
+                    description: "Configure FTP (File Transfer Protocol) and TFTP (Trivial File Transfer Protocol) for file transfers, firmware updates, and configuration backups.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="60" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="85" text-anchor="middle" fill="#e2e8f0" font-size="11">Client</text>
+                            <rect x="270" y="40" width="100" height="30" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="320" y="60" text-anchor="middle" fill="#e2e8f0" font-size="11">FTP Server</text>
+                            <rect x="270" y="90" width="100" height="30" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="320" y="110" text-anchor="middle" fill="#e2e8f0" font-size="11">TFTP Server</text>
+                            <rect x="270" y="140" width="100" height="30" fill="#1e293b" stroke="#ef4444" stroke-width="2" rx="5"/>
+                            <text x="320" y="160" text-anchor="middle" fill="#e2e8f0" font-size="11">File Storage</text>
+                            <path d="M 130 75 L 270 55" stroke="#4f46e5" stroke-width="2"/>
+                            <path d="M 130 85 L 270 105" stroke="#fbbf24" stroke-width="2"/>
+                            <path d="M 130 95 L 270 155" stroke="#ef4444" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#10b981" font-size="16">File Transfer Protocols</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "HTTP and HTTPS",
+                    icon: "fa-globe",
+                    description: "Configure HTTP and HTTPS services for web-based device management, secure communication, and REST API access.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="80" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Web Client</text>
+                            <rect x="270" y="60" width="100" height="30" fill="#1e293b" stroke="#f97316" stroke-width="2" rx="5"/>
+                            <text x="320" y="80" text-anchor="middle" fill="#e2e8f0" font-size="11">HTTP Server</text>
+                            <rect x="270" y="110" width="100" height="30" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="320" y="130" text-anchor="middle" fill="#e2e8f0" font-size="11">HTTPS Server</text>
+                            <path d="M 130 95 L 270 75" stroke="#f97316" stroke-width="2" stroke-dasharray="5,5"/>
+                            <text x="200" y="85" text-anchor="middle" fill="#f97316" font-size="9">Port 80</text>
+                            <path d="M 130 105 L 270 125" stroke="#10b981" stroke-width="3"/>
+                            <text x="200" y="135" text-anchor="middle" fill="#10b981" font-size="9">Port 443 (SSL)</text>
+                            <text x="200" y="30" text-anchor="middle" fill="#4f46e5" font-size="16">Web Services</text>
+                            <rect x="180" y="155" width="40" height="15" fill="#10b981" stroke="#4f46e5" stroke-width="1" rx="2"/>
+                            <text x="200" y="167" text-anchor="middle" fill="white" font-size="8">🔒 Secure</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 3.6 NTP Configuration
+            const ntpTopics = [
+                {
+                    title: "NTP Server Configuration",
+                    icon: "fa-clock",
+                    description: "Configure Network Time Protocol server to provide accurate time synchronization across the network infrastructure.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <circle cx="200" cy="80" r="40" fill="#1e293b" stroke="#fbbf24" stroke-width="3"/>
+                            <text x="200" y="85" text-anchor="middle" fill="#e2e8f0" font-size="12">NTP Server</text>
+                            <circle cx="100" cy="140" r="25" fill="#1e293b" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="100" y="145" text-anchor="middle" fill="#e2e8f0" font-size="9">R1</text>
+                            <circle cx="200" cy="140" r="25" fill="#1e293b" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="200" y="145" text-anchor="middle" fill="#e2e8f0" font-size="9">R2</text>
+                            <circle cx="300" cy="140" r="25" fill="#1e293b" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="300" y="145" text-anchor="middle" fill="#e2e8f0" font-size="9">R3</text>
+                            <path d="M 180 110 L 120 125" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 200 120 L 200 115" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 220 110 L 280 125" stroke="#10b981" stroke-width="2"/>
+                            <text x="200" y="30" text-anchor="middle" fill="#fbbf24" font-size="16">Time Synchronization</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "NTP Client Configuration",
+                    icon: "fa-sync-alt",
+                    description: "Configure NTP clients to synchronize their clocks with NTP servers for accurate timestamps in logs and network operations.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="80" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">Client</text>
+                            <rect x="270" y="60" width="100" height="80" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="320" y="85" text-anchor="middle" fill="#e2e8f0" font-size="12">NTP Server</text>
+                            <text x="320" y="105" text-anchor="middle" fill="#94a3b8" font-size="9">Stratum 1</text>
+                            <text x="320" y="125" text-anchor="middle" fill="#94a3b8" font-size="9">12:00:00 UTC</text>
+                            <path d="M 130 100 L 270 100" stroke="#10b981" stroke-width="2"/>
+                            <text x="200" y="90" text-anchor="middle" fill="#10b981" font-size="10">Time Request</text>
+                            <text x="200" y="30" text-anchor="middle" fill="#fbbf24" font-size="14">Clock Synchronization</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 3.7 NAT Configuration
+            const natTopics = [
+                {
+                    title: "Static NAT",
+                    icon: "fa-link",
+                    description: "Configure static NAT for one-to-one mapping between inside local and inside global addresses. Used for servers requiring consistent external addresses.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="80" width="80" height="40" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="90" y="100" text-anchor="middle" fill="#e2e8f0" font-size="10">Server</text>
+                            <text x="90" y="115" text-anchor="middle" fill="#94a3b8" font-size="8">192.168.1.10</text>
+                            <rect x="170" y="80" width="60" height="40" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="200" y="105" text-anchor="middle" fill="#e2e8f0" font-size="10">NAT</text>
+                            <rect x="270" y="80" width="80" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="310" y="100" text-anchor="middle" fill="#e2e8f0" font-size="10">Internet</text>
+                            <text x="310" y="115" text-anchor="middle" fill="#94a3b8" font-size="8">203.0.113.10</text>
+                            <path d="M 130 100 L 170 100" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 230 100 L 270 100" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="200" y="50" text-anchor="middle" fill="#fbbf24" font-size="14">1:1 Mapping</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "Dynamic NAT",
+                    icon: "fa-random",
+                    description: "Configure dynamic NAT to automatically assign inside global addresses from a pool to inside local addresses as needed.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="30" y="60" width="60" height="30" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="60" y="80" text-anchor="middle" fill="#e2e8f0" font-size="9">PC1</text>
+                            <rect x="30" y="110" width="60" height="30" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="5"/>
+                            <text x="60" y="130" text-anchor="middle" fill="#e2e8f0" font-size="9">PC2</text>
+                            <rect x="150" y="80" width="100" height="40" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="200" y="100" text-anchor="middle" fill="#e2e8f0" font-size="11">NAT Pool</text>
+                            <text x="200" y="115" text-anchor="middle" fill="#94a3b8" font-size="8">203.0.113.1-10</text>
+                            <rect x="310" y="80" width="60" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="340" y="105" text-anchor="middle" fill="#e2e8f0" font-size="10">Internet</text>
+                            <path d="M 90 75 L 150 90" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 90 125 L 150 110" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 250 100 L 310 100" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="200" y="30" text-anchor="middle" fill="#fbbf24" font-size="14">Dynamic Assignment</text>
+                        </svg>
+                    `
+                },
+                {
+                    title: "PAT (Port Address Translation)",
+                    icon: "fa-share-alt",
+                    description: "Configure PAT to allow multiple inside local addresses to share a single inside global address using different port numbers.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="30" y="50" width="50" height="25" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="3"/>
+                            <text x="55" y="67" text-anchor="middle" fill="#e2e8f0" font-size="8">PC1</text>
+                            <rect x="30" y="85" width="50" height="25" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="3"/>
+                            <text x="55" y="102" text-anchor="middle" fill="#e2e8f0" font-size="8">PC2</text>
+                            <rect x="30" y="120" width="50" height="25" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="3"/>
+                            <text x="55" y="137" text-anchor="middle" fill="#e2e8f0" font-size="8">PC3</text>
+                            <rect x="130" y="80" width="80" height="40" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="170" y="100" text-anchor="middle" fill="#e2e8f0" font-size="10">PAT Router</text>
+                            <text x="170" y="115" text-anchor="middle" fill="#94a3b8" font-size="8">203.0.113.1</text>
+                            <rect x="270" y="80" width="100" height="40" fill="#1e293b" stroke="#4f46e5" stroke-width="2" rx="5"/>
+                            <text x="320" y="100" text-anchor="middle" fill="#e2e8f0" font-size="10">Internet</text>
+                            <text x="320" y="115" text-anchor="middle" fill="#94a3b8" font-size="8">:1024, :1025, :1026</text>
+                            <path d="M 80 62 L 130 85" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 80 97 L 130 100" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 80 132 L 130 115" stroke="#10b981" stroke-width="2"/>
+                            <path d="M 210 100 L 270 100" stroke="#4f46e5" stroke-width="2"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#fbbf24" font-size="14">Many-to-One + Ports</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // 3.8 Quality of Service (QoS)
+            const qosTopics = [
+                {
+                    title: "QoS Basics",
+                    icon: "fa-tachometer-alt",
+                    description: "Understand Quality of Service fundamentals including traffic classification, marking, queuing, and shaping for network performance optimization.",
+                    visual: `
+                        <svg viewBox="0 0 400 200" class="w-full h-auto">
+                            <rect x="50" y="50" width="60" height="25" fill="#ef4444" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="80" y="67" text-anchor="middle" fill="white" font-size="9">Voice</text>
+                            <rect x="50" y="85" width="60" height="25" fill="#f97316" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="80" y="102" text-anchor="middle" fill="white" font-size="9">Video</text>
+                            <rect x="50" y="120" width="60" height="25" fill="#10b981" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="80" y="137" text-anchor="middle" fill="white" font-size="9">Data</text>
+                            <rect x="170" y="80" width="60" height="40" fill="#1e293b" stroke="#fbbf24" stroke-width="2" rx="5"/>
+                            <text x="200" y="105" text-anchor="middle" fill="#e2e8f0" font-size="11">QoS Router</text>
+                            <rect x="290" y="50" width="60" height="25" fill="#ef4444" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="320" y="67" text-anchor="middle" fill="white" font-size="9">Priority 1</text>
+                            <rect x="290" y="85" width="60" height="25" fill="#f97316" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="320" y="102" text-anchor="middle" fill="white" font-size="9">Priority 2</text>
+                            <rect x="290" y="120" width="60" height="25" fill="#10b981" stroke="#4f46e5" stroke-width="2" rx="3"/>
+                            <text x="320" y="137" text-anchor="middle" fill="white" font-size="9">Priority 3</text>
+                            <path d="M 110 62 L 170 85" stroke="#ef4444" stroke-width="3"/>
+                            <path d="M 110 97 L 170 100" stroke="#f97316" stroke-width="2"/>
+                            <path d="M 110 132 L 170 115" stroke="#10b981" stroke-width="1"/>
+                            <path d="M 230 85 L 290 62" stroke="#ef4444" stroke-width="3"/>
+                            <path d="M 230 100 L 290 97" stroke="#f97316" stroke-width="2"/>
+                            <path d="M 230 115 L 290 132" stroke="#10b981" stroke-width="1"/>
+                            <text x="200" y="25" text-anchor="middle" fill="#fbbf24" font-size="16">Traffic Prioritization</text>
+                        </svg>
+                    `
+                }
+            ];
+
+            // Create topic cards for each section
+            function createTopicCards(topics, gridElement) {
+                topics.forEach(topic => {
+                    const card = document.createElement('div');
+                    card.className = 'topic-card p-6 flex flex-col justify-center items-center text-center cursor-pointer h-56 w-60';
+                    card.innerHTML = `
+                        <i class="fas ${topic.icon} text-5xl text-indigo-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-200 title-font">${topic.title}</h3>
+                    `;
+                    card.onclick = () => openStudyModal(topic, card);
+                    gridElement.appendChild(card);
+                });
+            }
+
+            // Populate all grids
+            createTopicCards(dhcpTopics, document.getElementById('dhcpGrid'));
+            createTopicCards(dnsTopics, document.getElementById('dnsGrid'));
+            createTopicCards(snmpTopics, document.getElementById('snmpGrid'));
+            createTopicCards(syslogTopics, document.getElementById('syslogGrid'));
+            createTopicCards(sshTopics, document.getElementById('sshGrid'));
+            createTopicCards(ntpTopics, document.getElementById('ntpGrid'));
+            createTopicCards(natTopics, document.getElementById('natGrid'));
+            createTopicCards(qosTopics, document.getElementById('qosGrid'));
+
+            // Auto-visual sync: show green checks for already completed topics
+            setTimeout(() => progressTracker.syncVisualState(), 100);
+
+            // Modal DOM elements
+            const modal = document.getElementById('studyModal');
+            const modalContent = document.getElementById('modalContent');
+            const closeModalBtn = document.getElementById('closeModal');
+            
+            const detailsModal = document.getElementById('detailsModal');
+            const detailsContent = document.getElementById('detailsContent');
+            const detailsBtn = document.getElementById('detailsBtn');
+
+            const closeDetailsBtn = document.getElementById('closeDetailsModal');
+            const modalMarkStudiedBtn = document.getElementById('modalMarkStudied');
+
+            // Current topic data
+            let currentTopic = null;
+            let currentCardElement = null;
+
+            // Comprehensive CCNA 200-301 topic information for Chapter 3 - IP Connectivity
+                        // EXTRACTED: Modal data moved to quarantine folder
+            // Original topicDetails object contained 21 CCNA Section 3 topics
+            // To restore: Run 'python3 /var/www/jgibson.site/public_html/quarantine/reinsert_section3_modal_data.py'
+            // Extraction date: 2025-09-20 22:51:08
+            const topicDetails = {
+                // Modal content extracted and moved to quarantine folder
+                // See: /var/www/jgibson.site/public_html/quarantine/section3_extracted_modal_data.json
+            };
+            function openStudyModal(topic, cardElement) {
+                currentTopic = topic.title;
+                currentCardElement = cardElement;
+                document.getElementById('modalTitle').textContent = topic.title;
+                document.getElementById('modalSvg').innerHTML = topic.visual;
+                document.getElementById('modalDescription').innerHTML = topic.description;
+
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('visible');
+                    modalContent.classList.add('visible');
+                }, 10);
+            }
+
+            function closeStudyModal() {
+                modal.classList.remove('visible');
+                modalContent.classList.remove('visible');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    currentTopic = null;
+                }, 300);
+            }
+
+            function openDetailsModal() {
+                if (!currentTopic || !topicDetails[currentTopic]) return;
+                
+                const details = topicDetails[currentTopic];
+                document.getElementById('detailsTitle').textContent = details.title;
+                document.getElementById('detailsBody').innerHTML = details.content;
+                
+                detailsModal.style.display = 'flex';
+                setTimeout(() => {
+                    detailsModal.classList.add('visible');
+                    detailsContent.classList.add('visible');
+                }, 10);
+            }
+
+            function closeDetailsModal() {
+                detailsContent.classList.remove('visible');
+                detailsModal.classList.remove('visible');
+                setTimeout(() => {
+                    detailsModal.style.display = 'none';
+                }, 300);
+            }
+
+            // Event listeners
+            closeModalBtn.addEventListener('click', closeStudyModal);
+            closeDetailsBtn.addEventListener('click', closeDetailsModal);
+            detailsBtn.addEventListener('click', openDetailsModal);
+            document.getElementById('backToStudyModal').addEventListener('click', function() {
+                if (currentTopic) {
+                    closeDetailsModal();
+                    setTimeout(() => openStudyModal(currentTopic, currentCardElement), 100);
+                }
+            });
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeStudyModal();
+                }
+            });
+
+            detailsModal.addEventListener('click', function(e) {
+                if (e.target === detailsModal) {
+                    closeDetailsModal();
+                }
+            });
+
+            // Mark as Mastered functionality (persist + update master progress bar)
+            modalMarkStudiedBtn.addEventListener('click', () => {
+                if (currentCardElement && !currentCardElement.classList.contains('studied')) {
+                    currentCardElement.classList.add('studied');
+                    if (currentTopic) {
+                        progressTracker.markTopicCompleted(progressTracker.currentChapter, currentTopic);
+                    } else {
+                        progressTracker.updateProgressBar();
+                    }
+                }
+                closeStudyModal();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (detailsModal.style.display === 'flex') {
+                        closeDetailsModal();
+                    } else if (modal.style.display === 'flex') {
+                        closeStudyModal();
+                    }
+                }
+            });
+
+            // Initialize topic completion tracking
+            // progressTracker.addTopicCompletionTracking();
+        });
+    </script>
+</body>
+</html>

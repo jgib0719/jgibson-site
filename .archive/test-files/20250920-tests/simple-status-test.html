@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Status Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>Simple Chapter Status Test</h1>
+    <div id="results"></div>
+
+    <script>
+        async function testChapter(num) {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'test';
+            resultDiv.innerHTML = `<strong>Chapter ${num}:</strong> Testing...`;
+            document.getElementById('results').appendChild(resultDiv);
+
+            try {
+                const response = await fetch(`chapter${num}.html`);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                const text = await response.text();
+                
+                // Simple checks
+                const hasTopicCards = text.includes('topic-card');
+                const hasProgressTracker = text.includes('CCNAProgressTracker');
+                const hasGrids = text.includes('Grid');
+                
+                resultDiv.className = 'test success';
+                resultDiv.innerHTML = `<strong>Chapter ${num}:</strong> ✓ OK 
+                    (Cards: ${hasTopicCards}, Tracker: ${hasProgressTracker}, Grids: ${hasGrids})`;
+                
+            } catch (error) {
+                resultDiv.className = 'test error';
+                resultDiv.innerHTML = `<strong>Chapter ${num}:</strong> ❌ Error: ${error.message}`;
+            }
+        }
+
+        // Test all chapters
+        for (let i = 1; i <= 6; i++) {
+            testChapter(i);
+        }
+    </script>
+</body>
+</html>
