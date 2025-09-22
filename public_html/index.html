@@ -3,144 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DB-Ready CCNA Quiz</title>
+    <title>CCNA Quiz and Study Hub</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="alternate icon" href="/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* bg-slate-900 */
+            color: #e2e8f0; /* text-slate-200 */
+        }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .brand-gradient { background-image: linear-gradient(to bottom right, #6366f1, #8b5cf6); }
         .option-btn:disabled { cursor: not-allowed; }
         .correct { background-color: #10B981 !important; color: white !important; border-color: #059669 !important; }
         .incorrect { background-color: #EF4444 !important; color: white !important; border-color: #DC2626 !important; }
-        #loading-spinner { border-top-color: #3b82f6; animation: spin 1s linear infinite; }
+        #loading-spinner { border-top-color: #4f46e5; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .brand-cisco { background: linear-gradient(90deg,#0097D6 0%,#007CBF 100%); }
         .brand-wiley { background: linear-gradient(90deg,#FF8C00 0%,#D36B00 100%); }
-    /* Center-align the main pages/content */
-    #quiz-container, #results-container, #enter-container, #setup-container, #loading-container { text-align: center; }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div id="quiz-container" class="w-full max-w-2xl bg-white p-6 sm:p-8 rounded-xl shadow-lg hidden">
-        <div id="quiz-header" class="mb-6">
-            <div class="flex justify-between items-center mb-2">
-                <h1 class="text-2xl font-bold text-gray-800">CCNA Practice Quiz</h1>
-                <div id="score" class="text-lg font-semibold text-gray-700">Score: 0 / 0</div>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-2.5">
-                <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
-            </div>
-        </div>
-        <div id="question-area"></div>
-        <div id="feedback-area" class="mt-4 p-4 rounded-lg bg-gray-50 text-gray-700 border border-gray-200 hidden"></div>
-        <div class="mt-6 flex justify-end">
-            <button id="next-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow hover:bg-blue-700 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>Next</button>
-        </div>
-    </div>
-    <div id="results-container" class="w-full max-w-2xl bg-white p-8 rounded-xl shadow-lg text-center hidden">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4">Quiz Complete!</h2>
-        <p class="text-xl text-gray-600 mb-6">Your final score is:</p>
-        <div id="final-score" class="text-5xl font-bold text-blue-600 mb-4"></div>
-        <div id="result-best" class="text-sm text-gray-600 mb-6"></div>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-2">
-            <button id="restart-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow hover:bg-blue-700 transition duration-300">Restart Quiz</button>
-            <button id="home-btn" class="bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg shadow hover:bg-gray-800 transition duration-300">Home</button>
-        </div>
-        <p class="mt-4 text-xs text-gray-400">Partial credit enabled for multi-answer questions.</p>
-    </div>
-    <div id="enter-container" class="w-full max-w-2xl bg-white p-6 sm:p-8 rounded-xl shadow-lg text-center">
-        <h2 class="text-2xl font-bold text-gray-800">Choose Learning Mode</h2>
-        <p class="text-gray-600 mt-2">Select how you'd like to study:</p>
-        
-        <!-- User Stats Section -->
-        <div id="user-stats" class="mt-4 mb-6 p-3 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg border border-green-200">
-            <h3 class="text-sm font-semibold text-gray-700 mb-1">Your Progress</h3>
-            <div id="user-stats-content" class="text-xs text-gray-600">
-                <div class="flex justify-around items-center">
-                    <div class="text-center">
-                        <div id="stats-topics" class="font-semibold text-green-700">0</div>
-                        <div>Topics</div>
+<body class="antialiased">
+    <div class="container mx-auto px-4 py-8 md:py-12 min-h-screen flex flex-col justify-center">
+
+        <!-- Main Entry Container -->
+        <div id="enter-container" class="w-full max-w-3xl mx-auto">
+            <header class="text-center mb-10">
+                <h1 class="font-orbitron text-4xl md:text-5xl font-bold text-white tracking-wider">CCNA STUDY HUB</h1>
+                <p class="text-lg text-slate-400 mt-2">Choose your learning mode</p>
+            </header>
+
+            <div class="bg-slate-800 rounded-xl shadow-lg p-6 sm:p-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Section Study Card -->
+                    <div class="flex flex-col p-6 bg-slate-900/50 rounded-lg border border-slate-700 text-center">
+                        <h3 class="text-xl font-bold text-white mb-2">Section Reviews</h3>
+                        <p class="text-sm text-slate-400 mb-4 flex-grow">Interactive guides with visual learning to master core concepts.</p>
+                        <a href="/sections.html" class="inline-flex items-center justify-center gap-2 brand-gradient text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:opacity-90 transition-opacity">
+                            <i class="fas fa-book-open"></i>
+                            Study by Section
+                        </a>
                     </div>
-                    <div class="text-center">
-                        <div id="stats-chapters" class="font-semibold text-blue-700">0</div>
-                        <div>Chapters</div>
-                    </div>
-                    <div class="text-center">
-                        <div id="stats-sessions" class="font-semibold text-purple-700">0</div>
-                        <div>Sessions</div>
+
+                    <!-- Quiz Card -->
+                    <div class="flex flex-col p-6 bg-slate-900/50 rounded-lg border border-slate-700 text-center">
+                        <h3 class="text-xl font-bold text-white mb-2">Practice Quizzes</h3>
+                        <p class="text-sm text-slate-400 mb-4 flex-grow">Test your knowledge with official question banks.</p>
+                        <div class="flex items-center justify-center gap-4">
+                            <button id="cisco-entry-btn" aria-label="Cisco Questions" class="flex-1 brand-btn brand-cisco flex items-center justify-center gap-3 text-white font-semibold py-3 px-4 rounded-lg shadow-lg hover:opacity-90 transition-opacity">
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" class="h-6 w-auto" role="img" focusable="false"><g fill="#FFFFFF"><rect x="10" y="28" width="6" height="10" rx="1" /><rect x="30" y="20" width="6" height="18" rx="1" /><rect x="50" y="14" width="6" height="24" rx="1" /><rect x="70" y="10" width="6" height="28" rx="1" /><rect x="90" y="14" width="6" height="24" rx="1" /><rect x="110" y="20" width="6" height="18" rx="1" /><rect x="130" y="28" width="6" height="10" rx="1" /></g><text x="150" y="40" font-family="Inter, Arial, sans-serif" font-size="18" fill="#FFFFFF" font-weight="600">Cisco</text></svg>
+                            </button>
+                            <button id="wiley-entry-btn" aria-label="Wiley Questions" class="flex-1 brand-btn brand-wiley flex items-center justify-center gap-3 text-white font-semibold py-3 px-4 rounded-lg shadow-lg hover:opacity-90 transition-opacity">
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 134 28" class="h-6 w-auto" role="img" focusable="false"><path fill="currentColor" d="M28.9,28h.2l9.5-23.7c.9-2.2,1.8-3.4,2.7-3.9V.1h-5.7v.2c1.2.7,1.5,2.5.7,4.5l-5.8,14.7L22.4,0h-.2l-8.4,19.4L7.7,4.1c-.7-1.8-.6-3.1.7-3.8V.1H0v.2c.9.4,1.6,1.5,2.4,3.4l10,24.3h.2l8.3-19.7,8.1,19.7ZM90.7,14.3v-7.6h8.1c3.7,0,5,.6,6.4,2.5h.2c0-.1-.4-4.4-.4-4.4h-20.2v.2c1.2.8,1.6,1.8,1.6,3.4v15.2c0,1.6-.3,2.7-1.6,3.4v.2h21.2l.8-4.6h-.2c-1.3,1.7-3,2.7-6.6,2.7h-9.2v-9.1h6.2c2.7,0,3.9.4,4.7,1.6h.2v-4.9h-.2c-.7,1.1-2,1.6-4.7,1.6h-6.2ZM117.7,27v.2h7.7v-.2c-1.2-.8-1.7-1.9-1.7-3.8v-5.3l6.8-9.7c1.2-1.8,2.2-2.9,3.1-3.2v-.2h-6v.2c1.1.7,1.2,2.1.1,3.8l-5,7.2-5.4-8.1c-.9-1.2-.7-2.4.3-2.9v-.2h-8.5v.2c1,.4,1.7,1,2.7,2.6l7.5,10.8v4.9c.1,1.9-.3,3-1.7,3.8ZM80.3,27.2l1.1-4.7h-.2c-1.3,1.9-3.4,2.8-6.3,2.8h-8.7V8.7c0-1.9.4-3,1.8-3.8v-.2h-7.7v.2c1.2.8,1.6,1.8,1.6,3.4v15.2c0,1.6-.3,2.7-1.6,3.4v.2h20ZM46.1,23.4c0,1.8-.3,2.9-1.7,3.6v.2h7.7v-.2c-1.2-.7-1.7-1.8-1.7-3.6v-14.9c0-1.7.3-2.8,1.7-3.6v-.2h-7.6v.2c1.2.8,1.7,1.9,1.7,3.6v14.9h-.1Z" /></svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
+                 <p class="text-xs text-slate-500 mt-4 text-center">High scores and progress are tracked separately for each question set.</p>
             </div>
-        </div>
-        
-        <!-- Chapter Study Section -->
-        <div class="mt-6 mb-8 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-indigo-200">
-            <h3 class="text-lg font-semibold text-gray-800 mb-2">Chapter Reviews</h3>
-            <p class="text-sm text-gray-600 mb-4">Interactive study guides with detailed explanations and visual learning</p>
-            <a href="/chapters.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow hover:from-purple-700 hover:to-indigo-700 transition duration-300">
-                <i class="fas fa-book-open"></i>
-                Study by Chapter
-            </a>
         </div>
 
-        <!-- Quiz Section -->
-        <div class="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border border-blue-200">
-            <h3 class="text-lg font-semibold text-gray-800 mb-2">Practice Quizzes</h3>
-            <p class="text-sm text-gray-600 mb-4">Test your knowledge with comprehensive question banks</p>
-            <div class="flex items-center justify-center gap-6 flex-wrap">
-                <button id="cisco-entry-btn" aria-label="Cisco Questions" class="brand-btn brand-cisco flex items-center justify-center gap-3 text-white font-semibold py-3 px-6 rounded-lg shadow min-w-[160px]">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" class="h-6 w-auto" role="img" focusable="false"><g fill="#FFFFFF"><rect x="10" y="28" width="6" height="10" rx="1" /><rect x="30" y="20" width="6" height="18" rx="1" /><rect x="50" y="14" width="6" height="24" rx="1" /><rect x="70" y="10" width="6" height="28" rx="1" /><rect x="90" y="14" width="6" height="24" rx="1" /><rect x="110" y="20" width="6" height="18" rx="1" /><rect x="130" y="28" width="6" height="10" rx="1" /></g><text x="150" y="40" font-family="Inter, Arial, sans-serif" font-size="18" fill="#FFFFFF" font-weight="600">Cisco</text></svg>
-                </button>
-                <button id="wiley-entry-btn" aria-label="Wiley Questions" class="brand-btn brand-wiley flex items-center justify-center gap-3 text-white font-semibold py-3 px-6 rounded-lg shadow min-w-[160px]">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 134 28" class="h-6 w-auto" role="img" focusable="false"><path fill="currentColor" d="M28.9,28h.2l9.5-23.7c.9-2.2,1.8-3.4,2.7-3.9V.1h-5.7v.2c1.2.7,1.5,2.5.7,4.5l-5.8,14.7L22.4,0h-.2l-8.4,19.4L7.7,4.1c-.7-1.8-.6-3.1.7-3.8V.1H0v.2c.9.4,1.6,1.5,2.4,3.4l10,24.3h.2l8.3-19.7,8.1,19.7ZM90.7,14.3v-7.6h8.1c3.7,0,5,.6,6.4,2.5h.2c0-.1-.4-4.4-.4-4.4h-20.2v.2c1.2.8,1.6,1.8,1.6,3.4v15.2c0,1.6-.3,2.7-1.6,3.4v.2h21.2l.8-4.6h-.2c-1.3,1.7-3,2.7-6.6,2.7h-9.2v-9.1h6.2c2.7,0,3.9.4,4.7,1.6h.2v-4.9h-.2c-.7,1.1-2,1.6-4.7,1.6h-6.2ZM117.7,27v.2h7.7v-.2c-1.2-.8-1.7-1.9-1.7-3.8v-5.3l6.8-9.7c1.2-1.8,2.2-2.9,3.1-3.2v-.2h-6v.2c1.1.7,1.2,2.1.1,3.8l-5,7.2-5.4-8.1c-.9-1.2-.7-2.4.3-2.9v-.2h-8.5v.2c1,.4,1.7,1,2.7,2.6l7.5,10.8v4.9c.1,1.9-.3,3-1.7,3.8ZM80.3,27.2l1.1-4.7h-.2c-1.3,1.9-3.4,2.8-6.3,2.8h-8.7V8.7c0-1.9.4-3,1.8-3.8v-.2h-7.7v.2c1.2.8,1.6,1.8,1.6,3.4v15.2c0,1.6-.3,2.7-1.6,3.4v.2h20ZM46.1,23.4c0,1.8-.3,2.9-1.7,3.6v.2h7.7v-.2c-1.2-.7-1.7-1.8-1.7-3.6v-14.9c0-1.7.3-2.8,1.7-3.6v-.2h-7.6v.2c1.2.8,1.7,1.9,1.7,3.6v14.9h-.1Z" /></svg>
-                </button>
+        <!-- Quiz Setup Container -->
+        <div id="setup-container" class="w-full max-w-2xl mx-auto bg-slate-800 p-6 sm:p-8 rounded-xl shadow-lg hidden text-center">
+            <h2 class="text-2xl font-bold text-white">Start a Quiz</h2>
+            <p class="text-slate-400 mt-2">Choose how many questions to include:</p>
+            <div class="mt-6 flex items-center justify-center gap-3 flex-wrap">
+                <button class="size-btn bg-slate-700 hover:bg-slate-600 border border-slate-600 px-4 py-2 rounded-md shadow transition-colors" data-size="20">20</button>
+                <button class="size-btn bg-slate-700 hover:bg-slate-600 border border-slate-600 px-4 py-2 rounded-md shadow transition-colors" data-size="50">50</button>
+                <button class="size-btn bg-slate-700 hover:bg-slate-600 border border-slate-600 px-4 py-2 rounded-md shadow transition-colors" data-size="100">100</button>
+                <button class="size-btn bg-slate-700 hover:bg-slate-600 border border-slate-600 px-4 py-2 rounded-md shadow transition-colors" data-size="all">All</button>
             </div>
-            <p class="text-xs text-gray-500 mt-3">High scores and progress are tracked separately for each question set.</p>
+            <div class="mt-8 flex justify-center">
+                <button id="begin-btn" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg shadow hover:bg-indigo-700 transition-colors">Start Quiz</button>
+            </div>
+            <div class="mt-4">
+                <button id="resume-btn" class="bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow hidden">Resume Saved Quiz</button>
+            </div>
+            <div id="best-score" class="mt-6 text-sm text-slate-400"></div>
+            <div id="history" class="mt-2 text-xs text-slate-500"></div>
+        </div>
+
+        <!-- Quiz Active Container -->
+        <div id="quiz-container" class="w-full max-w-3xl mx-auto bg-slate-800 p-6 sm:p-8 rounded-xl shadow-lg hidden">
+             <div id="quiz-header" class="mb-6">
+                <div class="flex justify-between items-center mb-2 text-slate-300">
+                    <h1 class="text-xl font-bold">CCNA Practice Quiz</h1>
+                    <div id="score" class="text-lg font-semibold">Score: 0 / 0</div>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+            <div id="question-area"></div>
+            <div id="feedback-area" class="mt-4 p-4 rounded-lg bg-slate-700/50 text-slate-300 border border-slate-600 hidden"></div>
+            <div class="mt-6 flex justify-end">
+                <button id="next-btn" class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg shadow hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="results-container" class="w-full max-w-2xl mx-auto bg-slate-800 p-8 rounded-xl shadow-lg text-center hidden">
+            <h2 class="text-3xl font-bold text-white mb-4">Quiz Complete!</h2>
+            <p class="text-xl text-slate-400 mb-6">Your final score is:</p>
+            <div id="final-score" class="text-5xl font-bold text-indigo-400 mb-4"></div>
+            <div id="result-best" class="text-sm text-slate-500 mb-6"></div>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-2">
+                <button id="restart-btn" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg shadow hover:bg-indigo-700 transition-colors w-full sm:w-auto">Restart Quiz</button>
+                <button id="home-btn" class="bg-slate-600 text-white font-semibold py-3 px-8 rounded-lg shadow hover:bg-slate-700 transition-colors w-full sm:w-auto">Home</button>
+            </div>
+            <p class="mt-4 text-xs text-slate-500">Partial credit enabled for multi-answer questions.</p>
+        </div>
+        
+        <!-- Loading Container -->
+        <div id="loading-container" class="text-center hidden">
+            <div id="loading-spinner" class="w-12 h-12 rounded-full border-4 border-slate-600 inline-block"></div>
+            <p class="mt-4 text-slate-400">Loading Quiz...</p>
         </div>
     </div>
-    <div id="setup-container" class="w-full max-w-2xl bg-white p-6 sm:p-8 rounded-xl shadow-lg hidden">
-        <h2 class="text-2xl font-bold text-gray-800">Start a Quiz</h2>
-        <p class="text-gray-600 mt-2">Choose how many questions to include in the quiz:</p>
-    <div class="mt-4 flex items-center justify-center gap-3">
-            <button class="size-btn bg-white border border-gray-300 px-4 py-2 rounded shadow" data-size="20">20</button>
-            <button class="size-btn bg-white border border-gray-300 px-4 py-2 rounded shadow" data-size="50">50</button>
-            <button class="size-btn bg-white border border-gray-300 px-4 py-2 rounded shadow" data-size="100">100</button>
-            <button class="size-btn bg-white border border-gray-300 px-4 py-2 rounded shadow" data-size="all">All</button>
-        </div>
-    <div class="mt-6 flex justify-center">
-            <button id="begin-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow">Start Quiz</button>
-        </div>
-        <div class="mt-4">
-            <button id="resume-btn" class="bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow hidden">Resume Saved Quiz</button>
-        </div>
-    <div id="best-score" class="mt-4 text-sm text-gray-700 text-center"></div>
-    <div id="history" class="mt-6 text-sm text-gray-700 text-center"></div>
-    </div>
-    <div id="loading-container" class="text-center hidden">
-        <div id="loading-spinner" class="w-12 h-12 rounded-full border-4 border-gray-300 inline-block"></div>
-        <p class="mt-4 text-gray-600">Loading Quiz...</p>
-    </div>
+
     <script src="/js/app.js" defer></script>
     <script>
-        // Display user statistics on page load
-        function displayUserStats() {
-            const userStats = localStorage.getItem('ccna_user_stats');
-            if (userStats) {
-                try {
-                    const stats = JSON.parse(userStats);
-                    document.getElementById('stats-topics').textContent = stats.totalTopicsCompleted || 0;
-                    document.getElementById('stats-chapters').textContent = stats.chaptersStarted ? stats.chaptersStarted.length : 0;
-                    document.getElementById('stats-sessions').textContent = stats.totalSessions || 0;
-                } catch (e) {
-                    console.warn('Error parsing user stats:', e);
-                }
-            }
-        }
-        
-        // Load stats when page loads
-        document.addEventListener('DOMContentLoaded', displayUserStats);
+        // Any other site-wide scripts can go here if needed in the future.
     </script>
 </body>
 </html>
+
