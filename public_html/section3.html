@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Master - CCNA Section 1</title>
+    <title>Game Master - CCNA Section 3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +31,7 @@
 
         <header id="page-header">
             <h1 id="page-title">
-                <i id="page-icon"></i>CCNA - Section 1
+                <i id="page-icon"></i>CCNA - Section 3
             </h1>
             <p id="page-subtitle">Interactive Study Guide for Exam 200-301</p>
             <p id="page-description">Select a topic to begin your training module.</p>
@@ -42,7 +42,7 @@
 
         <div id="progress-container">
             <div id="progress-header">
-                <span id="progress-label">Section 1 Progress</span>
+                <span id="progress-label">Section 3 Progress</span>
                 <span id="progress-text"></span>
             </div>
             <div id="progress-bar-container">
@@ -52,56 +52,24 @@
 
         <main>
             <section>
-                <h2>1.1 Network Components</h2>
-                <div id="componentsGrid"></div>
+                <h2>3.1 Routing concepts</h2>
+                <div id="routingGrid"></div>
             </section>
             <section>
-                <h2>1.2 Network Topology Architectures</h2>
-                <div id="topologyGrid"></div>
+                <h2>3.2 IP routing table</h2>
+                <div id="routingTableGrid"></div>
             </section>
             <section>
-                <h2>1.3 Physical Interface and Cabling</h2>
-                <div id="cablingGrid"></div>
+                <h2>3.3 Static routing</h2>
+                <div id="staticRoutingGrid"></div>
             </section>
             <section>
-                <h2>1.4 Interface and Cable Issues</h2>
-                <div id="issuesGrid"></div>
+                <h2>3.4 OSPF (single area)</h2>
+                <div id="ospfGrid"></div>
             </section>
             <section>
-                <h2>1.5 Compare TCP to UDP</h2>
-                <div id="tcpUdpGrid"></div>
-            </section>
-            <section>
-                <h2>1.6 Configure and verify IPv4 addressing and subnetting</h2>
-                <div id="ipv4Grid"></div>
-            </section>
-            <section>
-                <h2>1.7 Describe the need for private IPv4 addressing</h2>
-                <div id="privateIpv4Grid"></div>
-            </section>
-            <section>
-                <h2>1.8 Configure and verify IPv6 addressing and prefix</h2>
-                <div id="ipv6Grid"></div>
-            </section>
-            <section>
-                <h2>1.9 Describe IPv6 address types</h2>
-                <div id="ipv6TypesGrid"></div>
-            </section>
-            <section>
-                <h2>1.10 Verify IP parameters for Client OS (Windows, Mac OS, Linux)</h2>
-                <div id="clientOsGrid"></div>
-            </section>
-            <section>
-                <h2>1.11 Describe wireless principles</h2>
-                <div id="wirelessGrid"></div>
-            </section>
-            <section>
-                <h2>1.12 Explain virtualization fundamentals (server virtualization, containers, and VRFs)</h2>
-                <div id="virtualizationGrid"></div>
-            </section>
-            <section>
-                <h2>1.13 Describe switching concepts</h2>
-                <div id="switchingGrid"></div>
+                <h2>3.5 First hop redundancy protocols</h2>
+                <div id="fhrpGrid"></div>
             </section>
         </main>
     </div>
@@ -120,48 +88,30 @@
                 <button id="markCompleted">
                     Mark as Studied
                 </button>
-                <button id="viewDetails" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white py-3 px-4 rounded-md transition-all duration-200 transform hover:scale-105">
-                    <i class="fas fa-info-circle mr-2"></i>View Details
-                </button>
             </div>
         </div>
     </div>
 
-    <!-- Details Modal -->
-    <div id="detailsModal">
-        <div id="detailsModalContent">
-            <div id="detailsModalMain">
-                <button id="closeDetails">&times;</button>
-                <h2 id="detailsModalTitle"></h2>
-                <div id="detailsModalBody">
-                    <!-- Dynamic details content loads here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Load the unified progress tracker -->
     <script src="js/ccna-study-guide-config.js"></script>
     <script src="js/shared-progress.js"></script>
-    <script src="js/section1-data.js"></script>
-    <script src="js/section1-details.js"></script>
+    <script src="js/section3-data.js"></script>
     <script>
         let progressTracker;
         let currentTopic;
         let currentCardElement;
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize progress tracker
-            progressTracker = new UnifiedCCNAProgressTracker(1);
+            // Initialize progress tracker for Section 3
+            progressTracker = new UnifiedCCNAProgressTracker(3);
             
             // Initialize ALL global styling (replaces embedded CSS)
             CCNAConfig.initializeGlobalStyling();
             
             // Get the section data
-            const data = window.SECTION1_DATA;
+            const data = window.SECTION3_DATA;
             
             if (!data) {
-                console.error('Section data not loaded');
+                console.error('Section 3 data not loaded');
                 return;
             }
             
@@ -171,21 +121,29 @@
                 
                 topics.forEach(topic => {
                     const card = CCNAConfig.createTopicCard(topic);
-                    
-                    // Card click handler for Study - works on the entire card
-                    card.addEventListener('click', (e) => {
-                        openStudyModal(topic, card);
-                    });
-                    
+                    card.onclick = () => openStudyModal(topic, card);
                     gridElement.appendChild(card);
                 });
             }
             
-            // Populate all grids with external data
-            Object.keys(data.metadata.subsections).forEach(key => {
-                const gridElement = document.getElementById(key + 'Grid');
-                if (gridElement && data[key]) {
-                    createTopicCards(data[key], gridElement);
+            // Populate all grids with external data - direct mapping
+            const gridMappings = {
+                'routingGrid': data.routing,
+                'routingTableGrid': data.routingTable,
+                'staticRoutingGrid': data.staticRouting,
+                'ospfGrid': data.ospf,
+                'fhrpGrid': data.fhrp
+            };
+            
+            Object.keys(gridMappings).forEach(gridId => {
+                const gridElement = document.getElementById(gridId);
+                const topics = gridMappings[gridId];
+                if (gridElement && topics && topics.length > 0) {
+                    createTopicCards(topics, gridElement);
+                } else if (!gridElement) {
+                    console.warn(`Grid element not found for ID: ${gridId}`);
+                } else if (!topics || topics.length === 0) {
+                    console.warn(`No topics found for grid: ${gridId}`);
                 }
             });
             
@@ -217,26 +175,6 @@
             CCNAConfig.applyButtonState(markBtn, isCompleted);
         }
 
-        function openDetailsModal(topic, cardElement) {
-            document.getElementById('detailsModalTitle').textContent = topic.title;
-            
-            // Load details content from section1-details.js
-            const detailsContent = CCNAConfig.loadDetailsContent(1, topic.title);
-            document.getElementById('detailsModalBody').innerHTML = detailsContent;
-            
-            const modal = document.getElementById('detailsModal');
-            const content = document.getElementById('detailsModalContent');
-            
-            CCNAConfig.openDetailsModal(modal, content);
-        }
-
-        function closeDetailsModal() {
-            const modal = document.getElementById('detailsModal');
-            const modalContent = document.getElementById('detailsModalContent');
-            
-            CCNAConfig.closeDetailsModal(modal, modalContent);
-        }
-
         function closeStudyModal() {
             const modal = document.getElementById('studyModal');
             const modalContent = document.getElementById('modalContent');
@@ -252,24 +190,6 @@
             document.getElementById('closeModal').addEventListener('click', closeStudyModal);
             document.getElementById('studyModal').addEventListener('click', function(e) {
                 if (e.target === this) closeStudyModal();
-            });
-
-            // View Details button in study modal
-            document.getElementById('viewDetails').addEventListener('click', function() {
-                if (currentTopic) {
-                    // Close study modal first
-                    closeStudyModal();
-                    // Open details modal
-                    setTimeout(() => {
-                        openDetailsModal(currentTopic, currentCardElement);
-                    }, 200);
-                }
-            });
-
-            // Details modal event listeners
-            document.getElementById('closeDetails').addEventListener('click', closeDetailsModal);
-            document.getElementById('detailsModal').addEventListener('click', function(e) {
-                if (e.target === this) closeDetailsModal();
             });
 
             document.getElementById('markCompleted').addEventListener('click', function() {
@@ -290,13 +210,9 @@
             // Add keyboard support
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    const studyModal = document.getElementById('studyModal');
-                    const detailsModal = document.getElementById('detailsModal');
-                    
-                    if (CCNAConfig.isModalVisible(studyModal)) {
+                    const modal = document.getElementById('studyModal');
+                    if (CCNAConfig.isModalVisible(modal)) {
                         closeStudyModal();
-                    } else if (CCNAConfig.isModalVisible(detailsModal)) {
-                        closeDetailsModal();
                     }
                 }
             });

@@ -297,7 +297,13 @@ const SECTION2_DATA = {
             discovery: { title: "2.3 Layer 2 Discovery Protocols", count: 2 },
             etherchannel: { title: "2.4 EtherChannel", count: 1 },
             spanningTree: { title: "2.5 Rapid PVST+", count: 3 },
-            wireless: { title: "2.6-2.9 Wireless LANs", count: 4 },
+            wireless1: { title: "2.6 Wireless Architectures", count: 1 },
+            wireless2: { title: "2.7 WLAN Infrastructure", count: 1 },
+            wireless3: { title: "2.8 Management Access", count: 1 },
+            wireless4: { title: "2.9 GUI Configuration", count: 1 },
         }
     }
 };
+
+// Export for global use
+window.SECTION2_DATA = SECTION2_DATA;

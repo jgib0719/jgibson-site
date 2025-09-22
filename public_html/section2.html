@@ -51,30 +51,41 @@
         </div>
 
         <main>
-            <!-- Sections updated with summarized titles and correct grid IDs -->
             <section>
-                <h2>2.1 VLANs</h2>
+                <h2>2.1 VLANs spanning multiple switches</h2>
                 <div id="vlansGrid"></div>
             </section>
             <section>
-                <h2>2.2 Interswitch Connectivity</h2>
+                <h2>2.2 Interswitch connectivity</h2>
                 <div id="trunksGrid"></div>
             </section>
             <section>
-                <h2>2.3 Layer 2 Discovery Protocols</h2>
+                <h2>2.3 Layer 2 discovery protocols</h2>
                 <div id="discoveryGrid"></div>
             </section>
             <section>
-                <h2>2.4 EtherChannel</h2>
+                <h2>2.4 EtherChannel (LACP)</h2>
                 <div id="etherchannelGrid"></div>
             </section>
             <section>
-                <h2>2.5 Rapid PVST+</h2>
+                <h2>2.5 Rapid PVST+ Spanning Tree Protocol</h2>
                 <div id="spanningTreeGrid"></div>
             </section>
             <section>
-                <h2>2.6-2.9 Wireless LANs</h2>
-                <div id="wirelessGrid"></div>
+                <h2>2.6 Cisco Wireless Architectures and AP modes</h2>
+                <div id="wireless1Grid"></div>
+            </section>
+            <section>
+                <h2>2.7 WLAN physical infrastructure connections</h2>
+                <div id="wireless2Grid"></div>
+            </section>
+            <section>
+                <h2>2.8 Network device management access</h2>
+                <div id="wireless3Grid"></div>
+            </section>
+            <section>
+                <h2>2.9 Wireless LAN GUI configuration</h2>
+                <div id="wireless4Grid"></div>
             </section>
         </main>
     </div>
@@ -131,13 +142,28 @@
                 });
             }
             
-            // Populate all grids with external data by iterating through the metadata
-            Object.keys(data.metadata.subsections).forEach(key => {
-                const gridElement = document.getElementById(key + 'Grid');
-                if (gridElement && data[key]) {
-                    createTopicCards(data[key], gridElement);
+            // Populate all grids with external data - direct mapping
+            const gridMappings = {
+                'vlansGrid': data.vlans,
+                'trunksGrid': data.trunks,
+                'discoveryGrid': data.discovery,
+                'etherchannelGrid': data.etherchannel,
+                'spanningTreeGrid': data.spanningTree,
+                'wireless1Grid': data.wireless ? [data.wireless[0]] : [],
+                'wireless2Grid': data.wireless ? [data.wireless[1]] : [],
+                'wireless3Grid': data.wireless ? [data.wireless[2]] : [],
+                'wireless4Grid': data.wireless ? [data.wireless[3]] : []
+            };
+            
+            Object.keys(gridMappings).forEach(gridId => {
+                const gridElement = document.getElementById(gridId);
+                const topics = gridMappings[gridId];
+                if (gridElement && topics && topics.length > 0) {
+                    createTopicCards(topics, gridElement);
                 } else if (!gridElement) {
-                    console.warn(`Grid element not found for key: ${key}Grid`);
+                    console.warn(`Grid element not found for ID: ${gridId}`);
+                } else if (!topics || topics.length === 0) {
+                    console.warn(`No topics found for grid: ${gridId}`);
                 }
             });
             

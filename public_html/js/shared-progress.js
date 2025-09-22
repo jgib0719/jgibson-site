@@ -62,7 +62,7 @@ class UnifiedCCNAProgressTracker {
     getDefaultTopicCounts() {
         return {
             1: 35, // Network Fundamentals - updated after removing OSI/TCP-IP, Ethernet, and troubleshooting topics
-            2: 15, // Layer 3 Technologies - updated to match section2-data.js metadata
+            2: 16, // Network Access - updated to match section2-data.js actual topic count
             3: 21, // IP Connectivity
             4: 19, // IP Services
             5: 14, // Security Fundamentals

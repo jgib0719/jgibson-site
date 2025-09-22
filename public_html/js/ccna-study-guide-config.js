@@ -28,13 +28,30 @@ const CCNAConfig = {
         closeButtonClasses: "absolute top-3 right-3 text-slate-400 hover:text-white font-semibold py-1 px-3 rounded-lg text-2xl transition-colors",
         titleClasses: "text-2xl font-bold text-slate-100 title-font",
         descriptionClasses: "text-slate-300 mt-3 leading-relaxed",
-        markButtonClasses: "mt-6 w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-4 rounded-md hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
+        markButtonClasses: "flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-4 rounded-md hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
+    },
+
+    // Details modal configuration
+    detailsModal: {
+        // Details modal overlay classes
+        overlayClasses: "fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0 z-50",
+        
+        // Details modal container classes
+        containerClasses: "flex flex-col bg-slate-800 border-2 border-indigo-500/50 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden transform scale-95 transition-all duration-300 opacity-0",
+        
+        // Details modal main area classes
+        mainAreaClasses: "p-4 md:p-6 relative bg-slate-800 overflow-y-auto flex-1",
+        
+        // Details modal button classes
+        closeButtonClasses: "absolute top-3 right-3 text-slate-400 hover:text-white font-semibold py-1 px-3 rounded-lg text-2xl transition-colors",
+        titleClasses: "text-2xl font-bold text-slate-100 title-font mb-4",
+        bodyClasses: "text-slate-300 leading-relaxed"
     },
     
     // Topic card configuration
     cards: {
         // Card container classes
-        containerClasses: "topic-card p-6 flex flex-col justify-center items-center text-center cursor-pointer h-56 w-60",
+        containerClasses: "topic-card relative p-6 flex flex-col justify-center items-center text-center cursor-pointer h-56 w-60",
         
         // Icon classes
         iconClasses: "fas text-5xl text-indigo-400 mb-4",
@@ -307,6 +324,23 @@ const CCNAConfig = {
         if (modalDescription) modalDescription.className = this.modal.descriptionClasses;
         if (markCompleted) markCompleted.className = this.modal.markButtonClasses;
     },
+
+    // Apply details modal configuration to page elements
+    applyDetailsModalConfig: function() {
+        const detailsModal = document.getElementById('detailsModal');
+        const detailsModalContent = document.getElementById('detailsModalContent');
+        const detailsModalMain = document.getElementById('detailsModalMain');
+        const closeDetails = document.getElementById('closeDetails');
+        const detailsModalTitle = document.getElementById('detailsModalTitle');
+        const detailsModalBody = document.getElementById('detailsModalBody');
+        
+        if (detailsModal) detailsModal.className = this.detailsModal.overlayClasses;
+        if (detailsModalContent) detailsModalContent.className = this.detailsModal.containerClasses;
+        if (detailsModalMain) detailsModalMain.className = this.detailsModal.mainAreaClasses;
+        if (closeDetails) closeDetails.className = this.detailsModal.closeButtonClasses;
+        if (detailsModalTitle) detailsModalTitle.className = this.detailsModal.titleClasses;
+        if (detailsModalBody) detailsModalBody.className = this.detailsModal.bodyClasses;
+    },
     
     // Apply layout configuration to page elements
     applyLayoutConfig: function() {
@@ -391,7 +425,8 @@ const CCNAConfig = {
     // Function to create topic cards using global config
     createTopicCard: function(topic) {
         const card = document.createElement('div');
-        card.className = this.cards.containerClasses;
+        card.className = this.cards.containerClasses + ' cursor-pointer';
+        card.setAttribute('data-study-topic', topic.title);
         card.innerHTML = `
             <i class="${topic.icon} ${this.cards.iconClasses}"></i>
             <h3 class="${this.cards.titleClasses}">${topic.title}</h3>
@@ -442,6 +477,29 @@ const CCNAConfig = {
             }
             
             #modalContent.visible {
+                transform: ${this.styles.modal.content.visible.transform};
+                opacity: ${this.styles.modal.content.visible.opacity};
+            }
+            
+            /* Details Modal Styles */
+            #detailsModal {
+                opacity: ${this.styles.modal.hidden.opacity};
+                visibility: hidden;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(4px);
+            }
+            
+            #detailsModal.visible {
+                opacity: ${this.styles.modal.visible.opacity};
+                visibility: visible;
+            }
+            
+            #detailsModalContent {
+                transform: ${this.styles.modal.content.base.transform};
+                opacity: ${this.styles.modal.content.base.opacity};
+            }
+            
+            #detailsModalContent.visible {
                 transform: ${this.styles.modal.content.visible.transform};
                 opacity: ${this.styles.modal.content.visible.opacity};
             }
@@ -522,6 +580,7 @@ const CCNAConfig = {
     initializeGlobalStyling: function() {
         this.applyEmbeddedStyles();
         this.applyModalConfig();
+        this.applyDetailsModalConfig();
         this.applyLayoutConfig();
         this.initializeTextContent();
         
@@ -582,6 +641,32 @@ const CCNAConfig = {
         setTimeout(() => {
             modal.classList.add(this.styles.cssClasses.modal.hidden);
         }, this.ui.timing.modalClose);
+    },
+    
+    // Details modal functions
+    openDetailsModal: function(modal, content) {
+        modal.classList.remove(this.styles.cssClasses.modal.hidden);
+        setTimeout(() => {
+            modal.classList.add(this.styles.cssClasses.modal.visible);
+            content.classList.add(this.styles.cssClasses.modal.visible);
+        }, this.ui.timing.modalOpen);
+    },
+    
+    closeDetailsModal: function(modal, content) {
+        modal.classList.remove(this.styles.cssClasses.modal.visible);
+        content.classList.remove(this.styles.cssClasses.modal.visible);
+        setTimeout(() => {
+            modal.classList.add(this.styles.cssClasses.modal.hidden);
+        }, this.ui.timing.modalClose);
+    },
+    
+    loadDetailsContent: function(sectionNumber, topicTitle) {
+        // Get the details data for the current section
+        const detailsData = window[`SECTION${sectionNumber}_DETAILS`];
+        if (detailsData && detailsData[topicTitle]) {
+            return detailsData[topicTitle];
+        }
+        return `<p>Details not available for this topic yet.</p>`;
     },
     
     isModalVisible: function(modal) {
