@@ -1,0 +1,13 @@
+1. No incorporating backward compatibility on your own accord, that must be approved. 
+2. No changing visuals, styling, or anything else that will alter how the frontend that is presented to the user (UI/UX).
+3. The top level documents and stylings are the source of truth. Use the identical callable object and function names. 
+4. Do not create or inject new files into the tree without explanation and approval. 
+5. Don't add code without removing the code it's fixing ~ you haved create duplicate code a lot.
+6. Keep things simple.
+7. Test changes systematically. 
+8. Don't use forced Javascript styling unless the styling is not possible with CSS classes.
+9. Read and understand existing code structure before making changes.
+10. Verify file paths and references after any reorganization.
+11. Ask for clarification before major architectural changes.
+12. Don't assume problems exist without proper debugging first.
+13. Document changes clearly and maintain accurate project documentation.

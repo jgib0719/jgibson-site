@@ -2,58 +2,100 @@
 
 ## Project Overview
 
-A CCNA study guide website with interactive topic cards and modal dialogs for studying network fundamentals. The site features 6 sections covering different networking topics with visual diagrams and progress tracking.
+A CCNA study platform combining both interactive study guides and practice quizzes. The site features:
+
+- **Study Guide**: 6 sections covering CCNA networking topics with visual diagrams, modal dialogs, and progress tracking
+- **Quiz Engine**: Interactive quizzes with Cisco and Wiley question sets, score tracking, and localStorage persistence
+
+The codebase has been reorganized into a clean separation of concerns with dedicated folders for quiz and guide functionality.
 
 ## Directory Tree Structure
 
-```
+```text
 jgibson.site/
-├── .git/                          # Git repository files
-├── .gitignore
-├── center-modals.sh              # Script for centering modal content
+├── basic_rules.txt               # Project rules/guidelines
+├── CODEBASE_ANALYSIS.md          # This documentation file
 └── public_html/
-    ├── api/
-    │   └── database.php           # Database API endpoint
-    ├── css/
-    │   ├── site.css              # Main stylesheet
-    │   └── site.css.backup.20250924_171304  # Backup CSS
-    ├── images/
-    │   ├── cisco-logo.svg
-    │   ├── wiley-logo.svg
-    │   └── questions/             # Question images (PNG, JPEG, GIF)
-    ├── js/
-    │   ├── ccna-quiz-engine.js    # Quiz functionality
-    │   ├── ccna-study-guide-config.js  # Main configuration & modal system
-    │   ├── section1-data.js       # Section 1 topic data
-    │   ├── section1-details.js    # Section 1 detailed content
-    │   ├── section2-data.js       # Section 2 topic data
-    │   ├── section2-details.js    # Section 2 detailed content
-    │   ├── section3-data.js       # Section 3 topic data
-    │   ├── section3-details.js    # Section 3 detailed content
-    │   ├── section4-data.js       # Section 4 topic data
-    │   ├── section4-details.js    # Section 4 detailed content
-    │   ├── section5-data.js       # Section 5 topic data
-    │   ├── section5-details.js    # Section 5 detailed content
-    │   ├── section6-data.js       # Section 6 topic data
-    │   ├── section6-details.js    # Section 6 detailed content
-    │   └── shared-progress.js     # Progress tracking system
-    ├── ccna_topics.db             # SQLite database
-    ├── cisco-exam-topics.txt      # Text file with exam topics
-    ├── favicon.ico
-    ├── favicon.svg
-    ├── index.html                 # Homepage
-    ├── questions.json             # Quiz questions data
-    ├── section1.html              # Network Fundamentals
-    ├── section2.html              # Network Access
-    ├── section3.html              # IP Connectivity
-    ├── section4.html              # IP Services
-    ├── section5.html              # Security Fundamentals
-    ├── section6.html              # Automation and Programmability
-    ├── sections.html              # Section overview page
-    └── wiley_questions.json       # Additional quiz questions
+    ├── favicon.ico               # Site favicon
+    ├── favicon.svg               # Site favicon (SVG)
+    ├── index.html                # Main hub page (quiz + study guide entry)
+    ├── guide/                    # Study Guide Functionality
+    │   ├── css/
+    │   │   ├── site.css          # Study guide stylesheet
+    │   │   └── site.css.backup.20250924_171304  # Backup CSS
+    │   ├── js/
+    │   │   ├── ccna-study-guide-config.js  # Main configuration & modal system
+    │   │   ├── section1-data.js       # Section 1 topic data
+    │   │   ├── section1-details.js    # Section 1 detailed content
+    │   │   ├── section2-data.js       # Section 2 topic data
+    │   │   ├── section2-details.js    # Section 2 detailed content
+    │   │   ├── section3-data.js       # Section 3 topic data
+    │   │   ├── section3-details.js    # Section 3 detailed content
+    │   │   ├── section4-data.js       # Section 4 topic data
+    │   │   ├── section4-details.js    # Section 4 detailed content
+    │   │   ├── section5-data.js       # Section 5 topic data
+    │   │   ├── section5-details.js    # Section 5 detailed content
+    │   │   ├── section6-data.js       # Section 6 topic data
+    │   │   ├── section6-details.js    # Section 6 detailed content
+    │   │   └── shared-progress.js     # Progress tracking system
+    │   ├── section1.html              # Network Fundamentals
+    │   ├── section2.html              # Network Access
+    │   ├── section3.html              # IP Connectivity
+    │   ├── section4.html              # IP Services
+    │   ├── section5.html              # Security Fundamentals
+    │   ├── section6.html              # Automation and Programmability
+    │   └── sections.html              # Section overview page
+    └── quiz/                     # Quiz Engine Functionality
+        ├── images/
+        │   ├── cisco-logo.svg         # Unused brand assets (inline SVG used instead)
+        │   ├── wiley-logo.svg
+        │   └── questions/             # Question diagrams (PNG, JPEG, GIF)
+        │       ├── q117.png
+        │       ├── q119.jpeg
+        │       ├── q120.png
+        │       ├── q14.png
+        │       ├── q18.png
+        │       ├── q48.gif
+        │       ├── q49.png
+        │       ├── q57.png
+        │       ├── q65.png
+        │       ├── q69.jpeg
+        │       ├── q85.png
+        │       ├── q86.png
+        │       ├── q91.gif
+        │       ├── q94.png
+        │       ├── q97_inter-vlan_routing.png
+        │       └── q99_etherchannel_summary.png
+        ├── js/
+        │   └── ccna-quiz-engine.js    # Quiz functionality and engine
+        ├── questions.json             # Cisco quiz questions data
+        └── wiley_questions.json       # Wiley quiz questions data
 ```
 
-## Modal System Architecture
+## Architecture Overview
+
+### Two-System Design
+
+The platform has a clean separation between two distinct systems:
+
+#### 1. Quiz Engine (`/quiz/`)
+
+- **Technology**: Tailwind CSS (CDN), Vanilla JavaScript, localStorage persistence
+- **Core Features**: Multiple question sets (Cisco/Wiley), configurable quiz sizes, score tracking, resume functionality, image support
+
+#### 2. Study Guide (`/guide/`)
+
+- **Technology**: Custom CSS, JavaScript modules, localStorage persistence  
+- **Core Features**: 6 CCNA study sections, modal-based content, SVG diagrams, progress tracking, completion indicators
+
+### Data Storage Strategy
+
+All data is stored locally with no external database dependencies:
+
+- **Quiz Data**: Static JSON files with question metadata and image references
+- **User Progress**: localStorage for cross-session persistence (both quiz scores and study progress)
+
+## Study Guide Modal System Architecture
 
 ### Current Modal Structure
 
@@ -102,9 +144,52 @@ The website uses a custom modal system with the following HTML structure:
 - `.topic-card` - Interactive topic cards
 - `.studied` - Completed topic state
 
-## JavaScript Functions & Objects
+## Quiz Engine System
 
-### CCNAConfig Object (ccna-study-guide-config.js)
+### Quiz Engine Architecture
+
+The quiz system is built around `ccna-quiz-engine.js` with the following components:
+
+#### Data Loading System
+
+```javascript
+// Fetches questions from JSON files
+async function loadQuizData()
+function getQuestionsFromServer()  // Loads /quiz/questions.json or /quiz/wiley_questions.json
+```
+
+#### Question Structure
+
+```javascript
+{
+    "number": 14,
+    "question": "Question text...",
+    "options": ["A. Option 1", "B. Option 2", "C. Option 3", "D. Option 4"],
+    "answer": ["A"],  // Can be multiple for multi-select questions
+    "explanation": "Detailed explanation...",
+    "image": "/quiz/images/questions/q14.png"  // Optional diagram
+}
+```
+
+#### Storage Keys
+
+- Format: `${name}_quiz_${category}_v1` where category is 'cisco' or 'wiley'
+- `history_quiz_cisco_v1` - Quiz attempt history
+- `best_quiz_cisco_v1` - Best scores per quiz size
+- `save_quiz_cisco_v1` - Resume data for incomplete quizzes
+
+#### Quiz Flow
+
+1. Category selection (Cisco/Wiley)
+2. Quiz size selection (20/50/100/All)
+3. Question presentation with image support
+4. Answer validation with feedback
+5. Score calculation with partial credit
+6. Results display with best score comparison
+
+## Study Guide JavaScript Functions & Objects
+
+### CCNAConfig Object (guide/js/ccna-study-guide-config.js)
 
 The main configuration object that controls all modal behavior:
 
@@ -130,7 +215,7 @@ CCNAConfig.ui.timing                // Animation timing settings
 CCNAConfig.styles                   // CSS classes and states
 ```
 
-### Section-Specific Functions (section1.html, etc.)
+### Section-Specific Functions (guide/section1.html, etc.)
 
 Each section HTML file contains:
 
@@ -141,7 +226,7 @@ function closeStudyModal()                     // Closes study modal
 function closeDetailsModal()                   // Closes details modal
 ```
 
-### Progress Tracking (shared-progress.js)
+### Progress Tracking (guide/js/shared-progress.js)
 
 ```javascript
 progressTracker.isTopicCompleted(topicTitle)  // Check if topic is complete
@@ -152,10 +237,42 @@ progressTracker.syncVisualState()             // Update visual indicators
 ### Data Objects
 
 Each section has corresponding data files:
+
 - `SECTION1_TOPICS` - Array of topic objects with title, description, visual (SVG)
 - `SECTION1_DETAILS` - Object with detailed explanations for each topic
 
-## Current CSS Selectors
+## File Path Structure
+
+**Quiz System:**
+
+- Scripts: `/quiz/js/ccna-quiz-engine.js`
+- Data: `/quiz/questions.json`, `/quiz/wiley_questions.json`  
+- Images: `/quiz/images/questions/[filename]`
+
+**Study Guide System:**
+
+- CSS: `css/site.css` (relative to guide folder)
+- Scripts: `js/[filename]` (relative to guide folder)  
+- Navigation: `sections.html` ↔ `section[N].html` (same folder)
+
+**Root Resources:**
+
+- Main hub: `index.html` (uses Tailwind CDN, links to `/guide/sections.html`)
+- Icons: `/favicon.ico`, `/favicon.svg`
+- Logos: Embedded as inline SVG in `index.html`
+
+### Unused/Legacy Files
+
+**Note:** The codebase has been cleaned up and no longer contains any unused files. Previously present files that have been removed include:
+
+- `ccna_topics.db` - SQLite database (removed - was unused)
+- `api/database.php` - PHP API endpoint (removed - was unused)  
+- `cisco-exam-topics.txt` - Reference text file (removed)
+- `center-modals.sh` - Modal centering script (removed)
+
+The current implementation is fully self-contained with no unused dependencies.
+
+## Study Guide CSS Selectors
 
 ### Layout & Structure
 
@@ -166,115 +283,21 @@ Each section has corresponding data files:
 .back-btn              /* Navigation back button */
 ```
 
-### Topic Cards
+## Recommended Next Steps
 
-```css
-.topic-card            /* Main card styling */
-.topic-card:hover      /* Hover effects */
-.topic-card .title     /* Card title */
-.topic-card .subtitle  /* Card subtitle */
-.studied-overlay       /* Completion indicator */
-.topic-card.studied    /* Completed state */
-```
+### Potential Improvements
 
-### Modal System
+1. ✅ **Database Cleanup**: Completed - removed unused database and API files  
+2. **Logo Optimization**: Remove unused SVG logo files since inline SVG is used in `index.html`
+3. **CSS Consolidation**: Consider if any Tailwind classes in quiz could be moved to custom CSS for consistency
+4. **Performance**: Add caching headers for static JSON and image assets
+5. **Modal Centering**: Address study guide modal centering by updating CSS selectors in `guide/css/site.css`
 
-```css
-.modal-backdrop        /* Modal overlay */
-.modal                 /* Modal container */
-.modal .visual         /* SVG diagram area */
-.modal .body          /* Modal content area */
-```
+### Current Status
 
-### Utility Classes
+The codebase has been significantly cleaned up with:
 
-```css
-.p-4, .p-6            /* Padding utilities */
-.mb-4, .mt-4          /* Margin utilities */
-.hidden, .visible     /* Display utilities */
-.icon-sm              /* Small icon sizing */
-```
-
-## Modal Centering Issue Analysis
-
-### Problem Identified
-
-The current modal centering CSS was targeting incorrect selectors. The HTML structure uses IDs like `#modalContent`, `#modalMainArea`, etc., but the CSS was targeting generic classes like `.modal-content`, `.modal-header`.
-
-### Current Broken CSS
-
-```css
-/* These selectors don't match the actual HTML structure */
-.modal-content { text-align: center; }
-.modal-header { text-align: center; }
-.modal-body { text-align: center; }
-.modal-footer { display: flex; justify-content: center; }
-```
-
-### Required CSS Fix
-
-```css
-/* Target the actual HTML IDs */
-#modalContent, #detailsModalContent { text-align: center; }
-#modalMainArea, #detailsModalMain { text-align: center; }
-#modalTitle, #detailsModalTitle { text-align: center; }
-#modalDescription, #detailsModalBody { text-align: center; }
-#modalMainArea button { margin: 8px 5px; }
-#modalVisual, #modalSvg { text-align: center; }
-```
-
-## Event Handling
-
-### Topic Card Clicks
-
-```javascript
-// Each topic card has onclick handlers:
-onclick="openStudyModal(topics[X], this)"    // Study modal
-onclick="openDetailsModal(topics[X], this)"  // Details modal
-```
-
-### Button Interactions
-
-```javascript
-// Mark as Studied button
-document.getElementById('markCompleted').onclick
-
-// View Details button  
-document.getElementById('viewDetails').onclick
-
-// Close buttons
-document.getElementById('closeModal').onclick
-document.getElementById('closeDetails').onclick
-```
-
-## Configuration System
-
-The site uses a centralized configuration approach with `CCNAConfig` object containing:
-- Modal dimensions and styling
-- Animation timings
-- CSS class definitions
-- Button states and text
-- Layout configurations
-
-This makes the system maintainable but complex, as styling is split between:
-1. Static CSS file (`site.css`)
-2. Dynamic JavaScript configuration (`ccna-study-guide-config.js`)
-3. Inline styles applied programmatically
-
-## Files That Need Modal Centering
-
-All section files use the same modal structure:
-- `section1.html` - Network Fundamentals
-- `section2.html` - Network Access  
-- `section3.html` - IP Connectivity
-- `section4.html` - IP Services
-- `section5.html` - Security Fundamentals
-- `section6.html` - Automation and Programmability
-
-## Recommended Solution
-
-The modal centering should target the actual HTML IDs used in the structure, not generic CSS classes. The fix should be applied to `site.css` to center:
-1. Modal titles (`#modalTitle`, `#detailsModalTitle`)
-2. Modal descriptions (`#modalDescription`, `#detailsModalBody`)
-3. Modal buttons (within `#modalMainArea`, `#detailsModalMain`)
-4. SVG diagrams (`#modalVisual`, `#modalSvg`)
+- ✅ Complete folder reorganization (`/quiz/` and `/guide/` separation)
+- ✅ Unused database and API files removed
+- ✅ All file path references updated correctly
+- ✅ Clean directory structure with no legacy files

@@ -1,24 +1,20 @@
 # Python virtual environment
 .venv/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
+venv/
+env/
 
-# IDE files
+# Quiz folder (excluded from repository)
+public_html/quiz/
+
+# IDE and editor files
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # System files
 .DS_Store
 Thumbs.db
 
-# Logs
+# Log files
 *.log
-
-# Database files (if they contain sensitive data)
-# *.db
-
-# Temporary files
-*.tmp
-*.temp
