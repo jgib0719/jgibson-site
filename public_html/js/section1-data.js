@@ -99,7 +99,7 @@ const SECTION1_DATA = {
             </svg>`
         },
         {
-            title: "Controllers (WLC)", 
+            title: "Controllers", 
             icon: "fa-sitemap",
             description: "Wireless LAN Controller centrally manages, configures, and monitors multiple Access Points, simplifying wireless network administration.",
             visual: `<svg viewBox="0 0 400 200">
@@ -326,7 +326,7 @@ const SECTION1_DATA = {
             </svg>`
         },
         {
-            title: "Fiber Optic - Single Mode", 
+            title: "Single Mode Fiber", 
             icon: "fa-eye-dropper",
             description: "Fiber with small core allowing one mode of light. Used for long distances with high bandwidth. Less modal dispersion.",
             visual: `<svg viewBox="0 0 400 200">
@@ -345,7 +345,7 @@ const SECTION1_DATA = {
             </svg>`
         },
         {
-            title: "Fiber Optic - Multimode", 
+            title: "Multimode Fiber", 
             icon: "fa-expand",
             description: "Fiber with larger core allowing multiple modes of light. Used for shorter distances within buildings. Higher modal dispersion.",
             visual: `<svg viewBox="0 0 400 200">
@@ -436,7 +436,7 @@ const SECTION1_DATA = {
     // ISSUES
     issues: [
         {
-            title: "Interface/Cable Issues", 
+            title: "Cable Issues", 
             icon: "fa-triangle-exclamation",
             description: "Collisions occur in half-duplex, shared media. Errors from corrupted frames due to faulty cables. Duplex/Speed mismatches cause poor performance.",
             visual: `<svg viewBox="0 0 400 200">
@@ -519,7 +519,7 @@ const SECTION1_DATA = {
     // PRIVATEIPV4
     privateIpv4: [
         {
-            title: "Private IPv4 Addressing", 
+            title: "Private IPv4", 
             icon: "fa-lock",
             description: "RFC 1918 ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Not internet routable. NAT translates private to public IPs.",
             visual: `<svg viewBox="0 0 400 200">
@@ -558,7 +558,7 @@ const SECTION1_DATA = {
     // IPV6TYPES
     ipv6Types: [
         {
-            title: "IPv6 Address Types", 
+            title: "IPv6 Types", 
             icon: "fa-share-nodes",
             description: "Unicast: One-to-one (Global, Unique Local, Link-Local). Anycast: One-to-nearest. Multicast: One-to-many group communication.",
             visual: `<svg viewBox="0 0 400 200">
@@ -695,7 +695,7 @@ const SECTION1_DATA = {
     // SWITCHING
     switching: [
         {
-            title: "MAC Learning & Aging", 
+            title: "MAC Learning", 
             icon: "fa-brain",
             description: "Learning: Switch adds source MAC to table with ingress port. Aging: Entries removed after inactivity (typically 300 seconds).",
             visual: `<svg viewBox="0 0 400 200">
@@ -815,5 +815,26 @@ const SECTION1_DATA = {
 // Export for use in section1.html
 if (typeof window !== 'undefined') {
     window.SECTION1_DATA = SECTION1_DATA;
+}
+
+// Create simplified topics array for enterprise modal system
+const SECTION1_TOPICS = [
+    { title: "1.1 Network Components", subtitle: "Routers, switches, firewalls, and more", description: "Learn about network infrastructure components" },
+    { title: "1.2 Network Topology Architectures", subtitle: "Star, mesh, hybrid topologies", description: "Understand different network topologies" },
+    { title: "1.3 Physical Interface and Cabling", subtitle: "Ethernet, fiber, copper cables", description: "Physical layer connectivity options" },
+    { title: "1.4 Interface and Cable Issues", subtitle: "Troubleshooting connectivity", description: "Common physical layer problems" },
+    { title: "1.5 Compare TCP to UDP", subtitle: "Transport layer protocols", description: "Connection-oriented vs connectionless protocols" },
+    { title: "1.6 Configure and verify IPv4 addressing and subnetting", subtitle: "IPv4 fundamentals", description: "IP addressing and subnetting concepts" },
+    { title: "1.7 Describe the need for private IPv4 addressing", subtitle: "RFC 1918 addresses", description: "Private IP address ranges and NAT" },
+    { title: "1.8 Configure and verify IPv6 addressing and prefix", subtitle: "IPv6 fundamentals", description: "Next-generation IP protocol" },
+    { title: "1.9 Describe IPv6 address types", subtitle: "Unicast, multicast, anycast", description: "Different IPv6 address categories" },
+    { title: "1.10 Verify IP parameters for Client OS", subtitle: "Windows, Mac, Linux", description: "Operating system IP configuration" },
+    { title: "1.11 Describe wireless principles", subtitle: "WiFi standards and security", description: "Wireless networking fundamentals" },
+    { title: "1.12 Explain virtualization fundamentals", subtitle: "VMs, containers, VRFs", description: "Network virtualization concepts" },
+    { title: "1.13 Describe switching concepts", subtitle: "VLANs, trunking, STP", description: "Layer 2 switching operations" }
+];
+
+if (typeof window !== 'undefined') {
+    window.SECTION1_TOPICS = SECTION1_TOPICS;
 }
 

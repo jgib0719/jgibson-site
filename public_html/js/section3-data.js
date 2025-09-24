@@ -6,7 +6,7 @@
 const SECTION3_DATA = {
     routingTable: [
         {
-            title: "Routing Table Components",
+            title: "Routing Table",
             icon: "fa-table-list",
             description: "A routing table is a data table stored in a router or a networked computer that lists the routes to particular network destinations. Key components include the protocol code, prefix/mask, and the next-hop address.",
             visual: `<svg viewBox="0 0 400 200">
@@ -50,7 +50,7 @@ const SECTION3_DATA = {
             </svg>`
         },
         {
-            title: "Gateway of Last Resort",
+            title: "Default Gateway",
             icon: "fa-door-open",
             description: "The Gateway of Last Resort is the IP address of the router where packets with no specific route in the routing table are sent. This is typically the path to the internet, represented by a default static route (0.0.0.0/0).",
             visual: `<svg viewBox="0 0 400 200">
@@ -73,7 +73,7 @@ const SECTION3_DATA = {
     ],
     routing: [
         {
-            title: "Forwarding Decision Logic",
+            title: "Forwarding Logic",
             icon: "fa-project-diagram",
             description: "A router makes a forwarding decision by first finding the longest prefix match. If multiple routes have the same prefix length, it chooses the one with the lowest Administrative Distance (AD). If ADs are also equal, it uses the route with the lowest metric.",
             visual: `<svg viewBox="0 0 400 200">
@@ -89,7 +89,7 @@ const SECTION3_DATA = {
             </svg>`
         },
         {
-            title: "Longest Prefix Match",
+            title: "Prefix Matching",
             icon: "fa-search",
             description: "The primary rule for route selection. A router will always prefer a more specific route. For example, a route to 10.1.1.0/25 is more specific and will be chosen over a route to 10.1.1.0/24.",
             visual: `<svg viewBox="0 0 400 200">
@@ -142,7 +142,7 @@ const SECTION3_DATA = {
     ],
     ospf: [
         {
-            title: "OSPF Neighbor Adjacency",
+            title: "OSPF Neighbors",
             icon: "fa-users",
             description: "OSPF routers form neighbor relationships by exchanging Hello packets on connected links. For an adjacency to form, parameters like Hello/Dead timers, area ID, and authentication must match.",
             visual: `<svg viewBox="0 0 400 200">
@@ -184,7 +184,7 @@ const SECTION3_DATA = {
     ],
     fhrp: [
         {
-            title: "First Hop Redundancy",
+            title: "FHRP",
             icon: "fa-clone",
             description: "First Hop Redundancy Protocols (FHRPs) like HSRP, VRRP, and GLBP provide a way to create a redundant default gateway for end devices, preventing a single point of failure at the gateway router. Devices use a single virtual IP address.",
             visual: `<svg viewBox="0 0 400 200">

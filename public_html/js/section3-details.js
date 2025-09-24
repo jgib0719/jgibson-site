@@ -6,10 +6,10 @@
  */
 
 const SECTION3_DETAILS = {
-    // 3.1 Routing Table Components
-    "Routing Table Components": `
+    // 3.1 Routing Table
+    "Routing Table": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">3.1: Interpret Routing Table Components</h3>
+            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">3.1: Interpret Routing Table</h3>
             <p>The routing table is the router's brain. The <code>show ip route</code> command is essential for verification.</p>
             <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
 <code style="color: #9CDCFE;">
@@ -21,7 +21,7 @@ O  10.1.1.0/24 [110/10] via 192.168.1.2, 00:15:30, Gig0/1
                 <li><strong>Prefix & Network Mask (10.1.1.0/24):</strong> The destination network and its prefix length.</li>
                 <li><strong>Administrative Distance & Metric ([110/10]):</strong> The AD (trustworthiness) is 110, and the metric (cost) is 10.</li>
                 <li><strong>Next Hop (via 192.168.1.2):</strong> The IP address of the next router to send the packet to.</li>
-                <li><strong>Gateway of Last Resort:</strong> Not shown in this line, but it appears at the top of the routing table. It's the default route (S*) used when no specific route is found.</li>
+                <li><strong>Default Gateway:</strong> Not shown in this line, but it appears at the top of the routing table. It's the default route (S*) used when no specific route is found.</li>
             </ul>
             <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
                 <h5 style="color: #00CFFF; margin-bottom: 5px;">Study Resources:</h5>
@@ -50,11 +50,11 @@ O  10.1.1.0/24 [110/10] via 192.168.1.2, 00:15:30, Gig0/1
         </div>
     `,
 
-    // Gateway of Last Resort
-    "Gateway of Last Resort": `
+    // Default Gateway
+    "Default Gateway": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">Gateway of Last Resort</h3>
-            <p>The Gateway of Last Resort is the default route (0.0.0.0/0) that packets use when no specific route exists for their destination.</p>
+            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">Default Gateway</h3>
+            <p>The Default Gateway is the default route (0.0.0.0/0) that packets use when no specific route exists for their destination.</p>
             <p>It appears at the top of the routing table as: <code>Gateway of last resort is [IP] to network 0.0.0.0</code></p>
             <p>This is essential for internet connectivity, as routers cannot have routes to every possible destination.</p>
             <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
@@ -65,12 +65,12 @@ O  10.1.1.0/24 [110/10] via 192.168.1.2, 00:15:30, Gig0/1
     `,
 
     // 3.2 Router Forwarding Decision
-    "Forwarding Decision Logic": `
+    "Forwarding Logic": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">3.2: Router Forwarding Decision Logic</h3>
+            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">3.2: Router Forwarding Logic</h3>
             <p>A router follows a strict, three-step process to choose the best route to install in its routing table for any given destination.</p>
             <ol style="margin-left: 20px;">
-                <li><strong>Longest Prefix Match:</strong> The most specific route always wins. A route to <code>10.1.1.0/26</code> is preferred over <code>10.1.1.0/24</code> because it describes a smaller, more specific range of addresses.</li>
+                <li><strong>Prefix Matching:</strong> The most specific route always wins. A route to <code>10.1.1.0/26</code> is preferred over <code>10.1.1.0/24</code> because it describes a smaller, more specific range of addresses.</li>
                 <li><strong>Lowest Administrative Distance (AD):</strong> If a router learns about the exact same prefix (e.g., 10.1.1.0/24) from both OSPF (AD 110) and a static route (AD 1), it will choose the static route because its AD is lower, meaning it's considered more trustworthy.</li>
                 <li><strong>Lowest Metric:</strong> If the AD is the same (e.g., two OSPF routes to the same prefix), the router uses the protocol's own metric to break the tie. For OSPF, this is the 'cost'. The route with the lowest cost is installed.</li>
             </ol>
@@ -78,15 +78,15 @@ O  10.1.1.0/24 [110/10] via 192.168.1.2, 00:15:30, Gig0/1
             <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
                 <h5 style="color: #00CFFF; margin-bottom: 5px;">Study Resources:</h5>
                 <em style="font-size: 0.9em;"><a href="https://community.cisco.com/t5/networking-knowledge-base/routing-basics-how-a-router-makes-its-forwarding-decision/ta-p/3132448" target="_blank" style="color: #66B2FF;">Read: How a Router Makes its Forwarding Decision</a></em><br>
-                <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=--c_Wp-s_S8" target="_blank" style="color: #66B2FF;">Watch: Longest Prefix Match, AD, Metric (Jeremy's IT Lab)</a></em>
+                <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=--c_Wp-s_S8" target="_blank" style="color: #66B2FF;">Watch: Prefix Matching, AD, Metric (Jeremy's IT Lab)</a></em>
             </div>
         </div>
     `,
 
-    // Longest Prefix Match
-    "Longest Prefix Match": `
+    // Prefix Matching
+    "Prefix Matching": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">Longest Prefix Match</h3>
+            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">Prefix Matching</h3>
             <p>The primary rule for route selection. A router always prefers the most specific (longest prefix) route to a destination.</p>
             <p><strong>Example:</strong> For destination 10.1.1.100:</p>
             <ul style="list-style-type: square; margin-left: 20px;">
@@ -96,7 +96,7 @@ O  10.1.1.0/24 [110/10] via 192.168.1.2, 00:15:30, Gig0/1
             <p>Route B is chosen because /24 is more specific than /16, even if Route A has a better metric or came from a more trusted source.</p>
             <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
                 <h5 style="color: #00CFFF; margin-bottom: 5px;">Study Resources:</h5>
-                <em style="font-size: 0.9em;"><a href="https://www.practicalnetworking.net/stand-alone/routing-table-lookup/" target="_blank" style="color: #66B2FF;">Read: Longest Prefix Match (Practical Networking)</a></em>
+                <em style="font-size: 0.9em;"><a href="https://www.practicalnetworking.net/stand-alone/routing-table-lookup/" target="_blank" style="color: #66B2FF;">Read: Prefix Matching (Practical Networking)</a></em>
             </div>
         </div>
     `,
@@ -150,7 +150,7 @@ ip route 10.1.2.0 255.255.255.0 192.168.1.3 254   ! Floating (AD 254)
     `,
 
     // 3.4 Single Area OSPFv2
-    "OSPF Neighbor Adjacency": `
+    "OSPF Neighbors": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">3.4: Configure & Verify Single Area OSPFv2</h3>
             <p><strong>OSPF (Open Shortest Path First)</strong> is an industry-standard link-state routing protocol. It builds a complete map of the network, allowing it to make intelligent routing decisions.</p>
@@ -224,10 +224,10 @@ router ospf 1
         </div>
     `,
 
-    // 3.5 First Hop Redundancy Protocols
-    "First Hop Redundancy": `
+    // 3.5 FHRP Protocols
+    "FHRP": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #E74C3C; border-bottom: 2px solid #E74C3C; padding-bottom: 5px;">3.5: First Hop Redundancy Protocols (FHRP)</h3>
+            <h3 style="color: #E74C3C; border-bottom: 2px solid #E74C3C; padding-bottom: 5px;">3.5: FHRP Protocols (FHRP)</h3>
             <p><strong>FHRPs</strong> provide a redundant default gateway for end devices, preventing a single point of failure if one gateway router goes down.</p>
             
             <h4 style="color: #EC7063;">FHRP Concepts</h4>

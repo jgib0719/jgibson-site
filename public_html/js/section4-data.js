@@ -45,7 +45,7 @@ const SECTION4_DATA = {
     ],
     ntp: [
         {
-            title: "NTP Client/Server Mode",
+            title: "NTP Mode",
             icon: "fa-clock",
             description: "The Network Time Protocol (NTP) synchronizes clocks on network devices. In a client/server model, an authoritative NTP server provides the time, and NTP clients synchronize their clocks to that server, ensuring consistent time for logging and security.",
             visual: `<svg viewBox="0 0 400 200">
@@ -84,7 +84,7 @@ const SECTION4_DATA = {
             </svg>`
         },
         {
-            title: "Dynamic NAT (Pools)",
+            title: "Dynamic NAT",
             icon: "fa-users",
             description: "Dynamic NAT maps a pool of private IP addresses to a pool of public IP addresses on a first-come, first-served basis. This is more scalable than static NAT for client devices accessing the internet.",
             visual: `<svg viewBox="0 0 400 200">
@@ -105,7 +105,7 @@ const SECTION4_DATA = {
     ],
     dhcpClient: [
         {
-            title: "DHCP Client Configuration",
+            title: "DHCP Client",
             icon: "fa-cogs",
             description: "A network device can be configured as a DHCP client to automatically obtain an IP address from a DHCP server. This is done on an interface using the `ip address dhcp` command.",
             visual: `<svg viewBox="0 0 400 200">
@@ -140,7 +140,7 @@ const SECTION4_DATA = {
     ],
     snmp: [
         {
-            title: "Function of SNMP",
+            title: "SNMP",
             icon: "fa-chart-bar",
             description: "The Simple Network Management Protocol (SNMP) is used for network monitoring. An SNMP manager can poll devices (agents) for information (GET requests) or agents can send unsolicited alerts (traps) to the manager about significant events.",
             visual: `<svg viewBox="0 0 400 200">

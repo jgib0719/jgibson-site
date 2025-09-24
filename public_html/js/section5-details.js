@@ -6,10 +6,10 @@
  */
 
 const SECTION5_DETAILS = {
-    // 5.1 Key Security Concepts
-    "Key Security Concepts": `
+    // 5.1 Security Concepts
+    "Security Concepts": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #E74C3C; border-bottom: 2px solid #E74C3C; padding-bottom: 5px;">5.1: Key Security Concepts</h3>
+            <h3 style="color: #E74C3C; border-bottom: 2px solid #E74C3C; padding-bottom: 5px;">5.1: Security Concepts</h3>
             <p>Understanding these core terms is the foundation of network security.</p>
             <ul style="list-style-type: square; margin-left: 20px;">
                 <li><strong>Threat:</strong> Any potential danger to an asset. This could be a malicious actor, a natural disaster, or a system failure.</li>
@@ -73,11 +73,11 @@ Switch(config-if)# ip dhcp snooping trust
         </div>
     `,
 
-    // Dynamic ARP Inspection (DAI)
-    "Dynamic ARP Inspection (DAI)": `
+    // ARP Inspection
+    "ARP Inspection": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">5.7.2: Dynamic ARP Inspection (DAI)</h3>
-            <p><strong>Dynamic ARP Inspection (DAI)</strong> validates ARP packets against the DHCP snooping binding database, preventing ARP spoofing attacks.</p>
+            <h3 style="color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">5.7.2: ARP Inspection</h3>
+            <p><strong>ARP Inspection</strong> validates ARP packets against the DHCP snooping binding database, preventing ARP spoofing attacks.</p>
             <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
 <code style="color: #9CDCFE;">
 ! DAI depends on DHCP snooping
@@ -96,9 +96,9 @@ Switch(config-if)# ip arp inspection trust
         </div>
     `,
     
-    // 5.3 Device Access Control
-    "Device Access Control": `
-        <div style="font-family: 'Inter', sans-serif; color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">5.3: Configure Device Access Control (Local)</h3>
+    // 5.3 Access Control
+    "Access Control": `
+        <div style="font-family: 'Inter', sans-serif; color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">5.3: Configure Access Control (Local)</h3>
             <p>This is the most fundamental device hardening. It involves setting up local usernames and passwords to control who can log in.</p>
             <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
 <code style="color: #9CDCFE;">
@@ -123,9 +123,9 @@ Router(config-line)# transport input ssh
         </div>
     `,
 
-    // 5.4 Security Password Policies
-    "Security Password Policies": `
-        <div style="font-family: 'Inter', sans-serif; color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">5.4: Security Password Policies</h3>
+    // 5.4 Password Policies
+    "Password Policies": `
+        <div style="font-family: 'Inter', sans-serif; color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">5.4: Password Policies</h3>
             <p>A strong password policy is a critical part of device hardening.</p>
             <ul style="list-style-type: square; margin-left: 20px;">
                 <li><strong>Management & Complexity:</strong> Involves enforcing minimum password length, requiring a mix of uppercase, lowercase, numbers, and symbols. Cisco IOS has commands like <code>security passwords min-length [length]</code>.</li>
@@ -163,7 +163,7 @@ Router(config-line)# transport input ssh
     `,
     
     // 5.6 Access Control Lists
-    "Access Control Lists (ACLs)": `
+    "ACLs": `
         <div style="font-family: 'Inter', sans-serif; color: #2ECC71; border-bottom: 2px solid #2ECC71; padding-bottom: 5px;">5.6: Configure & Verify Access Control Lists</h3>
             <p><strong>ACLs</strong> are lists of permit or deny statements that filter traffic. They are processed top-down, and there is an implicit "deny all" at the end of every ACL.</p>
             <h4 style="color: #58D68D;">Standard vs. Extended</h4>
@@ -206,7 +206,7 @@ Switch(config-if)# switchport port-security violation shutdown
 </pre>
             <h4 style="color: #5DADE2;">DHCP Snooping</h4>
             <p>Prevents rogue DHCP servers. You configure switch ports as <strong>trusted</strong> (towards legit servers) or <strong>untrusted</strong> (towards clients). Snooping drops DHCP server messages from untrusted ports.</p>
-            <h4 style="color: #5DADE2;">Dynamic ARP Inspection (DAI)</h4>
+            <h4 style="color: #5DADE2;">ARP Inspection</h4>
             <p>Prevents ARP spoofing/poisoning. It uses the DHCP Snooping binding table to verify that an ARP packet's sender MAC and IP address match. If they don't, the packet is dropped.</p>
             <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
                 <h5 style="color: #5DADE2; margin-bottom: 5px;">Study Resources:</h5>
@@ -233,9 +233,9 @@ Switch(config-if)# switchport port-security violation shutdown
         </div>
     `,
 
-    // 5.9 Wireless Security Protocols
-    "Wireless Security Protocols": `
-        <div style="font-family: 'Inter', sans-serif; color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">5.9: Describe Wireless Security Protocols</h3>
+    // 5.9 Wireless Security
+    "Wireless Security": `
+        <div style="font-family: 'Inter', sans-serif; color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">5.9: Describe Wireless Security</h3>
             <p>Securing wireless networks is critical. These protocols have evolved over time.</p>
             <ul style="list-style-type: square; margin-left: 20px;">
                 <li><strong>WEP (Wired Equivalent Privacy):</strong> The original, now-deprecated standard. It is fundamentally broken and should never be used.</li>
@@ -251,9 +251,9 @@ Switch(config-if)# switchport port-security violation shutdown
         </div>
     `,
 
-    // 5.10 WLAN with WPA2 PSK
-    "WLAN with WPA2 PSK": `
-        <div style="font-family: 'Inter', sans-serif; color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">5.10: Configure WLAN with WPA2 PSK</h3>
+    // 5.10 WPA2 PSK
+    "WPA2 PSK": `
+        <div style="font-family: 'Inter', sans-serif; color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">5.10: Configure WPA2 PSK</h3>
             <p>This is a common configuration for SOHO or guest wireless networks. It is typically done via a graphical user interface (GUI) on a Wireless LAN Controller (WLC) or an autonomous AP.</p>
             <h4 style="color: #AF7AC5;">Key GUI Configuration Steps:</h4>
             <ol style="margin-left: 20px;">

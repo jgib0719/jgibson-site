@@ -6,7 +6,7 @@
 const SECTION6_DATA = {
     automation: [
         {
-            title: "Traditional vs. Controller-Based Networks",
+            title: "Traditional vs SDN",
             icon: "fa-exchange-alt",
             description: "Traditional networks are managed device-by-device (distributed control plane). Controller-based networks centralize the control plane, allowing for network-wide automation, policy enforcement, and simplified management.",
             visual: `<svg viewBox="0 0 400 200">
@@ -24,7 +24,7 @@ const SECTION6_DATA = {
             </svg>`
         },
         {
-            title: "Software-Defined Architecture",
+            title: "SDN Architecture",
             icon: "fa-sitemap",
             description: "In a software-defined architecture, the control plane (decision making) is separated from the data plane (packet forwarding). This model uses an underlay (physical network) and an overlay (virtual network), managed by a central controller.",
             visual: `<svg viewBox="0 0 400 200">
@@ -35,7 +35,7 @@ const SECTION6_DATA = {
             </svg>`
         },
         {
-            title: "Northbound & Southbound APIs",
+            title: "Network APIs",
             icon: "fa-arrows-alt-v",
             description: "Southbound APIs (e.g., OpenFlow, NETCONF) allow a network controller to communicate with and manage the underlying network devices. Northbound APIs allow applications to access the controller's services and data.",
             visual: `<svg viewBox="0 0 400 200">
@@ -50,7 +50,7 @@ const SECTION6_DATA = {
     ],
     configManagement: [
         {
-            title: "Puppet, Chef, and Ansible",
+            title: "Config Tools",
             icon: "fa-cogs",
             description: "These are popular configuration management tools. Puppet and Chef typically use a client-server model with agents on devices, while Ansible is agentless, using SSH to push configurations to devices. All help automate device setup and maintenance.",
             visual: `<svg viewBox="0 0 400 200">
@@ -104,7 +104,7 @@ const SECTION6_DATA = {
     ],
     json: [
         {
-            title: "JSON Formatted Data",
+            title: "JSON Data",
             icon: "fa-file-code",
             description: "JSON (JavaScript Object Notation) is a lightweight, human-readable data format. It consists of key-value pairs (like a dictionary) and ordered lists (arrays). It is commonly used in REST APIs for exchanging data.",
             visual: `<svg viewBox="0 0 400 200">

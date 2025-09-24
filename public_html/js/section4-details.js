@@ -31,8 +31,8 @@ Router(config)# ip nat inside source static 192.168.1.10 203.0.113.5
         </div>
     `,
 
-    // Dynamic NAT (Pools)
-    "Dynamic NAT (Pools)": `
+    // Dynamic NAT
+    "Dynamic NAT": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">Dynamic NAT using Pools</h3>
             <p><strong>Dynamic NAT</strong> maps a group of inside addresses to a pool of outside addresses on a first-come, first-served basis.</p>
@@ -56,7 +56,7 @@ Router(config)# ip nat inside source list 1 pool PUBLIC_POOL
     `,
 
     // 4.2 NTP
-    "NTP Client/Server Mode": `
+    "NTP Mode": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #2ECC71; border-bottom: 2px solid #2ECC71; padding-bottom: 5px;">4.2: Configure & Verify NTP</h3>
             <p><strong>Network Time Protocol (NTP)</strong> synchronizes device clocks across a network. This is critical for accurate timestamping of logs, certificate validation, and troubleshooting.</p>
@@ -112,8 +112,8 @@ Router(config)# ntp master 3
     `,
 
     // 4.4 SNMP
-    "Function of SNMP": `
-        <div style="font-family: 'Inter', sans-serif; color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">4.4: Function of SNMP</h4>
+    "SNMP": `
+        <div style="font-family: 'Inter', sans-serif; color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">4.4: SNMP</h4>
             <p><strong>Simple Network Management Protocol (SNMP)</strong> is used to monitor and manage network devices. An <strong>SNMP manager</strong> (a central server) communicates with <strong>SNMP agents</strong> (software on managed devices).</p>
             <ul style="list-style-type: square; margin-left: 20px;">
                 <li><strong>GET requests:</strong> The manager polls the agent for specific information (e.g., CPU utilization, interface status).</li>
@@ -159,7 +159,7 @@ Router(config)# ntp master 3
     `,
 
     // 4.6 DHCP Client and Relay
-    "DHCP Client Configuration": `
+    "DHCP Client": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #3498DB; border-bottom: 2px solid #3498DB; padding-bottom: 5px;">4.6: Configure DHCP Client</h3>
             <p>Configures a router's interface to obtain its IP address automatically from a DHCP server. Useful for a SOHO router connecting to an ISP.</p>
@@ -171,7 +171,7 @@ Router(config-if)# ip address dhcp
 </pre>
             <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
                 <h5 style="color: #5DADE2; margin-bottom: 5px;">Study Resources:</h5>
-                <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=R_Q2iEnA62E" target="_blank" style="color: #66B2FF;">Watch: DHCP Client Configuration (Jeremy's IT Lab)</a></em>
+                <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=R_Q2iEnA62E" target="_blank" style="color: #66B2FF;">Watch: DHCP Client (Jeremy's IT Lab)</a></em>
             </div>
         </div>
     `,

@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
     <div id="main-container">
@@ -117,34 +118,33 @@
                 <h2 id="modalTitle"></h2>
                 <p id="modalDescription"></p>
 
-                <button id="markCompleted">
-                    Mark as Studied
-                </button>
-                <button id="viewDetails" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white py-3 px-4 rounded-md transition-all duration-200 transform hover:scale-105">
-                    <i class="fas fa-info-circle mr-2"></i>View Details
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Details Modal -->
-    <div id="detailsModal">
-        <div id="detailsModalContent">
-            <div id="detailsModalMain">
-                <button id="closeDetails">&times;</button>
-                <h2 id="detailsModalTitle"></h2>
-                <div id="detailsModalBody">
-                    <!-- Dynamic details content loads here -->
+                <div class="modal-buttons flex gap-3 mt-4">
+                    <button id="viewDetails" class="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                        <i class="fas fa-info-circle mr-2"></i>Details
+                    </button>
+                    <button id="markCompleted">
+                        Mark as Studied
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Load the unified progress tracker -->
+    <!-- Details Modal - Uses Global Config -->
+    <div id="detailsModal">
+        <div id="detailsModalContent">
+            <div id="detailsModalMain">
+                <button id="closeDetails">&times;</button>
+                <h2 id="detailsModalTitle"></h2>
+                <div id="detailsModalBody"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/ccna-study-guide-config.js"></script>
     <script src="js/shared-progress.js"></script>
     <script src="js/section1-data.js"></script>
-    <script src="js/section1-details.js?v=2"></script>
+    <script src="js/section1-details.js"></script>
     <script>
         let progressTracker;
         let currentTopic;
@@ -171,12 +171,7 @@
                 
                 topics.forEach(topic => {
                     const card = CCNAConfig.createTopicCard(topic);
-                    
-                    // Card click handler for Study - works on the entire card
-                    card.addEventListener('click', (e) => {
-                        openStudyModal(topic, card);
-                    });
-                    
+                    card.onclick = () => openStudyModal(topic, card);
                     gridElement.appendChild(card);
                 });
             }
@@ -198,43 +193,18 @@
             currentCardElement = cardElement;
             
             document.getElementById('modalTitle').textContent = topic.title;
-            document.getElementById('modalDescription').textContent = topic.description;
-            document.getElementById('modalSvg').innerHTML = topic.visual;
+            document.getElementById('modalDescription').textContent = topic.description || 'Click to study this topic.';
+            
+            if (topic.visual) {
+                document.getElementById('modalSvg').innerHTML = topic.visual;
+            } else {
+                document.getElementById('modalSvg').innerHTML = '';
+            }
             
             const modal = document.getElementById('studyModal');
-            const content = document.getElementById('modalContent');
+            const modalContent = document.getElementById('modalContent');
             
-            CCNAConfig.openModal(modal, content);
-            
-            // Force SVG styling after a delay to ensure content is rendered
-            setTimeout(() => {
-                CCNAConfig.applySvgStyling();
-            }, 100);
-            
-            // Update mark completed button
-            const markBtn = document.getElementById('markCompleted');
-            const isCompleted = progressTracker.isTopicCompleted(topic.title);
-            CCNAConfig.applyButtonState(markBtn, isCompleted);
-        }
-
-        function openDetailsModal(topic, cardElement) {
-            document.getElementById('detailsModalTitle').textContent = topic.title;
-            
-            // Load details content from section1-details.js
-            const detailsContent = CCNAConfig.loadDetailsContent(1, topic.title);
-            document.getElementById('detailsModalBody').innerHTML = detailsContent;
-            
-            const modal = document.getElementById('detailsModal');
-            const content = document.getElementById('detailsModalContent');
-            
-            CCNAConfig.openDetailsModal(modal, content);
-        }
-
-        function closeDetailsModal() {
-            const modal = document.getElementById('detailsModal');
-            const modalContent = document.getElementById('detailsModalContent');
-            
-            CCNAConfig.closeDetailsModal(modal, modalContent);
+            CCNAConfig.openModal(modal, modalContent);
         }
 
         function closeStudyModal() {
@@ -254,25 +224,7 @@
                 if (e.target === this) closeStudyModal();
             });
 
-            // View Details button in study modal
-            document.getElementById('viewDetails').addEventListener('click', function() {
-                if (currentTopic) {
-                    // Close study modal first
-                    closeStudyModal();
-                    // Open details modal
-                    setTimeout(() => {
-                        openDetailsModal(currentTopic, currentCardElement);
-                    }, 200);
-                }
-            });
-
-            // Details modal event listeners
-            document.getElementById('closeDetails').addEventListener('click', closeDetailsModal);
-            document.getElementById('detailsModal').addEventListener('click', function(e) {
-                if (e.target === this) closeDetailsModal();
-            });
-
-            document.getElementById('markCompleted').addEventListener('click', function() {
+                        document.getElementById('markCompleted').addEventListener('click', function() {
                 if (currentTopic && currentCardElement) {
                     const isCompleted = progressTracker.isTopicCompleted(currentTopic.title);
                     progressTracker.markTopicCompleted(currentTopic.title, !isCompleted);
@@ -287,19 +239,96 @@
                 }
             });
 
-            // Add keyboard support
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    const studyModal = document.getElementById('studyModal');
-                    const detailsModal = document.getElementById('detailsModal');
-                    
-                    if (CCNAConfig.isModalVisible(studyModal)) {
-                        closeStudyModal();
-                    } else if (CCNAConfig.isModalVisible(detailsModal)) {
-                        closeDetailsModal();
+            // Details button functionality
+            const viewDetailsBtn = document.getElementById('viewDetails');
+            if (viewDetailsBtn) {
+                viewDetailsBtn.addEventListener('click', function() {
+                    if (currentTopic) {
+                        showDetailsModal(currentTopic);
                     }
-                }
+                });
+            }
+
+            // Details modal close functionality
+            document.getElementById('closeDetails').addEventListener('click', hideDetailsModal);
+            document.getElementById('detailsModal').addEventListener('click', function(e) {
+                if (e.target === this) hideDetailsModal();
             });
+
+        });
+
+        // Simplified details modal functions
+        function showDetailsModal(topic) {
+            // Get the detailed content from SECTION1_DETAILS
+            const detailsContent = SECTION1_DETAILS[topic.title];
+            
+            // Populate modal content
+            document.getElementById('detailsModalTitle').textContent = topic.title;
+            if (detailsContent) {
+                document.getElementById('detailsModalBody').innerHTML = detailsContent;
+            } else {
+                document.getElementById('detailsModalBody').innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #94a3b8;">
+                        <p>Detailed content for <strong>${topic.title}</strong> is being prepared.</p>
+                        <p style="font-size: 0.9em; margin-top: 1rem; color: #64748b;">Please check back soon for comprehensive explanations and examples.</p>
+                    </div>
+                `;
+            }
+            
+            // Show the modal with simple approach
+            const detailsModal = document.getElementById('detailsModal');
+            const detailsModalContent = document.getElementById('detailsModalContent');
+            
+            // Force modal to be visible using important inline styles
+            detailsModal.style.cssText = `
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background: rgba(0,0,0,0.8) !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                z-index: 9999 !important;
+                padding: 20px !important;
+            `;
+            
+            // Force content to be visible
+            if (detailsModalContent) {
+                detailsModalContent.style.cssText = `
+                    background: #1e293b !important;
+                    border: 2px solid #6366f1 !important;
+                    border-radius: 8px !important;
+                    padding: 20px !important;
+                    max-width: 800px !important;
+                    max-height: 80vh !important;
+                    overflow-y: auto !important;
+                    color: #e2e8f0 !important;
+                    position: relative !important;
+                `;
+            }
+        }
+
+        function hideDetailsModal() {
+            const detailsModal = document.getElementById('detailsModal');
+            
+            // Simply hide the modal
+            detailsModal.style.display = 'none';
+        }
+
+        // Add keyboard support for details modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const studyModal = document.getElementById('studyModal');
+                const detailsModal = document.getElementById('detailsModal');
+                
+                if (CCNAConfig.isModalVisible(studyModal)) {
+                    closeStudyModal();
+                } else if (!detailsModal.classList.contains('hidden') && detailsModal.style.display !== 'none') {
+                    hideDetailsModal();
+                }
+            }
         });
     </script>
 </body>

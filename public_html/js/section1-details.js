@@ -102,7 +102,7 @@ const SECTION1_DETAILS = {
             </div>
         </div>
     `,
-    "Controllers (WLC)": `
+    "Controllers": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">1.1.e: Controllers - WLC & Cisco DNA Center</h3>
             <p>Controllers centralize network management and configuration.</p>
@@ -279,8 +279,102 @@ const SECTION1_DETAILS = {
         </div>
     `,
     
+    "Copper - Twisted Pair": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">Copper - Twisted Pair Cabling</h3>
+            <p>Uses RJ-45 connectors with 8 wires arranged in 4 twisted pairs. The twisting reduces electromagnetic interference (EMI).</p>
+            <h4 style="color: #F5B041;">Wiring Standards:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>T568A and T568B:</strong> Two standard pin arrangements</li>
+                <li><strong>Straight-through:</strong> Same standard both ends (PC to Switch)</li>
+                <li><strong>Crossover:</strong> Different standards each end (Switch to Switch)</li>
+            </ul>
+            <p>Modern devices with Auto-MDIX can auto-negotiate crossover functionality.</p>
+        </div>
+    `,
+    
+    "Single Mode Fiber": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">Single Mode Fiber (SMF)</h3>
+            <p>Fiber optic cable with a small core (9 microns) that allows only one mode of light to propagate.</p>
+            <h4 style="color: #BB8FCE;">Characteristics:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Distance:</strong> Long-haul (up to 100+ km)</li>
+                <li><strong>Bandwidth:</strong> Very high</li>
+                <li><strong>Cost:</strong> Higher than multimode</li>
+                <li><strong>Light Source:</strong> Laser diodes</li>
+            </ul>
+            <p>Used for WAN connections and campus backbone links requiring long distances.</p>
+        </div>
+    `,
+    
+    "Multimode Fiber": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #16A085; border-bottom: 2px solid #16A085; padding-bottom: 5px;">Multimode Fiber (MMF)</h3>
+            <p>Fiber optic cable with a larger core (50 or 62.5 microns) that allows multiple modes of light.</p>
+            <h4 style="color: #52C4A0;">Characteristics:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Distance:</strong> Shorter (up to 2 km)</li>
+                <li><strong>Bandwidth:</strong> Lower than single mode</li>
+                <li><strong>Cost:</strong> Lower than single mode</li>
+                <li><strong>Light Source:</strong> LEDs or VCSELs</li>
+            </ul>
+            <p>Used for campus and data center connections where distance is limited.</p>
+        </div>
+    `,
+    
+    "Cable Categories": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #E67E22; border-bottom: 2px solid #E67E22; padding-bottom: 5px;">Cable Categories</h3>
+            <p>Different categories of twisted pair cables support different bandwidths and distances.</p>
+            <h4 style="color: #F7934C;">Common Categories:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Cat 5e:</strong> 100 MHz, 1 Gbps, 100m</li>
+                <li><strong>Cat 6:</strong> 250 MHz, 1 Gbps, 100m (10 Gbps up to 55m)</li>
+                <li><strong>Cat 6a:</strong> 500 MHz, 10 Gbps, 100m</li>
+                <li><strong>Cat 8:</strong> 2000 MHz, 25/40 Gbps, 30m</li>
+            </ul>
+            <p>Higher categories support higher frequencies and data rates.</p>
+        </div>
+    `,
+    
+    "Connectors": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #2ECC71; border-bottom: 2px solid #2ECC71; padding-bottom: 5px;">Network Connectors</h3>
+            <p>Different connector types are used for different cable types and applications.</p>
+            <h4 style="color: #58D68D;">Copper Connectors:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>RJ-45:</strong> 8P8C connector for Ethernet</li>
+                <li><strong>RJ-11:</strong> 6P4C connector for telephone</li>
+            </ul>
+            <h4 style="color: #58D68D;">Fiber Connectors:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>LC:</strong> Small form factor, duplex</li>
+                <li><strong>SC:</strong> Square connector, duplex</li>
+                <li><strong>ST:</strong> Bayonet mount, older standard</li>
+            </ul>
+        </div>
+    `,
+    
+    "Ethernet Connections": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #3498DB; border-bottom: 2px solid #3498DB; padding-bottom: 5px;">Ethernet Connection Types</h3>
+            <p>Different Ethernet standards support various speeds and media types.</p>
+            <h4 style="color: #5DADE2;">Common Standards:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>10BASE-T:</strong> 10 Mbps over twisted pair</li>
+                <li><strong>100BASE-TX:</strong> 100 Mbps over twisted pair</li>
+                <li><strong>1000BASE-T:</strong> 1 Gbps over twisted pair</li>
+                <li><strong>1000BASE-SX:</strong> 1 Gbps over multimode fiber</li>
+                <li><strong>1000BASE-LX:</strong> 1 Gbps over single mode fiber</li>
+                <li><strong>10GBASE-T:</strong> 10 Gbps over twisted pair</li>
+            </ul>
+            <p>The naming convention indicates speed, signaling type, and medium.</p>
+        </div>
+    `,
+    
     // 1.4 Interface and Cable Issues
-    "Interface/Cable Issues": `
+    "Cable Issues": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
              <h3 style="color: #E74C3C; border-bottom: 2px solid #E74C3C; padding-bottom: 5px;">1.4: Interface & Cable Issues</h3>
              <p>Troubleshooting physical layer issues using <code>show interface</code> is a fundamental skill.</p>
@@ -340,7 +434,7 @@ const SECTION1_DETAILS = {
     `,
     
     // 1.7 Private IPv4 Addressing
-    "Private IPv4 Addressing": `
+    "Private IPv4": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
              <h3 style="color: #3498DB; border-bottom: 2px solid #3498DB; padding-bottom: 5px;">1.7: The Need for Private IPv4 Addressing</h3>
              <p>Private addressing (<strong>RFC 1918</strong>) reserves address ranges for use inside private networks.</p>
@@ -378,7 +472,7 @@ R1(config-if)# no shutdown
     `,
     
     // 1.9 IPv6 Address Types
-    "IPv6 Address Types": `
+    "IPv6 Types": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
              <h3 style="color: #8E44AD; border-bottom: 2px solid #8E44AD; padding-bottom: 5px;">1.9: IPv6 Address Types</h3>
              <p>IPv6 removes broadcast and introduces new address types.</p>
@@ -484,7 +578,7 @@ R1(config-if)# no shutdown
     `,
 
     // 1.13 Switching Concepts
-    "MAC Learning & Aging": `
+    "MAC Learning": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
              <h3 style="color: #7D3C98; border-bottom: 2px solid #7D3C98; padding-bottom: 5px;">1.13.a: MAC Learning and Aging</h3>
              <p>A Layer 2 switch builds a MAC address table to make intelligent forwarding decisions.</p>

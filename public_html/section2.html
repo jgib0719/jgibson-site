@@ -52,89 +52,25 @@
 
         <main>
             <section>
-                <h2>2.1 VLANs spanning multiple switches</h2>
-                <div id="vlansGrid"></div>
-            </section>
-            <section>
-                <h2>2.2 Interswitch connectivity</h2>
-                <div id="trunksGrid"></div>
-            </section>
-            <section>
-                <h2>2.3 Layer 2 discovery protocols</h2>
-                <div id="discoveryGrid"></div>
-            </section>
-            <section>
-                <h2>2.4 EtherChannel (LACP)</h2>
-                <div id="etherchannelGrid"></div>
-            </section>
-            <section>
-                <h2>2.5 Rapid PVST+ Spanning Tree Protocol</h2>
-                <div id="spanningTreeGrid"></div>
-            </section>
-            <section>
-                <h2>2.6 Cisco Wireless Architectures and AP modes</h2>
-                <div id="wireless1Grid"></div>
-            </section>
-            <section>
-                <h2>2.7 WLAN physical infrastructure connections</h2>
-                <div id="wireless2Grid"></div>
-            </section>
-            <section>
-                <h2>2.8 Network device management access</h2>
-                <div id="wireless3Grid"></div>
-            </section>
-            <section>
-                <h2>2.9 Wireless LAN GUI configuration</h2>
-                <div id="wireless4Grid"></div>
+                <h2>Section 2 Progress</h2>
+                <div id="topic-container" class="grid"></div>
             </section>
         </main>
     </div>
 
-    <!-- Study Modal - Uses Global Config -->
-    <div id="studyModal">
-        <div id="modalContent">
-            <div id="modalVisual">
-                <div id="modalSvg"></div>
-            </div>
-            <div id="modalMainArea">
-                <button id="closeModal">&times;</button>
-                <h2 id="modalTitle"></h2>
-                <p id="modalDescription"></p>
-
-                <button id="markCompleted">
-                    Mark as Studied
-                </button>
-                <button id="viewDetails" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white py-3 px-4 rounded-md transition-all duration-200 transform hover:scale-105">
-                    <i class="fas fa-info-circle mr-2"></i>View Details
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Details Modal -->
-    <div id="detailsModal">
-        <div id="detailsModalContent">
-            <div id="detailsModalMain">
-                <button id="closeDetails">&times;</button>
-                <h2 id="detailsModalTitle"></h2>
-                <div id="detailsModalBody">
-                    <!-- Dynamic details content loads here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/ccna-study-guide-config.js"></script>
+    <!-- Enterprise Modal System - Dynamically created -->
+    
+    <!-- Load Enterprise Systems -->
+    <script src="js/enterprise-modal-system.js"></script>
     <script src="js/shared-progress.js"></script>
     <script src="js/section2-data.js"></script>
-    <script src="js/section2-details.js"></script>
     <script>
         let progressTracker;
         let currentTopic;
         let currentCardElement;
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize progress tracker for Section 2
+            // Initialize progress tracker
             progressTracker = new UnifiedCCNAProgressTracker(2);
             
             // Initialize ALL global styling (replaces embedded CSS)
@@ -144,7 +80,7 @@
             const data = window.SECTION2_DATA;
             
             if (!data) {
-                console.error('Section 2 data not loaded');
+                console.error('Section data not loaded');
                 return;
             }
             
@@ -159,28 +95,11 @@
                 });
             }
             
-            // Populate all grids with external data - direct mapping
-            const gridMappings = {
-                'vlansGrid': data.vlans,
-                'trunksGrid': data.trunks,
-                'discoveryGrid': data.discovery,
-                'etherchannelGrid': data.etherchannel,
-                'spanningTreeGrid': data.spanningTree,
-                'wireless1Grid': data.wireless ? [data.wireless[0]] : [],
-                'wireless2Grid': data.wireless ? [data.wireless[1]] : [],
-                'wireless3Grid': data.wireless ? [data.wireless[2]] : [],
-                'wireless4Grid': data.wireless ? [data.wireless[3]] : []
-            };
-            
-            Object.keys(gridMappings).forEach(gridId => {
-                const gridElement = document.getElementById(gridId);
-                const topics = gridMappings[gridId];
-                if (gridElement && topics && topics.length > 0) {
-                    createTopicCards(topics, gridElement);
-                } else if (!gridElement) {
-                    console.warn(`Grid element not found for ID: ${gridId}`);
-                } else if (!topics || topics.length === 0) {
-                    console.warn(`No topics found for grid: ${gridId}`);
+            // Populate all grids with external data
+            Object.keys(data.metadata.subsections).forEach(key => {
+                const gridElement = document.getElementById(key + 'Grid');
+                if (gridElement && data[key]) {
+                    createTopicCards(data[key], gridElement);
                 }
             });
             
@@ -222,49 +141,11 @@
             }, CCNAConfig.ui.timing.modalCleanup);
         }
 
-        function openDetailsModal(topic, cardElement) {
-            document.getElementById('detailsModalTitle').textContent = topic.title;
-            
-            // Load details content from section2-details.js
-            const detailsContent = CCNAConfig.loadDetailsContent(2, topic.title);
-            document.getElementById('detailsModalBody').innerHTML = detailsContent;
-            
-            const modal = document.getElementById('detailsModal');
-            const content = document.getElementById('detailsModalContent');
-            
-            CCNAConfig.openDetailsModal(modal, content);
-        }
-
-        function closeDetailsModal() {
-            const modal = document.getElementById('detailsModal');
-            const modalContent = document.getElementById('detailsModalContent');
-            
-            CCNAConfig.closeDetailsModal(modal, modalContent);
-        }
-
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('closeModal').addEventListener('click', closeStudyModal);
             document.getElementById('studyModal').addEventListener('click', function(e) {
                 if (e.target === this) closeStudyModal();
-            });
-
-            // View Details button in study modal
-            document.getElementById('viewDetails').addEventListener('click', function() {
-                if (currentTopic) {
-                    // Close study modal first
-                    closeStudyModal();
-                    // Open details modal
-                    setTimeout(() => {
-                        openDetailsModal(currentTopic, currentCardElement);
-                    }, 200);
-                }
-            });
-
-            // Details modal event listeners
-            document.getElementById('closeDetails').addEventListener('click', closeDetailsModal);
-            document.getElementById('detailsModal').addEventListener('click', function(e) {
-                if (e.target === this) closeDetailsModal();
             });
 
             document.getElementById('markCompleted').addEventListener('click', function() {
@@ -285,13 +166,9 @@
             // Add keyboard support
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    const studyModal = document.getElementById('studyModal');
-                    const detailsModal = document.getElementById('detailsModal');
-                    
-                    if (CCNAConfig.isModalVisible(studyModal)) {
+                    const modal = document.getElementById('studyModal');
+                    if (CCNAConfig.isModalVisible(modal)) {
                         closeStudyModal();
-                    } else if (CCNAConfig.isModalVisible(detailsModal)) {
-                        closeDetailsModal();
                     }
                 }
             });

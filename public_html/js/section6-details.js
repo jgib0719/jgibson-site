@@ -6,8 +6,8 @@
  */
 
 const SECTION6_DETAILS = {
-    // 6.1 Traditional vs. Controller-Based Networks
-    "Traditional vs. Controller-Based Networks": `
+    // 6.1 Traditional vs SDN
+    "Traditional vs SDN": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #6366F1; border-bottom: 2px solid #6366F1; padding-bottom: 5px;">6.2: Traditional vs. Controller-Based Networking</h3>
             <ul style="list-style-type: square; margin-left: 20px;">
@@ -22,16 +22,16 @@ const SECTION6_DETAILS = {
         </div>
     `,
     
-    // 6.3 Software-Defined Architecture
-    "Software-Defined Architecture": `
+    // 6.3 SDN Architecture
+    "SDN Architecture": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #6366F1; border-bottom: 2px solid #6366F1; padding-bottom: 5px;">6.3: Controller-Based, Software-Defined Architecture</h3>
+            <h3 style="color: #6366F1; border-bottom: 2px solid #6366F1; padding-bottom: 5px;">6.3: Controller-Based, SDN Architecture</h3>
             <p>This architecture is defined by distinct layers and interfaces.</p>
             <ul style="list-style-type: square; margin-left: 20px;">
                 <li><strong>Underlay & Overlay:</strong> The <strong>underlay</strong> is the physical network of switches and routers responsible for basic IP reachability. The <strong>overlay</strong> is a virtual network built on top of the underlay, creating logical tunnels (like VXLAN) to connect endpoints, independent of the physical topology.</li>
                 <li><strong>Fabric:</strong> The combination of the underlay and overlay is often referred to as a network fabric.</li>
                 <li><strong>Separation of Control & Data Plane:</strong> This is the core principle of SDN. The <strong>control plane</strong> (network intelligence, routing calculations) is centralized in the controller. The <strong>data plane</strong> (packet forwarding) remains on the network devices, which receive their instructions from the controller.</li>
-                <li><strong>Northbound & Southbound APIs:</strong>
+                <li><strong>Network APIs:</strong>
                     <ul>
                         <li><strong>Southbound APIs (SBAs):</strong> Allow the controller to communicate with and program the data plane of the network devices. Examples include OpenFlow and NETCONF.</li>
                         <li><strong>Northbound APIs (NBAs):</strong> Allow applications and orchestration systems to communicate with the controller, enabling automation. These are typically REST APIs.</li>
@@ -46,10 +46,10 @@ const SECTION6_DETAILS = {
         </div>
     `,
 
-    // Northbound & Southbound APIs
-    "Northbound & Southbound APIs": `
+    // Network APIs
+    "Network APIs": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #6366F1; border-bottom: 2px solid #6366F1; padding-bottom: 5px;">Northbound & Southbound APIs</h3>
+            <h3 style="color: #6366F1; border-bottom: 2px solid #6366F1; padding-bottom: 5px;">Network APIs</h3>
             <p>APIs (Application Programming Interfaces) enable communication between different layers of the SDN architecture.</p>
             <ul style="list-style-type: square; margin-left: 20px;">
                 <li><strong>Southbound APIs:</strong> Connect the SDN controller to the network devices (switches/routers). Examples include OpenFlow, NETCONF, and proprietary vendor APIs. These APIs allow the controller to program the forwarding tables and control the data plane.</li>
@@ -113,7 +113,7 @@ const SECTION6_DETAILS = {
     `,
     
         // 6.6 Configuration Management Tools
-    "Puppet, Chef, and Ansible": `
+    "Config Tools": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #2ECC71; border-bottom: 2px solid #2ECC71; padding-bottom: 5px;">6.6: Configuration Management Mechanisms</h3>
             <p>These tools automate the process of configuring and maintaining systems and software in a consistent, repeatable state.</p>
@@ -131,7 +131,7 @@ const SECTION6_DETAILS = {
     `,
 
     // 6.7 JSON
-    "JSON Formatted Data": `
+    "JSON Data": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">6.7: Components of JSON-encoded Data</h3>
             <p><strong>JSON (JavaScript Object Notation)</strong> is a lightweight, human-readable format for data exchange. It is the de facto standard for data in REST APIs.</p>

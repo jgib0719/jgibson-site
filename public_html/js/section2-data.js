@@ -5,7 +5,7 @@
 const SECTION2_DATA = {
     vlans: [
         {
-            title: "Access Ports (Data & Voice)",
+            title: "Access Ports",
             icon: "fa-network-wired",
             description: "Access ports connect to end devices like PCs and IP phones. A port can be a member of one data VLAN. An additional voice VLAN can be configured to carry voice traffic from an IP phone.",
             visual: `<svg viewBox="0 0 400 200">
@@ -177,7 +177,7 @@ const SECTION2_DATA = {
     ],
     wireless: [
         {
-            title: "Cisco Wireless Architectures",
+            title: "Wireless Architecture",
             icon: "fa-wifi",
             description: "Architectures include Autonomous APs (standalone) and Controller-based (Lightweight APs managed by a WLC). AP modes include Local (default), FlexConnect (for remote sites), Monitor, and Rogue Detector.",
             visual: `<svg viewBox="0 0 400 200">
@@ -195,7 +195,7 @@ const SECTION2_DATA = {
             </svg>`
         },
         {
-            title: "WLAN Physical Infrastructure",
+            title: "WLAN Infrastructure",
             icon: "fa-plug",
             description: "APs connect to switch access ports. Wireless LAN Controllers (WLCs) connect to switch trunk ports to manage APs across multiple VLANs. Link Aggregation (LAG) can bundle multiple ports to connect a WLC for higher throughput and redundancy.",
             visual: `<svg viewBox="0 0 400 200">
@@ -209,7 +209,7 @@ const SECTION2_DATA = {
             </svg>`
         },
         {
-            title: "AP & WLC Management",
+            title: "AP Management",
             icon: "fa-user-cog",
             description: "Management access to APs and WLCs can be achieved through various methods: Telnet (insecure), SSH (secure), HTTP (insecure), HTTPS (secure), a direct console port, and centralized authentication using TACACS+ or RADIUS.",
             visual: `<svg viewBox="0 0 400 150">
@@ -223,7 +223,7 @@ const SECTION2_DATA = {
             </svg>`
         },
         {
-            title: "WLAN GUI Configuration",
+            title: "WLAN Configuration",
             icon: "fa-sliders-h",
             description: "Wireless LANs are typically configured via a GUI on the WLC. Key settings include creating the WLAN (SSID), defining security settings (like WPA2 PSK), and setting QoS profiles to prioritize different types of traffic.",
             visual: `<svg viewBox="0 0 400 200">
@@ -256,3 +256,19 @@ const SECTION2_DATA = {
 
 // Export for global use
 window.SECTION2_DATA = SECTION2_DATA;
+
+// Create simplified topics array for enterprise modal system
+const SECTION2_TOPICS = [
+    { title: "2.1 Routing Table Components", subtitle: "Administrative distance, metrics", description: "Understanding routing table entries" },
+    { title: "2.2 Router Forwarding Decision", subtitle: "Longest prefix match", description: "How routers make forwarding decisions" },
+    { title: "2.3 IPv4 and IPv6 Static Routing", subtitle: "Static route configuration", description: "Manual route configuration" },
+    { title: "2.4 Single Area OSPFv2", subtitle: "OSPF basics", description: "Open Shortest Path First protocol" },
+    { title: "2.5 EIGRP Fundamentals", subtitle: "Enhanced IGRP", description: "Cisco proprietary routing protocol" },
+    { title: "2.6 Multi-Area OSPF", subtitle: "OSPF areas and LSAs", description: "Scalable OSPF design" },
+    { title: "2.7 Route Redistribution", subtitle: "Between routing protocols", description: "Connecting different routing domains" },
+    { title: "2.8 First Hop Redundancy Protocols", subtitle: "HSRP, VRRP, GLBP", description: "Gateway redundancy protocols" }
+];
+
+if (typeof window !== 'undefined') {
+    window.SECTION2_TOPICS = SECTION2_TOPICS;
+}

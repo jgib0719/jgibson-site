@@ -6,7 +6,7 @@
 const SECTION5_DATA = {
     localPasswords: [
         {
-            title: "Device Access Control",
+            title: "Access Control",
             icon: "fa-user-lock",
             description: "Securing a device starts with local access control. This involves creating local user accounts with specific privilege levels and applying strong, encrypted passwords to console, VTY (Telnet/SSH), and auxiliary lines.",
             visual: `<svg viewBox="0 0 400 200">
@@ -22,7 +22,7 @@ const SECTION5_DATA = {
     ],
     passwordPolicies: [
         {
-            title: "Security Password Policies",
+            title: "Password Policies",
             icon: "fa-key",
             description: "A strong password policy is essential. This includes enforcing complexity (length, character types), regular changes, and preventing reuse. Alternatives like multi-factor authentication (MFA) and certificates provide even stronger security.",
             visual: `<svg viewBox="0 0 400 200">
@@ -85,7 +85,7 @@ const SECTION5_DATA = {
             </svg>`
         },
         {
-            title: "Dynamic ARP Inspection (DAI)",
+            title: "ARP Inspection",
             icon: "fa-user-secret",
             description: "DAI validates ARP packets in a network. It uses the DHCP snooping binding table to intercept, log, and discard ARP packets with invalid IP-to-MAC address bindings, preventing man-in-the-middle attacks.",
             visual: `<svg viewBox="0 0 400 200">
@@ -103,7 +103,7 @@ const SECTION5_DATA = {
     ],
     acls: [
         {
-            title: "Access Control Lists (ACLs)",
+            title: "ACLs",
             icon: "fa-list-check",
             description: "ACLs are a series of rules used to filter traffic. Standard ACLs filter based only on source IP address. Extended ACLs are more granular, filtering on source/destination IP, protocol, and port numbers.",
             visual: `<svg viewBox="0 0 400 200">
@@ -122,7 +122,7 @@ const SECTION5_DATA = {
     ],
     layer2Security: [
         {
-            title: "Key Security Concepts",
+            title: "Security Concepts",
             icon: "fa-lightbulb",
             description: "A threat is a potential danger. A vulnerability is a weakness. An exploit is a way to take advantage of a vulnerability. Mitigation is the action taken to reduce the risk from a threat.",
             visual: `<svg viewBox="0 0 400 200">
@@ -153,7 +153,7 @@ const SECTION5_DATA = {
     ],
     wirelessSecurity: [
         {
-            title: "Wireless Security Protocols",
+            title: "Wireless Security",
             icon: "fa-wifi",
             description: "WPA (Wi-Fi Protected Access), WPA2, and WPA3 are security protocols to secure wireless networks. WPA3 is the most recent and secure standard, offering stronger encryption and protection against modern threats.",
             visual: `<svg viewBox="0 0 400 200">
@@ -165,7 +165,7 @@ const SECTION5_DATA = {
             </svg>`
         },
         {
-            title: "WLAN with WPA2 PSK",
+            title: "WPA2 PSK",
             icon: "fa-sliders-h",
             description: "A common wireless security configuration is WPA2 with a Pre-Shared Key (PSK). This is configured in the WLAN settings on a WLC or AP, where you define the SSID and the shared password for all users.",
             visual: `<svg viewBox="0 0 400 200">

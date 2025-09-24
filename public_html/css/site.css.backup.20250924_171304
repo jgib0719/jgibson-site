@@ -1,0 +1,47 @@
+/* Minimal local stylesheet to replace Tailwind/FontAwesome usage
+   Covers layout and styles used by chapters and chapter pages.
+*/
+:root{
+  --brand-1:#667eea;
+  --brand-2:#764ba2;
+  --muted:#6b7280;
+}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial; margin:0; background:#f3f7fa; color:#0f172a}
+.container{max-width:1100px; margin:0 auto; padding:24px}
+.header{text-align:center;margin-bottom:24px}
+h1{font-size:32px;margin:0;color:#374151}
+.brand-gradient{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));}
+.chapter-card{border-radius:12px; overflow:hidden; box-shadow:0 6px 18px rgba(15,23,42,0.06); background:#fff}
+.chapter-card .p-6{padding:24px}
+.chapter-card h3{margin:0;font-size:20px}
+.chapter-card p{margin:0;color:var(--muted)}
+.grid{display:grid; grid-template-columns:repeat(1,1fr); gap:18px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+.btn{display:inline-block;padding:12px 18px;border-radius:10px;text-decoration:none}
+.btn-primary{background:#4f46e5;color:#fff;font-weight:600}
+.btn-disabled{background:#9ca3af;color:#fff;cursor:not-allowed}
+.text-center{text-align:center}
+.footer{margin-top:32px;color:#6b7280;text-align:center}
+/* Chapter page styles */
+.chapter-page{padding:24px}
+.topic-card{background:#0f172a;color:#cbd5e1;border-radius:10px;padding:18px;cursor:pointer;position:relative;min-height:72px}
+.topic-card:hover{transform:translateY(-4px)}
+.topic-card .title{font-weight:600}
+.topic-card .subtitle{color:#94a3b8;font-size:13px}
+.studied-overlay{display:none}
+.topic-card.studied .studied-overlay{display:flex;align-items:center;justify-content:center;position:absolute;inset:0;background:rgba(16,185,129,0.85);border-radius:10px}
+.back-btn{display:inline-flex;align-items:center;gap:10px;background:#4b5563;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal{background:#0b1220;color:#e6eef8;border-radius:10px;max-width:860px;width:100%;overflow:hidden}
+.modal .visual{height:180px;display:flex;align-items:center;justify-content:center;background:#071028}
+.modal .body{padding:18px}
+.icon-sm{width:28px;height:28px;vertical-align:middle}
+/* small utilities used in pages */
+.p-4{padding:16px}
+.p-6{padding:24px}
+.mb-4{margin-bottom:16px}
+.mt-4{margin-top:16px}
+.hidden{display:none}
+.visible{display:block}

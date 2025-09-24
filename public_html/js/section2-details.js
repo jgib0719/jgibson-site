@@ -7,7 +7,7 @@
 
 const SECTION2_DETAILS = {
     // 2.1 VLANs
-    "Access Ports (Data & Voice)": `
+    "Access Ports": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">2.1: Configure & Verify VLANs</h3>
             <p>A <strong>VLAN (Virtual LAN)</strong> is a logical broadcast domain. It allows you to segment a physical switch into multiple virtual switches. This improves security by isolating traffic and reduces broadcast traffic, enhancing performance.</p>
@@ -143,9 +143,9 @@ Switch(config-if-range)# channel-group 1 mode active
     `,
 
     // 2.6 Wireless Architectures
-    "Cisco Wireless Architectures": `
+    "Wireless Architecture": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">2.6: Cisco Wireless Architectures & AP Modes</h3>
+            <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">2.6: Wireless Architecture & AP Modes</h3>
             <p>This describes how wireless networks are designed and managed.</p>
 
             <h4 style="color: #AF7AC5;">Split-MAC Architecture</h4>
@@ -160,13 +160,13 @@ Switch(config-if-range)# channel-group 1 mode active
             <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
                 <h5 style="color: #AF7AC5; margin-bottom: 5px;">Study Resources:</h5>
                 <em style="font-size: 0.9em;"><a href="https://www.cisco.com/c/en/us/td/docs/wireless/controller/8-5/config-guide/b_cg85/wireless_lan_architecture.html" target="_blank" style="color: #C39BD3;">Read: Cisco Wireless LAN Architecture</a></em><br>
-                <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=F05E7R_0gqQ" target="_blank" style="color: #C39BD3;">Watch: Cisco Wireless Architectures (Zigbits)</a></em>
+                <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=F05E7R_0gqQ" target="_blank" style="color: #C39BD3;">Watch: Wireless Architecture (Zigbits)</a></em>
             </div>
         </div>
     `,
 
     // 2.7 WLAN Component Connections
-    "WLAN Physical Infrastructure": `
+    "WLAN Infrastructure": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">2.7: Physical Connections of WLAN Components</h3>
             <p>Understanding how wireless components connect to the wired network is crucial.</p>
@@ -183,10 +183,10 @@ Switch(config-if-range)# channel-group 1 mode active
         </div>
     `,
 
-    // 2.8 AP & WLC Management Access
-    "AP & WLC Management": `
+    // 2.8 AP Management Access
+    "AP Management": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">2.8: AP & WLC Management Access</h3>
+            <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">2.8: AP Management Access</h3>
             <p>Describes the methods used to configure and monitor wireless network devices.</p>
             <h4 style="color: #AF7AC5;">Management Methods:</h4>
             <ul style="list-style-type: square; margin-left: 20px;">
@@ -204,7 +204,7 @@ Switch(config-if-range)# channel-group 1 mode active
     `,
 
     // 2.9 Wireless LAN GUI Config
-    "WLAN GUI Configuration": `
+    "WLAN Configuration": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">2.9: Interpret Wireless LAN GUI Configuration</h3>
             <p>Configuring a basic WLAN for client connectivity in the WLC GUI involves several key steps.</p>
@@ -227,6 +227,72 @@ Switch(config-if-range)# channel-group 1 mode active
                 <em style="font-size: 0.9em;"><a href="https://www.cisco.com/c/en/us/td/docs/wireless/controller/8-5/config-guide/b_cg85/wlan_security.html" target="_blank" style="color: #C39BD3;">Read: WLC WLAN Security Configuration Guide</a></em><br>
                 <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=KzfYyT3p-4M" target="_blank" style="color: #C39BD3;">Watch: WLC and AP Lab Setup (Jeremy's IT Lab)</a></em>
             </div>
+        </div>
+    `,
+    
+    "Default VLAN": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">Default VLAN</h3>
+            <p>By default, all ports on a Cisco switch are in <strong>VLAN 1</strong>, which is the default VLAN.</p>
+            <h4 style="color: #F5B041;">Security Considerations:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Best Practice:</strong> Don't use VLAN 1 for user data</li>
+                <li><strong>Management VLAN:</strong> Change management traffic to another VLAN</li>
+                <li><strong>Native VLAN:</strong> Change native VLAN from 1 to unused VLAN</li>
+            </ul>
+            <pre style="background-color: #2D2D2D; padding: 10px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+Switch(config)# vlan 99
+Switch(config-vlan)# name MANAGEMENT
+Switch(config)# interface vlan 99
+Switch(config-if)# ip address 192.168.99.10 255.255.255.0
+</code>
+</pre>
+        </div>
+    `,
+    
+    "Connectivity": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #2ECC71; border-bottom: 2px solid #2ECC71; padding-bottom: 5px;">VLAN Connectivity</h3>
+            <p>Devices within the same VLAN can communicate directly. Devices in different VLANs require routing.</p>
+            <h4 style="color: #58D68D;">Intra-VLAN Communication:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Same VLAN:</strong> Layer 2 switching (MAC addresses)</li>
+                <li><strong>Same broadcast domain:</strong> Direct communication</li>
+                <li><strong>No routing required:</strong> Switch forwards based on MAC table</li>
+            </ul>
+            <h4 style="color: #58D68D;">Inter-VLAN Communication:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Different VLANs:</strong> Layer 3 routing required</li>
+                <li><strong>Router or L3 Switch:</strong> Provides routing between VLANs</li>
+                <li><strong>Default Gateway:</strong> Each VLAN needs gateway configuration</li>
+            </ul>
+        </div>
+    `,
+    
+    "Native VLAN": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #E74C3C; border-bottom: 2px solid #E74C3C; padding-bottom: 5px;">Native VLAN</h3>
+            <p>The Native VLAN is the VLAN that carries untagged traffic on a 802.1Q trunk link.</p>
+            <h4 style="color: #EC7063;">Key Characteristics:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Untagged Traffic:</strong> Only VLAN that crosses trunk without 802.1Q tag</li>
+                <li><strong>Default:</strong> VLAN 1 is the default native VLAN</li>
+                <li><strong>Must Match:</strong> Both ends of trunk must have same native VLAN</li>
+                <li><strong>Security Risk:</strong> Native VLAN hopping attacks possible</li>
+            </ul>
+            <h4 style="color: #EC7063;">Best Practices:</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Change Native VLAN:</strong> Use unused VLAN (e.g., 999)</li>
+                <li><strong>Prune Native VLAN:</strong> Don't allow native VLAN on access ports</li>
+                <li><strong>Document Configuration:</strong> Ensure consistent native VLAN settings</li>
+            </ul>
+            <pre style="background-color: #2D2D2D; padding: 10px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+Switch(config)# interface GigabitEthernet0/1
+Switch(config-if)# switchport trunk native vlan 999
+</code>
+</pre>
         </div>
     `
 };

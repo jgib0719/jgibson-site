@@ -45,3 +45,243 @@ h1{font-size:32px;margin:0;color:#374151}
 .mt-4{margin-top:16px}
 .hidden{display:none}
 .visible{display:block}
+
+/* Enterprise BEM-based Modal System - Clean Implementation */
+
+/* Modal Container */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 50;
+}
+
+.modal--hidden {
+    display: none;
+}
+
+.modal--visible {
+    display: flex;
+}
+
+/* Modal Content */
+.modal__content {
+    background: #0b1220;
+    color: #e6eef8;
+    border-radius: 10px;
+    max-width: 860px;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Modal Visual Area (for SVG diagrams) */
+.modal__visual {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #071028;
+    width: 100%;
+}
+
+.modal__svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.modal__svg svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Modal Body */
+.modal__body {
+    padding: 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    position: relative;
+}
+
+/* Modal Elements */
+.modal__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+}
+
+.modal__close:hover {
+    color: white;
+}
+
+.modal__title {
+    text-align: center;
+    margin: 0 auto 16px auto;
+    color: inherit;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.modal__description {
+    text-align: center;
+    margin: 0 auto 16px auto;
+    max-width: 90%;
+    line-height: 1.6;
+}
+
+/* Modal Buttons */
+.modal__button {
+    margin: 8px 5px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.modal__button--primary {
+    background: #4f46e5;
+    color: #fff;
+}
+
+.modal__button--primary:hover {
+    background: #4338ca;
+}
+
+.modal__button--completed {
+    background: #10b981;
+    color: #fff;
+}
+
+.modal__button--completed:hover {
+    background: #059669;
+}
+#studyModal,
+#detailsModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 50;
+}
+
+#modalContent,
+#detailsModalContent {
+    background: #0b1220;
+    color: #e6eef8;
+    border-radius: 10px;
+    max-width: 860px;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#modalVisual {
+    min-height: 180px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #071028;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+#modalSvg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: auto;
+}
+
+#modalSvg svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 400px;
+    height: auto;
+    width: auto;
+    text-align: center;
+}
+
+#modalMainArea,
+#detailsModalMain {
+    padding: 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+#closeModal,
+#closeDetails {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    line-height: 1;
+}
+
+#closeModal:hover,
+#closeDetails:hover {
+    color: white;
+}
+
+#modalTitle,
+#detailsModalTitle {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto 16px auto;
+}
+
+#modalDescription,
+#detailsModalBody {
+    text-align: center;
+    margin: 0 auto 16px auto;
+    max-width: 90%;
+}
+
+#modalMainArea button:not(#closeModal),
+#detailsModalMain button:not(#closeDetails) {
+    margin: 8px 5px;
+    align-self: center;
+}
