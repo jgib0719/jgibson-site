@@ -11,3 +11,8 @@
 11. Ask for clarification before major architectural changes.
 12. Don't assume problems exist without proper debugging first.
 13. Document changes clearly and maintain accurate project documentation.
+14. Always force an overwrite of GitHub files and folders if asked to push to GitHub.
+15. Use .gitignore to exclude development files and folders from version control.
+16. Validate all file operations before execution to prevent data loss.
+17. Maintain consistency between local workspace and remote repository states.
+18. Before major file changes, make a backup of the file in the jgibson.site/.archive folder.  
