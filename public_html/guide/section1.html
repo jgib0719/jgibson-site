@@ -119,9 +119,6 @@
                 <p id="modalDescription"></p>
 
                 <div class="modal-buttons flex gap-3 mt-4">
-                    <button id="viewDetails" class="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
-                        <i class="fas fa-info-circle mr-2"></i>Details
-                    </button>
                     <button id="markCompleted">
                         Mark as Studied
                     </button>
@@ -239,97 +236,11 @@
                 }
             });
 
-            // Details button functionality
-            const viewDetailsBtn = document.getElementById('viewDetails');
-            if (viewDetailsBtn) {
-                viewDetailsBtn.addEventListener('click', function() {
-                    if (currentTopic) {
-                        showDetailsModal(currentTopic);
-                    }
-                });
-            }
 
-            // Details modal close functionality
-            document.getElementById('closeDetails').addEventListener('click', hideDetailsModal);
-            document.getElementById('detailsModal').addEventListener('click', function(e) {
-                if (e.target === this) hideDetailsModal();
-            });
 
         });
 
-        // Simplified details modal functions
-        function showDetailsModal(topic) {
-            // Get the detailed content from SECTION1_DETAILS
-            const detailsContent = SECTION1_DETAILS[topic.title];
-            
-            // Populate modal content
-            document.getElementById('detailsModalTitle').textContent = topic.title;
-            if (detailsContent) {
-                document.getElementById('detailsModalBody').innerHTML = detailsContent;
-            } else {
-                document.getElementById('detailsModalBody').innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: #94a3b8;">
-                        <p>Detailed content for <strong>${topic.title}</strong> is being prepared.</p>
-                        <p style="font-size: 0.9em; margin-top: 1rem; color: #64748b;">Please check back soon for comprehensive explanations and examples.</p>
-                    </div>
-                `;
-            }
-            
-            // Show the modal with simple approach
-            const detailsModal = document.getElementById('detailsModal');
-            const detailsModalContent = document.getElementById('detailsModalContent');
-            
-            // Force modal to be visible using important inline styles
-            detailsModal.style.cssText = `
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-                background: rgba(0,0,0,0.8) !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                z-index: 9999 !important;
-                padding: 20px !important;
-            `;
-            
-            // Force content to be visible
-            if (detailsModalContent) {
-                detailsModalContent.style.cssText = `
-                    background: #1e293b !important;
-                    border: 2px solid #6366f1 !important;
-                    border-radius: 8px !important;
-                    padding: 20px !important;
-                    max-width: 800px !important;
-                    max-height: 80vh !important;
-                    overflow-y: auto !important;
-                    color: #e2e8f0 !important;
-                    position: relative !important;
-                `;
-            }
-        }
 
-        function hideDetailsModal() {
-            const detailsModal = document.getElementById('detailsModal');
-            
-            // Simply hide the modal
-            detailsModal.style.display = 'none';
-        }
-
-        // Add keyboard support for details modal
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const studyModal = document.getElementById('studyModal');
-                const detailsModal = document.getElementById('detailsModal');
-                
-                if (CCNAConfig.isModalVisible(studyModal)) {
-                    closeStudyModal();
-                } else if (!detailsModal.classList.contains('hidden') && detailsModal.style.display !== 'none') {
-                    hideDetailsModal();
-                }
-            }
-        });
     </script>
 </body>
 </html>
