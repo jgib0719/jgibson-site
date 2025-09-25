@@ -113,33 +113,11 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Match topic-card max-width */
     gap: 1rem; /* 16px - matches the spacing in screenshot */
-    justify-items: center; /* Centers each grid item by default */
+    justify-items: center; /* Centers each grid item */
     align-items: start; /* Align to top */
     max-width: 1200px; /* Prevent grid from getting too wide */
     margin: 0 auto; /* Center the entire grid container */
     padding: 0 1rem; /* Add some padding on mobile */
-}
-
-/* Adjust alignment for 3-column layout */
-@media (min-width: 1024px) {
-    .topic-grid-container {
-        grid-template-columns: repeat(3, 1fr); /* Force 3 columns on larger screens */
-    }
-    
-    /* First column - align to center-right */
-    .topic-grid-container .topic-card:nth-child(3n+1) {
-        justify-self: end;
-    }
-    
-    /* Second column - stay centered */
-    .topic-grid-container .topic-card:nth-child(3n+2) {
-        justify-self: center;
-    }
-    
-    /* Third column - align to center-left */
-    .topic-grid-container .topic-card:nth-child(3n+3) {
-        justify-self: start;
-    }
 }
 
 @media (min-width: 768px) {

@@ -17,4 +17,6 @@
 17. Maintain consistency between local workspace and remote repository states.
 18. Before major file changes, make a backup of the file in the jgibson.site/.archive folder.
 19. Use centralized configuration systems (like CCNAConfig) to maintain consistency across sections.
-20. Follow established data version patterns for user progress resets and migrations.  
+20. Follow established data version patterns for user progress resets and migrations.
+21. Never change the style when fixing or adding anything. 
+22. Use standardized button sizes. 
