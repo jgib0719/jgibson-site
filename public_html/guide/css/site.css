@@ -18,6 +18,7 @@ body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    padding: 2rem 1rem; /* Add top/bottom and left/right padding */
 }
 
 /* Typography */
@@ -1192,6 +1193,18 @@ button:disabled {
 #page-header {
     text-align: center;
     margin-bottom: 2.5rem;
+}
+
+#main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem; /* Add horizontal padding */
+}
+
+#main-container {
+    padding: 1rem 2rem; /* Add horizontal and vertical padding */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 #master-progress, 
