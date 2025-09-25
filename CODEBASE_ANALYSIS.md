@@ -59,8 +59,7 @@ jgibson.site/
     ├── index.html                # Main hub page (quiz + study guide entry)
     ├── guide/                    # Study Guide Functionality
     │   ├── css/
-    │   │   ├── site.css          # Study guide stylesheet
-    │   │   └── site.css.backup.20250924_171304  # Backup CSS
+    │   │   └── site.css          # Study guide stylesheet
     │   ├── js/
     │   │   ├── ccna-study-guide-config.js  # Main configuration & modal system
     │   │   ├── section1-data.js       # Section 1 topic data
