@@ -89,9 +89,25 @@
                 <h2 id="modalTitle"></h2>
                 <p id="modalDescription"></p>
 
-                <button id="markCompleted">
-                    Mark as Studied
-                </button>
+                <div class="modal-buttons flex gap-3 mt-4">
+                    <button id="viewDetails" class="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                        <i class="fas fa-info-circle mr-2"></i>Details
+                    </button>
+                    <button id="markCompleted">
+                        Mark as Studied
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Modal - Uses Global Config -->
+    <div id="detailsModal">
+        <div id="detailsModalContent">
+            <div id="detailsModalMain">
+                <button id="closeDetails">&times;</button>
+                <h2 id="detailsModalTitle"></h2>
+                <div id="detailsModalBody"></div>
             </div>
         </div>
     </div>
@@ -99,6 +115,7 @@
     <script src="js/ccna-study-guide-config.js"></script>
     <script src="js/shared-progress.js"></script>
     <script src="js/section4-data.js"></script>
+    <script src="js/section4-details.js"></script>
     <script>
         let progressTracker;
         let currentTopic;
@@ -190,11 +207,44 @@
             }, CCNAConfig.ui.timing.modalCleanup);
         }
 
+        // Details modal functions
+        function openDetailsModal(topic) {
+            const detailsContent = CCNAConfig.loadDetailsContent(4, topic.title);
+            
+            document.getElementById('detailsModalTitle').textContent = topic.title;
+            document.getElementById('detailsModalBody').innerHTML = detailsContent;
+            
+            const detailsModal = document.getElementById('detailsModal');
+            const detailsModalContent = document.getElementById('detailsModalContent');
+            
+            CCNAConfig.openDetailsModal(detailsModal, detailsModalContent);
+        }
+
+        function closeDetailsModal() {
+            const detailsModal = document.getElementById('detailsModal');
+            const detailsModalContent = document.getElementById('detailsModalContent');
+            
+            CCNAConfig.closeDetailsModal(detailsModal, detailsModalContent);
+        }
+
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('closeModal').addEventListener('click', closeStudyModal);
             document.getElementById('studyModal').addEventListener('click', function(e) {
                 if (e.target === this) closeStudyModal();
+            });
+
+            // Details button functionality
+            document.getElementById('viewDetails').addEventListener('click', function() {
+                if (currentTopic) {
+                    openDetailsModal(currentTopic);
+                }
+            });
+
+            // Details modal close functionality
+            document.getElementById('closeDetails').addEventListener('click', closeDetailsModal);
+            document.getElementById('detailsModal').addEventListener('click', function(e) {
+                if (e.target === this) closeDetailsModal();
             });
 
             document.getElementById('markCompleted').addEventListener('click', function() {
@@ -215,8 +265,12 @@
             // Add keyboard support
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    const modal = document.getElementById('studyModal');
-                    if (CCNAConfig.isModalVisible(modal)) {
+                    const studyModal = document.getElementById('studyModal');
+                    const detailsModal = document.getElementById('detailsModal');
+                    
+                    if (CCNAConfig.isModalVisible(detailsModal)) {
+                        closeDetailsModal();
+                    } else if (CCNAConfig.isModalVisible(studyModal)) {
                         closeStudyModal();
                     }
                 }
