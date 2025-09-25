@@ -51,7 +51,7 @@ const CCNAConfig = {
     // Topic card configuration
     cards: {
         // Card container classes
-        containerClasses: "topic-card relative p-6 flex flex-col justify-center items-center text-center cursor-pointer h-56 w-60",
+        containerClasses: "topic-card relative p-6 flex flex-col justify-center items-center text-center cursor-pointer",
         
         // Icon classes
         iconClasses: "fas text-5xl text-indigo-400 mb-4",
@@ -60,60 +60,37 @@ const CCNAConfig = {
         titleClasses: "text-xl font-semibold text-slate-200 title-font"
     },
     
-    // Layout configuration - ALL PAGE LAYOUT ELEMENTS
+    // Layout configuration - CSS handles all classes, JS only handles dynamic inline styles
     layout: {
-        // Main container
-        containerClasses: "container mx-auto p-4 md:p-8",
-        
         // Body styling
         body: {
             textColor: "text-slate-300"
         },
         
-        // Master progress bar (top of page)
+        // Master progress bar (top of page) - only dynamic styles
         masterProgress: {
-            containerClasses: "mb-6",
-            cardClasses: "bg-slate-800 rounded-lg p-4 border border-slate-700",
-            headerClasses: "flex justify-between items-center mb-2",
-            titleClasses: "text-sm font-semibold text-slate-300",
-            percentClasses: "text-sm text-indigo-400 font-semibold",
-            barContainerClasses: "w-full bg-slate-700 rounded-full h-2",
-            barClasses: "bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-500",
             barStyles: {
                 width: "0%"
-            },
-            footerClasses: "flex justify-between text-xs text-slate-400 mt-2"
+            }
         },
         
-        // Page header
+        // Page header - keep essential icon and button classes for functionality
         header: {
-            containerClasses: "text-center mb-10",
-            titleClasses: "text-4xl md:text-5xl font-bold text-indigo-400 title-font tracking-wider",
             iconClasses: "fas fa-gamepad mr-3 text-indigo-500",
-            subtitleClasses: "text-lg text-slate-400 mt-2",
-            descriptionClasses: "text-sm text-slate-500 mt-1",
-            backButtonClasses: "inline-block mt-4 px-4 py-2 bg-slate-700 text-white rounded hover:bg-indigo-600 transition-colors",
+            backButtonClasses: "btn btn-secondary btn-sm mt-4",
             backIconClasses: "fas fa-arrow-left mr-2"
         },
         
-        // Section progress bar
+        // Section progress bar - only dynamic styles
         sectionProgress: {
-            containerClasses: "w-full max-w-4xl mx-auto mb-10",
-            headerClasses: "flex justify-center items-center space-x-4 mb-2",
-            labelClasses: "text-sm font-semibold text-indigo-300",
-            percentClasses: "text-sm font-bold text-white",
-            barContainerClasses: "w-full bg-slate-700 rounded-full h-2.5",
-            barClasses: "bg-indigo-500 h-2.5 rounded-full",
             barStyles: {
                 width: "0%",
                 transition: "width 0.5s ease-in-out"
             }
         },
         
-        // Main content sections
+        // Main content sections - keep grid class for dynamic layout
         section: {
-            containerClasses: "mb-12 text-center",
-            headerClasses: "text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block",
             gridClasses: "topic-grid-container"
         }
     },
@@ -336,79 +313,32 @@ const CCNAConfig = {
     
     // Apply layout configuration to page elements
     applyLayoutConfig: function() {
-        // Apply body styling
-        const body = document.body;
-        if (body) body.className = this.layout.body.textColor;
+        // Only apply essential functional classes and dynamic inline styles
+        // CSS file now controls all layout and styling
         
-        // Apply main container styling
-        const mainContainer = document.getElementById('main-container');
-        if (mainContainer) mainContainer.className = this.layout.containerClasses;
-        
-        // Apply master progress bar styling
-        const masterProgress = document.getElementById('master-progress');
-        const masterProgressCard = document.getElementById('master-progress-card');
-        const masterProgressHeader = document.getElementById('master-progress-header');
-        const masterProgressTitle = document.getElementById('master-progress-title');
-        const masterProgressBarContainer = document.getElementById('master-progress-bar-container');
-        const masterProgressBar = document.getElementById('progressBar');
-        const masterProgressFooter = document.getElementById('master-progress-footer');
-        
-        if (masterProgress) masterProgress.className = this.layout.masterProgress.containerClasses;
-        if (masterProgressCard) masterProgressCard.className = this.layout.masterProgress.cardClasses;
-        if (masterProgressHeader) masterProgressHeader.className = this.layout.masterProgress.headerClasses;
-        if (masterProgressTitle) masterProgressTitle.className = this.layout.masterProgress.titleClasses;
-        if (masterProgressBarContainer) masterProgressBarContainer.className = this.layout.masterProgress.barContainerClasses;
-        if (masterProgressBar) {
-            masterProgressBar.className = this.layout.masterProgress.barClasses;
-            // Apply inline styles
-            Object.assign(masterProgressBar.style, this.layout.masterProgress.barStyles);
-        }
-        if (masterProgressFooter) masterProgressFooter.className = this.layout.masterProgress.footerClasses;
-        
-        // Apply page header styling
-        const pageHeader = document.getElementById('page-header');
-        const pageTitle = document.getElementById('page-title');
+        // Apply essential icon and button classes for functionality
         const pageIcon = document.getElementById('page-icon');
-        const pageSubtitle = document.getElementById('page-subtitle');
-        const pageDescription = document.getElementById('page-description');
         const backButton = document.getElementById('back-button');
         const backIcon = document.getElementById('back-icon');
         
-        if (pageHeader) pageHeader.className = this.layout.header.containerClasses;
-        if (pageTitle) pageTitle.className = this.layout.header.titleClasses;
         if (pageIcon) pageIcon.className = this.layout.header.iconClasses;
-        if (pageSubtitle) pageSubtitle.className = this.layout.header.subtitleClasses;
-        if (pageDescription) pageDescription.className = this.layout.header.descriptionClasses;
         if (backButton) backButton.className = this.layout.header.backButtonClasses;
         if (backIcon) backIcon.className = this.layout.header.backIconClasses;
         
-        // Apply section progress styling
-        const progressContainer = document.getElementById('progress-container');
-        const progressHeader = document.getElementById('progress-header');
-        const progressLabel = document.getElementById('progress-label');
-        const progressText = document.getElementById('progress-text');
-        const progressBarContainer = document.getElementById('progress-bar-container');
-        const progressBar = document.getElementById('progress-bar');
+        // Apply dynamic progress bar styles (width must be controlled by JS)
+        const masterProgressBar = document.getElementById('progressBar');
+        if (masterProgressBar) {
+            Object.assign(masterProgressBar.style, this.layout.masterProgress.barStyles);
+        }
         
-        if (progressContainer) progressContainer.className = this.layout.sectionProgress.containerClasses;
-        if (progressHeader) progressHeader.className = this.layout.sectionProgress.headerClasses;
-        if (progressLabel) progressLabel.className = this.layout.sectionProgress.labelClasses;
-        if (progressText) progressText.className = this.layout.sectionProgress.percentClasses;
-        if (progressBarContainer) progressBarContainer.className = this.layout.sectionProgress.barContainerClasses;
+        const progressBar = document.getElementById('progress-bar');
         if (progressBar) {
-            progressBar.className = this.layout.sectionProgress.barClasses;
-            // Apply inline styles
             Object.assign(progressBar.style, this.layout.sectionProgress.barStyles);
         }
         
-        // Apply section styling
+        // Apply grid classes for dynamic layout
         const sections = document.querySelectorAll('main > section');
         sections.forEach(section => {
-            section.className = this.layout.section.containerClasses;
-            
-            const header = section.querySelector('h2');
-            if (header) header.className = this.layout.section.headerClasses;
-            
             const grid = section.querySelector('[id$="Grid"]');
             if (grid) grid.className = this.layout.section.gridClasses;
         });

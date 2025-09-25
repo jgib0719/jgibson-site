@@ -110,10 +110,10 @@ body {
 
 /* Topic Grid Container - Replaces flex layout for better alignment */
 .topic-grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Match topic-card max-width */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem; /* 16px - matches the spacing in screenshot */
-    justify-items: center; /* Centers each grid item */
     align-items: start; /* Align to top */
     max-width: 1200px; /* Prevent grid from getting too wide */
     margin: 0 auto; /* Center the entire grid container */
@@ -701,9 +701,8 @@ button:disabled {
     padding: 1.25rem;
     cursor: pointer;
     position: relative;
-    min-height: 120px;
-    width: 100%;
-    max-width: 280px;
+    height: 224px; /* Standardized height */
+    width: 240px;  /* Standardized width */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1189,6 +1188,80 @@ button:disabled {
     margin-right: auto;
 }
 
+/* Essential Page Layout - replaces JavaScript className assignments */
+#page-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+#master-progress, 
+#progress-container {
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2.5rem;
+}
+
+#master-progress-card {
+    background-color: #1e293b;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid #334155;
+}
+
+#master-progress-header, 
+#master-progress-footer,
+#progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+#master-progress-footer {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+#master-progress-bar-container,
+#progress-bar-container {
+    background-color: #334155;
+    border-radius: 9999px;
+}
+
+#master-progress-bar-container { height: 0.5rem; }
+#progress-bar-container { height: 0.625rem; }
+
+/* Section and Topic Grid Layout */
+main section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+main section h2 {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #c7d2fe;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(99, 102, 241, 0.3);
+    font-family: 'Orbitron', monospace;
+}
+
+/* This targets all topic grids (e.g., #componentsGrid, #topologyGrid) */
+main section div[id$="Grid"] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
 /* Responsive sections grid - matches Tailwind's grid behavior */
 .sections-grid {
     display: grid;
@@ -1210,6 +1283,35 @@ button:disabled {
     }
 }
 
+/* Section and Topic Grid Layout - replaces JavaScript className assignments */
+main section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+main section h2 {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #c7d2fe;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(99, 102, 241, 0.3);
+    font-family: 'Orbitron', monospace;
+}
+
+/* This targets all topic grids (e.g., #componentsGrid, #topologyGrid) */
+main section div[id$="Grid"] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
 /* Section card components */
 .section-card {
     background-color: #1e293b;
@@ -1217,6 +1319,8 @@ button:disabled {
     overflow: hidden;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .section-card:hover {
@@ -1253,6 +1357,9 @@ button:disabled {
 
 .section-content {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .section-content h3 {
@@ -1267,6 +1374,7 @@ button:disabled {
     color: #94a3b8;
     list-style-type: disc;
     list-style-position: inside;
+    flex-grow: 1;
 }
 
 .section-list li {
