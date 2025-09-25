@@ -182,7 +182,7 @@ const SECTION5_DATA = {
     metadata: {
         sectionNumber: 5,
         title: "Security Fundamentals",
-        totalTopics: 10,
+        totalTopics: 11, // Updated: 2+1+1+1+1+1+2+2 = 11 topics
         subsections: {
             layer2Security: { title: "5.1 & 5.8 Security Concepts", count: 2 },
             localPasswords: { title: "5.3 Device Access Control", count: 1 },

@@ -210,7 +210,7 @@ const SECTION3_DATA = {
     metadata: {
         sectionNumber: 3,
         title: "IP Connectivity",
-        totalTopics: 10, // Update this count based on the final number of cards
+        totalTopics: 11, // Updated: 3+2+2+3+1 = 11 topics
         subsections: {
             routingTable: { title: "3.1 Routing Table Components", count: 3 },
             routing: { title: "3.2 Forwarding Decision", count: 2 },

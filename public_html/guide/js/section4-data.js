@@ -198,7 +198,7 @@ const SECTION4_DATA = {
     metadata: {
         sectionNumber: 4,
         title: "IP Services",
-        totalTopics: 8,
+        totalTopics: 10, // Updated: 2+1+2+2+2+1 = 10 topics
         subsections: {
             nat: { title: "4.1 NAT", count: 2 },
             ntp: { title: "4.2 NTP", count: 1 },

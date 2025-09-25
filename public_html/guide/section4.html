@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
     <div id="main-container">
@@ -147,25 +148,11 @@
                 });
             }
             
-            // Populate all grids with external data - direct mapping
-            const gridMappings = {
-                'dhcpDnsGrid': data.dhcpDns,
-                'ntpGrid': data.ntp,
-                'natGrid': data.nat,
-                'dhcpClientGrid': data.dhcpClient,
-                'snmpGrid': data.snmp,
-                'qosGrid': data.qos
-            };
-            
-            Object.keys(gridMappings).forEach(gridId => {
-                const gridElement = document.getElementById(gridId);
-                const topics = gridMappings[gridId];
-                if (gridElement && topics && topics.length > 0) {
-                    createTopicCards(topics, gridElement);
-                } else if (!gridElement) {
-                    console.warn(`Grid element not found for ID: ${gridId}`);
-                } else if (!topics || topics.length === 0) {
-                    console.warn(`No topics found for grid: ${gridId}`);
+            // Populate all grids with external data
+            Object.keys(data.metadata.subsections).forEach(key => {
+                const gridElement = document.getElementById(key + 'Grid');
+                if (gridElement && data[key]) {
+                    createTopicCards(data[key], gridElement);
                 }
             });
             

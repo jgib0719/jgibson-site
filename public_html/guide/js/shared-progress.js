@@ -10,7 +10,7 @@ class UnifiedCCNAProgressTracker {
         this.userStatsKey = 'ccna_user_stats';
         this.currentChapter = currentChapter;
         this.storageKey = `ccna_progress_${this.userId}`;
-        this.dataVersion = '2.1'; // Version to handle data migrations - Updated for section 2 topic count fix
+        this.dataVersion = '3.0'; // PROGRESS RESET: Clear all existing user progress data
         
         // CRITICAL: Each chapter defines ONLY its own topics
         // This prevents the cross-contamination issue
@@ -61,12 +61,12 @@ class UnifiedCCNAProgressTracker {
      */
     getDefaultTopicCounts() {
         return {
-            1: 35, // Network Fundamentals - updated after removing OSI/TCP-IP, Ethernet, and troubleshooting topics
-            2: 16, // Network Access - updated to match section2-data.js actual topic count
-            3: 21, // IP Connectivity
-            4: 19, // IP Services
-            5: 14, // Security Fundamentals
-            6: 27  // Network Automation
+            1: 35, // Network Fundamentals - keeping current value
+            2: 13, // Network Access - corrected to match section2-data.js
+            3: 11, // IP Connectivity - corrected from subsection counts
+            4: 10, // IP Services - corrected from subsection counts
+            5: 11, // Security Fundamentals - corrected from subsection counts
+            6: 7   // Network Automation - correct value
         };
     }
 

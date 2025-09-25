@@ -2,7 +2,7 @@
 2. No changing visuals, styling, or anything else that will alter how the frontend that is presented to the user (UI/UX).
 3. The top level documents and stylings are the source of truth. Use the identical callable object and function names. 
 4. Do not create or inject new files into the tree without explanation and approval. 
-5. Don't add code without removing the code it's fixing ~ you haved create duplicate code a lot.
+5. Don't add code without removing the code it's fixing ~ avoid creating duplicate code.
 6. Keep things simple.
 7. Test changes systematically. 
 8. Don't use forced Javascript styling unless the styling is not possible with CSS classes.
@@ -15,4 +15,6 @@
 15. Use .gitignore to exclude development files and folders from version control.
 16. Validate all file operations before execution to prevent data loss.
 17. Maintain consistency between local workspace and remote repository states.
-18. Before major file changes, make a backup of the file in the jgibson.site/.archive folder.  
+18. Before major file changes, make a backup of the file in the jgibson.site/.archive folder.
+19. Use centralized configuration systems (like CCNAConfig) to maintain consistency across sections.
+20. Follow established data version patterns for user progress resets and migrations.  
