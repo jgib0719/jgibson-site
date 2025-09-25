@@ -4,7 +4,7 @@
  */
 
 const SECTION3_DATA = {
-    routingTable: [
+    routingTableGrid: [
         {
             title: "Routing Table",
             icon: "fa-table-list",
@@ -71,7 +71,7 @@ const SECTION3_DATA = {
             </svg>`
         }
     ],
-    routing: [
+    routingGrid: [
         {
             title: "Forwarding Logic",
             icon: "fa-project-diagram",
@@ -104,7 +104,7 @@ const SECTION3_DATA = {
             </svg>`
         },
     ],
-    staticRouting: [
+    staticRoutingGrid: [
         {
             title: "Static Routes",
             icon: "fa-route",
@@ -140,7 +140,7 @@ const SECTION3_DATA = {
             </svg>`
         }
     ],
-    ospf: [
+    ospfGrid: [
         {
             title: "OSPF Neighbors",
             icon: "fa-users",
@@ -182,7 +182,7 @@ const SECTION3_DATA = {
             </svg>`
         }
     ],
-    fhrp: [
+    fhrpGrid: [
         {
             title: "FHRP",
             icon: "fa-clone",
@@ -210,16 +210,30 @@ const SECTION3_DATA = {
     metadata: {
         sectionNumber: 3,
         title: "IP Connectivity",
-        totalTopics: 11, // Updated: 3+2+2+3+1 = 11 topics
         subsections: {
-            routingTable: { title: "3.1 Routing Table Components", count: 3 },
-            routing: { title: "3.2 Forwarding Decision", count: 2 },
-            staticRouting: { title: "3.3 Static Routing", count: 2 },
-            ospf: { title: "3.4 Single Area OSPFv2", count: 3 },
-            fhrp: { title: "3.5 First Hop Redundancy", count: 1 }
+            routingTableGrid: { title: "3.1 Routing Table Components", count: 3 },
+            routingGrid: { title: "3.2 Forwarding Decision", count: 2 },
+            staticRoutingGrid: { title: "3.3 Static Routing", count: 2 },
+            ospfGrid: { title: "3.4 Single Area OSPFv2", count: 3 },
+            fhrpGrid: { title: "3.5 First Hop Redundancy", count: 1 }
+        },
+        // Dynamic calculation of total topics from subsections
+        get totalTopics() {
+            return Object.values(this.subsections).reduce((total, section) => total + section.count, 0);
         }
     }
 };
 
 // Export for global use
 window.SECTION3_DATA = SECTION3_DATA;
+
+// Register with section registry for dynamic topic totals
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.CCNA_SECTION_REGISTRY) {
+        window.CCNA_SECTION_REGISTRY.registerSectionData(3, SECTION3_DATA);
+    }
+    // Dispatch event for other listeners
+    window.dispatchEvent(new CustomEvent('sectionDataLoaded', {
+        detail: { sectionNumber: 3, sectionData: SECTION3_DATA }
+    }));
+});

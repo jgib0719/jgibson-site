@@ -1,5 +1,20 @@
 # Lessons Learned from Coding Sessions
 
+## Code Quality Improvements Made
+
+### JavaScript Extraction (Dec 2024)
+
+- **Created shared section-loader.js** - Eliminated 1400+ lines of duplicated JavaScript across section*.html files
+- **Parameterized section logic** - Used window.SECTION_NUMBER to make loader work for all sections
+- **Simplified maintenance** - Changes now only need to be made in one file instead of six
+- **Removed unused code** - Cleaned up legacy SECTION*_TOPICS arrays that were no longer needed
+
+### Configuration System Maintenance
+
+- **Maintained intended topic counts** - Kept higher target counts in config instead of reducing to match incomplete sections  
+- **Preserved progress tracking** - Ensured shared-progress.js continues to track actual current counts
+- **Documentation accuracy** - Fixed directory tree errors and updated system state documentation
+
 ## Major Mistakes Made
 
 ### 1. Rule Violations

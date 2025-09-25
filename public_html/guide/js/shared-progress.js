@@ -2,6 +2,7 @@
  * Unified CCNA Progress Tracking System
  * This replaces all individual CCNAProgressTracker classes in chapter files
  * Prevents topic count mismatches and cross-chapter contamination
+ * Now integrates with dynamic section registry for accurate topic totals
  */
 
 class UnifiedCCNAProgressTracker {
@@ -10,7 +11,10 @@ class UnifiedCCNAProgressTracker {
         this.userStatsKey = 'ccna_user_stats';
         this.currentChapter = currentChapter;
         this.storageKey = `ccna_progress_${this.userId}`;
-        this.dataVersion = '3.0'; // PROGRESS RESET: Clear all existing user progress data
+        this.dataVersion = '3.1'; // PROGRESS RESET: Clear all existing user progress data (updated for dynamic totals)
+        
+        // Cache for topic totals to prevent multiple API calls
+        this._cachedTopicTotals = null;
         
         // CRITICAL: Each chapter defines ONLY its own topics
         // This prevents the cross-contamination issue
@@ -21,6 +25,22 @@ class UnifiedCCNAProgressTracker {
         this.initializeUserStats();
         this.loadProgress();
         this.updateAllProgressBars();
+        this.setupSectionDataListener();
+    }
+
+    /**
+     * Listen for section data updates and refresh progress bars
+     */
+    setupSectionDataListener() {
+        window.addEventListener('sectionDataLoaded', (event) => {
+            console.log('Section data loaded, updating progress tracking:', event.detail);
+            // Clear cached topic totals when new section data loads
+            this._cachedTopicTotals = null;
+            // Refresh progress bars when new section data is available
+            setTimeout(() => {
+                this.updateAllProgressBars();
+            }, 100);
+        });
     }
 
     /**
@@ -47,17 +67,45 @@ class UnifiedCCNAProgressTracker {
     /**
      * Cache topic counts to prevent having to load all chapters
      */
+    /**
+     * Get cached chapter topics with dynamic totals from section registry
+     */
     getCachedChapterTopics() {
+        // Return cached result if already fetched
+        if (this._cachedTopicTotals) {
+            return this._cachedTopicTotals;
+        }
+        
         try {
+            // First try to get from section registry (dynamic)
+            if (window.CCNA_SECTION_REGISTRY) {
+                const dynamicTotals = window.CCNA_SECTION_REGISTRY.getAllTopicTotals();
+                console.log('Using dynamic topic totals from section registry:', dynamicTotals);
+                this._cachedTopicTotals = dynamicTotals;
+                return dynamicTotals;
+            }
+            
+            // Fallback to localStorage cache
             const cached = localStorage.getItem('ccna_chapter_topic_counts');
-            return cached ? JSON.parse(cached) : this.getDefaultTopicCounts();
+            if (cached) {
+                const parsedCache = JSON.parse(cached);
+                this._cachedTopicTotals = parsedCache;
+                return parsedCache;
+            }
+            
+            // Final fallback to hardcoded defaults
+            const defaults = this.getDefaultTopicCounts();
+            this._cachedTopicTotals = defaults;
+            return defaults;
         } catch (e) {
+            console.warn('Error loading topic counts, using defaults:', e);
             return this.getDefaultTopicCounts();
         }
     }
 
     /**
-     * Fallback topic counts - these should match actual content
+     * Fallback topic counts - only used when registry is unavailable
+     * These should match actual content but are now dynamically updated
      */
     getDefaultTopicCounts() {
         return {
@@ -72,17 +120,30 @@ class UnifiedCCNAProgressTracker {
 
     /**
      * Update cached topic counts when visiting a chapter
+     * Now integrates with section registry for dynamic updates
      */
     updateTopicCountCache() {
-        if (!this.currentChapter || !this.chapterTopics[this.currentChapter]) return;
+        if (!this.currentChapter) return;
         
         try {
+            // Update section registry if available
+            if (window.CCNA_SECTION_REGISTRY && this.chapterTopics[this.currentChapter]) {
+                const currentCount = Array.isArray(this.chapterTopics[this.currentChapter]) 
+                    ? this.chapterTopics[this.currentChapter].length 
+                    : this.chapterTopics[this.currentChapter];
+                
+                if (typeof currentCount === 'number' && currentCount > 0) {
+                    window.CCNA_SECTION_REGISTRY.updateTopicTotal(this.currentChapter, currentCount);
+                }
+            }
+            
+            // Still maintain legacy localStorage cache for backward compatibility
             const cached = this.getCachedChapterTopics();
-            const currentCount = this.chapterTopics[this.currentChapter].length;
+            const currentCount = this.chapterTopics[this.currentChapter];
             
             // Only update if we have actual topics (not just a number)
-            if (Array.isArray(this.chapterTopics[this.currentChapter])) {
-                cached[this.currentChapter] = currentCount;
+            if (Array.isArray(currentCount) && this.currentChapter) {
+                cached[this.currentChapter] = currentCount.length;
                 localStorage.setItem('ccna_chapter_topic_counts', JSON.stringify(cached));
             }
         } catch (e) {

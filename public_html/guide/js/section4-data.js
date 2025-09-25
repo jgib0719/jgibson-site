@@ -198,7 +198,6 @@ const SECTION4_DATA = {
     metadata: {
         sectionNumber: 4,
         title: "IP Services",
-        totalTopics: 10, // Updated: 2+1+2+2+2+1 = 10 topics
         subsections: {
             nat: { title: "4.1 NAT", count: 2 },
             ntp: { title: "4.2 NTP", count: 1 },
@@ -206,9 +205,24 @@ const SECTION4_DATA = {
             snmp: { title: "4.4 & 4.5 Monitoring", count: 2 },
             dhcpClient: { title: "4.6 DHCP Configuration", count: 2 },
             qos: { title: "4.7 QoS", count: 1 },
+        },
+        // Dynamic calculation of total topics from subsections
+        get totalTopics() {
+            return Object.values(this.subsections).reduce((total, section) => total + section.count, 0);
         }
     }
 };
 
 // Export for global use
 window.SECTION4_DATA = SECTION4_DATA;
+
+// Register with section registry for dynamic topic totals
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.CCNA_SECTION_REGISTRY) {
+        window.CCNA_SECTION_REGISTRY.registerSectionData(4, SECTION4_DATA);
+    }
+    // Dispatch event for other listeners
+    window.dispatchEvent(new CustomEvent('sectionDataLoaded', {
+        detail: { sectionNumber: 4, sectionData: SECTION4_DATA }
+    }));
+});

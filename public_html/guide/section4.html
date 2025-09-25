@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Master - CCNA Section 4</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Section 4: IP Services | CCNA Study Guide</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="stylesheet" href="css/site.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
     <div id="main-container">
@@ -36,7 +37,7 @@
             </h1>
             <p id="page-subtitle">Interactive Study Guide for Exam 200-301</p>
             <p id="page-description">Select a topic to begin your training module.</p>
-            <a href="sections.html" id="back-button">
+            <a href="sections.html" id="back-button" class="btn btn-secondary btn-sm">
                 <i id="back-icon"></i>Back to Sections
             </a>
         </header>
@@ -53,34 +54,34 @@
 
         <main>
             <section>
-                <h2>4.1 DHCP and DNS functionality</h2>
+                <h2>4.1 NAT</h2>
                 <div id="dhcpDnsGrid"></div>
             </section>
             <section>
-                <h2>4.2 Network Time Protocol (NTP)</h2>
+                <h2>4.2 NTP</h2>
                 <div id="ntpGrid"></div>
             </section>
             <section>
-                <h2>4.3 NAT operations</h2>
+                <h2>4.3 DHCP and DNS</h2>
                 <div id="natGrid"></div>
             </section>
             <section>
-                <h2>4.4 DHCP client and relay</h2>
+                <h2>4.4 & 4.5 Monitoring</h2>
                 <div id="dhcpClientGrid"></div>
             </section>
             <section>
-                <h2>4.5 SNMP monitoring</h2>
+                <h2>4.6 DHCP Configuration</h2>
                 <div id="snmpGrid"></div>
             </section>
             <section>
-                <h2>4.6 QoS concepts</h2>
+                <h2>4.7 QoS</h2>
                 <div id="qosGrid"></div>
             </section>
         </main>
     </div>
 
     <!-- Study Modal - Uses Global Config -->
-    <div id="studyModal">
+    <div id="studyModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div id="modalContent">
             <div id="modalVisual">
                 <div id="modalSvg"></div>
@@ -91,10 +92,10 @@
                 <p id="modalDescription"></p>
 
                 <div class="modal-buttons flex gap-3 mt-4">
-                    <button id="viewDetails" class="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <button id="viewDetails" class="btn btn-primary btn-md">
                         <i class="fas fa-info-circle mr-2"></i>Details
                     </button>
-                    <button id="markCompleted">
+                    <button id="markCompleted" class="btn btn-secondary btn-md">
                         Mark as Studied
                     </button>
                 </div>
@@ -103,7 +104,7 @@
     </div>
 
     <!-- Details Modal - Uses Global Config -->
-    <div id="detailsModal">
+    <div id="detailsModal" role="dialog" aria-modal="true" aria-labelledby="detailsModalTitle">
         <div id="detailsModalContent">
             <div id="detailsModalMain">
                 <button id="closeDetails">&times;</button>
@@ -114,155 +115,14 @@
     </div>
 
     <script src="js/ccna-study-guide-config.js"></script>
+    <script src="js/section-registry.js"></script>
     <script src="js/shared-progress.js"></script>
     <script src="js/section4-data.js"></script>
     <script src="js/section4-details.js"></script>
     <script>
-        let progressTracker;
-        let currentTopic;
-        let currentCardElement;
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize progress tracker for Section 4
-            progressTracker = new UnifiedCCNAProgressTracker(4);
-            
-            // Initialize ALL global styling (replaces embedded CSS)
-            CCNAConfig.initializeGlobalStyling();
-            
-            // Get the section data
-            const data = window.SECTION4_DATA;
-            
-            if (!data) {
-                console.error('Section 4 data not loaded');
-                return;
-            }
-            
-            // Create topic cards function using global config
-            function createTopicCards(topics, gridElement) {
-                if (!gridElement) return;
-                
-                topics.forEach(topic => {
-                    const card = CCNAConfig.createTopicCard(topic);
-                    card.onclick = () => openStudyModal(topic, card);
-                    gridElement.appendChild(card);
-                });
-            }
-            
-            // Populate all grids with external data
-            Object.keys(data.metadata.subsections).forEach(key => {
-                const gridElement = document.getElementById(key + 'Grid');
-                if (gridElement && data[key]) {
-                    createTopicCards(data[key], gridElement);
-                }
-            });
-            
-            // Auto-visual sync
-            setTimeout(() => progressTracker.syncVisualState(), CCNAConfig.ui.timing.progressSync);
-        });
-
-        function openStudyModal(topic, cardElement) {
-            currentTopic = topic;
-            currentCardElement = cardElement;
-            
-            document.getElementById('modalTitle').textContent = topic.title;
-            document.getElementById('modalDescription').textContent = topic.description;
-            document.getElementById('modalSvg').innerHTML = topic.visual;
-            
-            const modal = document.getElementById('studyModal');
-            const content = document.getElementById('modalContent');
-            
-            CCNAConfig.openModal(modal, content);
-            
-            // Force SVG styling after a delay to ensure content is rendered
-            setTimeout(() => {
-                CCNAConfig.applySvgStyling();
-            }, 100);
-            
-            // Update mark completed button
-            const markBtn = document.getElementById('markCompleted');
-            const isCompleted = progressTracker.isTopicCompleted(topic.title);
-            CCNAConfig.applyButtonState(markBtn, isCompleted);
-        }
-
-        function closeStudyModal() {
-            const modal = document.getElementById('studyModal');
-            const modalContent = document.getElementById('modalContent');
-            
-            CCNAConfig.closeModal(modal, modalContent);
-            setTimeout(() => {
-                currentTopic = null;
-            }, CCNAConfig.ui.timing.modalCleanup);
-        }
-
-        // Details modal functions
-        function openDetailsModal(topic) {
-            const detailsContent = CCNAConfig.loadDetailsContent(4, topic.title);
-            
-            document.getElementById('detailsModalTitle').textContent = topic.title;
-            document.getElementById('detailsModalBody').innerHTML = detailsContent;
-            
-            const detailsModal = document.getElementById('detailsModal');
-            const detailsModalContent = document.getElementById('detailsModalContent');
-            
-            CCNAConfig.openDetailsModal(detailsModal, detailsModalContent);
-        }
-
-        function closeDetailsModal() {
-            const detailsModal = document.getElementById('detailsModal');
-            const detailsModalContent = document.getElementById('detailsModalContent');
-            
-            CCNAConfig.closeDetailsModal(detailsModal, detailsModalContent);
-        }
-
-        // Event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('closeModal').addEventListener('click', closeStudyModal);
-            document.getElementById('studyModal').addEventListener('click', function(e) {
-                if (e.target === this) closeStudyModal();
-            });
-
-            // Details button functionality
-            document.getElementById('viewDetails').addEventListener('click', function() {
-                if (currentTopic) {
-                    openDetailsModal(currentTopic);
-                }
-            });
-
-            // Details modal close functionality
-            document.getElementById('closeDetails').addEventListener('click', closeDetailsModal);
-            document.getElementById('detailsModal').addEventListener('click', function(e) {
-                if (e.target === this) closeDetailsModal();
-            });
-
-            document.getElementById('markCompleted').addEventListener('click', function() {
-                if (currentTopic && currentCardElement) {
-                    const isCompleted = progressTracker.isTopicCompleted(currentTopic.title);
-                    progressTracker.markTopicCompleted(currentTopic.title, !isCompleted);
-                    
-                    // Update card visual state using global config
-                    CCNAConfig.markCardAsStudied(currentCardElement, !isCompleted);
-                    
-                    // Update button state using global config
-                    CCNAConfig.applyButtonState(this, !isCompleted);
-                    
-                    closeStudyModal();
-                }
-            });
-
-            // Add keyboard support
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    const studyModal = document.getElementById('studyModal');
-                    const detailsModal = document.getElementById('detailsModal');
-                    
-                    if (CCNAConfig.isModalVisible(detailsModal)) {
-                        closeDetailsModal();
-                    } else if (CCNAConfig.isModalVisible(studyModal)) {
-                        closeStudyModal();
-                    }
-                }
-            });
-        });
+        // Set section number for the shared loader
+        window.SECTION_NUMBER = 4;
     </script>
+    <script src="js/section-loader.js"></script>
 </body>
 </html>

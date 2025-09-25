@@ -131,16 +131,30 @@ const SECTION6_DATA = {
     metadata: {
         sectionNumber: 6,
         title: "Automation & Programmability",
-        totalTopics: 7,
         subsections: {
             automation: { title: "6.1-6.3 Network Automation", count: 3 },
             configFile: { title: "6.4 Device Management", count: 1 },
             restApi: { title: "6.5 REST APIs", count: 1 },
             configManagement: { title: "6.6 Config Management Tools", count: 1 },
             json: { title: "6.7 JSON", count: 1 },
+        },
+        // Dynamic calculation of total topics from subsections
+        get totalTopics() {
+            return Object.values(this.subsections).reduce((total, section) => total + section.count, 0);
         }
     }
 };
 
 // Export for global use
 window.SECTION6_DATA = SECTION6_DATA;
+
+// Register with section registry for dynamic topic totals
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.CCNA_SECTION_REGISTRY) {
+        window.CCNA_SECTION_REGISTRY.registerSectionData(6, SECTION6_DATA);
+    }
+    // Dispatch event for other listeners
+    window.dispatchEvent(new CustomEvent('sectionDataLoaded', {
+        detail: { sectionNumber: 6, sectionData: SECTION6_DATA }
+    }));
+});

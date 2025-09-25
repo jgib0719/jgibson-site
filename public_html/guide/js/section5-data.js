@@ -182,7 +182,6 @@ const SECTION5_DATA = {
     metadata: {
         sectionNumber: 5,
         title: "Security Fundamentals",
-        totalTopics: 11, // Updated: 2+1+1+1+1+1+2+2 = 11 topics
         subsections: {
             layer2Security: { title: "5.1 & 5.8 Security Concepts", count: 2 },
             localPasswords: { title: "5.3 Device Access Control", count: 1 },
@@ -192,9 +191,24 @@ const SECTION5_DATA = {
             portSecurity: { title: "5.7.1 Port Security", count: 1 },
             dhcpSnooping: { title: "5.7.2 DHCP Snooping & DAI", count: 2 },
             wirelessSecurity: { title: "5.9 & 5.10 Wireless Security", count: 2 },
+        },
+        // Dynamic calculation of total topics from subsections
+        get totalTopics() {
+            return Object.values(this.subsections).reduce((total, section) => total + section.count, 0);
         }
     }
 };
 
 // Export for global use
 window.SECTION5_DATA = SECTION5_DATA;
+
+// Register with section registry for dynamic topic totals
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.CCNA_SECTION_REGISTRY) {
+        window.CCNA_SECTION_REGISTRY.registerSectionData(5, SECTION5_DATA);
+    }
+    // Dispatch event for other listeners
+    window.dispatchEvent(new CustomEvent('sectionDataLoaded', {
+        detail: { sectionNumber: 5, sectionData: SECTION5_DATA }
+    }));
+});

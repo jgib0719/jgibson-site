@@ -793,7 +793,6 @@ const SECTION1_DATA = {
     metadata: {
         sectionNumber: 1,
         title: "Network Fundamentals",
-        totalTopics: 35,
         subsections: {
             components: { title: "1.1 Network Components", count: 8 },
             topology: { title: "1.2 Network Topology Architectures", count: 6 },
@@ -808,6 +807,10 @@ const SECTION1_DATA = {
             wireless: { title: "1.11 Describe wireless principles", count: 2 },
             virtualization: { title: "1.12 Virtualization fundamentals", count: 1 },
             switching: { title: "1.13 Describe switching concepts", count: 4 }
+        },
+        // Dynamic calculation of total topics from subsections
+        get totalTopics() {
+            return Object.values(this.subsections).reduce((total, section) => total + section.count, 0);
         }
     }
 };
@@ -815,26 +818,16 @@ const SECTION1_DATA = {
 // Export for use in section1.html
 if (typeof window !== 'undefined') {
     window.SECTION1_DATA = SECTION1_DATA;
-}
-
-// Create simplified topics array for enterprise modal system
-const SECTION1_TOPICS = [
-    { title: "1.1 Network Components", subtitle: "Routers, switches, firewalls, and more", description: "Learn about network infrastructure components" },
-    { title: "1.2 Network Topology Architectures", subtitle: "Star, mesh, hybrid topologies", description: "Understand different network topologies" },
-    { title: "1.3 Physical Interface and Cabling", subtitle: "Ethernet, fiber, copper cables", description: "Physical layer connectivity options" },
-    { title: "1.4 Interface and Cable Issues", subtitle: "Troubleshooting connectivity", description: "Common physical layer problems" },
-    { title: "1.5 Compare TCP to UDP", subtitle: "Transport layer protocols", description: "Connection-oriented vs connectionless protocols" },
-    { title: "1.6 Configure and verify IPv4 addressing and subnetting", subtitle: "IPv4 fundamentals", description: "IP addressing and subnetting concepts" },
-    { title: "1.7 Describe the need for private IPv4 addressing", subtitle: "RFC 1918 addresses", description: "Private IP address ranges and NAT" },
-    { title: "1.8 Configure and verify IPv6 addressing and prefix", subtitle: "IPv6 fundamentals", description: "Next-generation IP protocol" },
-    { title: "1.9 Describe IPv6 address types", subtitle: "Unicast, multicast, anycast", description: "Different IPv6 address categories" },
-    { title: "1.10 Verify IP parameters for Client OS", subtitle: "Windows, Mac, Linux", description: "Operating system IP configuration" },
-    { title: "1.11 Describe wireless principles", subtitle: "WiFi standards and security", description: "Wireless networking fundamentals" },
-    { title: "1.12 Explain virtualization fundamentals", subtitle: "VMs, containers, VRFs", description: "Network virtualization concepts" },
-    { title: "1.13 Describe switching concepts", subtitle: "VLANs, trunking, STP", description: "Layer 2 switching operations" }
-];
-
-if (typeof window !== 'undefined') {
-    window.SECTION1_TOPICS = SECTION1_TOPICS;
+    
+    // Register with section registry for dynamic topic totals
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.CCNA_SECTION_REGISTRY) {
+            window.CCNA_SECTION_REGISTRY.registerSectionData(1, SECTION1_DATA);
+        }
+        // Dispatch event for other listeners
+        window.dispatchEvent(new CustomEvent('sectionDataLoaded', {
+            detail: { sectionNumber: 1, sectionData: SECTION1_DATA }
+        }));
+    });
 }
 

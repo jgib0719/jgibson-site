@@ -242,7 +242,6 @@ const SECTION2_DATA = {
     metadata: {
         sectionNumber: 2,
         title: "Network Access",
-        totalTopics: 13,
         subsections: {
             vlans: { title: "2.1 VLANs", count: 3 },
             trunks: { title: "2.2 Interswitch Connectivity", count: 3 },
@@ -250,6 +249,10 @@ const SECTION2_DATA = {
             etherchannel: { title: "2.4 EtherChannel", count: 1 },
             spanningTree: { title: "2.5 Rapid PVST+", count: 1 },
             wireless: { title: "2.6-2.9 Wireless", count: 4 }
+        },
+        // Dynamic calculation of total topics from subsections
+        get totalTopics() {
+            return Object.values(this.subsections).reduce((total, section) => total + section.count, 0);
         }
     }
 };
@@ -257,18 +260,13 @@ const SECTION2_DATA = {
 // Export for global use
 window.SECTION2_DATA = SECTION2_DATA;
 
-// Create simplified topics array for enterprise modal system
-const SECTION2_TOPICS = [
-    { title: "2.1 Routing Table Components", subtitle: "Administrative distance, metrics", description: "Understanding routing table entries" },
-    { title: "2.2 Router Forwarding Decision", subtitle: "Longest prefix match", description: "How routers make forwarding decisions" },
-    { title: "2.3 IPv4 and IPv6 Static Routing", subtitle: "Static route configuration", description: "Manual route configuration" },
-    { title: "2.4 Single Area OSPFv2", subtitle: "OSPF basics", description: "Open Shortest Path First protocol" },
-    { title: "2.5 EIGRP Fundamentals", subtitle: "Enhanced IGRP", description: "Cisco proprietary routing protocol" },
-    { title: "2.6 Multi-Area OSPF", subtitle: "OSPF areas and LSAs", description: "Scalable OSPF design" },
-    { title: "2.7 Route Redistribution", subtitle: "Between routing protocols", description: "Connecting different routing domains" },
-    { title: "2.8 First Hop Redundancy Protocols", subtitle: "HSRP, VRRP, GLBP", description: "Gateway redundancy protocols" }
-];
-
-if (typeof window !== 'undefined') {
-    window.SECTION2_TOPICS = SECTION2_TOPICS;
-}
+// Register with section registry for dynamic topic totals
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.CCNA_SECTION_REGISTRY) {
+        window.CCNA_SECTION_REGISTRY.registerSectionData(2, SECTION2_DATA);
+    }
+    // Dispatch event for other listeners
+    window.dispatchEvent(new CustomEvent('sectionDataLoaded', {
+        detail: { sectionNumber: 2, sectionData: SECTION2_DATA }
+    }));
+});

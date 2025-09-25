@@ -114,23 +114,15 @@ const CCNAConfig = {
         section: {
             containerClasses: "mb-12 text-center",
             headerClasses: "text-2xl font-bold text-indigo-300 mb-4 pb-2 border-b-2 border-indigo-500/30 title-font inline-block",
-            gridClasses: "flex flex-wrap justify-center gap-6"
+            gridClasses: "topic-grid-container"
         }
     },
     
     // Progress tracking configuration
     progress: {
-        sectionCounts: {
-            1: 35, // Section 1 topics
-            2: 22, // Section 2 topics
-            3: 25, // Section 3 topics (placeholder)
-            4: 30, // Section 4 topics (placeholder)
-            5: 28, // Section 5 topics (placeholder)
-            6: 32  // Section 6 topics (placeholder)
-        },
-        
-        // Total topics across all sections
-        totalTopics: 172
+        // Total topics will be calculated dynamically from section data files
+        // via the section registry system
+        dynamicTotals: true
     },
     
     // UI styling configuration
@@ -434,127 +426,6 @@ const CCNAConfig = {
         return card;
     },
     
-    // Apply all embedded CSS styles programmatically
-    applyEmbeddedStyles: function() {
-        // Create and inject CSS styles
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = `
-            body {
-                font-family: ${this.styles.body.fontFamily};
-                background-color: ${this.styles.body.backgroundColor};
-            }
-            
-            .title-font {
-                font-family: ${this.ui.fonts.title};
-            }
-            
-            .topic-card {
-                background-color: ${this.styles.topicCard.base.backgroundColor};
-                border: ${this.styles.topicCard.base.border};
-                transition: ${this.styles.topicCard.base.transition};
-                box-shadow: ${this.styles.topicCard.base.boxShadow};
-            }
-            
-            .topic-card:hover {
-                transform: ${this.styles.topicCard.hover.transform};
-                box-shadow: ${this.styles.topicCard.hover.boxShadow};
-                border-color: ${this.styles.topicCard.hover.borderColor};
-            }
-            
-            #studyModal {
-                display: ${this.styles.modal.hidden.display};
-                opacity: ${this.styles.modal.hidden.opacity};
-            }
-            
-            #studyModal.visible {
-                display: ${this.styles.modal.visible.display};
-                opacity: ${this.styles.modal.visible.opacity};
-            }
-            
-            #modalContent {
-                transform: ${this.styles.modal.content.base.transform};
-                opacity: ${this.styles.modal.content.base.opacity};
-            }
-            
-            #modalContent.visible {
-                transform: ${this.styles.modal.content.visible.transform};
-                opacity: ${this.styles.modal.content.visible.opacity};
-            }
-            
-            /* Details Modal Styles */
-            #detailsModal {
-                opacity: ${this.styles.modal.hidden.opacity};
-                visibility: hidden;
-                transition: all 0.3s ease;
-                backdrop-filter: blur(4px);
-            }
-            
-            #detailsModal.visible {
-                opacity: ${this.styles.modal.visible.opacity};
-                visibility: visible;
-            }
-            
-            #detailsModalContent {
-                transform: ${this.styles.modal.content.base.transform};
-                opacity: ${this.styles.modal.content.base.opacity};
-            }
-            
-            #detailsModalContent.visible {
-                transform: ${this.styles.modal.content.visible.transform};
-                opacity: ${this.styles.modal.content.visible.opacity};
-            }
-            
-            #modalVisual {
-                background: ${this.styles.modal.visual.background};
-                border-bottom: ${this.styles.modal.visual.borderBottom};
-            }
-            
-            .studied {
-                position: ${this.styles.studied.position};
-            }
-            
-            .studied::after {
-                content: ${this.styles.studied.after.content};
-                font-family: ${this.styles.studied.after.fontFamily};
-                font-weight: ${this.styles.studied.after.fontWeight};
-                position: ${this.styles.studied.after.position};
-                top: ${this.styles.studied.after.top};
-                right: ${this.styles.studied.after.right};
-                color: ${this.styles.studied.after.color};
-                font-size: ${this.styles.studied.after.fontSize};
-                z-index: ${this.styles.studied.after.zIndex};
-            }
-            
-            /* FORCE SVG STYLING - OVERRIDE EVERYTHING */
-            #modalSvg {
-                width: 100% !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                min-height: 200px !important;
-            }
-            
-            #modalSvg svg {
-                width: 100% !important;
-                height: auto !important;
-                max-width: 36rem !important;
-                display: block !important;
-                margin: 0 auto !important;
-            }
-        `;
-        
-        // Remove any existing embedded styles
-        const existingStyles = document.querySelectorAll('style');
-        existingStyles.forEach(style => {
-            if (style.textContent.includes('topic-card') || style.textContent.includes('studyModal')) {
-                style.remove();
-            }
-        });
-        
-        // Inject the new global styles
-        document.head.appendChild(styleSheet);
-    },
-    
     // Apply button state styling programmatically
     applyButtonState: function(button, isCompleted) {
         const state = isCompleted ? this.styles.buttonStates.completed : this.styles.buttonStates.incomplete;
@@ -578,7 +449,6 @@ const CCNAConfig = {
     
     // Initialize all styling (call this after DOM is loaded)
     initializeGlobalStyling: function() {
-        this.applyEmbeddedStyles();
         this.applyModalConfig();
         this.applyDetailsModalConfig();
         this.applyLayoutConfig();
@@ -680,10 +550,275 @@ const CCNAConfig = {
         } else {
             cardElement.classList.remove(this.styles.cssClasses.card.studied);
         }
+    },
+
+    // CENTRALIZED QUIZ CONFIGURATION
+    quiz: {
+        // Element IDs - centralize all DOM element selectors
+        elementIds: {
+            quizContainer: 'quiz-container',
+            resultsContainer: 'results-container', 
+            setupContainer: 'setup-container',
+            loadingContainer: 'loading-container',
+            questionArea: 'question-area',
+            feedbackArea: 'feedback-area',
+            scoreEl: 'score',
+            finalScoreEl: 'final-score',
+            progressBar: 'progress-bar',
+            nextBtn: 'next-btn',
+            restartBtn: 'restart-btn',
+            homeBtn: 'home-btn',
+            bestScore: 'best-score',
+            history: 'history',
+            beginBtn: 'begin-btn',
+            resumeBtn: 'resume-btn',
+            ciscoEntryBtn: 'cisco-entry-btn',
+            wileyEntryBtn: 'wiley-entry-btn',
+            enterContainer: 'enter-container',
+            optionsContainer: 'options-container',
+            submitMultiBtn: 'submit-multi-btn',
+            resultBest: 'result-best'
+        },
+        
+        // CSS Classes - centralize all class names used in JavaScript
+        cssClasses: {
+            hidden: 'hidden',
+            correct: 'correct',
+            incorrect: 'incorrect',
+            visible: 'visible',
+            optionBtn: 'option-btn',
+            sizeBtn: 'size-btn',
+            
+            // State classes
+            selected: 'bg-blue-100 border-blue-500',
+            unselected: 'bg-white border-gray-300',
+            
+            // Feedback classes
+            correctFeedback: 'bg-green-100 border-green-300 text-green-800',
+            incorrectFeedback: 'bg-red-100 border-red-300 text-red-800',
+            neutralFeedback: 'bg-slate-100 border-slate-300 text-slate-800',
+            
+            // Button classes
+            primaryBtn: 'primary-btn',
+            secondaryBtn: 'secondary-btn',
+            successBtn: 'success-btn',
+            submitBtn: 'bg-green-500 text-white font-bold py-2 px-4 rounded-lg mt-4 shadow hover:bg-green-600 transition',
+            
+            // Layout classes
+            loading: 'loading-container',
+            questionContainer: 'question-area',
+            optionButton: 'w-full text-center p-4 mb-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-100 hover:border-blue-500 transition duration-200'
+        },
+        
+        // Colors - centralize all color values
+        colors: {
+            primary: '#4f46e5',
+            secondary: '#6366f1', 
+            success: '#10b981',
+            danger: '#ef4444',
+            warning: '#f59e0b',
+            
+            // Background colors
+            slate900: '#0f172a',
+            slate800: '#1e293b',
+            slate700: '#334155',
+            slate600: '#475569',
+            slate500: '#64748b',
+            slate400: '#94a3b8',
+            slate300: '#cbd5e1',
+            slate200: '#e2e8f0',
+            
+            // Text colors
+            white: '#ffffff',
+            textPrimary: '#e2e8f0',
+            textSecondary: '#94a3b8',
+            textMuted: '#64748b',
+            
+            // Quiz specific colors
+            correctGreen: '#10B981',
+            incorrectRed: '#EF4444',
+            loadingSpinner: '#4f46e5'
+        },
+        
+        // Animation and timing constants
+        animations: {
+            // Durations in milliseconds
+            fastTransition: 150,
+            normalTransition: 300,
+            slowTransition: 500,
+            
+            // Specific animation timings
+            spinDuration: '1s',
+            fadeInDuration: '300ms',
+            slideInDuration: '200ms',
+            
+            // Animation types
+            spinAnimation: 'spin 1s linear infinite',
+            fadeInAnimation: 'fadeIn 300ms ease-in-out',
+            slideInAnimation: 'slideIn 200ms ease-out',
+            
+            // Transition styles
+            allTransition: 'all 0.15s ease-in-out',
+            opacityTransition: 'opacity 0.15s ease-in-out',
+            colorTransition: 'background-color 0.15s ease-in-out',
+            scaleTransition: 'transform 0.2s ease-in-out'
+        },
+        
+        // Quiz behavior constants
+        behavior: {
+            defaultQuizSize: 20,
+            maxHistoryEntries: 50,
+            maxRecentAttempts: 10,
+            loadingDelay: 250, // milliseconds
+            feedbackDisplayTime: 500, // milliseconds before showing results
+            
+            // Storage keys
+            storageKeys: {
+                history: 'history',
+                best: 'best', 
+                save: 'save'
+            },
+            
+            // API endpoints
+            endpoints: {
+                ciscoQuestions: '/quiz/questions.json',
+                wileyQuestions: '/quiz/wiley_questions.json'
+            }
+        },
+        
+        // Text content constants
+        text: {
+            // Messages
+            noHighScores: 'No high scores yet. Take a quiz!',
+            noPastAttempts: 'No past attempts recorded.',
+            loadingQuiz: 'Loading Quiz...',
+            quizComplete: 'Quiz Complete!',
+            yourFinalScore: 'Your final score is:',
+            correctHeading: 'Correct!',
+            incorrectHeading: 'Incorrect.',
+            partialCreditHeading: 'Partially Correct ({pct}% credit)',
+            
+            // Labels  
+            questionLabel: 'Question {current} of {total}',
+            questionIdLabel: 'ID: {id}',
+            scoreLabel: 'Score: {score} / {total}',
+            bestForSizeLabel: 'Best for this size: {score}/{total} ({pct}%) — {date}',
+            allTimeBestLabel: 'All-time best: {score}/{total} ({pct}%) — {date} (size: {size})',
+            pastAttemptsLabel: 'Past Attempts',
+            
+            // Button text
+            nextQuestion: 'Next Question',
+            submitAnswer: 'Submit Answer',
+            startQuiz: 'Start Quiz',
+            restartQuiz: 'Restart Quiz',
+            resumeQuiz: 'Resume Saved Quiz',
+            home: 'Home',
+            
+            // Error messages
+            failedToLoad: 'Failed to load quiz questions. Please try again later.',
+            savedQuizMissing: 'Saved quiz could not be restored. Questions missing.',
+            
+            // Accessibility
+            explanationLabel: 'Explanation:',
+            questionImageAlt: 'Question Image'
+        },
+        
+        // Image handling
+        images: {
+            // Fallback logic for images
+            fallbackExtensions: ['png', 'svg', 'jpeg', 'jpg'],
+            errorHandler: "if(this.dataset.altAttempt==='1'){this.onerror=null;this.replaceWith(document.createElement('div'));}else{this.dataset.altAttempt='1';if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.svg');}else if(this.src.endsWith('.svg')){this.src=this.src.replace('.svg','.png');} }",
+            
+            // Image styling
+            containerClass: 'mb-4',
+            imageClass: 'max-w-full rounded shadow'
+        }
+    },
+    
+    // SITE-WIDE CONSTANTS
+    site: {
+        // Brand colors that appear throughout the site
+        brandColors: {
+            cisco: 'linear-gradient(90deg, #0097D6 0%, #007CBF 100%)',
+            wiley: 'linear-gradient(90deg, #FF8C00 0%, #D36B00 100%)',
+            primary: 'linear-gradient(to bottom right, #6366f1, #8b5cf6)',
+            secondary: 'linear-gradient(135deg, #667eea, #764ba2)'
+        },
+        
+        // Font families
+        fonts: {
+            primary: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+            heading: "'Orbitron', monospace",
+            mono: "'Fira Code', 'Courier New', monospace"
+        },
+        
+        // Breakpoints (matching CSS media queries)
+        breakpoints: {
+            sm: '640px',
+            md: '768px', 
+            lg: '1024px',
+            xl: '1280px'
+        },
+        
+        // Common spacing values
+        spacing: {
+            xs: '0.25rem',
+            sm: '0.5rem',
+            md: '1rem',
+            lg: '1.5rem',
+            xl: '2rem',
+            xxl: '3rem'
+        }
     }
+}; // End of CCNAConfig object
+
+// Utility functions for using the configuration
+const Config = {
+    // Get element by configured ID
+    getElement: (key) => document.getElementById(CCNAConfig.quiz.elementIds[key]),
+    
+    // Get multiple elements by configured selectors
+    getElements: (selector) => document.querySelectorAll(selector),
+    
+    // Apply CSS classes from config
+    addClass: (element, classKey) => {
+        const className = CCNAConfig.quiz.cssClasses[classKey];
+        if (className) element.classList.add(...className.split(" "));
+    },
+    
+    removeClass: (element, classKey) => {
+        const className = CCNAConfig.quiz.cssClasses[classKey];
+        if (className) element.classList.remove(...className.split(" "));
+    },
+    
+    toggleClass: (element, classKey) => {
+        const className = CCNAConfig.quiz.cssClasses[classKey];
+        if (className) {
+            className.split(" ").forEach(cls => element.classList.toggle(cls));
+        }
+    },
+    
+    // Get color values
+    getColor: (colorKey) => CCNAConfig.quiz.colors[colorKey] || CCNAConfig.site.brandColors[colorKey],
+    
+    // Get text with placeholder replacement
+    getText: (textKey, placeholders = {}) => {
+        let text = CCNAConfig.quiz.text[textKey] || textKey;
+        Object.keys(placeholders).forEach(key => {
+            text = text.replace(new RegExp(`\\{${key}\\}`, "g"), placeholders[key]);
+        });
+        return text;
+    },
+    
+    // Get animation styles
+    getAnimation: (animKey) => CCNAConfig.quiz.animations[animKey],
+    
+    // Get behavior constants
+    getBehavior: (behaviorKey) => CCNAConfig.quiz.behavior[behaviorKey]
 };
 
 // Export for global use
 if (typeof window !== 'undefined') {
     window.CCNAConfig = CCNAConfig;
+    window.Config = Config;
 }
