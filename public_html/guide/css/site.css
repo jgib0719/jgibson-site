@@ -1202,6 +1202,18 @@ button:disabled {
     margin-bottom: 2.5rem;
 }
 
+/* Enhanced progress container styling */
+#progress-container {
+    padding: 1rem; /* 16px padding */
+    background-color: #1e293b; /* bg-slate-800 */
+    border-radius: 0.5rem; /* rounded-lg */
+    border: 1px solid #334155; /* border-slate-700 */
+    max-width: 56rem; /* max-w-4xl */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2.5rem; /* mb-10 */
+}
+
 #master-progress-card {
     background-color: #1e293b;
     border-radius: 0.5rem;
