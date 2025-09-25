@@ -140,7 +140,7 @@ h1{font-size:32px;margin:0;color:#374151}
 
 #modalDescription,
 #detailsModalBody {
-    text-align: center;
+    text-align: left;
     margin: 0 auto 16px auto;
     max-width: 90%;
 }
