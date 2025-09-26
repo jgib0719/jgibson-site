@@ -145,6 +145,21 @@
         // const quizContainer = Config.getElement('quizContainer');
         // Config.addClass(element, 'hidden');
         
+        // Function to navigate back to main landing page from quiz
+        function goHome() {
+            // Hide quiz container
+            const quizContainer = document.getElementById('quiz-container');
+            const setupContainer = document.getElementById('setup-container');
+            const enterContainer = document.getElementById('enter-container');
+            
+            if (quizContainer) quizContainer.classList.add('hidden');
+            if (setupContainer) setupContainer.classList.add('hidden');
+            if (enterContainer) enterContainer.classList.remove('hidden');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
         // Any other site-wide scripts can go here if needed in the future.
     </script>
 </body>
