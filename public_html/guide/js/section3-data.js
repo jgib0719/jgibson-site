@@ -4,7 +4,7 @@
  */
 
 const SECTION3_DATA = {
-    routingTableGrid: [
+    routingTable: [
         {
             title: "Routing Table",
             icon: "fa-table-list",
@@ -71,7 +71,7 @@ const SECTION3_DATA = {
             </svg>`
         }
     ],
-    routingGrid: [
+    routing: [
         {
             title: "Forwarding Logic",
             icon: "fa-project-diagram",
@@ -104,7 +104,7 @@ const SECTION3_DATA = {
             </svg>`
         },
     ],
-    staticRoutingGrid: [
+    staticRouting: [
         {
             title: "Static Routes",
             icon: "fa-route",
@@ -140,7 +140,7 @@ const SECTION3_DATA = {
             </svg>`
         }
     ],
-    ospfGrid: [
+    ospf: [
         {
             title: "OSPF Neighbors",
             icon: "fa-users",
@@ -182,7 +182,7 @@ const SECTION3_DATA = {
             </svg>`
         }
     ],
-    fhrpGrid: [
+    fhrp: [
         {
             title: "FHRP",
             icon: "fa-clone",
@@ -211,11 +211,11 @@ const SECTION3_DATA = {
         sectionNumber: 3,
         title: "IP Connectivity",
         subsections: {
-            routingTableGrid: { title: "3.1 Routing Table Components", count: 3 },
-            routingGrid: { title: "3.2 Forwarding Decision", count: 2 },
-            staticRoutingGrid: { title: "3.3 Static Routing", count: 2 },
-            ospfGrid: { title: "3.4 Single Area OSPFv2", count: 3 },
-            fhrpGrid: { title: "3.5 First Hop Redundancy", count: 1 }
+            routingTable: { title: "3.1 Routing Table Components", count: 3 },
+            routing: { title: "3.2 Forwarding Decision", count: 2 },
+            staticRouting: { title: "3.3 Static Routing", count: 2 },
+            ospf: { title: "3.4 Single Area OSPFv2", count: 3 },
+            fhrp: { title: "3.5 First Hop Redundancy", count: 1 }
         },
         // Dynamic calculation of total topics from subsections
         get totalTopics() {

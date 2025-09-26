@@ -1,361 +1,145 @@
-# JGIBSON.SITE - Complete Codebase Analysis & Documentation
+# CCNA Study Guide Website - Codebase Analysis
 
-## Recent Structural Improvements (September 2025)
-
-### Modal System Standardization
-
-- **Centralized Configuration**: All sections now use CCNAConfig object for consistent modal behavior
-- **CSS-Based Styling**: Removed forced JavaScript styling in favor of proper CSS classes
-- **Unified Modal Structure**: Identical modal HTML structure across all 6 sections
-- **Consistent Event Handling**: Standardized keyboard support and click-outside-to-close functionality
-
-### Data Architecture Improvements
-
-- **Automated Grid Population**: Sections now use `Object.keys(data.metadata.subsections)` for dynamic grid creation
-- **Corrected Metadata**: Fixed totalTopics counts to match actual section content
-- **Progress System Unification**: Single progress tracking system with data versioning
-- **Topic Count Accuracy**: Updated shared-progress.js with correct topic counts for all sections
-
-### Code Quality Enhancements
-
-- **Eliminated Duplication**: Removed manual gridMappings in favor of automated approach
-- **Consistent JavaScript Patterns**: All sections follow section1.html template structure  
-- **Proper CSS Linking**: Added missing site.css references to all section files
-- **Clean Data Versioning**: Implemented version 3.0 for fresh user progress state
-
-### Completed Improvements
-
-1. ✅ **Database Cleanup**: Removed unused database and API files  
-2. ✅ **Modal System Standardization**: Implemented centralized CCNAConfig across all sections
-3. ✅ **Progress Tracking Unification**: Single system with accurate topic counts
-4. ✅ **Structural Consistency**: All sections now identical in functionality  
-5. ✅ **CSS Integration**: Proper stylesheet linking implemented
-6. ✅ **JavaScript Code Extraction** (Dec 2024): Created shared `section-loader.js` to eliminate 1400+ lines of duplicated code across all section HTML files
-
-### JavaScript Architecture Improvements
-
-#### Code Duplication Elimination
-
-- **Before**: Each section*.html file contained ~140-150 lines of identical JavaScript
-- **After**: All JavaScript extracted to shared `section-loader.js` with parameterization via `window.SECTION_NUMBER`
-- **Benefits**: Easier maintenance, consistent behavior, reduced file sizes, single point of change
-
-#### Shared Loader Implementation
-
-- **SectionLoader class**: Handles initialization, modal management, event binding for all sections
-- **Section parameterization**: Uses `window.SECTION_NUMBER` to determine which data/details files to load
-- **Consistent functionality**: All sections now guaranteed to behave identically
-
-### Future Considerations
-
-1. **Logo Optimization**: Remove unused SVG logo files since inline SVG is used in `index.html`
-2. **Performance**: Add caching headers for static JSON and image assets
-3. **User Experience**: Consider adding study time tracking functionality
-4. **Data Persistence**: Evaluate need for cloud-based progress synchronization
+*Last Updated: September 25, 2025*
 
 ## Project Overview
+A comprehensive interactive study guide for Cisco CCNA 200-301 certification exam, featuring 6 sections with visual learning modules, progress tracking, and quiz functionality.
 
-A CCNA study platform combining both interactive study guides and practice quizzes. The site features:
+## Architecture Summary
 
-- **Study Guide**: 6 sections covering CCNA networking topics with visual diagrams, modal dialogs, and progress tracking  
-- **Quiz Engine**: Interactive quizzes with Cisco and Wiley question sets, score tracking, and localStorage persistence
+### Frontend Stack
+- **HTML5**: Semantic structure with proper accessibility
+- **Vanilla CSS**: Custom stylesheet (2,878 lines) with no external frameworks
+- **Vanilla JavaScript**: Event-driven architecture with modular components
+- **SVG Graphics**: Custom network diagrams and visual aids
+- **FontAwesome**: Icon library for consistent UI elements
 
-The codebase has been reorganized into a clean separation of concerns with dedicated folders for quiz and guide functionality.
-
-## Directory Tree Structure
-
-```text
-jgibson.site/
-├── basic_rules.txt               # Project rules/guidelines
-├── CODEBASE_ANALYSIS.md          # This documentation file
-└── public_html/
-    ├── favicon.ico               # Site favicon
-    ├── favicon.svg               # Site favicon (SVG)
-    ├── index.html                # Main hub page (quiz + study guide entry)
-    ├── guide/                    # Study Guide Functionality
-    │   ├── css/
-    │   │   └── site.css          # Study guide stylesheet
-    │   ├── js/
-    │   │   ├── ccna-study-guide-config.js  # Main configuration & modal system
-    │   │   ├── section1-data.js       # Section 1 topic data
-    │   │   ├── section1-details.js    # Section 1 detailed content
-    │   │   ├── section2-data.js       # Section 2 topic data
-    │   │   ├── section2-details.js    # Section 2 detailed content
-    │   │   ├── section3-data.js       # Section 3 topic data
-    │   │   ├── section3-details.js    # Section 3 detailed content
-    │   │   ├── section4-data.js       # Section 4 topic data
-    │   │   ├── section4-details.js    # Section 4 detailed content
-    │   │   ├── section5-data.js       # Section 5 topic data
-    │   │   ├── section5-details.js    # Section 5 detailed content
-    │   │   ├── section6-data.js       # Section 6 topic data
-    │   │   ├── section6-details.js    # Section 6 detailed content
-    │   │   └── shared-progress.js     # Progress tracking system
-    │   ├── section1.html              # Network Fundamentals
-    │   ├── section2.html              # Network Access
-    │   ├── section3.html              # IP Connectivity
-    │   ├── section4.html              # IP Services
-    │   ├── section5.html              # Security Fundamentals
-    │   ├── section6.html              # Automation and Programmability
-    │   └── sections.html              # Section overview page
-    └── quiz/                     # Quiz Engine Functionality
-        ├── images/
-        │   ├── cisco-logo.svg         # Unused brand assets (inline SVG used instead)
-        │   ├── wiley-logo.svg
-        │   └── questions/             # Question diagrams (PNG, JPEG, GIF)
-        │       ├── q117.png
-        │       ├── q119.jpeg
-        │       ├── q120.png
-        │       ├── q14.png
-        │       ├── q18.png
-        │       ├── q48.gif
-        │       ├── q49.png
-        │       ├── q57.png
-        │       ├── q65.png
-        │       ├── q69.jpeg
-        │       ├── q85.png
-        │       ├── q86.png
-        │       ├── q91.gif
-        │       ├── q94.png
-        │       ├── q97_inter-vlan_routing.png
-        │       └── q99_etherchannel_summary.png
-        ├── js/
-        │   └── ccna-quiz-engine.js    # Quiz functionality and engine
-        ├── questions.json             # Cisco quiz questions data
-        └── wiley_questions.json       # Wiley quiz questions data
+### File Structure
+```
+public_html/
+├── index.html                 # Landing page
+├── favicon.ico, favicon.svg   # Site icons
+├── guide/
+│   ├── sections.html          # Section overview page
+│   ├── section[1-6].html      # Individual section pages
+│   ├── css/
+│   │   └── site.css           # Main stylesheet (2,878 lines)
+│   └── js/
+│       ├── section-loader.js           # Shared content loader
+│       ├── section-registry.js         # Progress tracking
+│       ├── accessibility-enhancements.js
+│       ├── shared-progress.js          # Cross-section progress
+│       ├── ccna-study-guide-config.js  # Global configuration
+│       ├── section[1-6]-data.js        # Section content data
+│       └── section[1-6]-details.js     # Detailed explanations
+└── quiz/
+    ├── questions.json         # Quiz questions database
+    ├── wiley_questions.json   # Additional Wiley questions
+    ├── js/
+    │   └── ccna-quiz-engine.js
+    └── images/questions/      # Quiz-related diagrams
 ```
 
-## Architecture Overview
+## Core Components Analysis
 
-### Two-System Design
+### 1. Section Loader System (`section-loader.js`)
+**Purpose**: Centralized content loading for all sections
 
-The platform has a clean separation between two distinct systems:
+**Key Features**:
+- Dynamically loads content from section data files
+- Handles modal interactions for study cards
+- Manages progress tracking integration
+- Provides consistent UI behavior across sections
 
-#### 1. Quiz Engine (`/quiz/`)
-
-- **Technology**: Tailwind CSS (CDN), Vanilla JavaScript, localStorage persistence
-- **Core Features**: Multiple question sets (Cisco/Wiley), configurable quiz sizes, score tracking, resume functionality, image support
-
-#### 2. Study Guide (`/guide/`)
-
-- **Technology**: Custom CSS, JavaScript modules, localStorage persistence  
-- **Core Features**: 6 CCNA study sections, modal-based content, SVG diagrams, progress tracking, completion indicators
-
-### Data Storage Strategy
-
-All data is stored locally with no external database dependencies:
-
-- **Quiz Data**: Static JSON files with question metadata and image references
-- **User Progress**: localStorage for cross-session persistence (both quiz scores and study progress)
-
-## Study Guide Modal System Architecture
-
-### Current Modal Structure
-
-The website uses a custom modal system with the following HTML structure:
-
-#### Study Modal (Main Modal)
-
-```html
-<div id="studyModal">                    <!-- Modal overlay -->
-    <div id="modalContent">              <!-- Modal container -->
-        <div id="modalVisual">           <!-- SVG diagram area -->
-            <div id="modalSvg"></div>    <!-- SVG content container -->
-        </div>
-        <div id="modalMainArea">         <!-- Content area -->
-            <button id="closeModal">&times;</button>
-            <h2 id="modalTitle"></h2>
-            <p id="modalDescription"></p>
-            <button id="markCompleted">Mark as Studied</button>
-            <button id="viewDetails">View Details</button>
-        </div>
-    </div>
-</div>
-```
-
-#### Details Modal (Secondary Modal)
-
-```html
-<div id="detailsModal">                  <!-- Details modal overlay -->
-    <div id="detailsModalContent">       <!-- Details modal container -->
-        <div id="detailsModalMain">      <!-- Details content area -->
-            <button id="closeDetails">&times;</button>
-            <h2 id="detailsModalTitle"></h2>
-            <div id="detailsModalBody">  <!-- Dynamic details content -->
-            </div>
-        </div>
-    </div>
-</div>
-```
-
-### CSS Classes Used
-
-- `.modal-backdrop` - Modal overlay background
-- `.modal` - Modal container styling
-- `.modal .visual` - Visual/SVG area styling
-- `.modal .body` - Modal content area
-- `.topic-card` - Interactive topic cards
-- `.studied` - Completed topic state
-
-## Quiz Engine System
-
-### Quiz Engine Architecture
-
-The quiz system is built around `ccna-quiz-engine.js` with the following components:
-
-#### Data Loading System
-
+**Critical Design Pattern**:
 ```javascript
-// Fetches questions from JSON files
-async function loadQuizData()
-function getQuestionsFromServer()  // Loads /quiz/questions.json or /quiz/wiley_questions.json
+// Data file defines: { routing: [...] }
+// HTML defines: <div id="routingGrid"></div>
+// Loader looks for: dataKey + "Grid" suffix
 ```
 
-#### Question Structure
+### 2. Progress Tracking (`section-registry.js`, `shared-progress.js`)
+**Features**:
+- Cross-section progress persistence
+- Real-time progress bar updates
+- Completion percentage calculations
+- Local storage integration
 
+### 3. Content Data Structure
+Each section follows consistent pattern:
 ```javascript
-{
-    "number": 14,
-    "question": "Question text...",
-    "options": ["A. Option 1", "B. Option 2", "C. Option 3", "D. Option 4"],
-    "answer": ["A"],  // Can be multiple for multi-select questions
-    "explanation": "Detailed explanation...",
-    "image": "/quiz/images/questions/q14.png"  // Optional diagram
-}
+const SECTION_X_DATA = {
+    topicName: [{
+        title: "Topic Title",
+        icon: "fa-icon-name",
+        description: "Detailed explanation",
+        visual: "<svg>...</svg>"
+    }],
+    metadata: {
+        sectionNumber: X,
+        title: "Section Title",
+        subsections: { /* maps to HTML divs */ },
+        totalTopics: /* computed property */
+    }
+};
 ```
 
-#### Storage Keys
+### 4. Styling Architecture (`site.css`)
+**Organization**:
+- CSS Reset and base styles
+- Layout components (grid, flexbox)
+- Component-specific styles
+- Modal and overlay styles
+- Responsive design breakpoints
+- Animation and transition effects
 
-- Format: `${name}_quiz_${category}_v1` where category is 'cisco' or 'wiley'
-- `history_quiz_cisco_v1` - Quiz attempt history
-- `best_quiz_cisco_v1` - Best scores per quiz size
-- `save_quiz_cisco_v1` - Resume data for incomplete quizzes
+**Notable Features**:
+- Custom CSS properties for theming
+- Mobile-first responsive design
+- Accessibility-focused styling
+- No external CSS dependencies
 
-#### Quiz Flow
+## Section Content Overview
 
-1. Category selection (Cisco/Wiley)
-2. Quiz size selection (20/50/100/All)
-3. Question presentation with image support
-4. Answer validation with feedback
-5. Score calculation with partial credit
-6. Results display with best score comparison
+| Section | Title | Topics | Status |
+|---------|-------|--------|---------|
+| 1 | Network Fundamentals | 11 | ✅ Active |
+| 2 | Network Access | 12 | ✅ Active |
+| 3 | IP Connectivity | 11 | ✅ Active (Recently Fixed) |
+| 4 | IP Services | 10 | ✅ Active (Recently Fixed) |
+| 5 | Security Fundamentals | 11 | ✅ Active (Recently Fixed) |
+| 6 | Automation and Programmability | 8 | ✅ Active |
 
-## Study Guide JavaScript Functions & Objects
+**Total Topics**: 63 interactive study modules
 
-### CCNAConfig Object (guide/js/ccna-study-guide-config.js)
+## Recent Fixes (September 2025)
 
-The main configuration object that controls all modal behavior:
+### Issue Resolution Summary:
+1. **Section 3 Blank Page**: Fixed naming mismatch in `section3-data.js`
+2. **Content Misalignment**: Corrected div IDs in `section4.html` and `section5.html`
+3. **CSS Optimization**: Removed 137 lines of duplicate code from `site.css`
 
-#### Modal Management Functions
+## Technical Strengths
+1. **Modular Architecture**: Clean separation of content, logic, and presentation
+2. **Performance**: Vanilla JavaScript for fast loading
+3. **Accessibility**: ARIA labels, keyboard navigation, screen reader support
+4. **Maintainability**: Consistent patterns and clear documentation
+5. **Scalability**: Easy to add new sections or topics
 
-```javascript
-CCNAConfig.openModal(modal, content)         // Opens study modal
-CCNAConfig.closeModal(modal, content)        // Closes study modal
-CCNAConfig.openDetailsModal(modal, content)  // Opens details modal
-CCNAConfig.closeDetailsModal(modal, content) // Closes details modal
-CCNAConfig.applySvgStyling()                 // Styles SVG elements
-CCNAConfig.applyButtonState(button, state)   // Updates button states
-```
+## Areas for Future Enhancement
+1. **Search Functionality**: Add topic search across all sections
+2. **Bookmarking**: Allow users to bookmark favorite topics
+3. **Study Plans**: Customizable learning paths
+4. **Offline Support**: Service worker for offline access
+5. **Analytics**: Track learning patterns and completion rates
 
-#### Configuration Properties
+## Dependencies
+- **FontAwesome 6.4.0**: Icon library (CDN)
+- **Google Fonts**: Orbitron and Rajdhani fonts
+- **No JavaScript frameworks**: Pure vanilla implementation
 
-```javascript
-CCNAConfig.modal                    // Study modal styling config
-CCNAConfig.detailsModal             // Details modal styling config  
-CCNAConfig.cards                    // Topic card styling config
-CCNAConfig.layout                   // Page layout configuration
-CCNAConfig.ui.timing                // Animation timing settings
-CCNAConfig.styles                   // CSS classes and states
-```
-
-### Section-Specific Functions (guide/section1.html, etc.)
-
-Each section HTML file contains:
-
-```javascript
-function openStudyModal(topic, cardElement)    // Opens study modal for topic
-function openDetailsModal(topic, cardElement)  // Opens details modal
-function closeStudyModal()                     // Closes study modal
-function closeDetailsModal()                   // Closes details modal
-```
-
-### Progress Tracking (guide/js/shared-progress.js)
-
-```javascript
-progressTracker.isTopicCompleted(topicTitle)  // Check if topic is complete
-progressTracker.markTopicCompleted(title)     // Mark topic as studied
-progressTracker.syncVisualState()             // Update visual indicators
-```
-
-### Data Objects
-
-Each section has corresponding data files:
-
-- `SECTION1_TOPICS` - Array of topic objects with title, description, visual (SVG)
-- `SECTION1_DETAILS` - Object with detailed explanations for each topic
-
-## File Path Structure
-
-**Quiz System:**
-
-- Scripts: `/quiz/js/ccna-quiz-engine.js`
-- Data: `/quiz/questions.json`, `/quiz/wiley_questions.json`  
-- Images: `/quiz/images/questions/[filename]`
-
-**Study Guide System:**
-
-- CSS: `css/site.css` (relative to guide folder)
-- Scripts: `js/[filename]` (relative to guide folder)  
-- Navigation: `sections.html` ↔ `section[N].html` (same folder)
-
-**Root Resources:**
-
-- Main hub: `index.html` (uses Tailwind CDN, links to `/guide/sections.html`)
-- Icons: `/favicon.ico`, `/favicon.svg`
-- Logos: Embedded as inline SVG in `index.html`
-
-### Unused/Legacy Files
-
-**Note:** The codebase has been cleaned up and no longer contains any unused files. Previously present files that have been removed include:
-
-- `ccna_topics.db` - SQLite database (removed - was unused)
-- `api/database.php` - PHP API endpoint (removed - was unused)  
-- `cisco-exam-topics.txt` - Reference text file (removed)
-- `center-modals.sh` - Modal centering script (removed)
-
-The current implementation is fully self-contained with no unused dependencies.
-
-## Study Guide CSS Selectors
-
-### Layout & Structure
-
-```css
-.container              /* Main page container */
-.header                 /* Page header */
-.grid                   /* Topic card grid */
-.back-btn              /* Navigation back button */
-```
-
-## Legacy Documentation (Archived)
-
-### Historical Improvements
-
-1. ✅ **Database Cleanup**: Completed - removed unused database and API files  
-2. **Logo Optimization**: Remove unused SVG logo files since inline SVG is used in `index.html`
-3. **CSS Consolidation**: Consider if any Tailwind classes in quiz could be moved to custom CSS for consistency
-4. **Performance**: Add caching headers for static JSON and image assets
-5. **Modal Centering**: Address study guide modal centering by updating CSS selectors in `guide/css/site.css`
-
-### Current Status
-
-The codebase has been significantly improved with:
-
-- ✅ Complete folder reorganization (`/quiz/` and `/guide/` separation)
-- ✅ Unused database and API files removed
-- ✅ All file path references updated correctly
-- ✅ Clean directory structure with no legacy files
-- ✅ Structural consistency implemented across all 6 study sections
-- ✅ Centralized CCNAConfig modal system standardized
-- ✅ Progress tracking system unified with data version control
-- ✅ Modal system uses CSS classes instead of forced JavaScript styling
-- ✅ Automated grid population system implemented across all sections
-- ✅ Metadata and topic counts corrected for accurate progress tracking
+## Browser Support
+- Modern evergreen browsers (Chrome, Firefox, Safari, Edge)
+- ES6+ JavaScript features used
+- CSS Grid and Flexbox layout
+- SVG graphics support required
