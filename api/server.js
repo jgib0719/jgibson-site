@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'data', 'progress.db');
 
 // Trust proxy (Apache is in front of this service)
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 // Security middleware
 app.use(helmet());
@@ -34,7 +34,7 @@ const limiter = rateLimit({
     },
     standardHeaders: true,
     legacyHeaders: false,
-    trust: true, // Trust proxy headers (Apache proxy)
+    skipFailedRequests: false
 });
 app.use('/api/', limiter);
 
