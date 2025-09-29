@@ -299,11 +299,11 @@ body {
 }
 
 .text-slate-400 {
-    color: #94a3b8;
+    color: #cbd5e1;
 }
 
 .text-slate-500 {
-    color: #64748b;
+    color: #94a3b8;
 }
 
 .text-indigo-200 {
@@ -838,14 +838,14 @@ button:disabled {
 
 .feature-description {
     font-size: 0.875rem;
-    color: #94a3b8;
+    color: #cbd5e1;
     margin-bottom: 1rem;
     flex-grow: 1;
 }
 
 .entry-footer-note {
     font-size: 0.75rem;
-    color: #64748b;
+    color: #94a3b8;
     margin-top: 1rem;
     text-align: center;
 }
@@ -899,7 +899,7 @@ button:disabled {
 }
 
 .topic-card .subtitle {
-    color: #94a3b8;
+    color: #cbd5e1;
     font-size: 0.875rem;
 }
 
@@ -1020,7 +1020,7 @@ button:disabled {
     right: 3px;
     background: none;
     border: none;
-    color: #94a3b8;
+    color: #cbd5e1;
     font-size: 24px;
     cursor: pointer;
     padding: 8px;
@@ -1076,7 +1076,7 @@ button:disabled {
 .page-subtitle {
     margin-top: 0.75rem;
     font-size: 1.125rem;
-    color: #94a3b8;
+    color: #cbd5e1;
     max-width: 42rem;
     margin-left: auto;
     margin-right: auto;
@@ -1127,7 +1127,7 @@ button:disabled {
 #master-progress-footer {
     margin-top: 0.5rem;
     font-size: 0.75rem;
-    color: #94a3b8;
+    color: #cbd5e1;
 }
 
 #master-progress-bar-container,
@@ -1248,7 +1248,7 @@ main section div[id$="Grid"] {
 .section-list {
     margin-top: 0.5rem;
     font-size: 0.875rem;
-    color: #94a3b8;
+    color: #cbd5e1;
     list-style-type: disc;
     list-style-position: inside;
     flex-grow: 1;
@@ -1282,7 +1282,7 @@ main section div[id$="Grid"] {
 }
 
 .page-footer p {
-    color: #64748b;
+    color: #94a3b8;
     font-size: 0.875rem;
 }
 
@@ -1334,7 +1334,7 @@ main section div[id$="Grid"] {
 
 .entry-subtitle {
     font-size: 1.125rem;
-    color: #94a3b8;
+    color: #cbd5e1;
     margin-top: 0.5rem;
 }
 
@@ -1389,7 +1389,7 @@ main section div[id$="Grid"] {
 .progress-details {
     margin-top: 0.5rem;
     font-size: 0.75rem;
-    color: #94a3b8;
+    color: #cbd5e1;
     text-align: center;
 }
 
@@ -1438,7 +1438,7 @@ main section div[id$="Grid"] {
 
 .feature-card p {
     font-size: 0.875rem;
-    color: #94a3b8;
+    color: #cbd5e1;
     margin-bottom: 1rem;
     flex-grow: 1;
 }
@@ -1532,7 +1532,7 @@ main section div[id$="Grid"] {
 /* Disclaimer text */
 .disclaimer {
     font-size: 0.75rem;
-    color: #64748b;
+    color: #94a3b8;
     margin-top: 1rem;
     text-align: center;
 }
@@ -1562,7 +1562,7 @@ main section div[id$="Grid"] {
 }
 
 .setup-container p {
-    color: #94a3b8;
+    color: #cbd5e1;
     margin-top: 0.5rem;
 }
 
@@ -1633,13 +1633,13 @@ main section div[id$="Grid"] {
 .quiz-info {
     margin-top: 1.5rem;
     font-size: 0.875rem;
-    color: #94a3b8;
+    color: #cbd5e1;
 }
 
 .quiz-history {
     margin-top: 0.5rem;
     font-size: 0.75rem;
-    color: #64748b;
+    color: #94a3b8;
 }
 
 /* Active quiz container */
@@ -1747,7 +1747,7 @@ main section div[id$="Grid"] {
 
 .results-container p {
     font-size: 1.25rem;
-    color: #94a3b8;
+    color: #cbd5e1;
     margin-bottom: 1.5rem;
 }
 
@@ -1760,7 +1760,7 @@ main section div[id$="Grid"] {
 
 .result-best {
     font-size: 0.875rem;
-    color: #64748b;
+    color: #94a3b8;
     margin-bottom: 1.5rem;
 }
 
@@ -1817,7 +1817,7 @@ main section div[id$="Grid"] {
 .results-note {
     margin-top: 1rem;
     font-size: 0.75rem;
-    color: #64748b;
+    color: #94a3b8;
 }
 
 /* Loading container */
@@ -1827,7 +1827,7 @@ main section div[id$="Grid"] {
 
 .loading-container p {
     margin-top: 1rem;
-    color: #94a3b8;
+    color: #cbd5e1;
 }
 
 /* Utility classes for index page */
@@ -1897,7 +1897,7 @@ main section div[id$="Grid"] {
 }
 
 .quiz-setup-subtitle {
-    color: #94a3b8;
+    color: #cbd5e1;
     margin-bottom: 1.5rem;
 }
 
@@ -1924,13 +1924,13 @@ main section div[id$="Grid"] {
 .quiz-best-score {
     margin-top: 1.5rem;
     font-size: 0.875rem;
-    color: #94a3b8;
+    color: #cbd5e1;
 }
 
 .quiz-history {
     margin-top: 0.5rem;
     font-size: 0.75rem;
-    color: #64748b;
+    color: #94a3b8;
 }
 
 .quiz-active-container {
@@ -1959,7 +1959,7 @@ main section div[id$="Grid"] {
 
 .results-subtitle {
     font-size: 1.25rem;
-    color: #94a3b8;
+    color: #cbd5e1;
     margin-bottom: 1.5rem;
 }
 
@@ -1972,7 +1972,7 @@ main section div[id$="Grid"] {
 
 .result-best-score {
     font-size: 0.875rem;
-    color: #64748b;
+    color: #94a3b8;
     margin-bottom: 1.5rem;
 }
 
@@ -1994,7 +1994,7 @@ main section div[id$="Grid"] {
 .results-note {
     margin-top: 1rem;
     font-size: 0.75rem;
-    color: #64748b;
+    color: #94a3b8;
 }
 
 .loading-container {
@@ -2003,7 +2003,7 @@ main section div[id$="Grid"] {
 
 .loading-text {
     margin-top: 1rem;
-    color: #94a3b8;
+    color: #cbd5e1;
 }
 
 @media (min-width: 640px) {
