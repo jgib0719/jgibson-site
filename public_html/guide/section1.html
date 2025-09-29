@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Section 1: Network Fundamentals | CCNA Study Guide</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="css/site.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -145,11 +144,15 @@
     <script src="js/ccna-study-guide-config.js"></script>
     <script src="js/section-registry.js"></script>
     <script src="js/shared-progress.js"></script>
+    <script src="js/anonymous-progress-tracker.js"></script>
+    <script src="js/hybrid-progress-tracker.js"></script>
     <script src="js/section1-data.js"></script>
     <script src="js/section1-details.js"></script>
     <script>
-        // Set section number for the shared loader
-        window.SECTION_NUMBER = 1;
+        // Initialize section loader with direct data passing (improved pattern)
+        document.addEventListener('DOMContentLoaded', function() {
+            window.sectionLoader = new SectionLoader(1, SECTION1_DATA);
+        });
     </script>
     <script src="js/section-loader.js"></script>
 </body>

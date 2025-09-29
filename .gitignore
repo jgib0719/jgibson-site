@@ -18,3 +18,16 @@ Thumbs.db
 
 # Log files
 *.log
+
+# Node modules
+node_modules/
+**/node_modules/
+
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment files
+.env
+.env.local

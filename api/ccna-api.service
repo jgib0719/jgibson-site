@@ -1,0 +1,24 @@
+[Unit]
+Description=CCNA Study Guide Progress API
+After=network.target
+
+[Service]
+Type=simple
+User=owner
+Group=www-data
+WorkingDirectory=/var/www/jgibson.site/api
+ExecStart=/home/owner/.nvm/versions/node/v22.18.0/bin/node server.js
+Restart=always
+RestartSec=10
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=DB_PATH=/var/www/jgibson.site/api/data/progress.db
+Environment=ALLOWED_ORIGINS=https://jgibson.site,http://jgibson.site
+
+# Logging
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ccna-api
+
+[Install]
+WantedBy=multi-user.target

@@ -194,14 +194,23 @@ class UnifiedCCNAProgressTracker {
                 streakDays: 1,
                 lastStreakDate: new Date().toDateString()
             };
-            localStorage.setItem(this.userStatsKey, JSON.stringify(userStats));
+            try {
+                localStorage.setItem(this.userStatsKey, JSON.stringify(userStats));
+            } catch (error) {
+                console.warn('Failed to save initial user stats:', error.message);
+            }
         }
         this.updateUserStats();
     }
 
     getUserStats() {
-        const stats = localStorage.getItem(this.userStatsKey);
-        return stats ? JSON.parse(stats) : {};
+        try {
+            const stats = localStorage.getItem(this.userStatsKey);
+            return stats ? JSON.parse(stats) : {};
+        } catch (error) {
+            console.warn('Failed to load user stats:', error.message);
+            return {};
+        }
     }
 
     updateUserStats() {
@@ -228,7 +237,11 @@ class UnifiedCCNAProgressTracker {
             stats.chaptersAccessed = [...(stats.chaptersAccessed || []), this.currentChapter];
         }
         
-        localStorage.setItem(this.userStatsKey, JSON.stringify(stats));
+        try {
+            localStorage.setItem(this.userStatsKey, JSON.stringify(stats));
+        } catch (error) {
+            console.warn('Failed to update user stats:', error.message);
+        }
     }
 
     migrateLegacyData() {
@@ -262,13 +275,26 @@ class UnifiedCCNAProgressTracker {
     }
 
     loadProgress() {
-        const saved = localStorage.getItem(this.storageKey);
-        this.progress = saved ? JSON.parse(saved) : {};
+        try {
+            const saved = localStorage.getItem(this.storageKey);
+            this.progress = saved ? JSON.parse(saved) : {};
+        } catch (error) {
+            console.warn('Failed to load progress data:', error.message);
+            this.progress = {};
+        }
     }
 
     saveProgress() {
-        localStorage.setItem(this.storageKey, JSON.stringify(this.progress));
-        this.updateTopicCountCache();
+        try {
+            localStorage.setItem(this.storageKey, JSON.stringify(this.progress));
+            this.updateTopicCountCache();
+        } catch (error) {
+            console.error('Failed to save progress data:', error.message);
+            // Progress data is critical, so we should notify the user
+            if (typeof window !== 'undefined' && window.sectionLoader && window.sectionLoader.showErrorMessage) {
+                window.sectionLoader.showErrorMessage('Failed to save your progress. Data may be lost.', false);
+            }
+        }
     }
 
     markTopicCompleted(topicTitle, completed = true) {
