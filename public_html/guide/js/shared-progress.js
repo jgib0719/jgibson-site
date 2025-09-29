@@ -288,6 +288,7 @@ class UnifiedCCNAProgressTracker {
         try {
             localStorage.setItem(this.storageKey, JSON.stringify(this.progress));
             this.updateTopicCountCache();
+            this.showSaveNotification();
         } catch (error) {
             console.error('Failed to save progress data:', error.message);
             // Progress data is critical, so we should notify the user
@@ -295,6 +296,26 @@ class UnifiedCCNAProgressTracker {
                 window.sectionLoader.showErrorMessage('Failed to save your progress. Data may be lost.', false);
             }
         }
+    }
+
+    showSaveNotification() {
+        // Create notification if it doesn't exist
+        let notification = document.getElementById('progress-save-notification');
+        if (!notification) {
+            notification = document.createElement('div');
+            notification.id = 'progress-save-notification';
+            notification.className = 'save-notification';
+            notification.innerHTML = '<i class="fas fa-check-circle"></i><span>Progress saved automatically</span>';
+            document.body.appendChild(notification);
+        }
+
+        // Show notification
+        notification.classList.add('show');
+
+        // Hide after 2 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 2000);
     }
 
     markTopicCompleted(topicTitle, completed = true) {

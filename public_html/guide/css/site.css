@@ -776,7 +776,7 @@ button:disabled {
     padding: 0.75rem 2rem;
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-    transition: background-color 0.15s ease-in-out;
+    transition: all 0.2s ease-in-out;
     border: none;
     cursor: pointer;
     display: inline-flex;
@@ -787,6 +787,13 @@ button:disabled {
 
 .primary-btn:hover {
     background-color: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+}
+
+.primary-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.1);
 }
 
 .secondary-btn {
@@ -796,7 +803,7 @@ button:disabled {
     padding: 0.75rem 2rem;
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-    transition: background-color 0.15s ease-in-out;
+    transition: all 0.2s ease-in-out;
     border: none;
     cursor: pointer;
     display: inline-flex;
@@ -806,6 +813,13 @@ button:disabled {
 
 .secondary-btn:hover {
     background-color: #334155;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+}
+
+.secondary-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.1);
 }
 
 .success-btn {
@@ -815,13 +829,20 @@ button:disabled {
     padding: 0.5rem 1.5rem;
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-    transition: background-color 0.15s ease-in-out;
+    transition: all 0.2s ease-in-out;
     border: none;
     cursor: pointer;
 }
 
 .success-btn:hover {
     background-color: #047857;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+}
+
+.success-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.1);
 }
 
 .btn-full {
@@ -2643,6 +2664,145 @@ a:focus {
 
 .loading-pulse {
     animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Skeleton loader animations */
+@keyframes skeleton-loading {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        #1e293b 0%,
+        #334155 50%,
+        #1e293b 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: 0.25rem;
+}
+
+.skeleton-text {
+    height: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.skeleton-text:last-child {
+    width: 80%;
+}
+
+.skeleton-card {
+    padding: 1.5rem;
+    background-color: #1e293b;
+    border-radius: 0.75rem;
+    border: 1px solid #334155;
+}
+
+.skeleton-title {
+    height: 1.5rem;
+    width: 60%;
+    margin-bottom: 1rem;
+}
+
+.skeleton-button {
+    height: 2.5rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    color: #cbd5e1;
+}
+
+.breadcrumb a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: #ffffff;
+}
+
+.breadcrumb-separator {
+    color: #64748b;
+    user-select: none;
+}
+
+.breadcrumb-current {
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+/* Back Button */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border: 1px solid #334155;
+    border-radius: 0.5rem;
+    color: #cbd5e1;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #334155;
+    border-color: #475569;
+    color: #ffffff;
+}
+
+.back-button i {
+    font-size: 0.75rem;
+}
+
+/* Progress Save Notification */
+.save-notification {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 0.75rem 1.25rem;
+    background-color: #059669;
+    color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.save-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.save-notification i {
+    font-size: 1rem;
 }
 
 /* ============================================================================
