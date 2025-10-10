@@ -14,7 +14,7 @@ const CCNA_SECTION_REGISTRY = {
         1: 35,  // Network Fundamentals
         2: 13,  // Network Access  
         3: 11,  // IP Connectivity
-        4: 10,  // IP Services
+        4: 12,  // IP Services
         5: 11,  // Security Fundamentals
         6: 7    // Network Automation & Programmability
     },

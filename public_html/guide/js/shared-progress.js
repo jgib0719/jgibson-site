@@ -151,12 +151,86 @@ class UnifiedCCNAProgressTracker {
         }
     }
 
-    getOrCreateUserId() {
-        let userId = localStorage.getItem('ccna_user_id');
-        if (!userId) {
-            userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('ccna_user_id', userId);
+    /**
+     * Get cookie value by name
+     */
+    getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
+
+    /**
+     * Set cookie with long expiration
+     */
+    setCookie(name, value, days = 3650) { // 10 years
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = `expires=${date.toUTCString()}`;
+        document.cookie = `${name}=${value};${expires};path=/;SameSite=Strict`;
+    }
+
+    /**
+     * Generate browser fingerprint for fallback identification
+     */
+    generateBrowserFingerprint() {
+        const nav = navigator;
+        const screen = window.screen;
+
+        const fingerprint = [
+            nav.userAgent,
+            nav.language,
+            screen.colorDepth,
+            screen.width + 'x' + screen.height,
+            new Date().getTimezoneOffset(),
+            !!window.sessionStorage,
+            !!window.localStorage
+        ].join('|');
+
+        let hash = 0;
+        for (let i = 0; i < fingerprint.length; i++) {
+            const char = fingerprint.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash;
         }
+
+        return 'fp_' + Math.abs(hash).toString(36);
+    }
+
+    getOrCreateUserId() {
+        // Try cookie first (survives cache clears)
+        let userId = this.getCookie('ccna_user_id');
+
+        if (!userId) {
+            // Try localStorage second
+            userId = localStorage.getItem('ccna_user_id');
+        }
+
+        if (!userId) {
+            // Try browser fingerprint as fallback
+            const fingerprint = this.generateBrowserFingerprint();
+            userId = localStorage.getItem(`ccna_uid_${fingerprint}`);
+
+            if (userId) {
+                console.log('Recovered CCNA user ID from browser fingerprint');
+            }
+        }
+
+        if (!userId) {
+            // Generate new user ID
+            userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            console.log(`Generated new CCNA user ID: ${userId}`);
+        }
+
+        // Store in all locations for maximum persistence
+        this.setCookie('ccna_user_id', userId);
+        localStorage.setItem('ccna_user_id', userId);
+
+        // Also store with fingerprint mapping for recovery
+        const fingerprint = this.generateBrowserFingerprint();
+        localStorage.setItem(`ccna_uid_${fingerprint}`, userId);
+
         return userId;
     }
 

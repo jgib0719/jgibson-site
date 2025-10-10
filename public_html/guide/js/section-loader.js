@@ -76,30 +76,26 @@ class SectionLoader {
             if (!data || typeof data !== 'object') {
                 return false;
             }
-            
-            // Check for required top-level properties
-            const requiredProps = ['topics', 'title'];
-            for (const prop of requiredProps) {
-                if (!(prop in data)) {
-                    console.warn(`Missing required property: ${prop}`);
-                    return false;
-                }
-            }
-            
-            // Validate topics array
-            if (!Array.isArray(data.topics) || data.topics.length === 0) {
-                console.warn('Topics must be a non-empty array');
+
+            // Check for required metadata structure
+            if (!data.metadata || typeof data.metadata !== 'object') {
+                console.warn('Missing required property: metadata');
                 return false;
             }
-            
-            // Validate each topic structure
-            for (const topic of data.topics) {
-                if (!topic.id || !topic.title) {
-                    console.warn('Each topic must have id and title');
-                    return false;
-                }
+
+            // Check for subsections in metadata
+            if (!data.metadata.subsections || typeof data.metadata.subsections !== 'object') {
+                console.warn('Missing required property: metadata.subsections');
+                return false;
             }
-            
+
+            // Validate at least one subsection exists
+            const subsectionKeys = Object.keys(data.metadata.subsections);
+            if (subsectionKeys.length === 0) {
+                console.warn('At least one subsection must be defined');
+                return false;
+            }
+
             return true;
         } catch (error) {
             console.error('Error validating section data:', error);
@@ -217,10 +213,21 @@ class SectionLoader {
     closeDetailsModal() {
         const detailsModal = document.getElementById('detailsModal');
         const detailsModalContent = document.getElementById('detailsModalContent');
-        
+
         CCNAConfig.closeDetailsModal(detailsModal, detailsModalContent);
     }
-    
+
+    initializeProgressTracking() {
+        try {
+            // Sync visual state with stored progress
+            if (this.progressTracker && typeof this.progressTracker.syncVisualState === 'function') {
+                this.progressTracker.syncVisualState();
+            }
+        } catch (error) {
+            console.warn('Failed to initialize progress tracking:', error);
+        }
+    }
+
     setupEventListeners() {
         // Study modal close functionality
         document.getElementById('closeModal').addEventListener('click', () => this.closeStudyModal());
@@ -276,11 +283,14 @@ class SectionLoader {
 // Initialize section loader when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     // Section number is passed via window.SECTION_NUMBER
-    if (typeof window.SECTION_NUMBER !== 'undefined') {
-        // Support for new constructor pattern - check if data is available
-        const sectionData = window[`SECTION${window.SECTION_NUMBER}_DATA`] || null;
-        window.sectionLoader = new SectionLoader(window.SECTION_NUMBER, sectionData);
-    } else {
-        console.error('Section number not defined. Set window.SECTION_NUMBER before including section-loader.js');
+    // Only auto-initialize if not already manually initialized
+    if (!window.sectionLoader) {
+        if (typeof window.SECTION_NUMBER !== 'undefined') {
+            // Support for new constructor pattern - check if data is available
+            const sectionData = window[`SECTION${window.SECTION_NUMBER}_DATA`] || null;
+            window.sectionLoader = new SectionLoader(window.SECTION_NUMBER, sectionData);
+        } else {
+            console.warn('SectionLoader not manually initialized and window.SECTION_NUMBER not defined. Skipping auto-initialization.');
+        }
     }
 });

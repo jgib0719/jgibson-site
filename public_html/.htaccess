@@ -19,7 +19,7 @@ RewriteEngine On
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     
     # Content Security Policy (adjust domains as needed)
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com"
     
     # Remove server information
     Header always unset Server

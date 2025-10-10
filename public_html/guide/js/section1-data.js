@@ -436,11 +436,46 @@ const SECTION1_DATA = {
     // ISSUES
     issues: [
         {
-            title: "Cable Issues", 
-            icon: "fa-triangle-exclamation",
-            description: "Collisions occur in half-duplex, shared media. Errors from corrupted frames due to faulty cables. Duplex/Speed mismatches cause poor performance.",
+            title: "Physical Layer Issues", 
+            icon: "fa-exclamation-triangle",
+            description: "Identify and troubleshoot physical connectivity problems using show interface commands and error counter analysis.",
             visual: `<svg viewBox="0 0 400 200">
-                <title>Duplex Mismatch causing errors</title>
+                <title>Physical Layer Troubleshooting</title>
+                <rect x="50" y="50" width="100" height="100" rx="5" fill="#334155"/>
+                <text x="100" y="105" text-anchor="middle" font-size="12" fill="#94a3b8">Device</text>
+                <line x1="150" y1="100" x2="250" y2="100" stroke="#ef4444" stroke-width="6" stroke-dasharray="8,4"/>
+                <path d="M 190 90 L 210 110 M 210 90 L 190 110" stroke="#ef4444" stroke-width="6" stroke-linecap="round"/>
+                <text x="200" y="130" text-anchor="middle" font-size="12" fill="#ef4444">Cable Fault</text>
+                <rect x="250" y="50" width="100" height="100" rx="5" fill="#334155"/>
+                <text x="300" y="105" text-anchor="middle" font-size="12" fill="#94a3b8">Device</text>
+            </svg>`
+        },
+        {
+            title: "Show Interface Analysis", 
+            icon: "fa-chart-line",
+            description: "Interpret interface counters and statistics to diagnose network issues. Learn what CRC errors, collisions, and drops indicate.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Interface Statistics Dashboard</title>
+                <rect x="20" y="20" width="360" height="160" rx="5" fill="#1e293b"/>
+                <rect x="30" y="30" width="340" height="25" rx="3" fill="#475569"/>
+                <text x="200" y="47" text-anchor="middle" font-size="12" fill="white">Interface Gi0/1 Statistics</text>
+                <text x="40" y="75" font-family="monospace" fill="#ef4444" font-size="10">CRC Errors: 1,247</text>
+                <text x="40" y="95" font-family="monospace" fill="#f59e0b" font-size="10">Input Errors: 523</text>
+                <text x="40" y="115" font-family="monospace" fill="#10b981" font-size="10">Collisions: 0</text>
+                <text x="40" y="135" font-family="monospace" fill="#3b82f6" font-size="10">Late Collisions: 0</text>
+                <text x="40" y="155" font-family="monospace" fill="#8b5cf6" font-size="10">Giants: 15</text>
+                <rect x="220" y="70" width="150" height="100" rx="3" fill="#374151"/>
+                <text x="295" y="90" text-anchor="middle" font-size="10" fill="#9ca3af">Status: UP/DOWN</text>
+                <circle cx="295" cy="110" r="15" fill="#ef4444"/>
+                <text x="295" y="140" text-anchor="middle" font-size="10" fill="#9ca3af">Cable Issue Detected</text>
+            </svg>`
+        },
+        {
+            title: "Duplex & Speed Issues", 
+            icon: "fa-arrows-left-right",
+            description: "Diagnose and resolve duplex mismatches and speed negotiation problems that cause performance degradation.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Duplex Mismatch Problem</title>
                 <rect x="40" y="80" width="100" height="40" rx="3" fill="#4f46e5"/>
                 <text x="90" y="105" text-anchor="middle" font-size="12" fill="white">Device A</text>
                 <text x="90" y="70" text-anchor="middle" font-size="12" fill="#16a34a">Full-Duplex</text>
@@ -449,7 +484,73 @@ const SECTION1_DATA = {
                 <text x="310" y="70" text-anchor="middle" font-size="12" fill="#dc2626">Half-Duplex</text>
                 <line x1="140" y1="100" x2="260" y2="100" stroke="#64748b" stroke-width="2"/>
                 <path d="M 190 90 L 210 110 M 210 90 L 190 110" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
-                <text x="200" y="130" text-anchor="middle" font-size="12" fill="#ef4444">Collisions & Errors</text>
+                <text x="200" y="130" text-anchor="middle" font-size="12" fill="#ef4444">Collisions & Late Collisions</text>
+                <text x="200" y="150" text-anchor="middle" font-size="10" fill="#f59e0b">Performance Degradation</text>
+            </svg>`
+        },
+        {
+            title: "Error Counter Types", 
+            icon: "fa-list-check",
+            description: "Understand different types of interface errors: CRC, runts, giants, drops, and their root causes for effective troubleshooting.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Interface Error Types</title>
+                <rect x="20" y="30" width="360" height="140" rx="5" fill="#1e293b"/>
+                <rect x="30" y="40" width="100" height="30" rx="3" fill="#ef4444"/>
+                <text x="80" y="60" text-anchor="middle" font-size="12" fill="white">CRC Errors</text>
+                <text x="80" y="85" text-anchor="middle" font-size="10" fill="#fca5a5">Bad Cables</text>
+                <rect x="150" y="40" width="100" height="30" rx="3" fill="#f59e0b"/>
+                <text x="200" y="60" text-anchor="middle" font-size="12" fill="white">Runts</text>
+                <text x="200" y="85" text-anchor="middle" font-size="10" fill="#fed7aa">< 64 bytes</text>
+                <rect x="270" y="40" width="100" height="30" rx="3" fill="#8b5cf6"/>
+                <text x="320" y="60" text-anchor="middle" font-size="12" fill="white">Giants</text>
+                <text x="320" y="85" text-anchor="middle" font-size="10" fill="#c4b5fd"> > 1518 bytes</text>
+                <rect x="90" y="100" width="100" height="30" rx="3" fill="#10b981"/>
+                <text x="140" y="120" text-anchor="middle" font-size="12" fill="white">Collisions</text>
+                <text x="140" y="145" text-anchor="middle" font-size="10" fill="#86efac">Half-Duplex</text>
+                <rect x="210" y="100" width="100" height="30" rx="3" fill="#3b82f6"/>
+                <text x="260" y="120" text-anchor="middle" font-size="12" fill="white">Drops</text>
+                <text x="260" y="145" text-anchor="middle" font-size="10" fill="#93c5fd">Buffer Full</text>
+            </svg>`
+        },
+        {
+            title: "Cable Testing Methods", 
+            icon: "fa-stethoscope",
+            description: "Physical cable testing techniques and tools to verify continuity, identify breaks, shorts, and performance issues.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Cable Testing Tools</title>
+                <rect x="50" y="60" width="120" height="80" rx="5" fill="#475569"/>
+                <text x="110" y="105" text-anchor="middle" font-size="12" fill="white">Cable Tester</text>
+                <line x1="170" y1="100" x2="230" y2="100" stroke="#f59e0b" stroke-width="4"/>
+                <text x="200" y="90" text-anchor="middle" font-size="10" fill="#f59e0b">Testing Cable</text>
+                <rect x="230" y="80" width="120" height="40" rx="3" fill="#334155"/>
+                <text x="290" y="105" text-anchor="middle" font-size="12" fill="#94a3b8">Remote Unit</text>
+                <circle cx="110" cy="140" r="8" fill="#16a34a"/>
+                <text x="110" y="160" text-anchor="middle" font-size="10" fill="#16a34a">PASS</text>
+                <circle cx="290" cy="140" r="8" fill="#16a34a"/>
+                <text x="290" y="160" text-anchor="middle" font-size="10" fill="#16a34a">PASS</text>
+            </svg>`
+        },
+        {
+            title: "Common Failure Modes", 
+            icon: "fa-circle-xmark",
+            description: "Identify typical cable and interface failure patterns: opens, shorts, split pairs, attenuation, and crosstalk issues.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Cable Failure Modes</title>
+                <rect x="30" y="40" width="80" height="120" rx="5" fill="#1e293b"/>
+                <text x="70" y="60" text-anchor="middle" font-size="12" fill="#ef4444">Open Circuit</text>
+                <line x1="40" y1="80" x2="70" y2="80" stroke="#ef4444" stroke-width="3"/>
+                <line x1="80" y1="80" x2="100" y2="80" stroke="#ef4444" stroke-width="3"/>
+                <circle cx="75" cy="80" r="3" fill="white"/>
+                <rect x="130" y="40" width="80" height="120" rx="5" fill="#1e293b"/>
+                <text x="170" y="60" text-anchor="middle" font-size="12" fill="#f59e0b">Short Circuit</text>
+                <line x1="140" y1="80" x2="200" y2="80" stroke="#f59e0b" stroke-width="3"/>
+                <line x1="140" y1="100" x2="200" y2="100" stroke="#f59e0b" stroke-width="3"/>
+                <line x1="170" y1="80" x2="170" y2="100" stroke="#f59e0b" stroke-width="3"/>
+                <rect x="230" y="40" width="80" height="120" rx="5" fill="#1e293b"/>
+                <text x="270" y="60" text-anchor="middle" font-size="12" fill="#8b5cf6">Split Pair</text>
+                <path d="M 240 80 Q 260 70 280 80" stroke="#8b5cf6" stroke-width="3" fill="none"/>
+                <path d="M 240 100 Q 260 110 280 100" stroke="#8b5cf6" stroke-width="3" fill="none"/>
+                <text x="270" y="130" text-anchor="middle" font-size="10" fill="#c4b5fd">Wrong Pairing</text>
             </svg>`
         },
     ],
@@ -457,40 +558,161 @@ const SECTION1_DATA = {
     // TCPUDP
     tcpUdp: [
         {
-            title: "TCP vs. UDP", 
-            icon: "fa-right-left",
-            description: "TCP: Connection-oriented, reliable, ordered delivery with handshake (web, email). UDP: Connectionless, fast, best-effort (VoIP, DNS).",
-            visual: `
-                <svg viewBox="0 0 400 200">
-                    <title>TCP Handshake vs UDP Fire-and-Forget</title>
-                    <defs>
-                        <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb" />
-                        </marker>
-                        <marker id="arrow-blue-rev" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                           <path d="M 10 0 L 0 5 L 10 10 z" fill="#2563eb" />
-                        </marker>
-                        <marker id="arrow-pink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#db2777" />
-                        </marker>
-                    </defs>
-                    <text x="100" y="40" text-anchor="middle" font-size="14" font-weight="bold">TCP (Reliable)</text>
-                    <path d="M50 60 H 150" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
-                    <text x="100" y="55" text-anchor="middle" font-size="10">SYN</text>
-                    <path d="M150 80 H 50" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue-rev)"/>
-                    <text x="100" y="88" text-anchor="middle" font-size="10">SYN-ACK</text>
-                    <path d="M50 100 H 150" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow-blue)"/>
-                    <text x="100" y="112" text-anchor="middle" font-size="10">ACK</text>
-                    
-                    <text x="300" y="40" text-anchor="middle" font-size="14" font-weight="bold">UDP (Fast)</text>
-                    <path d="M250 60 H 350" stroke="#db2777" stroke-width="2" marker-end="url(#arrow-pink)"/>
-                    <text x="300" y="55" text-anchor="middle" font-size="10">Data</text>
-                    <path d="M250 80 H 350" stroke="#db2777" stroke-width="2" marker-end="url(#arrow-pink)"/>
-                    <text x="300" y="75" text-anchor="middle" font-size="10">Data</text>
-                    <path d="M250 100 H 350" stroke="#db2777" stroke-width="2" marker-end="url(#arrow-pink)"/>
-                    <text x="300" y="95" text-anchor="middle" font-size="10">Data</text>
-                </svg>
-            `
+            title: "TCP Fundamentals", 
+            icon: "fa-handshake",
+            description: "Connection-oriented transport protocol providing reliable, ordered data delivery with error correction and flow control.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>TCP Three-Way Handshake</title>
+                <defs>
+                    <marker id="arrow-tcp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#9B59B6" />
+                    </marker>
+                    <marker id="arrow-tcp-rev" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                       <path d="M 10 0 L 0 5 L 10 10 z" fill="#9B59B6" />
+                    </marker>
+                </defs>
+                <rect x="50" y="50" width="80" height="100" rx="5" fill="#374151"/>
+                <text x="90" y="105" text-anchor="middle" font-size="12" fill="white">Client</text>
+                <rect x="270" y="50" width="80" height="100" rx="5" fill="#374151"/>
+                <text x="310" y="105" text-anchor="middle" font-size="12" fill="white">Server</text>
+                <path d="M130 70 H 270" stroke="#9B59B6" stroke-width="3" marker-end="url(#arrow-tcp)"/>
+                <text x="200" y="65" text-anchor="middle" font-size="12" fill="#9B59B6">1. SYN</text>
+                <path d="M270 90 H 130" stroke="#9B59B6" stroke-width="3" marker-end="url(#arrow-tcp-rev)"/>
+                <text x="200" y="85" text-anchor="middle" font-size="12" fill="#9B59B6">2. SYN-ACK</text>
+                <path d="M130 110 H 270" stroke="#9B59B6" stroke-width="3" marker-end="url(#arrow-tcp)"/>
+                <text x="200" y="105" text-anchor="middle" font-size="12" fill="#9B59B6">3. ACK</text>
+                <text x="200" y="130" text-anchor="middle" font-size="14" fill="#AF7AC5" font-weight="bold">Connection Established</text>
+            </svg>`
+        },
+        {
+            title: "UDP Fundamentals", 
+            icon: "fa-paper-plane",
+            description: "Connectionless transport protocol providing fast, best-effort delivery without guarantees for time-sensitive applications.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>UDP Connectionless Communication</title>
+                <defs>
+                    <marker id="arrow-udp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#AF7AC5" />
+                    </marker>
+                </defs>
+                <rect x="50" y="50" width="80" height="100" rx="5" fill="#374151"/>
+                <text x="90" y="105" text-anchor="middle" font-size="12" fill="white">Client</text>
+                <rect x="270" y="50" width="80" height="100" rx="5" fill="#374151"/>
+                <text x="310" y="105" text-anchor="middle" font-size="12" fill="white">Server</text>
+                <path d="M130 70 H 270" stroke="#AF7AC5" stroke-width="3" marker-end="url(#arrow-udp)"/>
+                <text x="200" y="65" text-anchor="middle" font-size="12" fill="#AF7AC5">Data Packet 1</text>
+                <path d="M130 90 H 270" stroke="#AF7AC5" stroke-width="3" marker-end="url(#arrow-udp)"/>
+                <text x="200" y="85" text-anchor="middle" font-size="12" fill="#AF7AC5">Data Packet 2</text>
+                <path d="M130 110 H 270" stroke="#AF7AC5" stroke-width="3" marker-end="url(#arrow-udp)"/>
+                <text x="200" y="105" text-anchor="middle" font-size="12" fill="#AF7AC5">Data Packet 3</text>
+                <text x="200" y="130" text-anchor="middle" font-size="14" fill="#AF7AC5" font-weight="bold">Fire and Forget</text>
+                <text x="200" y="150" text-anchor="middle" font-size="12" fill="#C4B5FD">No Connection Setup</text>
+            </svg>`
+        },
+        {
+            title: "TCP Header Analysis", 
+            icon: "fa-table-cells",
+            description: "Detailed examination of TCP header fields including sequence numbers, acknowledgments, flags, and window size for flow control.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>TCP Header Structure</title>
+                <rect x="20" y="30" width="360" height="140" rx="5" fill="#1e293b" stroke="#9B59B6"/>
+                <rect x="30" y="40" width="80" height="30" rx="3" fill="#9B59B6"/>
+                <text x="70" y="60" text-anchor="middle" font-size="12" fill="white">Src Port</text>
+                <rect x="110" y="40" width="80" height="30" rx="3" fill="#9B59B6"/>
+                <text x="150" y="60" text-anchor="middle" font-size="12" fill="white">Dst Port</text>
+                <rect x="190" y="40" width="80" height="30" rx="3" fill="#9B59B6"/>
+                <text x="230" y="60" text-anchor="middle" font-size="12" fill="white">Seq Num</text>
+                <rect x="270" y="40" width="100" height="30" rx="3" fill="#9B59B6"/>
+                <text x="320" y="60" text-anchor="middle" font-size="12" fill="white">Ack Num</text>
+                <rect x="30" y="80" width="60" height="30" rx="3" fill="#AF7AC5"/>
+                <text x="60" y="100" text-anchor="middle" font-size="10" fill="white">Flags</text>
+                <rect x="100" y="80" width="80" height="30" rx="3" fill="#AF7AC5"/>
+                <text x="140" y="100" text-anchor="middle" font-size="10" fill="white">Window</text>
+                <rect x="190" y="80" width="80" height="30" rx="3" fill="#AF7AC5"/>
+                <text x="230" y="100" text-anchor="middle" font-size="10" fill="white">Checksum</text>
+                <rect x="280" y="80" width="90" height="30" rx="3" fill="#AF7AC5"/>
+                <text x="325" y="100" text-anchor="middle" font-size="10" fill="white">Options</text>
+                <rect x="30" y="120" width="340" height="40" rx="3" fill="#C4B5FD"/>
+                <text x="200" y="145" text-anchor="middle" font-size="14" fill="#581C87">Application Data</text>
+            </svg>`
+        },
+        {
+            title: "UDP Header Analysis", 
+            icon: "fa-table-cells-large",
+            description: "Simple UDP header structure with minimal overhead: source port, destination port, length, and checksum for fast transmission.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>UDP Header Structure</title>
+                <rect x="50" y="50" width="300" height="100" rx="5" fill="#1e293b" stroke="#AF7AC5"/>
+                <rect x="60" y="60" width="130" height="35" rx="3" fill="#AF7AC5"/>
+                <text x="125" y="82" text-anchor="middle" font-size="14" fill="white">Source Port</text>
+                <rect x="200" y="60" width="130" height="35" rx="3" fill="#AF7AC5"/>
+                <text x="265" y="82" text-anchor="middle" font-size="14" fill="white">Dest Port</text>
+                <rect x="60" y="105" width="130" height="35" rx="3" fill="#C4B5FD"/>
+                <text x="125" y="127" text-anchor="middle" font-size="14" fill="#581C87">Length</text>
+                <rect x="200" y="105" width="130" height="35" rx="3" fill="#C4B5FD"/>
+                <text x="265" y="127" text-anchor="middle" font-size="14" fill="#581C87">Checksum</text>
+                <text x="200" y="180" text-anchor="middle" font-size="12" fill="#9CA3AF">Simple 8-byte header vs TCP's 20+ bytes</text>
+            </svg>`
+        },
+        {
+            title: "Protocol Applications", 
+            icon: "fa-network-wired",
+            description: "Real-world applications: TCP for web browsing, email, file transfer. UDP for VoIP, gaming, DNS, streaming media.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Protocol Usage by Application</title>
+                <rect x="20" y="30" width="170" height="140" rx="5" fill="#1e293b" stroke="#9B59B6"/>
+                <text x="105" y="50" text-anchor="middle" font-size="14" fill="#9B59B6" font-weight="bold">TCP Applications</text>
+                <rect x="30" y="60" width="150" height="25" rx="3" fill="#374151"/>
+                <text x="105" y="77" text-anchor="middle" font-size="12" fill="white">HTTP/HTTPS (Port 80/443)</text>
+                <rect x="30" y="90" width="150" height="25" rx="3" fill="#374151"/>
+                <text x="105" y="107" text-anchor="middle" font-size="12" fill="white">SMTP/POP3 (Port 25/110)</text>
+                <rect x="30" y="120" width="150" height="25" rx="3" fill="#374151"/>
+                <text x="105" y="137" text-anchor="middle" font-size="12" fill="white">SSH/Telnet (Port 22/23)</text>
+                <rect x="30" y="150" width="150" height="15" rx="3" fill="#4B5563"/>
+                <text x="105" y="160" text-anchor="middle" font-size="10" fill="#D1D5DB">Reliable & Ordered</text>
+                
+                <rect x="210" y="30" width="170" height="140" rx="5" fill="#1e293b" stroke="#AF7AC5"/>
+                <text x="295" y="50" text-anchor="middle" font-size="14" fill="#AF7AC5" font-weight="bold">UDP Applications</text>
+                <rect x="220" y="60" width="150" height="25" rx="3" fill="#374151"/>
+                <text x="295" y="77" text-anchor="middle" font-size="12" fill="white">DNS (Port 53)</text>
+                <rect x="220" y="90" width="150" height="25" rx="3" fill="#374151"/>
+                <text x="295" y="107" text-anchor="middle" font-size="12" fill="white">DHCP (Port 67/68)</text>
+                <rect x="220" y="120" width="150" height="25" rx="3" fill="#374151"/>
+                <text x="295" y="137" text-anchor="middle" font-size="12" fill="white">VoIP/Gaming</text>
+                <rect x="220" y="150" width="150" height="15" rx="3" fill="#4B5563"/>
+                <text x="295" y="160" text-anchor="middle" font-size="10" fill="#D1D5DB">Fast & Efficient</text>
+            </svg>`
+        },
+        {
+            title: "Performance Comparison", 
+            icon: "fa-chart-bar",
+            description: "TCP vs UDP performance characteristics: reliability vs speed, overhead comparison, and appropriate use cases for each protocol.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>TCP vs UDP Performance Metrics</title>
+                <rect x="40" y="40" width="320" height="120" rx="5" fill="#1e293b"/>
+                <text x="200" y="30" text-anchor="middle" font-size="14" fill="#9CA3AF" font-weight="bold">Performance Comparison</text>
+                
+                <!-- Speed Chart -->
+                <text x="70" y="65" font-size="12" fill="#9CA3AF">Speed</text>
+                <rect x="100" y="55" width="60" height="15" fill="#9B59B6"/>
+                <text x="170" y="67" font-size="10" fill="white">TCP</text>
+                <rect x="100" y="75" width="120" height="15" fill="#AF7AC5"/>
+                <text x="230" y="87" font-size="10" fill="white">UDP</text>
+                
+                <!-- Reliability Chart -->
+                <text x="70" y="110" font-size="12" fill="#9CA3AF">Reliability</text>
+                <rect x="100" y="100" width="120" height="15" fill="#9B59B6"/>
+                <text x="230" y="112" font-size="10" fill="white">TCP</text>
+                <rect x="100" y="120" width="40" height="15" fill="#AF7AC5"/>
+                <text x="150" y="132" font-size="10" fill="white">UDP</text>
+                
+                <!-- Overhead Chart -->
+                <text x="250" y="65" font-size="12" fill="#9CA3AF">Overhead</text>
+                <rect x="280" y="55" width="60" height="15" fill="#9B59B6"/>
+                <text x="280" y="75" font-size="12" fill="#9CA3AF">High</text>
+                <rect x="280" y="100" width="20" height="15" fill="#AF7AC5"/>
+                <text x="280" y="120" font-size="12" fill="#9CA3AF">Low</text>
+            </svg>`
         },
     ],
 
@@ -514,24 +736,217 @@ const SECTION1_DATA = {
                 <text x="292" y="30" font-size="12" text-anchor="middle">Host</text>
             </svg>`
         },
+        {
+            title: "VLSM", 
+            icon: "fa-sliders",
+            description: "Variable Length Subnet Masking allows different subnet sizes within the same network. Efficient IP address allocation for different requirements.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>VLSM Example - Different Subnet Sizes</title>
+                <rect x="20" y="20" width="360" height="160" rx="5" fill="#1e293b"/>
+                <text x="200" y="40" text-anchor="middle" font-size="14" fill="#f8fafc" font-weight="bold">192.168.1.0/24 Network</text>
+                
+                <rect x="30" y="60" width="160" height="40" rx="3" fill="#166534"/>
+                <text x="110" y="75" text-anchor="middle" font-size="12" fill="#dcfce7">192.168.1.0/26</text>
+                <text x="110" y="90" text-anchor="middle" font-size="10" fill="#bbf7d0">62 hosts</text>
+                
+                <rect x="210" y="60" width="160" height="40" rx="3" fill="#991b1b"/>
+                <text x="290" y="75" text-anchor="middle" font-size="12" fill="#fecaca">192.168.1.64/27</text>
+                <text x="290" y="90" text-anchor="middle" font-size="10" fill="#fca5a5">30 hosts</text>
+                
+                <rect x="30" y="120" width="80" height="40" rx="3" fill="#7c2d12"/>
+                <text x="70" y="135" text-anchor="middle" font-size="12" fill="#fed7aa">192.168.1.96/28</text>
+                <text x="70" y="150" text-anchor="middle" font-size="10" fill="#fdba74">14 hosts</text>
+                
+                <rect x="130" y="120" width="80" height="40" rx="3" fill="#581c87"/>
+                <text x="170" y="135" text-anchor="middle" font-size="12" fill="#e9d5ff">192.168.1.112/30</text>
+                <text x="170" y="150" text-anchor="middle" font-size="10" fill="#ddd6fe">2 hosts</text>
+            </svg>`
+        },
+        {
+            title: "CIDR Notation", 
+            icon: "fa-compress",
+            description: "Classless Inter-Domain Routing uses /prefix notation. /24 = 255.255.255.0. Route summarization combines multiple networks into one route.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>CIDR Notation and Route Summarization</title>
+                <rect x="20" y="30" width="360" height="140" rx="5" fill="#1e293b"/>
+                
+                <text x="200" y="50" text-anchor="middle" font-size="14" fill="#f8fafc" font-weight="bold">CIDR Examples</text>
+                
+                <rect x="40" y="70" width="150" height="25" rx="3" fill="#4f46e5"/>
+                <text x="115" y="87" text-anchor="middle" font-size="12" fill="white">/24 = 255.255.255.0</text>
+                
+                <rect x="210" y="70" width="150" height="25" rx="3" fill="#4f46e5"/>
+                <text x="285" y="87" text-anchor="middle" font-size="12" fill="white">/25 = 255.255.255.128</text>
+                
+                <text x="200" y="120" text-anchor="middle" font-size="12" fill="#f59e0b">Route Summarization</text>
+                
+                <rect x="60" y="135" width="120" height="20" rx="2" fill="#166534"/>
+                <text x="120" y="148" text-anchor="middle" font-size="10" fill="white">192.168.1.0/24</text>
+                
+                <rect x="220" y="135" width="120" height="20" rx="2" fill="#166534"/>
+                <text x="280" y="148" text-anchor="middle" font-size="10" fill="white">192.168.2.0/24</text>
+                
+                <path d="M 120 155 Q 200 175 280 155" stroke="#f59e0b" stroke-width="2" fill="none"/>
+                <text x="200" y="170" text-anchor="middle" font-size="10" fill="#f59e0b">Summarized: 192.168.0.0/22</text>
+            </svg>`
+        },
+        {
+            title: "IPv4 Address Classes", 
+            icon: "fa-layer-group",
+            description: "Class A: 1-126 (8-bit network). Class B: 128-191 (16-bit network). Class C: 192-223 (24-bit network). Determines default subnet masks.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>IPv4 Address Classes</title>
+                <rect x="20" y="30" width="360" height="140" rx="5" fill="#1e293b"/>
+                
+                <text x="200" y="50" text-anchor="middle" font-size="14" fill="#f8fafc" font-weight="bold">IPv4 Address Classes</text>
+                
+                <rect x="40" y="70" width="100" height="60" rx="3" fill="#dc2626"/>
+                <text x="90" y="85" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Class A</text>
+                <text x="90" y="100" text-anchor="middle" font-size="10" fill="#fca5a5">1.0.0.0 - 126.0.0.0</text>
+                <text x="90" y="115" text-anchor="middle" font-size="10" fill="#fca5a5">/8 (255.0.0.0)</text>
+                
+                <rect x="150" y="70" width="100" height="60" rx="3" fill="#2563eb"/>
+                <text x="200" y="85" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Class B</text>
+                <text x="200" y="100" text-anchor="middle" font-size="10" fill="#93c5fd">128.0.0.0 - 191.255.0.0</text>
+                <text x="200" y="115" text-anchor="middle" font-size="10" fill="#93c5fd">/16 (255.255.0.0)</text>
+                
+                <rect x="260" y="70" width="100" height="60" rx="3" fill="#16a34a"/>
+                <text x="310" y="85" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Class C</text>
+                <text x="310" y="100" text-anchor="middle" font-size="10" fill="#86efac">192.0.0.0 - 223.255.255.0</text>
+                <text x="310" y="115" text-anchor="middle" font-size="10" fill="#86efac">/24 (255.255.255.0)</text>
+                
+                <text x="200" y="155" text-anchor="middle" font-size="12" fill="#94a3b8">Class D (224-239): Multicast | Class E (240-255): Reserved</text>
+            </svg>`
+        },
+        {
+            title: "Subnet Calculations", 
+            icon: "fa-calculator",
+            description: "Calculate network, broadcast, and valid host ranges. Use binary or decimal methods. Powers of 2 determine host counts and subnet boundaries.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Subnet Calculation Example</title>
+                <rect x="20" y="20" width="360" height="160" rx="5" fill="#1e293b"/>
+                
+                <text x="200" y="40" text-anchor="middle" font-size="14" fill="#f8fafc" font-weight="bold">192.168.1.64/26 Calculation</text>
+                
+                <rect x="30" y="60" width="340" height="25" rx="3" fill="#374151"/>
+                <text x="200" y="77" text-anchor="middle" font-size="12" fill="#e5e7eb">Network: 192.168.1.64 (first address)</text>
+                
+                <rect x="30" y="90" width="340" height="25" rx="3" fill="#374151"/>
+                <text x="200" y="107" text-anchor="middle" font-size="12" fill="#e5e7eb">Broadcast: 192.168.1.127 (last address)</text>
+                
+                <rect x="30" y="120" width="340" height="25" rx="3" fill="#166534"/>
+                <text x="200" y="137" text-anchor="middle" font-size="12" fill="#dcfce7">Valid Hosts: 192.168.1.65 - 192.168.1.126</text>
+                
+                <text x="80" y="165" font-size="10" fill="#94a3b8">/26 = 64 total IPs</text>
+                <text x="200" y="165" font-size="10" fill="#94a3b8">62 usable hosts</text>
+                <text x="320" y="165" font-size="10" fill="#94a3b8">2^6 = 64 subnets</text>
+            </svg>`
+        },
+        {
+            title: "IPv4 Configuration", 
+            icon: "fa-terminal",
+            description: "Configure IPv4 on router interfaces using 'ip address' command. Verify with 'show ip interface brief' and 'show running-config interface'.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>IPv4 Interface Configuration</title>
+                <rect x="20" y="20" width="360" height="160" rx="5" fill="#1e293b"/>
+                <rect x="20" y="20" width="360" height="25" rx="3" ry="0" fill="#475569"/>
+                
+                <text x="40" y="55" font-family="monospace" fill="#e2e8f0" font-size="10">Router(config)# interface gigabitethernet0/1</text>
+                <text x="40" y="75" font-family="monospace" fill="#4ade80" font-size="10">Router(config-if)# ip address 192.168.1.1 255.255.255.0</text>
+                <text x="40" y="95" font-family="monospace" fill="#3b82f6" font-size="10">Router(config-if)# no shutdown</text>
+                <text x="40" y="115" font-family="monospace" fill="#e2e8f0" font-size="10">Router(config-if)# exit</text>
+                
+                <line x1="30" y1="130" x2="370" y2="130" stroke="#475569" stroke-width="1"/>
+                
+                <text x="40" y="150" font-family="monospace" fill="#f59e0b" font-size="10">Router# show ip interface brief</text>
+                <text x="40" y="170" font-family="monospace" fill="#e2e8f0" font-size="10">Gi0/1    192.168.1.1    YES manual up    up</text>
+            </svg>`
+        },
     ],
 
     // PRIVATEIPV4
     privateIpv4: [
         {
-            title: "Private IPv4", 
-            icon: "fa-lock",
-            description: "RFC 1918 ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Not internet routable. NAT translates private to public IPs.",
+            title: "RFC 1918 Private Ranges", 
+            icon: "fa-home",
+            description: "Standard private address ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Reserved for internal networks, not internet routable.",
             visual: `<svg viewBox="0 0 400 200">
-                <title>Private LAN using NAT to access Internet</title>
-                <rect x="20" y="50" width="180" height="100" rx="5" fill="#14532d"/>
-                <text x="110" y="105" text-anchor="middle" font-size="12" fill="#dcfce7">Private LAN (192.168.1.0/24)</text>
-                <path d="M 320 100 C 310 80, 370 80, 360 100 C 380 110, 350 130, 340 120 C 330 130, 300 110, 320 100 Z" fill="#4a4a0f"/>
-                <text x="340" y="105" text-anchor="middle" font-size="12">Internet</text>
-                <rect x="210" y="80" width="80" height="40" rx="2" fill="#991b1b"/>
-                <text x="250" y="105" text-anchor="middle" font-size="10" fill="#fecaca">NAT Router</text>
-                <line x1="200" y1="100" x2="210" y2="100" stroke="#64748b" stroke-width="2"/>
-                <line x1="290" y1="100" x2="310" y2="100" stroke="#64748b" stroke-width="2"/>
+                <title>RFC 1918 Private Address Ranges</title>
+                <rect x="20" y="20" width="100" height="50" rx="5" fill="#14532d"/>
+                <text x="70" y="40" text-anchor="middle" font-size="10" fill="#dcfce7">Class A</text>
+                <text x="70" y="55" text-anchor="middle" font-size="8" fill="#dcfce7">10.0.0.0/8</text>
+                
+                <rect x="150" y="20" width="100" height="50" rx="5" fill="#1e3a8a"/>
+                <text x="200" y="40" text-anchor="middle" font-size="10" fill="#dbeafe">Class B</text>
+                <text x="200" y="55" text-anchor="middle" font-size="8" fill="#dbeafe">172.16.0.0/12</text>
+                
+                <rect x="280" y="20" width="100" height="50" rx="5" fill="#7c2d12"/>
+                <text x="330" y="40" text-anchor="middle" font-size="10" fill="#fed7aa">Class C</text>
+                <text x="330" y="55" text-anchor="middle" font-size="8" fill="#fed7aa">192.168.0.0/16</text>
+                
+                <text x="200" y="100" text-anchor="middle" font-size="12" fill="#e2e8f0">RFC 1918 Private Address Ranges</text>
+                <text x="200" y="120" text-anchor="middle" font-size="10" fill="#94a3b8">Not routable on the public internet</text>
+                
+                <circle cx="200" cy="150" r="8" fill="#ef4444"/>
+                <text x="200" y="170" text-anchor="middle" font-size="10" fill="#ef4444">No Internet Access</text>
+            </svg>`
+        },
+        {
+            title: "NAT Configuration", 
+            icon: "fa-exchange-alt",
+            description: "Network Address Translation converts private IPs to public IPs for internet access. PAT allows multiple private IPs to share one public IP.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>NAT Translation Process</title>
+                <rect x="20" y="60" width="120" height="80" rx="5" fill="#14532d"/>
+                <text x="80" y="85" text-anchor="middle" font-size="10" fill="#dcfce7">Private Network</text>
+                <text x="80" y="105" text-anchor="middle" font-size="8" fill="#dcfce7">192.168.1.0/24</text>
+                <circle cx="60" cy="120" r="6" fill="#22c55e"/>
+                <circle cx="100" cy="120" r="6" fill="#22c55e"/>
+                
+                <rect x="180" y="80" width="80" height="40" rx="2" fill="#991b1b"/>
+                <text x="220" y="100" text-anchor="middle" font-size="9" fill="#fecaca">NAT Router</text>
+                <text x="220" y="112" text-anchor="middle" font-size="7" fill="#fecaca">Inside/Outside</text>
+                
+                <path d="M 300 100 C 290 80, 350 80, 340 100 C 360 110, 330 130, 320 120 C 310 130, 280 110, 300 100 Z" fill="#4a4a0f"/>
+                <text x="320" y="100" text-anchor="middle" font-size="10">Internet</text>
+                <text x="320" y="115" text-anchor="middle" font-size="8">203.0.113.1</text>
+                
+                <line x1="140" y1="100" x2="180" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <line x1="260" y1="100" x2="290" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+                    </marker>
+                </defs>
+            </svg>`
+        },
+        {
+            title: "APIPA & Troubleshooting", 
+            icon: "fa-tools",
+            description: "APIPA assigns 169.254.x.x when DHCP fails. Troubleshoot private networks using show commands and connectivity tests.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>APIPA and Network Troubleshooting</title>
+                <rect x="20" y="40" width="80" height="60" rx="5" fill="#dc2626"/>
+                <text x="60" y="65" text-anchor="middle" font-size="9" fill="#fecaca">DHCP Server</text>
+                <text x="60" y="80" text-anchor="middle" font-size="8" fill="#fecaca">Unreachable</text>
+                <line x1="50" y1="75" x2="70" y2="85" stroke="#fecaca" stroke-width="2"/>
+                <line x1="70" y1="75" x2="50" y2="85" stroke="#fecaca" stroke-width="2"/>
+                
+                <rect x="160" y="40" width="80" height="60" rx="5" fill="#f59e0b"/>
+                <text x="200" y="60" text-anchor="middle" font-size="9" fill="#fffbeb">Client PC</text>
+                <text x="200" y="75" text-anchor="middle" font-size="8" fill="#fffbeb">APIPA Mode</text>
+                <text x="200" y="90" text-anchor="middle" font-size="7" fill="#fffbeb">169.254.x.x</text>
+                
+                <rect x="300" y="60" width="80" height="40" rx="3" fill="#64748b"/>
+                <text x="340" y="78" text-anchor="middle" font-size="8" fill="#f1f5f9">Debug Tools</text>
+                <text x="340" y="88" text-anchor="middle" font-size="7" fill="#f1f5f9">ping, ipconfig</text>
+                
+                <line x1="100" y1="70" x2="140" y2="70" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5"/>
+                <text x="120" y="65" text-anchor="middle" font-size="7" fill="#ef4444">Failed</text>
+                
+                <line x1="240" y1="80" x2="300" y2="80" stroke="#22c55e" stroke-width="2"/>
+                <text x="270" y="75" text-anchor="middle" font-size="7" fill="#22c55e">Diagnose</text>
             </svg>`
         },
     ],
@@ -553,47 +968,210 @@ const SECTION1_DATA = {
                 <text x="292" y="75" text-anchor="middle" font-size="12">Interface ID</text>
             </svg>`
         },
+        {
+            title: "IPv6 Shortening Rules", 
+            icon: "fa-compress-arrows-alt",
+            description: "Two rules simplify IPv6 addresses: Remove leading zeros from each group, and use :: once to replace consecutive zero groups.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>IPv6 Address Shortening</title>
+                <rect x="20" y="30" width="360" height="140" rx="5" fill="#1e293b"/>
+                
+                <text x="200" y="50" text-anchor="middle" font-size="12" fill="#f8fafc" font-weight="bold">IPv6 Shortening Rules</text>
+                
+                <text x="40" y="75" font-size="10" fill="#94a3b8">Full Address:</text>
+                <text x="40" y="90" font-family="monospace" font-size="10" fill="#e2e8f0">2001:0db8:0000:0000:0000:ff00:0042:8329</text>
+                
+                <text x="40" y="110" font-size="10" fill="#94a3b8">Remove Leading Zeros:</text>
+                <text x="40" y="125" font-family="monospace" font-size="10" fill="#fbbf24">2001:db8:0:0:0:ff00:42:8329</text>
+                
+                <text x="40" y="145" font-size="10" fill="#94a3b8">Compress Zeros (::):</text>
+                <text x="40" y="160" font-family="monospace" font-size="10" fill="#16a34a">2001:db8::ff00:42:8329</text>
+            </svg>`
+        },
+        {
+            title: "IPv6 Configuration", 
+            icon: "fa-terminal",
+            description: "Configure IPv6 on router interfaces using ipv6 address command. Enable IPv6 routing globally with ipv6 unicast-routing.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>IPv6 Interface Configuration</title>
+                <rect x="20" y="20" width="360" height="160" rx="5" fill="#1e293b"/>
+                <rect x="20" y="20" width="360" height="25" rx="3" ry="0" fill="#475569"/>
+                
+                <text x="40" y="55" font-family="monospace" fill="#e2e8f0" font-size="10">Router(config)# ipv6 unicast-routing</text>
+                <text x="40" y="75" font-family="monospace" fill="#e2e8f0" font-size="10">Router(config)# interface gigabitethernet0/1</text>
+                <text x="40" y="95" font-family="monospace" fill="#4ade80" font-size="10">Router(config-if)# ipv6 address 2001:db8:acad:1::1/64</text>
+                <text x="40" y="115" font-family="monospace" fill="#3b82f6" font-size="10">Router(config-if)# ipv6 enable</text>
+                <text x="40" y="135" font-family="monospace" fill="#e2e8f0" font-size="10">Router(config-if)# no shutdown</text>
+                
+                <line x1="30" y1="150" x2="370" y2="150" stroke="#475569" stroke-width="1"/>
+                
+                <text x="40" y="170" font-family="monospace" fill="#f59e0b" font-size="10">Router# show ipv6 interface brief</text>
+            </svg>`
+        },
+        {
+            title: "SLAAC Configuration", 
+            icon: "fa-magic-wand-sparkles",
+            description: "Stateless Address Autoconfiguration allows devices to automatically configure IPv6 addresses using router advertisements and prefix information.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>SLAAC Process</title>
+                <rect x="50" y="50" width="80" height="100" rx="5" fill="#374151"/>
+                <text x="90" y="105" text-anchor="middle" font-size="12" fill="white">Router</text>
+                
+                <rect x="270" y="50" width="80" height="100" rx="5" fill="#374151"/>
+                <text x="310" y="105" text-anchor="middle" font-size="12" fill="white">Client</text>
+                
+                <path d="M130 80 Q 200 60 270 80" stroke="#3b82f6" stroke-width="2" fill="none"/>
+                <text x="200" y="65" text-anchor="middle" font-size="10" fill="#3b82f6">Router Advertisement</text>
+                <text x="200" y="75" text-anchor="middle" font-size="8" fill="#93c5fd">Prefix: 2001:db8:1::/64</text>
+                
+                <path d="M270 120 Q 200 140 130 120" stroke="#16a34a" stroke-width="2" fill="none"/>
+                <text x="200" y="135" text-anchor="middle" font-size="10" fill="#16a34a">Auto-configured Address</text>
+                <text x="200" y="145" text-anchor="middle" font-size="8" fill="#86efac">2001:db8:1::interface-id</text>
+            </svg>`
+        },
+        {
+            title: "IPv6 Verification", 
+            icon: "fa-magnifying-glass",
+            description: "Verify IPv6 configuration using show ipv6 interface, ping ipv6, and traceroute commands to test connectivity and troubleshoot issues.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>IPv6 Verification Commands</title>
+                <rect x="20" y="20" width="360" height="160" rx="5" fill="#1e293b"/>
+                
+                <text x="40" y="45" font-family="monospace" fill="#f59e0b" font-size="10">Router# show ipv6 interface brief</text>
+                <text x="40" y="60" font-family="monospace" fill="#e2e8f0" font-size="10">Gi0/1    [up/up]</text>
+                <text x="40" y="75" font-family="monospace" fill="#e2e8f0" font-size="10">    FE80::1</text>
+                <text x="40" y="90" font-family="monospace" fill="#e2e8f0" font-size="10">    2001:DB8:ACAD:1::1</text>
+                
+                <line x1="30" y1="105" x2="370" y2="105" stroke="#475569" stroke-width="1"/>
+                
+                <text x="40" y="125" font-family="monospace" fill="#3b82f6" font-size="10">Router# ping ipv6 2001:db8:acad:2::1</text>
+                <text x="40" y="140" font-family="monospace" fill="#16a34a" font-size="10">Success rate is 100 percent (5/5)</text>
+                
+                <line x1="30" y1="155" x2="370" y2="155" stroke="#475569" stroke-width="1"/>
+                
+                <text x="40" y="175" font-family="monospace" fill="#8b5cf6" font-size="10">Router# show ipv6 route</text>
+            </svg>`
+        },
     ],
 
     // IPV6TYPES
     ipv6Types: [
         {
-            title: "IPv6 Types", 
-            icon: "fa-share-nodes",
-            description: "Unicast: One-to-one (Global, Unique Local, Link-Local). Anycast: One-to-nearest. Multicast: One-to-many group communication.",
+            title: "Unicast Addresses", 
+            icon: "fa-arrow-right",
+            description: "One-to-one communication. Global Unicast (internet routable), Unique Local (private), Link-Local (local segment only).",
             visual: `<svg viewBox="0 0 400 200">
-                <title>IPv6 Address Types</title>
+                <title>IPv6 Unicast Address Types</title>
+                <rect x="20" y="30" width="360" height="140" rx="5" fill="#1e293b"/>
+                
+                <text x="200" y="50" text-anchor="middle" font-size="14" fill="#f8fafc" font-weight="bold">IPv6 Unicast Address Types</text>
+                
+                <rect x="40" y="70" width="100" height="80" rx="3" fill="#166534"/>
+                <text x="90" y="85" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Global</text>
+                <text x="90" y="100" text-anchor="middle" font-size="10" fill="#dcfce7">2000::/3</text>
+                <text x="90" y="115" text-anchor="middle" font-size="10" fill="#bbf7d0">Internet</text>
+                <text x="90" y="130" text-anchor="middle" font-size="10" fill="#bbf7d0">Routable</text>
+                
+                <rect x="150" y="70" width="100" height="80" rx="3" fill="#be185d"/>
+                <text x="200" y="85" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Unique Local</text>
+                <text x="200" y="100" text-anchor="middle" font-size="10" fill="#fce7f3">FC00::/7</text>
+                <text x="200" y="115" text-anchor="middle" font-size="10" fill="#fbcfe8">Private</text>
+                <text x="200" y="130" text-anchor="middle" font-size="10" fill="#fbcfe8">Network</text>
+                
+                <rect x="260" y="70" width="100" height="80" rx="3" fill="#1d4ed8"/>
+                <text x="310" y="85" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Link-Local</text>
+                <text x="310" y="100" text-anchor="middle" font-size="10" fill="#dbeafe">FE80::/10</text>
+                <text x="310" y="115" text-anchor="middle" font-size="10" fill="#bfdbfe">Local</text>
+                <text x="310" y="130" text-anchor="middle" font-size="10" fill="#bfdbfe">Segment</text>
+            </svg>`
+        },
+        {
+            title: "Multicast Addresses", 
+            icon: "fa-broadcast-tower",
+            description: "One-to-many communication using FF00::/8 range. Well-known addresses: FF02::1 (all nodes), FF02::2 (all routers).",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>IPv6 Multicast Communication</title>
                 <defs>
-                    <marker id="arrow-sm-ipv6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+                    <marker id="arrow-multi" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b"/>
                     </marker>
                 </defs>
                 
-                <!-- Source Node -->
-                <circle cx="50" cy="100" r="12" fill="#be123c"/>
-                <text x="50" y="130" text-anchor="middle" font-size="12" fill="#f8fafc">Source</text>
-
-                <!-- Unicast -->
-                <text x="180" y="40" text-anchor="middle" font-size="12" fill="#94a3b8">Unicast (One-to-One)</text>
-                <circle cx="180" cy="65" r="10" fill="#475569"/>
-                <path d="M62 95 L 170 70" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow-sm-ipv6)"/>
-
-                <!-- Anycast -->
-                <text x="310" y="40" text-anchor="middle" font-size="12" fill="#94a3b8">Anycast (One-to-Nearest)</text>
-                <circle cx="290" cy="65" r="10" fill="#475569"/>
-                <circle cx="330" cy="65" r="10" fill="#475569"/>
-                <path d="M62 100 L 280 70" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-sm-ipv6)"/>
+                <circle cx="80" cy="100" r="15" fill="#dc2626"/>
+                <text x="80" y="105" text-anchor="middle" font-size="12" fill="white">Source</text>
                 
-                <!-- Multicast -->
-                <text x="250" y="125" text-anchor="middle" font-size="12" fill="#94a3b8">Multicast (One-to-Many)</text>
-                <circle cx="230" cy="150" r="10" fill="#475569"/>
-                <circle cx="270" cy="150" r="10" fill="#475569"/>
-                <path d="M62 105 L 220 145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow-sm-ipv6)"/>
-                <path d="M62 105 L 260 145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow-sm-ipv6)"/>
+                <circle cx="250" cy="60" r="12" fill="#475569"/>
+                <text x="250" y="45" text-anchor="middle" font-size="10">Node 1</text>
+                
+                <circle cx="320" cy="100" r="12" fill="#475569"/>
+                <text x="320" y="125" text-anchor="middle" font-size="10">Node 2</text>
+                
+                <circle cx="250" cy="140" r="12" fill="#475569"/>
+                <text x="250" y="160" text-anchor="middle" font-size="10">Node 3</text>
+                
+                <path d="M95 95 L 238 65" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-multi)"/>
+                <path d="M95 100 L 308 100" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-multi)"/>
+                <path d="M95 105 L 238 135" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-multi)"/>
+                
+                <text x="200" y="30" text-anchor="middle" font-size="12" fill="#f59e0b">FF02::1 (All Nodes)</text>
             </svg>`
         },
-
-
+        {
+            title: "Anycast Addresses", 
+            icon: "fa-location-crosshairs",
+            description: "One-to-nearest communication. Same address assigned to multiple devices, packets routed to closest instance.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>IPv6 Anycast Communication</title>
+                <defs>
+                    <marker id="arrow-any" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b5cf6"/>
+                    </marker>
+                </defs>
+                
+                <circle cx="80" cy="100" r="15" fill="#dc2626"/>
+                <text x="80" y="105" text-anchor="middle" font-size="12" fill="white">Client</text>
+                
+                <circle cx="250" cy="80" r="12" fill="#16a34a"/>
+                <text x="250" y="65" text-anchor="middle" font-size="10">Server A</text>
+                <text x="250" y="100" text-anchor="middle" font-size="8" fill="#16a34a">CLOSEST</text>
+                
+                <circle cx="320" cy="120" r="12" fill="#475569"/>
+                <text x="320" y="140" text-anchor="middle" font-size="10">Server B</text>
+                <text x="320" y="155" text-anchor="middle" font-size="8" fill="#6b7280">FARTHER</text>
+                
+                <path d="M95 95 L 238 85" stroke="#8b5cf6" stroke-width="3" marker-end="url(#arrow-any)"/>
+                <path d="M95 100 L 308 115" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+                
+                <text x="200" y="30" text-anchor="middle" font-size="12" fill="#8b5cf6">Same Anycast Address</text>
+                <text x="200" y="45" text-anchor="middle" font-size="10" fill="#a855f7">Routed to Nearest</text>
+            </svg>`
+        },
+        {
+            title: "Special Addresses", 
+            icon: "fa-star",
+            description: "Reserved IPv6 addresses: ::1 (loopback), :: (unspecified), ::ffff:0:0/96 (IPv4-mapped), 2002::/16 (6to4).",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>IPv6 Special Addresses</title>
+                <rect x="20" y="20" width="360" height="160" rx="5" fill="#1e293b"/>
+                
+                <rect x="40" y="40" width="150" height="30" rx="3" fill="#dc2626"/>
+                <text x="115" y="60" text-anchor="middle" font-size="12" fill="white">::1 - Loopback</text>
+                
+                <rect x="210" y="40" width="150" height="30" rx="3" fill="#7c3aed"/>
+                <text x="285" y="60" text-anchor="middle" font-size="12" fill="white">:: - Unspecified</text>
+                
+                <rect x="40" y="90" width="150" height="30" rx="3" fill="#059669"/>
+                <text x="115" y="110" text-anchor="middle" font-size="12" fill="white">::ffff:0:0/96</text>
+                
+                <rect x="210" y="90" width="150" height="30" rx="3" fill="#ea580c"/>
+                <text x="285" y="110" text-anchor="middle" font-size="12" fill="white">2002::/16 - 6to4</text>
+                
+                <text x="115" y="140" text-anchor="middle" font-size="10" fill="#6b7280">IPv4-mapped</text>
+                <text x="285" y="140" text-anchor="middle" font-size="10" fill="#6b7280">Tunnel mechanism</text>
+                
+                <text x="200" y="165" text-anchor="middle" font-size="12" fill="#94a3b8">Well-known IPv6 Special Addresses</text>
+            </svg>`
+        },
         {
             title: "Modified EUI-64", 
             icon: "fa-gears",
@@ -613,20 +1191,88 @@ const SECTION1_DATA = {
     // CLIENTOS
     clientOs: [
         {
-            title: "Verify IP Parameters", 
-            icon: "fa-terminal",
-            description: "Commands to view IP configuration: Windows: ipconfig /all, macOS/Linux: ifconfig or ip addr show. Shows IP, subnet mask, gateway, DNS.",
+            title: "Windows Client Verification", 
+            icon: "fa-desktop",
+            description: "Advanced Windows IP verification using ipconfig commands, GUI tools, and PowerShell. Includes DHCP lease info, adapter details, and network troubleshooting.",
             visual: `<svg viewBox="0 0 400 200">
-                <title>Terminal showing ipconfig</title>
+                <title>Windows Network Settings</title>
                 <rect x="20" y="20" width="360" height="160" rx="5" fill="#1e293b"/>
-                <rect x="20" y="20" width="360" height="25" rx="3" ry="0" fill="#475569"/>
+                <rect x="20" y="20" width="360" height="25" rx="3" ry="0" fill="#0078d4"/>
                 <circle cx="35" cy="32.5" r="6" fill="#ef4444"/>
                 <circle cx="55" cy="32.5" r="6" fill="#fbbd23"/>
                 <circle cx="75" cy="32.5" r="6" fill="#4ade80"/>
-                <text x="35" y="65" font-family="monospace" fill="#e2e8f0" font-size="10">C:\\Users\\User> ipconfig</text>
-                <text x="35" y="90" font-family="monospace" fill="white" font-size="10">IPv4 Address. . . . . . . . . . . : 192.168.1.10</text>
-                <text x="35" y="110" font-family="monospace" fill="white" font-size="10">Subnet Mask . . . . . . . . . . . : 255.255.255.0</text>
-                <text x="35" y="130" font-family="monospace" fill="white" font-size="10">Default Gateway . . . . . . . . . : 192.168.1.1</text>
+                <text x="35" y="60" font-family="monospace" fill="#e2e8f0" font-size="9">C:\\> ipconfig /all</text>
+                <text x="35" y="80" font-family="monospace" fill="white" font-size="9">Ethernet adapter Local Area Connection:</text>
+                <text x="45" y="95" font-family="monospace" fill="#60a5fa" font-size="8">IPv4 Address. . . . . . . . . . . : 192.168.1.100</text>
+                <text x="45" y="110" font-family="monospace" fill="#60a5fa" font-size="8">Subnet Mask . . . . . . . . . . . : 255.255.255.0</text>
+                <text x="45" y="125" font-family="monospace" fill="#60a5fa" font-size="8">Default Gateway . . . . . . . . . : 192.168.1.1</text>
+                <text x="45" y="140" font-family="monospace" fill="#60a5fa" font-size="8">DHCP Enabled. . . . . . . . . . . : Yes</text>
+                <text x="45" y="155" font-family="monospace" fill="#60a5fa" font-size="8">DNS Servers . . . . . . . . . . . : 8.8.8.8</text>
+            </svg>`
+        },
+        {
+            title: "macOS Client Verification", 
+            icon: "fa-laptop",
+            description: "macOS-specific IP verification using networksetup, scutil, and System Preferences. Native Apple tools for network configuration and diagnostics.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>macOS Network System Preferences</title>
+                <rect x="20" y="20" width="360" height="160" rx="10" fill="#f5f5f7"/>
+                <rect x="20" y="20" width="360" height="30" rx="10" ry="0" fill="#007aff"/>
+                <circle cx="35" cy="35" r="5" fill="#ff5f56"/>
+                <circle cx="50" cy="35" r="5" fill="#ffbd2e"/>
+                <circle cx="65" cy="35" r="5" fill="#27ca3f"/>
+                <text x="200" y="40" text-anchor="middle" font-size="12" fill="white">Network Preferences</text>
+                <rect x="30" y="60" width="100" height="110" fill="#e5e5e7" rx="5"/>
+                <text x="80" y="75" text-anchor="middle" font-size="9" fill="#333">Wi-Fi</text>
+                <text x="80" y="90" text-anchor="middle" font-size="9" fill="#333">Ethernet</text>
+                <text x="80" y="105" text-anchor="middle" font-size="9" fill="#007aff">Bluetooth PAN</text>
+                <rect x="140" y="60" width="240" height="110" fill="white" rx="5"/>
+                <text x="150" y="80" font-size="10" fill="#333">Connected to: MyNetwork</text>
+                <text x="150" y="100" font-size="9" fill="#666">IP Address: 192.168.1.100</text>
+                <text x="150" y="115" font-size="9" fill="#666">Subnet Mask: 255.255.255.0</text>
+                <text x="150" y="130" font-size="9" fill="#666">Router: 192.168.1.1</text>
+                <text x="150" y="145" font-size="9" fill="#666">DNS Server: 8.8.8.8</text>
+            </svg>`
+        },
+        {
+            title: "Linux Client Verification", 
+            icon: "fa-terminal",
+            description: "Linux network verification using ip commands, nmcli, and distribution-specific tools. Modern iproute2 utilities and legacy ifconfig support.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Linux Terminal Network Commands</title>
+                <rect x="20" y="20" width="360" height="160" rx="5" fill="#0d1117"/>
+                <rect x="20" y="20" width="360" height="25" rx="3" ry="0" fill="#21262d"/>
+                <circle cx="35" cy="32.5" r="6" fill="#f85149"/>
+                <circle cx="55" cy="32.5" r="6" fill="#f0883e"/>
+                <circle cx="75" cy="32.5" r="6" fill="#56d364"/>
+                <text x="35" y="60" font-family="monospace" fill="#7ce38b" font-size="9">user@linux:~$ ip addr show</text>
+                <text x="35" y="80" font-family="monospace" fill="#e6edf3" font-size="9">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536</text>
+                <text x="45" y="95" font-family="monospace" fill="#79c0ff" font-size="8">inet 127.0.0.1/8 scope host lo</text>
+                <text x="35" y="110" font-family="monospace" fill="#e6edf3" font-size="9">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;</text>
+                <text x="45" y="125" font-family="monospace" fill="#79c0ff" font-size="8">inet 192.168.1.100/24 brd 192.168.1.255</text>
+                <text x="45" y="140" font-family="monospace" fill="#79c0ff" font-size="8">scope global dynamic eth0</text>
+                <text x="35" y="160" font-family="monospace" fill="#7ce38b" font-size="9">user@linux:~$ _</text>
+            </svg>`
+        },
+        {
+            title: "Client Network Troubleshooting", 
+            icon: "fa-stethoscope",
+            description: "Systematic client-side network troubleshooting methodology. Layer-by-layer approach from physical connectivity to application layer issues.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Network Troubleshooting Layers</title>
+                <rect x="50" y="30" width="300" height="140" rx="5" fill="none" stroke="#64748b" stroke-width="2"/>
+                <rect x="60" y="40" width="280" height="20" fill="#ef4444"/>
+                <text x="200" y="53" text-anchor="middle" font-size="10" fill="white">7. Application (DNS, HTTP)</text>
+                <rect x="60" y="65" width="280" height="15" fill="#f97316"/>
+                <text x="200" y="75" text-anchor="middle" font-size="9" fill="white">4. Transport (Port connectivity)</text>
+                <rect x="60" y="85" width="280" height="15" fill="#eab308"/>
+                <text x="200" y="95" text-anchor="middle" font-size="9" fill="white">3. Network (IP, ping, traceroute)</text>
+                <rect x="60" y="105" width="280" height="15" fill="#22c55e"/>
+                <text x="200" y="115" text-anchor="middle" font-size="9" fill="white">2. Data Link (ARP, switch connectivity)</text>
+                <rect x="60" y="125" width="280" height="15" fill="#3b82f6"/>
+                <text x="200" y="135" text-anchor="middle" font-size="9" fill="white">1. Physical (Cable, link lights)</text>
+                <path d="M 370 50 L 385 50 L 385 140 L 370 140" stroke="#10b981" stroke-width="3" fill="none"/>
+                <text x="380" y="180" text-anchor="middle" font-size="8" fill="#10b981">Bottom-Up</text>
             </svg>`
         },
     ],
@@ -634,38 +1280,209 @@ const SECTION1_DATA = {
     // WIRELESS
     wireless: [
         {
-            title: "Wi-Fi Channels", 
-            icon: "fa-tower-broadcast",
-            description: "Wi-Fi operates on specific channels. Non-overlapping channels avoid interference: 2.4 GHz (1, 6, 11), 5 GHz has many more.",
-            visual: `
-                <svg viewBox="0 0 400 200">
-                    <title>Non-overlapping Wi-Fi channels 1, 6, 11</title>
-                    <path d="M50 150 C 90 30, 130 30, 170 150" stroke="#3b82f6" stroke-width="3" fill="#3b82f644"/>
-                    <text x="110" y="165" text-anchor="middle" font-size="12">Channel 1</text>
-                    <path d="M150 150 C 190 30, 230 30, 270 150" stroke="#10b981" stroke-width="3" fill="#10b98144"/>
-                    <text x="210" y="165" text-anchor="middle" font-size="12">Channel 6</text>
-                    <path d="M250 150 C 290 30, 330 30, 370 150" stroke="#f97316" stroke-width="3" fill="#f9731644"/>
-                    <text x="310" y="165" text-anchor="middle" font-size="12">Channel 11</text>
-                    <path d="M120 150 C 150 80, 190 80, 220 150" stroke="#ef4444" stroke-width="2" stroke-dasharray="3" fill="none"/>
-                    <text x="170" y="120" text-anchor="middle" font-size="10" fill="#ef4444">Interference</text>
-                </svg>
-            `
+            title: "Wi-Fi Standards & Evolution", 
+            icon: "fa-wifi",
+            description: "Evolution of Wi-Fi standards from 802.11 to Wi-Fi 6E. Each generation brings faster speeds, better efficiency, and new frequency bands.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Wi-Fi Standards Evolution</title>
+                <rect x="20" y="40" width="360" height="120" fill="none" stroke="#64748b" stroke-width="2" rx="5"/>
+                <text x="200" y="30" text-anchor="middle" font-size="14" fill="#e2e8f0">Wi-Fi Standards Timeline</text>
+                
+                <rect x="30" y="50" width="50" height="25" fill="#ef4444" rx="3"/>
+                <text x="55" y="67" text-anchor="middle" font-size="9" fill="white">802.11b</text>
+                <text x="55" y="85" text-anchor="middle" font-size="8" fill="#94a3b8">11 Mbps</text>
+                <text x="55" y="95" text-anchor="middle" font-size="8" fill="#94a3b8">2.4 GHz</text>
+                
+                <rect x="90" y="50" width="50" height="25" fill="#f97316" rx="3"/>
+                <text x="115" y="67" text-anchor="middle" font-size="9" fill="white">802.11a/g</text>
+                <text x="115" y="85" text-anchor="middle" font-size="8" fill="#94a3b8">54 Mbps</text>
+                <text x="115" y="95" text-anchor="middle" font-size="8" fill="#94a3b8">2.4/5 GHz</text>
+                
+                <rect x="150" y="50" width="50" height="25" fill="#eab308" rx="3"/>
+                <text x="175" y="67" text-anchor="middle" font-size="9" fill="white">802.11n</text>
+                <text x="175" y="85" text-anchor="middle" font-size="8" fill="#94a3b8">600 Mbps</text>
+                <text x="175" y="95" text-anchor="middle" font-size="8" fill="#94a3b8">MIMO</text>
+                
+                <rect x="210" y="50" width="50" height="25" fill="#22c55e" rx="3"/>
+                <text x="235" y="67" text-anchor="middle" font-size="9" fill="white">802.11ac</text>
+                <text x="235" y="85" text-anchor="middle" font-size="8" fill="#94a3b8">6.9 Gbps</text>
+                <text x="235" y="95" text-anchor="middle" font-size="8" fill="#94a3b8">5 GHz</text>
+                
+                <rect x="270" y="50" width="50" height="25" fill="#3b82f6" rx="3"/>
+                <text x="295" y="67" text-anchor="middle" font-size="9" fill="white">802.11ax</text>
+                <text x="295" y="85" text-anchor="middle" font-size="8" fill="#94a3b8">9.6 Gbps</text>
+                <text x="295" y="95" text-anchor="middle" font-size="8" fill="#94a3b8">Wi-Fi 6</text>
+                
+                <rect x="330" y="50" width="40" height="25" fill="#8b5cf6" rx="3"/>
+                <text x="350" y="67" text-anchor="middle" font-size="9" fill="white">6E</text>
+                <text x="350" y="85" text-anchor="middle" font-size="8" fill="#94a3b8">6 GHz</text>
+                
+                <path d="M 30 110 L 370 110" stroke="#16a34a" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <text x="200" y="130" text-anchor="middle" font-size="10" fill="#16a34a">Increasing Speed & Efficiency</text>
+                <text x="200" y="145" text-anchor="middle" font-size="9" fill="#94a3b8">Better range, lower latency, more devices</text>
+                
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+                    </marker>
+                </defs>
+            </svg>`
         },
         {
-            title: "Wireless Concepts", 
-            icon: "fa-key",
-            description: "SSID: Public name of wireless network. RF: Radio Frequency medium. Encryption: WPA3 (modern) secures wireless communication.",
+            title: "Wi-Fi Channels & Frequencies", 
+            icon: "fa-tower-broadcast",
+            description: "Wi-Fi operates on specific channels within frequency bands. Understanding channel planning prevents interference and optimizes performance.",
             visual: `<svg viewBox="0 0 400 200">
-                <title>Wireless concepts</title>
-                <circle cx="100" cy="100" r="25" fill="#2563eb"/>
-                <text x="100" y="105" text-anchor="middle" font-size="16" fill="white">AP</text>
-                <path d="M115 90 A 30 30 0 0 1 135 60" stroke="#3b82f6" fill="none" stroke-linecap="round" stroke-width="3"/>
-                <path d="M125 90 A 50 50 0 0 1 170 45" stroke="#3b82f6" fill="none" stroke-linecap="round" stroke-width="3"/>
-                <rect x="200" y="80" width="180" height="40" rx="5" fill="#1e293b" stroke="#334155"/>
-                <text x="290" y="105" text-anchor="middle" font-size="12" fill="#e2e8f0">SSID: MySecureWiFi</text>
-                <path d="M 140 60 L 150 70 L 140 80" stroke="#f59e0b" stroke-width="3" fill="none"/>
-                <path d="M 150 60 L 160 70 L 150 80" stroke="#f59e0b" stroke-width="3" fill="none"/>
-                <text x="175" y="55" fill="#f59e0b">WPA3 Encrypted</text>
+                <title>Wi-Fi Frequency Bands and Channels</title>
+                <rect x="20" y="30" width="360" height="50" fill="#1e293b" rx="5"/>
+                <text x="200" y="50" text-anchor="middle" font-size="12" fill="#e2e8f0">2.4 GHz Band (11 channels, 3 non-overlapping)</text>
+                
+                <rect x="30" y="90" width="40" height="20" fill="#3b82f6" rx="2"/>
+                <text x="50" y="103" text-anchor="middle" font-size="10" fill="white">Ch 1</text>
+                <text x="50" y="120" text-anchor="middle" font-size="8" fill="#94a3b8">2412 MHz</text>
+                
+                <rect x="130" y="90" width="40" height="20" fill="#10b981" rx="2"/>
+                <text x="150" y="103" text-anchor="middle" font-size="10" fill="white">Ch 6</text>
+                <text x="150" y="120" text-anchor="middle" font-size="8" fill="#94a3b8">2437 MHz</text>
+                
+                <rect x="230" y="90" width="40" height="20" fill="#f97316" rx="2"/>
+                <text x="250" y="103" text-anchor="middle" font-size="10" fill="white">Ch 11</text>
+                <text x="250" y="120" text-anchor="middle" font-size="8" fill="#94a3b8">2462 MHz</text>
+                
+                <path d="M80 100 Q 115 80 130 100" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="3"/>
+                <text x="105" y="75" text-anchor="middle" font-size="8" fill="#ef4444">Overlap</text>
+                
+                <rect x="300" y="85" width="80" height="30" fill="#374151" rx="3"/>
+                <text x="340" y="100" text-anchor="middle" font-size="9" fill="#e2e8f0">Non-overlapping:</text>
+                <text x="340" y="112" text-anchor="middle" font-size="9" fill="#4ade80">1, 6, 11 only</text>
+                
+                <rect x="20" y="140" width="360" height="40" fill="#0f172a" rx="5"/>
+                <text x="200" y="155" text-anchor="middle" font-size="12" fill="#e2e8f0">5 GHz Band (Many non-overlapping channels)</text>
+                <text x="200" y="170" text-anchor="middle" font-size="10" fill="#94a3b8">Less congested, higher speeds, shorter range</text>
+            </svg>`
+        },
+        {
+            title: "RF Fundamentals & Signal Metrics", 
+            icon: "fa-signal",
+            description: "Radio Frequency principles: signal strength (RSSI), signal-to-noise ratio (SNR), and factors affecting wireless propagation and performance.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>RF Signal Metrics</title>
+                <circle cx="80" cy="100" r="20" fill="#3b82f6"/>
+                <text x="80" y="105" text-anchor="middle" font-size="12" fill="white">AP</text>
+                
+                <circle cx="80" cy="100" r="40" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.6"/>
+                <circle cx="80" cy="100" r="60" fill="none" stroke="#3b82f6" stroke-width="1" opacity="0.4"/>
+                <circle cx="80" cy="100" r="80" fill="none" stroke="#3b82f6" stroke-width="1" opacity="0.2"/>
+                
+                <rect x="170" y="30" width="200" height="140" fill="#1e293b" rx="5"/>
+                <text x="270" y="50" text-anchor="middle" font-size="12" fill="#e2e8f0">Signal Quality Metrics</text>
+                
+                <text x="180" y="70" font-size="10" fill="#4ade80">RSSI (Received Signal Strength)</text>
+                <text x="180" y="85" font-size="9" fill="#94a3b8">• -30 dBm = Excellent</text>
+                <text x="180" y="95" font-size="9" fill="#94a3b8">• -50 dBm = Good</text>
+                <text x="180" y="105" font-size="9" fill="#94a3b8">• -70 dBm = Fair</text>
+                <text x="180" y="115" font-size="9" fill="#ef4444">• -90 dBm = Poor</text>
+                
+                <text x="180" y="135" font-size="10" fill="#f59e0b">SNR (Signal-to-Noise Ratio)</text>
+                <text x="180" y="150" font-size="9" fill="#94a3b8">• >40 dB = Excellent</text>
+                <text x="180" y="160" font-size="9" fill="#94a3b8">• >20 dB = Good for data</text>
+                
+                <rect x="120" y="120" width="30" height="15" fill="#22c55e" rx="2"/>
+                <text x="135" y="131" text-anchor="middle" font-size="8" fill="white">Client</text>
+                <text x="135" y="145" text-anchor="middle" font-size="7" fill="#94a3b8">-45 dBm</text>
+                
+                <path d="M100 100 L120 128" stroke="#16a34a" stroke-width="2"/>
+                <text x="110" y="110" font-size="7" fill="#16a34a">Strong Signal</text>
+            </svg>`
+        },
+        {
+            title: "CSMA/CA & Wireless Media Access", 
+            icon: "fa-share-nodes",
+            description: "Carrier Sense Multiple Access with Collision Avoidance. Wireless devices can't detect collisions, so they avoid them using RTS/CTS and wait times.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>CSMA/CA Process</title>
+                <rect x="20" y="20" width="360" height="160" fill="#0f172a" rx="5"/>
+                <text x="200" y="40" text-anchor="middle" font-size="12" fill="#e2e8f0">CSMA/CA Process</text>
+                
+                <rect x="30" y="50" width="80" height="25" fill="#3b82f6" rx="3"/>
+                <text x="70" y="67" text-anchor="middle" font-size="9" fill="white">1. Listen</text>
+                <text x="70" y="85" text-anchor="middle" font-size="8" fill="#94a3b8">Channel clear?</text>
+                
+                <rect x="120" y="50" width="80" height="25" fill="#f59e0b" rx="3"/>
+                <text x="160" y="67" text-anchor="middle" font-size="9" fill="white">2. Wait (IFS)</text>
+                <text x="160" y="85" text-anchor="middle" font-size="8" fill="#94a3b8">Inter-Frame Space</text>
+                
+                <rect x="210" y="50" width="80" height="25" fill="#10b981" rx="3"/>
+                <text x="250" y="67" text-anchor="middle" font-size="9" fill="white">3. Random Wait</text>
+                <text x="250" y="85" text-anchor="middle" font-size="8" fill="#94a3b8">Contention Window</text>
+                
+                <rect x="300" y="50" width="70" height="25" fill="#ef4444" rx="3"/>
+                <text x="335" y="67" text-anchor="middle" font-size="9" fill="white">4. Transmit</text>
+                
+                <path d="M 110 62 L 120 62" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+                <path d="M 200 62 L 210 62" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+                <path d="M 290 62 L 300 62" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+                
+                <rect x="30" y="100" width="340" height="70" fill="#1e293b" rx="3"/>
+                <text x="200" y="120" text-anchor="middle" font-size="11" fill="#e2e8f0">RTS/CTS for Hidden Node Problem</text>
+                
+                <text x="40" y="140" font-size="9" fill="#3b82f6">RTS (Request to Send)</text>
+                <text x="40" y="152" font-size="8" fill="#94a3b8">"May I transmit?"</text>
+                
+                <text x="200" y="140" font-size="9" fill="#10b981">CTS (Clear to Send)</text>
+                <text x="200" y="152" font-size="8" fill="#94a3b8">"Channel reserved"</text>
+                
+                <text x="300" y="140" font-size="9" fill="#f59e0b">DATA + ACK</text>
+                <text x="300" y="152" font-size="8" fill="#94a3b8">"Frame + confirm"</text>
+                
+                <defs>
+                    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#64748b"/>
+                    </marker>
+                </defs>
+            </svg>`
+        },
+        {
+            title: "Wireless Security & Authentication", 
+            icon: "fa-shield-halved",
+            description: "SSID broadcasts network name. Security evolution: WEP (broken) → WPA/WPA2 → WPA3 (current). Enterprise vs Personal authentication methods.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Wireless Security Evolution</title>
+                <rect x="20" y="20" width="360" height="160" fill="#0f172a" rx="5"/>
+                <text x="200" y="40" text-anchor="middle" font-size="12" fill="#e2e8f0">Wireless Security Evolution</text>
+                
+                <rect x="30" y="50" width="60" height="30" fill="#ef4444" rx="3"/>
+                <text x="60" y="67" text-anchor="middle" font-size="10" fill="white">WEP</text>
+                <text x="60" y="90" text-anchor="middle" font-size="8" fill="#ef4444">BROKEN</text>
+                <text x="60" y="100" text-anchor="middle" font-size="7" fill="#94a3b8">RC4, 40/104-bit</text>
+                
+                <rect x="110" y="50" width="60" height="30" fill="#f59e0b" rx="3"/>
+                <text x="140" y="67" text-anchor="middle" font-size="10" fill="white">WPA</text>
+                <text x="140" y="90" text-anchor="middle" font-size="8" fill="#f59e0b">WEAK</text>
+                <text x="140" y="100" text-anchor="middle" font-size="7" fill="#94a3b8">TKIP, RC4</text>
+                
+                <rect x="190" y="50" width="60" height="30" fill="#22c55e" rx="3"/>
+                <text x="220" y="67" text-anchor="middle" font-size="10" fill="white">WPA2</text>
+                <text x="220" y="90" text-anchor="middle" font-size="8" fill="#22c55e">GOOD</text>
+                <text x="220" y="100" text-anchor="middle" font-size="7" fill="#94a3b8">AES-CCMP</text>
+                
+                <rect x="270" y="50" width="60" height="30" fill="#3b82f6" rx="3"/>
+                <text x="300" y="67" text-anchor="middle" font-size="10" fill="white">WPA3</text>
+                <text x="300" y="90" text-anchor="middle" font-size="8" fill="#3b82f6">BEST</text>
+                <text x="300" y="100" text-anchor="middle" font-size="7" fill="#94a3b8">SAE, GCMP</text>
+                
+                <rect x="30" y="120" width="160" height="50" fill="#1e293b" rx="3"/>
+                <text x="110" y="135" text-anchor="middle" font-size="10" fill="#e2e8f0">Personal (PSK)</text>
+                <text x="110" y="150" text-anchor="middle" font-size="8" fill="#94a3b8">Pre-Shared Key</text>
+                <text x="110" y="160" text-anchor="middle" font-size="8" fill="#94a3b8">Same password for all</text>
+                
+                <rect x="210" y="120" width="160" height="50" fill="#1e293b" rx="3"/>
+                <text x="290" y="135" text-anchor="middle" font-size="10" fill="#e2e8f0">Enterprise (802.1X)</text>
+                <text x="290" y="150" text-anchor="middle" font-size="8" fill="#94a3b8">RADIUS Authentication</text>
+                <text x="290" y="160" text-anchor="middle" font-size="8" fill="#94a3b8">Individual credentials</text>
+                
+                <circle cx="70" cy="60" r="25" fill="none" stroke="#10b981" stroke-width="2"/>
+                <text x="70" y="10" text-anchor="middle" font-size="8" fill="#10b981">SSID: MyWiFi</text>
             </svg>`
         },
     ],
@@ -673,21 +1490,197 @@ const SECTION1_DATA = {
     // VIRTUALIZATION
     virtualization: [
         {
-            title: "Virtualization", 
-            icon: "fa-display",
-            description: "Creating virtual versions of resources. Server virtualization: Hypervisor runs multiple VMs. Containers: Lightweight alternative. VRFs: Virtual routing tables.",
+            title: "Virtualization Overview", 
+            icon: "fa-layer-group",
+            description: "Creating virtual versions of physical resources. Enables better resource utilization, isolation, and flexibility in modern computing environments.",
             visual: `<svg viewBox="0 0 400 200">
-                <title>Server Virtualization</title>
-                <rect x="60" y="150" width="280" height="30" rx="3" fill="#334155"/>
-                <text x="200" y="170" text-anchor="middle" font-size="12" fill="white">Hardware</text>
-                <rect x="70" y="120" width="260" height="30" rx="3" fill="#4f46e5"/>
-                <text x="200" y="140" text-anchor="middle" font-size="12" fill="white">Hypervisor</text>
-                <rect x="80" y="40" width="70" height="80" rx="3" fill="#166534"/>
-                <text x="115" y="85" text-anchor="middle" font-size="12" fill="#d1fae5">VM 1</text>
-                <rect x="165" y="40" width="70" height="80" rx="3" fill="#166534"/>
-                <text x="200" y="85" text-anchor="middle" font-size="12" fill="#d1fae5">VM 2</text>
-                <rect x="250" y="40" width="70" height="80" rx="3" fill="#166534"/>
-                <text x="285" y="85" text-anchor="middle" font-size="12" fill="#d1fae5">VM 3</text>
+                <title>Virtualization Concept</title>
+                <rect x="40" y="140" width="320" height="40" rx="3" fill="#334155"/>
+                <text x="200" y="165" text-anchor="middle" font-size="12" fill="white">Physical Hardware (CPU, RAM, Storage, Network)</text>
+                
+                <rect x="50" y="100" width="300" height="30" rx="3" fill="#4f46e5"/>
+                <text x="200" y="120" text-anchor="middle" font-size="12" fill="white">Virtualization Layer (Hypervisor)</text>
+                
+                <rect x="60" y="20" width="80" height="70" rx="3" fill="#166534"/>
+                <text x="100" y="35" text-anchor="middle" font-size="10" fill="#d1fae5">Virtual</text>
+                <text x="100" y="50" text-anchor="middle" font-size="10" fill="#d1fae5">Machine 1</text>
+                <text x="100" y="65" text-anchor="middle" font-size="9" fill="#86efac">Windows</text>
+                <text x="100" y="78" text-anchor="middle" font-size="8" fill="#86efac">2 vCPU, 4GB</text>
+                
+                <rect x="160" y="20" width="80" height="70" rx="3" fill="#166534"/>
+                <text x="200" y="35" text-anchor="middle" font-size="10" fill="#d1fae5">Virtual</text>
+                <text x="200" y="50" text-anchor="middle" font-size="10" fill="#d1fae5">Machine 2</text>
+                <text x="200" y="65" text-anchor="middle" font-size="9" fill="#86efac">Linux</text>
+                <text x="200" y="78" text-anchor="middle" font-size="8" fill="#86efac">4 vCPU, 8GB</text>
+                
+                <rect x="260" y="20" width="80" height="70" rx="3" fill="#166534"/>
+                <text x="300" y="35" text-anchor="middle" font-size="10" fill="#d1fae5">Virtual</text>
+                <text x="300" y="50" text-anchor="middle" font-size="10" fill="#d1fae5">Machine 3</text>
+                <text x="300" y="65" text-anchor="middle" font-size="9" fill="#86efac">Router OS</text>
+                <text x="300" y="78" text-anchor="middle" font-size="8" fill="#86efac">1 vCPU, 2GB</text>
+                
+                <path d="M 100 90 L 100 100" stroke="#64748b" stroke-width="2"/>
+                <path d="M 200 90 L 200 100" stroke="#64748b" stroke-width="2"/>
+                <path d="M 300 90 L 300 100" stroke="#64748b" stroke-width="2"/>
+                
+                <text x="380" y="55" text-anchor="middle" font-size="8" fill="#3b82f6" transform="rotate(90, 380, 55)">Resource Sharing</text>
+            </svg>`
+        },
+        {
+            title: "Hypervisors & Virtual Machines", 
+            icon: "fa-server",
+            description: "Type 1 (bare-metal) and Type 2 (hosted) hypervisors manage virtual machines. Each VM runs its own OS with allocated virtual resources.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Hypervisor Types</title>
+                <rect x="20" y="20" width="170" height="160" fill="#0f172a" rx="5"/>
+                <text x="105" y="40" text-anchor="middle" font-size="12" fill="#e2e8f0">Type 1 (Bare-Metal)</text>
+                
+                <rect x="30" y="50" width="50" height="20" fill="#22c55e" rx="2"/>
+                <text x="55" y="63" text-anchor="middle" font-size="8" fill="white">VM1</text>
+                
+                <rect x="90" y="50" width="50" height="20" fill="#22c55e" rx="2"/>
+                <text x="115" y="63" text-anchor="middle" font-size="8" fill="white">VM2</text>
+                
+                <rect x="150" y="50" width="30" height="20" fill="#22c55e" rx="2"/>
+                <text x="165" y="63" text-anchor="middle" font-size="8" fill="white">VM3</text>
+                
+                <rect x="30" y="80" width="150" height="25" fill="#3b82f6" rx="2"/>
+                <text x="105" y="97" text-anchor="middle" font-size="10" fill="white">Hypervisor (ESXi, Hyper-V)</text>
+                
+                <rect x="30" y="115" width="150" height="25" fill="#374151" rx="2"/>
+                <text x="105" y="132" text-anchor="middle" font-size="10" fill="white">Physical Hardware</text>
+                
+                <text x="105" y="155" text-anchor="middle" font-size="9" fill="#4ade80">Direct hardware access</text>
+                <text x="105" y="168" text-anchor="middle" font-size="9" fill="#4ade80">Better performance</text>
+                
+                <rect x="210" y="20" width="170" height="160" fill="#0f172a" rx="5"/>
+                <text x="295" y="40" text-anchor="middle" font-size="12" fill="#e2e8f0">Type 2 (Hosted)</text>
+                
+                <rect x="220" y="50" width="40" height="15" fill="#f59e0b" rx="2"/>
+                <text x="240" y="61" text-anchor="middle" font-size="7" fill="white">VM1</text>
+                
+                <rect x="270" y="50" width="40" height="15" fill="#f59e0b" rx="2"/>
+                <text x="290" y="61" text-anchor="middle" font-size="7" fill="white">VM2</text>
+                
+                <rect x="320" y="50" width="50" height="15" fill="#f59e0b" rx="2"/>
+                <text x="345" y="61" text-anchor="middle" font-size="7" fill="white">VM3</text>
+                
+                <rect x="220" y="75" width="150" height="20" fill="#ef4444" rx="2"/>
+                <text x="295" y="88" text-anchor="middle" font-size="9" fill="white">Hypervisor (VMware Workstation)</text>
+                
+                <rect x="220" y="105" width="150" height="20" fill="#7c3aed" rx="2"/>
+                <text x="295" y="118" text-anchor="middle" font-size="9" fill="white">Host Operating System</text>
+                
+                <rect x="220" y="135" width="150" height="20" fill="#374151" rx="2"/>
+                <text x="295" y="148" text-anchor="middle" font-size="9" fill="white">Physical Hardware</text>
+                
+                <text x="295" y="165" text-anchor="middle" font-size="8" fill="#fbbf24">Easier to install</text>
+                <text x="295" y="175" text-anchor="middle" font-size="8" fill="#fbbf24">More overhead</text>
+            </svg>`
+        },
+        {
+            title: "Containers & Microservices", 
+            icon: "fa-cube",
+            description: "Lightweight virtualization using containers. Share OS kernel but isolate applications. Docker enables microservices architecture with fast deployment.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Containers vs Virtual Machines</title>
+                <rect x="20" y="20" width="170" height="160" fill="#0f172a" rx="5"/>
+                <text x="105" y="40" text-anchor="middle" font-size="12" fill="#e2e8f0">Virtual Machines</text>
+                
+                <rect x="30" y="50" width="40" height="30" fill="#22c55e" rx="2"/>
+                <text x="50" y="60" text-anchor="middle" font-size="7" fill="white">App A</text>
+                <text x="50" y="70" text-anchor="middle" font-size="6" fill="#dcfce7">Guest OS</text>
+                
+                <rect x="80" y="50" width="40" height="30" fill="#22c55e" rx="2"/>
+                <text x="100" y="60" text-anchor="middle" font-size="7" fill="white">App B</text>
+                <text x="100" y="70" text-anchor="middle" font-size="6" fill="#dcfce7">Guest OS</text>
+                
+                <rect x="130" y="50" width="40" height="30" fill="#22c55e" rx="2"/>
+                <text x="150" y="60" text-anchor="middle" font-size="7" fill="white">App C</text>
+                <text x="150" y="70" text-anchor="middle" font-size="6" fill="#dcfce7">Guest OS</text>
+                
+                <rect x="30" y="90" width="140" height="20" fill="#3b82f6" rx="2"/>
+                <text x="100" y="103" text-anchor="middle" font-size="9" fill="white">Hypervisor</text>
+                
+                <rect x="30" y="120" width="140" height="30" fill="#374151" rx="2"/>
+                <text x="100" y="140" text-anchor="middle" font-size="10" fill="white">Host Operating System</text>
+                
+                <text x="105" y="165" text-anchor="middle" font-size="8" fill="#94a3b8">Heavy: Full OS per app</text>
+                
+                <rect x="210" y="20" width="170" height="160" fill="#0f172a" rx="5"/>
+                <text x="295" y="40" text-anchor="middle" font-size="12" fill="#e2e8f0">Containers</text>
+                
+                <rect x="220" y="50" width="40" height="20" fill="#f59e0b" rx="2"/>
+                <text x="240" y="63" text-anchor="middle" font-size="8" fill="white">App A</text>
+                
+                <rect x="270" y="50" width="40" height="20" fill="#f59e0b" rx="2"/>
+                <text x="290" y="63" text-anchor="middle" font-size="8" fill="white">App B</text>
+                
+                <rect x="320" y="50" width="40" height="20" fill="#f59e0b" rx="2"/>
+                <text x="340" y="63" text-anchor="middle" font-size="8" fill="white">App C</text>
+                
+                <rect x="220" y="80" width="140" height="20" fill="#ef4444" rx="2"/>
+                <text x="290" y="93" text-anchor="middle" font-size="9" fill="white">Container Runtime (Docker)</text>
+                
+                <rect x="220" y="110" width="140" height="40" fill="#7c3aed" rx="2"/>
+                <text x="290" y="130" text-anchor="middle" font-size="10" fill="white">Host Operating System</text>
+                <text x="290" y="142" text-anchor="middle" font-size="8" fill="#c4b5fd">(Shared Kernel)</text>
+                
+                <text x="295" y="165" text-anchor="middle" font-size="8" fill="#fbbf24">Lightweight: Shared OS</text>
+                <text x="295" y="175" text-anchor="middle" font-size="8" fill="#fbbf24">Fast startup</text>
+            </svg>`
+        },
+        {
+            title: "Network Virtualization", 
+            icon: "fa-network-wired",
+            description: "VRFs create virtual routing tables. VLANs virtualize Layer 2. SDN separates control and data planes. Cloud networking uses virtual networks.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Network Virtualization Types</title>
+                <rect x="20" y="20" width="360" height="160" fill="#0f172a" rx="5"/>
+                <text x="200" y="40" text-anchor="middle" font-size="12" fill="#e2e8f0">Network Virtualization Technologies</text>
+                
+                <rect x="30" y="50" width="80" height="60" fill="#1e293b" rx="3"/>
+                <text x="70" y="65" text-anchor="middle" font-size="10" fill="#3b82f6">VRF</text>
+                <text x="70" y="78" text-anchor="middle" font-size="8" fill="#94a3b8">Virtual Routing</text>
+                <text x="70" y="88" text-anchor="middle" font-size="8" fill="#94a3b8">& Forwarding</text>
+                <text x="70" y="98" text-anchor="middle" font-size="7" fill="#60a5fa">Separate routing</text>
+                <text x="70" y="106" text-anchor="middle" font-size="7" fill="#60a5fa">tables per tenant</text>
+                
+                <rect x="120" y="50" width="80" height="60" fill="#1e293b" rx="3"/>
+                <text x="160" y="65" text-anchor="middle" font-size="10" fill="#10b981">VLAN</text>
+                <text x="160" y="78" text-anchor="middle" font-size="8" fill="#94a3b8">Virtual LAN</text>
+                <text x="160" y="88" text-anchor="middle" font-size="8" fill="#94a3b8">Layer 2</text>
+                <text x="160" y="98" text-anchor="middle" font-size="7" fill="#4ade80">Segment broadcast</text>
+                <text x="160" y="106" text-anchor="middle" font-size="7" fill="#4ade80">domains</text>
+                
+                <rect x="210" y="50" width="80" height="60" fill="#1e293b" rx="3"/>
+                <text x="250" y="65" text-anchor="middle" font-size="10" fill="#f59e0b">SDN</text>
+                <text x="250" y="78" text-anchor="middle" font-size="8" fill="#94a3b8">Software Defined</text>
+                <text x="250" y="88" text-anchor="middle" font-size="8" fill="#94a3b8">Networking</text>
+                <text x="250" y="98" text-anchor="middle" font-size="7" fill="#fbbf24">Centralized control</text>
+                <text x="250" y="106" text-anchor="middle" font-size="7" fill="#fbbf24">plane</text>
+                
+                <rect x="300" y="50" width="70" height="60" fill="#1e293b" rx="3"/>
+                <text x="335" y="65" text-anchor="middle" font-size="10" fill="#ef4444">Cloud</text>
+                <text x="335" y="78" text-anchor="middle" font-size="8" fill="#94a3b8">Virtual Networks</text>
+                <text x="335" y="88" text-anchor="middle" font-size="8" fill="#94a3b8">(VPC, VNet)</text>
+                <text x="335" y="98" text-anchor="middle" font-size="7" fill="#fca5a5">Isolated network</text>
+                <text x="335" y="106" text-anchor="middle" font-size="7" fill="#fca5a5">segments</text>
+                
+                <rect x="30" y="120" width="340" height="50" fill="#374151" rx="3"/>
+                <text x="200" y="135" text-anchor="middle" font-size="10" fill="#e2e8f0">Benefits of Network Virtualization</text>
+                
+                <text x="70" y="150" text-anchor="middle" font-size="8" fill="#4ade80">• Multi-tenancy</text>
+                <text x="70" y="160" text-anchor="middle" font-size="8" fill="#4ade80">• Isolation</text>
+                
+                <text x="160" y="150" text-anchor="middle" font-size="8" fill="#60a5fa">• Resource sharing</text>
+                <text x="160" y="160" text-anchor="middle" font-size="8" fill="#60a5fa">• Flexibility</text>
+                
+                <text x="250" y="150" text-anchor="middle" font-size="8" fill="#fbbf24">• Centralized mgmt</text>
+                <text x="250" y="160" text-anchor="middle" font-size="8" fill="#fbbf24">• Programmability</text>
+                
+                <text x="330" y="150" text-anchor="middle" font-size="8" fill="#fca5a5">• Scalability</text>
+                <text x="330" y="160" text-anchor="middle" font-size="8" fill="#fca5a5">• Automation</text>
             </svg>`
         },
     ],
@@ -797,15 +1790,15 @@ const SECTION1_DATA = {
             components: { title: "1.1 Network Components", count: 8 },
             topology: { title: "1.2 Network Topology Architectures", count: 6 },
             cabling: { title: "1.3 Physical Interface and Cabling", count: 6 },
-            issues: { title: "1.4 Interface and Cable Issues", count: 1 },
-            tcpUdp: { title: "1.5 Compare TCP to UDP", count: 1 },
-            ipv4: { title: "1.6 Configure and verify IPv4", count: 1 },
-            privateIpv4: { title: "1.7 Private IPv4 addressing", count: 1 },
-            ipv6: { title: "1.8 Configure and verify IPv6", count: 1 },
-            ipv6Types: { title: "1.9 Describe IPv6 address types", count: 2 },
-            clientOs: { title: "1.10 Verify IP parameters", count: 1 },
-            wireless: { title: "1.11 Describe wireless principles", count: 2 },
-            virtualization: { title: "1.12 Virtualization fundamentals", count: 1 },
+            issues: { title: "1.4 Interface and Cable Issues", count: 6 },
+            tcpUdp: { title: "1.5 Compare TCP to UDP", count: 6 },
+            ipv4: { title: "1.6 Configure and verify IPv4", count: 6 },
+            privateIpv4: { title: "1.7 Private IPv4 addressing", count: 3 },
+            ipv6: { title: "1.8 Configure and verify IPv6", count: 5 },
+            ipv6Types: { title: "1.9 Describe IPv6 address types", count: 5 },
+            clientOs: { title: "1.10 Verify IP parameters", count: 4 },
+            wireless: { title: "1.11 Describe wireless principles", count: 5 },
+            virtualization: { title: "1.12 Virtualization fundamentals", count: 4 },
             switching: { title: "1.13 Describe switching concepts", count: 4 }
         },
         // Dynamic calculation of total topics from subsections
