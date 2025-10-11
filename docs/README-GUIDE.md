@@ -108,6 +108,47 @@ The CCNA Study Hub provides comprehensive study materials organized into 6 secti
 - **VLAN Concepts (1.x):** What VLANs are, benefits, basic theory
 - **VLAN Configuration (2.x):** Commands, trunking, VLAN database management
 
+### ⚠️ **CRITICAL: HTML Structure Synchronization**
+
+**When adding new sections or modifying section structure, ensure HTML files match data structure:**
+
+- **Section metadata** in `sectionX-data.js` must align with HTML section containers
+- **Grid container IDs** in `sectionX.html` must match data array keys (e.g., `pbrGrid` for `pbr` array)
+- **Section numbering** in HTML headers must match metadata subsection titles
+- **Missing grid containers** will prevent topic cards from rendering
+- **Always update both files together** when adding new subsections
+
+**Example HTML Structure Requirements:**
+
+```html
+<!-- HTML section container -->
+<section>
+    <h2>3.4 Policy-Based Routing</h2>
+    <div id="pbrGrid"></div>  <!-- Grid ID matches data key -->
+</section>
+```
+
+**Corresponding Data Structure:**
+
+```javascript
+// In sectionX-data.js
+pbr: [  // Array key matches grid ID (without "Grid")
+    { title: "PBR Fundamentals", ... }
+],
+metadata: {
+    subsections: {
+        pbr: { title: "3.4 Policy-Based Routing", count: 2 }  // Title matches HTML header
+    }
+}
+```
+
+**Common Issues:**
+
+- Grid container missing → Topic cards won't display
+- Mismatched section numbering → Visual inconsistency  
+- Wrong grid ID → JavaScript can't find container
+- Metadata mismatch → Progress tracking errors
+
 ## Progress Tracking System
 
 ### Core Classes

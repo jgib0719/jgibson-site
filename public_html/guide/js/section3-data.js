@@ -343,6 +343,96 @@ const SECTION3_DATA = {
             </svg>`
         }
     ],
+    // 3.4 Policy-Based Routing (PBR)
+    pbr: [
+        {
+            title: "PBR Fundamentals",
+            icon: "fa-route",
+            description: "Policy-Based Routing (PBR) overrides the normal routing table lookup by making forwarding decisions based on defined policies. Routes traffic based on source address, packet size, application, or other criteria rather than just destination.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Policy-Based Routing Operation</title>
+                <!-- Router -->
+                <rect x="170" y="80" width="60" height="40" rx="5" fill="#334155"/>
+                <text x="200" y="105" font-size="10" fill="white" text-anchor="middle">Router</text>
+                
+                <!-- Incoming Traffic -->
+                <rect x="30" y="90" width="80" height="20" rx="3" fill="#6366f1"/>
+                <text x="70" y="103" font-size="9" fill="white" text-anchor="middle">Mixed Traffic</text>
+                <path d="M110,100 L170,100" stroke="#6366f1" stroke-width="2" marker-end="url(#arrow)"/>
+                
+                <!-- Policy Decision -->
+                <rect x="160" y="40" width="80" height="25" rx="3" fill="#f59e0b"/>
+                <text x="200" y="55" font-size="9" fill="white" text-anchor="middle">Route-Map Policy</text>
+                
+                <!-- Traffic Classification -->
+                <text x="200" y="25" font-size="10" fill="#e2e8f0" text-anchor="middle" font-weight="bold">PBR Classification</text>
+                
+                <!-- Output Paths -->
+                <path d="M230,90 L290,60" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+                <text x="270" y="55" font-size="8" fill="#10b981">VIP Traffic</text>
+                <text x="330" y="65" font-size="8" fill="#10b981">ISP-A</text>
+                
+                <path d="M230,100 L310,100" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+                <text x="270" y="95" font-size="8" fill="#3b82f6">Regular Traffic</text>
+                <text x="330" y="105" font-size="8" fill="#3b82f6">ISP-B</text>
+                
+                <path d="M230,110 L290,140" stroke="#f87171" stroke-width="2" marker-end="url(#arrow)"/>
+                <text x="270" y="135" font-size="8" fill="#f87171">Backup Traffic</text>
+                <text x="330" y="145" font-size="8" fill="#f87171">ISP-C</text>
+                
+                <!-- Policy Override Note -->
+                <text x="200" y="175" font-size="9" fill="#94a3b8" text-anchor="middle">Overrides Normal Routing Table</text>
+                
+                <defs>
+                  <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+                  </marker>
+                </defs>
+            </svg>`
+        },
+        {
+            title: "Route-Map Policies",
+            icon: "fa-map-signs",
+            description: "PBR uses route-maps to define traffic matching criteria and actions. Match statements identify traffic (access-lists, packet length, interface), while set statements define actions (next-hop, interface, IP precedence).",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Route-Map Structure</title>
+                <!-- Route-Map Container -->
+                <rect x="50" y="40" width="300" height="120" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+                <text x="200" y="30" font-size="12" fill="#f59e0b" text-anchor="middle" font-weight="bold">route-map PBR-POLICY permit 10</text>
+                
+                <!-- Match Conditions -->
+                <rect x="70" y="60" width="130" height="80" rx="5" fill="#10b981" fill-opacity="0.2" stroke="#10b981"/>
+                <text x="135" y="75" font-size="10" fill="#10b981" text-anchor="middle" font-weight="bold">MATCH Conditions</text>
+                <text x="80" y="90" font-size="8" fill="#10b981">• ip address ACL</text>
+                <text x="80" y="105" font-size="8" fill="#10b981">• length (packet size)</text>
+                <text x="80" y="120" font-size="8" fill="#10b981">• interface</text>
+                <text x="80" y="135" font-size="8" fill="#10b981">• ip next-hop</text>
+                
+                <!-- Set Actions -->
+                <rect x="220" y="60" width="120" height="80" rx="5" fill="#6366f1" fill-opacity="0.2" stroke="#6366f1"/>
+                <text x="280" y="75" font-size="10" fill="#6366f1" text-anchor="middle" font-weight="bold">SET Actions</text>
+                <text x="230" y="90" font-size="8" fill="#6366f1">• ip next-hop</text>
+                <text x="230" y="105" font-size="8" fill="#6366f1">• interface</text>
+                <text x="230" y="120" font-size="8" fill="#6366f1">• ip precedence</text>
+                <text x="230" y="135" font-size="8" fill="#6366f1">• ip dscp</text>
+                
+                <!-- Logic Flow -->
+                <path d="M200,100 L220,100" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow-flow)"/>
+                <text x="210" y="95" font-size="8" fill="#94a3b8" text-anchor="middle">IF</text>
+                <text x="210" y="115" font-size="8" fill="#94a3b8" text-anchor="middle">THEN</text>
+                
+                <!-- Application -->
+                <text x="200" y="180" font-size="9" fill="#94a3b8" text-anchor="middle">Applied to Interface: ip policy route-map PBR-POLICY</text>
+                
+                <defs>
+                  <marker id="arrow-flow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+                  </marker>
+                </defs>
+            </svg>`
+        }
+    ],
+    // 3.5 Single Area OSPFv2
     ospf: [
         {
             title: "Neighbor Adjacencies",
@@ -486,6 +576,85 @@ const SECTION3_DATA = {
             </svg>`
         }
     ],
+    // 3.5 EIGRP (Enhanced Interior Gateway Routing Protocol)
+    eigrp: [
+        {
+            title: "EIGRP Fundamentals",
+            icon: "fa-project-diagram",
+            description: "Enhanced Interior Gateway Routing Protocol (EIGRP) is Cisco's advanced distance-vector routing protocol. Uses DUAL algorithm for fast convergence, supports unequal cost load balancing, and classless routing with VLSM.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>EIGRP Network Operation</title>
+                <!-- EIGRP AS -->
+                <ellipse cx="200" cy="100" rx="180" ry="80" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,5"/>
+                <text x="200" y="40" font-size="12" fill="#f59e0b" text-anchor="middle" font-weight="bold">EIGRP AS 100</text>
+                
+                <!-- Routers -->
+                <circle cx="120" cy="80" r="25" fill="#334155"/>
+                <text x="120" y="85" font-size="10" fill="white" text-anchor="middle">R1</text>
+                <text x="120" y="115" font-size="8" fill="#94a3b8" text-anchor="middle">10.1.1.1</text>
+                
+                <circle cx="280" cy="80" r="25" fill="#334155"/>
+                <text x="280" y="85" font-size="10" fill="white" text-anchor="middle">R2</text>
+                <text x="280" y="115" font-size="8" fill="#94a3b8" text-anchor="middle">10.1.1.2</text>
+                
+                <circle cx="200" cy="140" r="25" fill="#334155"/>
+                <text x="200" y="145" font-size="10" fill="white" text-anchor="middle">R3</text>
+                <text x="200" y="175" font-size="8" fill="#94a3b8" text-anchor="middle">10.1.1.3</text>
+                
+                <!-- EIGRP Adjacencies -->
+                <line x1="145" y1="85" x2="255" y2="85" stroke="#10b981" stroke-width="2"/>
+                <line x1="135" y1="95" x2="185" y2="125" stroke="#10b981" stroke-width="2"/>
+                <line x1="265" y1="95" x2="215" y2="125" stroke="#10b981" stroke-width="2"/>
+                
+                <!-- EIGRP Hello Packets -->
+                <circle cx="150" cy="85" r="8" fill="#f59e0b" opacity="0.7"/>
+                <text x="150" y="89" font-size="6" fill="white" text-anchor="middle">Hello</text>
+                
+                <circle cx="250" cy="85" r="8" fill="#f59e0b" opacity="0.7"/>
+                <text x="250" y="89" font-size="6" fill="white" text-anchor="middle">Hello</text>
+                
+                <!-- DUAL Algorithm -->
+                <rect x="320" y="50" width="70" height="40" rx="5" fill="#1e293b" stroke="#f59e0b"/>
+                <text x="355" y="65" font-size="9" fill="#f59e0b" text-anchor="middle" font-weight="bold">DUAL</text>
+                <text x="355" y="77" font-size="8" fill="#e2e8f0" text-anchor="middle">Algorithm</text>
+                <text x="355" y="85" font-size="7" fill="#94a3b8" text-anchor="middle">Loop-Free</text>
+            </svg>`
+        },
+        {
+            title: "EIGRP Metric Calculation",
+            icon: "fa-calculator",
+            description: "EIGRP uses composite metric based on bandwidth, delay, reliability, load, and MTU. By default, only bandwidth and delay are used. Formula: 256 * (K1*BW + K3*Delay) where K1=K3=1, others=0.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>EIGRP Metric Components</title>
+                <!-- Metric Formula -->
+                <rect x="50" y="30" width="300" height="30" rx="5" fill="#1e293b" stroke="#f59e0b"/>
+                <text x="200" y="50" font-size="12" fill="#f59e0b" text-anchor="middle" font-weight="bold">Metric = 256 × (K₁×BW + K₃×Delay)</text>
+                
+                <!-- Bandwidth Component -->
+                <rect x="70" y="80" width="120" height="50" rx="5" fill="#10b981" fill-opacity="0.2" stroke="#10b981"/>
+                <text x="130" y="95" font-size="10" fill="#10b981" text-anchor="middle" font-weight="bold">Bandwidth (K₁)</text>
+                <text x="130" y="108" font-size="9" fill="#10b981" text-anchor="middle">10⁷ ÷ lowest BW (kbps)</text>
+                <text x="130" y="120" font-size="8" fill="#94a3b8" text-anchor="middle">Default: K₁ = 1</text>
+                
+                <!-- Delay Component -->
+                <rect x="210" y="80" width="120" height="50" rx="5" fill="#6366f1" fill-opacity="0.2" stroke="#6366f1"/>
+                <text x="270" y="95" font-size="10" fill="#6366f1" text-anchor="middle" font-weight="bold">Delay (K₃)</text>
+                <text x="270" y="108" font-size="9" fill="#6366f1" text-anchor="middle">Sum of delays ÷ 10</text>
+                <text x="270" y="120" font-size="8" fill="#94a3b8" text-anchor="middle">Default: K₃ = 1</text>
+                
+                <!-- Unused Components -->
+                <rect x="80" y="150" width="80" height="30" rx="3" fill="#64748b" fill-opacity="0.3" stroke="#64748b"/>
+                <text x="120" y="170" font-size="8" fill="#64748b" text-anchor="middle">Reliability (K₂=0)</text>
+                
+                <rect x="170" y="150" width="60" height="30" rx="3" fill="#64748b" fill-opacity="0.3" stroke="#64748b"/>
+                <text x="200" y="170" font-size="8" fill="#64748b" text-anchor="middle">Load (K₄=0)</text>
+                
+                <rect x="240" y="150" width="60" height="30" rx="3" fill="#64748b" fill-opacity="0.3" stroke="#64748b"/>
+                <text x="270" y="170" font-size="8" fill="#64748b" text-anchor="middle">MTU (K₅=0)</text>
+            </svg>`
+        }
+    ],
+    // 3.6 First Hop Redundancy Protocols
     fhrp: [
         {
             title: "FHRP Purpose & Concepts",
@@ -735,8 +904,10 @@ const SECTION3_DATA = {
             routingTable: { title: "3.1 Routing Table Components", count: 6 },
             routing: { title: "3.2 Forwarding Decision", count: 3 },
             staticRouting: { title: "3.3 Static Routing", count: 4 },
-            ospf: { title: "3.4 Single Area OSPFv2", count: 4 },
-            fhrp: { title: "3.5 First Hop Redundancy", count: 4 }
+            pbr: { title: "3.4 Policy-Based Routing", count: 2 },
+            ospf: { title: "3.5 Single Area OSPFv2", count: 4 },
+            eigrp: { title: "3.6 EIGRP", count: 2 },
+            fhrp: { title: "3.7 First Hop Redundancy", count: 4 }
         },
         // Dynamic calculation of total topics from subsections
         get totalTopics() {

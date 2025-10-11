@@ -23,18 +23,6 @@
             <header class="entry-header">
                 <h1 class="entry-title">CCNA STUDY HUB</h1>
                 <p class="entry-subtitle">Master CCNA 200-301 with interactive guides and practice quizzes</p>
-
-                <!-- Overall Progress Indicator -->
-                <div class="overall-progress-container">
-                    <div class="progress-label">
-                        <span class="progress-title">Study Guide Progress</span>
-                        <span id="overall-progress-text" class="progress-percentage">0%</span>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div id="overall-progress-bar" class="progress-bar-fill"></div>
-                    </div>
-                    <p id="overall-progress-details" class="progress-details">0 of 87 topics completed</p>
-                </div>
             </header>
 
             <div class="main-card">
@@ -147,34 +135,11 @@
         </div>
     </div>
 
-    <script src="/quiz/js/ccna-quiz-engine.js" defer></script>
     <script src="/guide/js/ccna-study-guide-config.js"></script>
-    <script src="/guide/js/shared-progress.js"></script>
-    <script src="/guide/js/section-registry.js"></script>
+    <script src="/quiz/js/ccna-quiz-engine.js" defer></script>
+    
     <script src="/guide/js/accessibility-enhancements.js"></script>
     <script>
-        // Initialize overall progress on homepage
-        document.addEventListener('DOMContentLoaded', function() {
-            try {
-                // Create progress tracker to access global progress
-                const progressTracker = new UnifiedCCNAProgressTracker();
-                const overallProgress = progressTracker.getOverallProgress();
-
-                // Update progress display
-                const progressBar = document.getElementById('overall-progress-bar');
-                const progressText = document.getElementById('overall-progress-text');
-                const progressDetails = document.getElementById('overall-progress-details');
-
-                if (progressBar && progressText && progressDetails) {
-                    progressBar.style.width = overallProgress.percentage + '%';
-                    progressText.textContent = overallProgress.percentage + '%';
-                    progressDetails.textContent = `${overallProgress.completed} of ${overallProgress.total} topics completed`;
-                }
-            } catch (error) {
-                console.warn('Could not load progress data:', error);
-            }
-        });
-
         // Configuration is now available globally as CCNAConfig and Config
         // Example usage:
         // const quizContainer = Config.getElement('quizContainer');

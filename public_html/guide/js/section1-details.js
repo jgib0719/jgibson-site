@@ -40,23 +40,229 @@ const SECTION1_DETAILS = {
     "L2 and L3 Switches": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
             <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">1.1.b: Layer 2 vs. Layer 3 Switches</h3>
-            <p>The key distinction is the OSI layer at which they make forwarding decisions.</p>
+            <p>Layer 2 switches operate at the Data Link layer using MAC addresses, while Layer 3 switches add routing capabilities for inter-VLAN communication and IP-based forwarding decisions.</p>
             
-            <h4 style="color: #00CFFF;">Layer 2 Switch (MAC-based)</h4>
-            <p>Operates at the Data Link Layer, using <strong>MAC addresses</strong> to forward frames within a single LAN or VLAN. It builds a MAC address table to make these decisions.</p>
+            <h4 style="color: #58D4FF;">Layer 2 Switch Characteristics:</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Feature</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Description</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Functionality</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Forwarding Method</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">MAC address table lookup</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Layer 2 frame switching only</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">VLAN Support</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Creates separate broadcast domains</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">No inter-VLAN routing</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">ARP Handling</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Floods ARP requests within VLAN</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">No ARP processing or caching</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">IP Awareness</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">None - purely Layer 2</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Transparent to IP traffic</td>
+                </tr>
+            </table>
 
-            <h4 style="color: #00CFFF;">Layer 3 Switch (IP-based)</h4>
-            <p>A multilayer switch that can do everything a Layer 2 switch can, but adds routing functionality. It can inspect <strong>IP addresses</strong> to route traffic between different VLANs at very high speeds using specialized hardware (ASICs).</p>
-            
-            <h4 style="color: #00CFFF;">Switch Forwarding Methods</h4>
-            <ul style="list-style-type: square; margin-left: 20px;">
-                 <li><strong>Store-and-Forward:</strong> The switch receives the entire frame and runs a CRC check. If the frame is valid, it looks up the destination MAC and forwards it. If it's corrupt, it's dropped. This is the most common method today as it ensures data integrity.</li>
-                 <li><strong>Cut-Through:</strong> The switch reads only the destination MAC address before it starts forwarding the frame. It's faster but can forward corrupted frames.</li>
-            </ul>
+            <h4 style="color: #58D4FF;">Layer 3 Switch (Multilayer Switch) Capabilities:</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Feature</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Description</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Benefit</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Dual Operation</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Layer 2 switching + Layer 3 routing</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Best of both worlds</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Inter-VLAN Routing</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Route between VLANs at wire speed</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">No external router needed</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Hardware ASICs</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Specialized routing hardware</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Near wire-speed routing</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">SVI Support</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Switch Virtual Interfaces for VLANs</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Default gateway per VLAN</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #58D4FF;">ARP Handling Differences:</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Switch Type</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">ARP Request</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">ARP Reply</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">ARP Table</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #f59e0b;">Layer 2 Switch</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Floods within VLAN</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Forwards transparently</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #ef4444;">No ARP table</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #22c55e;">Layer 3 Switch</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Processes for SVI networks</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Responds for SVI IPs</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Maintains ARP cache</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4 style="color: #58D4FF;">Switch Virtual Interfaces (SVIs):</h4>
+            <p>SVIs are virtual Layer 3 interfaces associated with VLANs on a Layer 3 switch. They serve as the default gateway for hosts in each VLAN.</p>
+
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">SVI Characteristic</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Description</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Purpose</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">VLAN Association</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">One SVI per VLAN possible</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Inter-VLAN routing gateway</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">IP Configuration</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Assigned IP in VLAN subnet</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Default gateway for hosts</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">State Dependencies</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Up when VLAN exists and ports active</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Automatic interface management</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">VLAN 1 SVI</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Default management interface</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Switch management access</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4 style="color: #58D4FF;">Layer 3 Switch Configuration Examples:</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Enable IP routing on Layer 3 switch</span>
+Switch(config)# <span style="color: #DCDCAA;">ip routing</span>
+
+<span style="color: #6A9955;"># Create VLANs</span>
+Switch(config)# <span style="color: #DCDCAA;">vlan 10</span>
+Switch(config-vlan)# <span style="color: #C586C0;">name Sales</span>
+Switch(config)# <span style="color: #DCDCAA;">vlan 20</span>
+Switch(config-vlan)# <span style="color: #C586C0;">name Marketing</span>
+
+<span style="color: #6A9955;"># Configure SVI for VLAN 10</span>
+Switch(config)# <span style="color: #DCDCAA;">interface vlan 10</span>
+Switch(config-if)# <span style="color: #9CDCFE;">ip address 192.168.10.1 255.255.255.0</span>
+Switch(config-if)# <span style="color: #C586C0;">no shutdown</span>
+
+<span style="color: #6A9955;"># Configure SVI for VLAN 20</span>
+Switch(config)# <span style="color: #DCDCAA;">interface vlan 20</span>
+Switch(config-if)# <span style="color: #9CDCFE;">ip address 192.168.20.1 255.255.255.0</span>
+Switch(config-if)# <span style="color: #C586C0;">no shutdown</span>
+
+<span style="color: #6A9955;"># Verify ARP table (L3 switch only)</span>
+Switch# <span style="color: #DCDCAA;">show ip arp</span>
+Protocol  Address     Age (min)  Hardware Addr   Type   Interface
+Internet  192.168.10.1       -   0012.7f5a.0001  ARPA   Vlan10
+Internet  192.168.10.10     15   0023.1234.5678  ARPA   Vlan10
+Internet  192.168.20.1       -   0012.7f5a.0001  ARPA   Vlan20
+</code>
+            </pre>
+
+            <h4 style="color: #58D4FF;">Switch Forwarding Methods:</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Method</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Operation</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Advantage</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Disadvantage</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Store-and-Forward</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Receive entire frame, run CRC</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Error detection</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #f59e0b;">Higher latency</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Cut-Through</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Forward after reading DA MAC</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Lower latency</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #ef4444;">Forwards errors</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Fragment-Free</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Read first 64 bytes</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Detects collision fragments</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #f59e0b;">Still forwards some errors</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #58D4FF;">Layer 3 vs Traditional Router Comparison:</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Feature</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Layer 3 Switch</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Traditional Router</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Primary Use</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">LAN inter-VLAN routing</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">WAN connectivity</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Forwarding</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Hardware-based (ASICs)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Software-based (CPU)</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Performance</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Wire-speed routing</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Process switching overhead</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Port Density</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">High (24-48+ ports)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Low (2-8 ports typically)</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">WAN Features</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #ef4444;">Limited</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Extensive (PPP, Frame Relay, etc.)</td>
+                    </tr>
+                </table>
+            </div>
+
             <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
-                <h5 style="color: #00CFFF; margin-bottom: 5px;">Study Resources:</h5>
-                <em style="font-size: 0.9em;"><a href="https://community.cisco.com/t5/switching/l2-vs-l3-switch-what-s-the-difference/td-p/2034963" target="_blank" style="color: #66B2FF;">Read: Layer 2 vs. Layer 3 Switch Differences</a></em><br>
-                <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=ofjgyd_jQpM" target="_blank" style="color: #66B2FF;">Watch: L2 vs L3 Switching (NetworkChuck)</a></em>
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Layer 2 switches only maintain MAC address tables</li>
+                    <li>Layer 3 switches maintain both MAC tables and routing tables</li>
+                    <li>SVIs provide Layer 3 interfaces for VLANs</li>
+                    <li>Layer 3 switches can maintain ARP tables for IP-to-MAC resolution</li>
+                    <li>Store-and-forward is the most common switching method today</li>
+                    <li>Layer 3 switches use hardware ASICs for wire-speed routing</li>
+                    <li>SVI state depends on VLAN existence and active ports</li>
+                </ul>
             </div>
         </div>
     `,
@@ -104,16 +310,180 @@ const SECTION1_DETAILS = {
     `,
     "Controllers": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">1.1.e: Controllers - WLC & Cisco DNA Center</h3>
-            <p>Controllers centralize network management and configuration.</p>
-            <h4 style="color: #00CFFF;">Wireless LAN Controller (WLC)</h4>
-            <p>A WLC is the central brain for Lightweight APs. APs and WLCs communicate using the <strong>CAPWAP</strong> (Control and Provisioning of Wireless Access Points) protocol. A secure CAPWAP tunnel is built between the AP and WLC for management traffic, and optionally, another tunnel can carry client data traffic back to the controller.</p>
-            <h4 style="color: #00CFFF;">Cisco DNA Center</h4>
-            <p>An advanced management platform for the entire network (wired & wireless), serving as the command center for Cisco's Intent-Based Networking architecture.</p>
+            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">1.1.e: Controllers - WLC, DNA Center & Cloud Management</h3>
+            <p>Controllers centralize network management and configuration. Modern networks use both on-premises and cloud-based controller architectures for optimal management flexibility.</p>
+            
+            <h4 style="color: #58D4FF;">Wireless LAN Controller (WLC):</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Feature</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Description</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Benefit</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Centralized Management</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Single point of configuration for all APs</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Simplified administration</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">CAPWAP Protocol</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Control and Provisioning of Wireless APs</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Secure AP-to-controller communication</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Lightweight APs</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">APs depend on WLC for configuration</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Consistent policy enforcement</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Data Tunneling</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Optional client traffic tunneling to WLC</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Centralized traffic processing</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #58D4FF;">Cisco DNA Center (Intent-Based Networking):</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Capability</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Function</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Technology</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Design</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Network topology and hierarchy planning</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Intelligent discovery and mapping</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Policy</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Centralized policy creation and enforcement</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Software-Defined Access (SDA)</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Provision</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Automated device deployment</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Zero-Touch Provisioning (ZTP)</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Assure</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Continuous monitoring and analytics</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">AI/ML-powered insights</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #58D4FF;">Cloud-Managed Networking (Cisco Meraki):</h4>
+            <p>Cloud-managed networking represents a paradigm shift from traditional on-premises controllers to cloud-based management platforms. Cisco Meraki leads this approach with simplified, scalable network management.</p>
+
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Feature</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Traditional WLC</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Cloud-Managed (Meraki)</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Infrastructure</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">On-premises hardware controller</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Cloud-hosted management</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Scalability</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Limited by controller capacity</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Virtually unlimited scale</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Management Access</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Local network or VPN required</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Anywhere with internet access</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Updates</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Manual firmware management</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Automatic cloud updates</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Analytics</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Basic monitoring tools</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Rich analytics and insights</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Multi-Site</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Complex multi-controller setup</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Single dashboard for all sites</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4 style="color: #58D4FF;">Meraki Cloud Architecture:</h4>
+            <ul style="margin-left: 20px; color: #B0B0B0;">
+                <li><strong>Dashboard-as-a-Service:</strong> Web-based management accessible globally</li>
+                <li><strong>Intelligent Edge:</strong> Local traffic switching with cloud management</li>
+                <li><strong>Zero-Touch Deployment:</strong> Devices auto-configure when connected</li>
+                <li><strong>Continuous Monitoring:</strong> Real-time health and performance metrics</li>
+                <li><strong>Advanced Analytics:</strong> User behavior, application usage, and security insights</li>
+                <li><strong>API Integration:</strong> RESTful APIs for third-party integrations</li>
+            </ul>
+
+            <h4 style="color: #58D4FF;">CAPWAP Operation (Traditional WLC):</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># CAPWAP Discovery Process</span>
+<span style="color: #DCDCAA;">1. AP Discovery:</span>        Broadcast CAPWAP discovery request
+<span style="color: #DCDCAA;">2. WLC Response:</span>        Controller responds with discovery response
+<span style="color: #DCDCAA;">3. DTLS Handshake:</span>     Secure tunnel establishment
+<span style="color: #DCDCAA;">4. Join Request:</span>       AP requests to join controller
+<span style="color: #DCDCAA;">5. Configuration:</span>      WLC pushes configuration to AP
+<span style="color: #DCDCAA;">6. Run State:</span>          AP operational, heartbeats every 30 sec
+
+<span style="color: #6A9955;"># WLC Configuration Example</span>
+WLC(config)# <span style="color: #DCDCAA;">wlan create 1 Corp-WiFi Corp-WiFi</span>
+WLC(config)# <span style="color: #DCDCAA;">wlan security wpa akm psk</span>
+WLC(config)# <span style="color: #DCDCAA;">wlan security wpa psk ascii MyPassword</span>
+WLC(config)# <span style="color: #DCDCAA;">wlan enable</span>
+</code>
+            </pre>
+
+            <h4 style="color: #58D4FF;">Controller Architecture Benefits:</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Benefit</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">On-Premises Controller</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Cloud Controller</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Deployment Speed</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #f59e0b;">Days to weeks</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Minutes to hours</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Operational Complexity</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #f59e0b;">High - expert staff required</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Low - simplified management</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Total Cost of Ownership</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Hardware + licensing + staff</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Subscription-based pricing</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Security Updates</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Manual patching cycles</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Automatic threat protection</td>
+                    </tr>
+                </table>
+            </div>
+
             <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
-                <h5 style="color: #00CFFF; margin-bottom: 5px;">Study Resources:</h5>
-                <em style="font-size: 0.9em;"><a href="https://www.cisco.com/c/en/us/solutions/enterprise-networks/dna-center/index.html" target="_blank" style="color: #66B2FF;">Read: Cisco DNA Center Overview</a></em><br>
-                <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=smnYq_xGkP4" target="_blank" style="color: #66B2FF;">Watch: Cisco WLC Basics (Jeremy's IT Lab)</a></em>
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand CAPWAP protocol for AP-to-WLC communication</li>
+                    <li>Know the difference between autonomous and lightweight APs</li>
+                    <li>Cisco DNA Center provides intent-based networking capabilities</li>
+                    <li>Cloud-managed networking (Meraki) simplifies multi-site deployments</li>
+                    <li>Controllers provide centralized configuration and policy enforcement</li>
+                    <li>DTLS tunnels secure management traffic between APs and controllers</li>
+                </ul>
             </div>
         </div>
     `,
@@ -358,18 +728,177 @@ const SECTION1_DETAILS = {
     
     "Ethernet Connections": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
-            <h3 style="color: #3498DB; border-bottom: 2px solid #3498DB; padding-bottom: 5px;">Ethernet Connection Types</h3>
-            <p>Different Ethernet standards support various speeds and media types.</p>
-            <h4 style="color: #5DADE2;">Common Standards:</h4>
-            <ul style="list-style-type: square; margin-left: 20px;">
-                <li><strong>10BASE-T:</strong> 10 Mbps over twisted pair</li>
-                <li><strong>100BASE-TX:</strong> 100 Mbps over twisted pair</li>
-                <li><strong>1000BASE-T:</strong> 1 Gbps over twisted pair</li>
-                <li><strong>1000BASE-SX:</strong> 1 Gbps over multimode fiber</li>
-                <li><strong>1000BASE-LX:</strong> 1 Gbps over single mode fiber</li>
-                <li><strong>10GBASE-T:</strong> 10 Gbps over twisted pair</li>
-            </ul>
-            <p>The naming convention indicates speed, signaling type, and medium.</p>
+            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">1.3.b: Ethernet Connections (Shared Media vs Point-to-Point)</h3>
+            <p>Ethernet has evolved from shared collision domains using hubs to modern point-to-point switched networks. Understanding this evolution is fundamental to network design and troubleshooting.</p>
+
+            <h4 style="color: #58D4FF;">Shared Media (Legacy Hub-Based Networks):</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Characteristic</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Description</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Impact</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Collision Domain</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">All devices share one collision domain</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #ef4444;">Collisions increase with more devices</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">CSMA/CD</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Carrier Sense Multiple Access/Collision Detection</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #f59e0b;">Reduced efficiency with utilization</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Bandwidth Sharing</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Total bandwidth shared among all ports</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #ef4444;">Performance degrades with load</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Duplex</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Half-duplex only</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #ef4444;">Cannot send and receive simultaneously</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #58D4FF;">Point-to-Point (Modern Switched Networks):</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Characteristic</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Description</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Benefit</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Collision Domain</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Each port is separate collision domain</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">No collisions between ports</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">MAC Learning</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Switch learns and stores MAC addresses</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Intelligent frame forwarding</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Dedicated Bandwidth</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Full bandwidth per port</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Consistent performance</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Duplex</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Full-duplex capability</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Simultaneous send/receive</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #58D4FF;">Collision Domains vs Broadcast Domains:</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Domain Type</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Hub Behavior</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Switch Behavior</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Router Behavior</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #ef4444;">Collision Domain</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">All ports = 1 domain</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Each port = 1 domain</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Each port = 1 domain</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #3b82f6;">Broadcast Domain</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">All ports = 1 domain</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">All ports = 1 domain*</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Each port = 1 domain</td>
+                    </tr>
+                </table>
+                <p style="font-size: 0.9em; color: #94a3b8; margin-top: 10px;">*VLANs can create separate broadcast domains on switches</p>
+            </div>
+
+            <h4 style="color: #58D4FF;">Ethernet Standards and Media Types:</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Standard</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Speed</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Media</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Max Distance</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">10BASE-T</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">10 Mbps</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Cat3/5 UTP</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">100m</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">100BASE-TX</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">100 Mbps</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Cat5 UTP</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">100m</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">1000BASE-T</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">1 Gbps</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Cat5e/6 UTP</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">100m</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">1000BASE-SX</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">1 Gbps</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Multimode Fiber</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">550m</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">1000BASE-LX</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">1 Gbps</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Single/Multimode Fiber</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">5km/10km</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">10GBASE-T</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">10 Gbps</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Cat6a/7 UTP</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">100m</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #58D4FF;">CSMA/CD Process (Legacy Shared Media):</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># CSMA/CD Operation Steps</span>
+<span style="color: #DCDCAA;">1. Carrier Sense:</span>    Listen before transmitting
+<span style="color: #DCDCAA;">2. Multiple Access:</span>  Multiple devices can access medium
+<span style="color: #DCDCAA;">3. Collision Detection:</span> Monitor for collisions during transmission
+<span style="color: #DCDCAA;">4. Jam Signal:</span>       Send jam if collision detected
+<span style="color: #DCDCAA;">5. Backoff Algorithm:</span> Wait random time before retry
+
+<span style="color: #6A9955;"># Collision Domain Size Impact</span>
+<span style="color: #CE9178;">Hub with 4 devices:</span>   1 collision domain = high collision probability
+<span style="color: #CE9178;">Switch with 4 devices:</span> 4 collision domains = no collisions
+</code>
+            </pre>
+
+            <h4 style="color: #58D4FF;">Modern Switching Advantages:</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li><strong>Microsegmentation:</strong> Each port is separate collision domain</li>
+                    <li><strong>Full-Duplex:</strong> Simultaneous send/receive eliminates collisions</li>
+                    <li><strong>MAC Learning:</strong> Dynamic learning and aging of MAC addresses</li>
+                    <li><strong>Store-and-Forward:</strong> Frame validation and error checking</li>
+                    <li><strong>VLAN Support:</strong> Logical segmentation of broadcast domains</li>
+                    <li><strong>Spanning Tree:</strong> Loop prevention in redundant topologies</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand collision domain vs broadcast domain concepts</li>
+                    <li>Know that hubs create one large collision domain</li>
+                    <li>Switches create separate collision domain per port</li>
+                    <li>CSMA/CD is only needed in shared media (half-duplex)</li>
+                    <li>Modern networks use full-duplex point-to-point connections</li>
+                    <li>Routers separate both collision and broadcast domains</li>
+                </ul>
+            </div>
         </div>
     `,
     
@@ -1323,6 +1852,170 @@ const SECTION1_DETAILS = {
                     <li>UDP provides speed at the cost of reliability guarantees</li>
                     <li>Application requirements determine protocol choice</li>
                     <li>Modern networks often use both protocols simultaneously</li>
+                </ul>
+            </div>
+        </div>
+    `,
+
+    "TCP Sliding Window": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">1.5.8: TCP Sliding Window</h3>
+            <p>The TCP sliding window mechanism provides flow control by allowing the receiver to control the rate of data transmission, preventing buffer overrun and optimizing network performance.</p>
+
+            <h4 style="color: #AF7AC5;">Window Mechanism Overview:</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Component</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Function</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Impact</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Window Size</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Amount of data sender can transmit</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Controls transmission rate</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Window Advertisement</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Receiver announces available buffer space</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Prevents buffer overflow</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Window Sliding</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Window moves forward as ACKs received</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Enables continuous data flow</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Zero Window</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Receiver buffer full, stop transmission</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #ef4444;">Pauses data flow</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #AF7AC5;">Window States and Buffer Management:</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Sender Buffer State</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Description</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Action</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #dc2626;">Sent & ACKed</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Data transmitted and acknowledged</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Buffer space can be reused</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #f59e0b;">Sent & Waiting</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Data transmitted, awaiting ACK</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Monitor for retransmission</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #22c55e;">Can Send</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Within advertised window</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Ready for transmission</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #6b7280;">Future Data</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Beyond current window</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Wait for window to advance</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4 style="color: #AF7AC5;">Dynamic Window Adjustment:</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Window Operation Example</span>
+<span style="color: #DCDCAA;">Initial State:</span>
+  Window Size: 8192 bytes
+  Available Buffer: 8192 bytes
+  
+<span style="color: #DCDCAA;">Step 1 - Send Data:</span>
+  Transmit: 4096 bytes (MSS limit)
+  Window Remaining: 4096 bytes
+  
+<span style="color: #DCDCAA;">Step 2 - Receive ACK + Window Update:</span>
+  ACK Received: Sequence + 4096
+  New Window: 6144 bytes (receiver processed 2048)
+  
+<span style="color: #DCDCAA;">Step 3 - Window Slides:</span>
+  Can Send: 6144 bytes
+  Previous Data: Cleared from buffer
+</code>
+            </pre>
+
+            <h4 style="color: #AF7AC5;">Flow Control Scenarios:</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Scenario</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Window Size</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Behavior</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Result</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Fast Receiver</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Large (32KB+)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Rapid data consumption</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">High throughput</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Slow Receiver</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #f59e0b;">Small (1-4KB)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Limited processing capacity</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #f59e0b;">Throttled transmission</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Buffer Full</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #ef4444;">Zero (0)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">No available buffer space</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #ef4444;">Transmission stopped</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Window Probe</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #3b82f6;">Probe (1 byte)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Check if window reopened</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #3b82f6;">Prevent deadlock</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4 style="color: #AF7AC5;">Window Scale Option (RFC 7323):</h4>
+            <ul style="margin-left: 20px; color: #B0B0B0;">
+                <li><strong>Window Scaling:</strong> Multiplier to extend maximum window size beyond 65,535 bytes</li>
+                <li><strong>High-Speed Networks:</strong> Essential for optimal bandwidth utilization on fast links</li>
+                <li><strong>Bandwidth-Delay Product:</strong> Window size should match network capacity</li>
+                <li><strong>Negotiation:</strong> Both endpoints must support window scaling during handshake</li>
+            </ul>
+
+            <h4 style="color: #AF7AC5;">Practical Window Sizing:</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Optimal Window Size Calculation</span>
+<span style="color: #DCDCAA;">Bandwidth-Delay Product (BDP):</span>
+  Link Speed: 100 Mbps
+  Round-Trip Time: 50ms
+  
+<span style="color: #DCDCAA;">BDP Calculation:</span>
+  BDP = (100 Mbps × 50ms) / 8 = 625,000 bytes
+  Optimal Window = 625 KB minimum
+  
+<span style="color: #6A9955;"># Window Scaling for Large BDP</span>
+<span style="color: #DCDCAA;">With Window Scaling:</span>
+  Scale Factor: 8 (multiply by 256)
+  Max Window: 65,535 × 256 = 16.7 MB
+</code>
+            </pre>
+
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>TCP sliding window provides flow control to prevent buffer overflow</li>
+                    <li>Receiver advertises available buffer space in every ACK</li>
+                    <li>Window size dynamically adjusts based on receiver processing speed</li>
+                    <li>Zero window stops transmission until buffer space becomes available</li>
+                    <li>Window scaling extends maximum window size for high-speed networks</li>
+                    <li>Optimal window size equals bandwidth-delay product for maximum throughput</li>
                 </ul>
             </div>
         </div>
@@ -3515,6 +4208,200 @@ R1(config-if)# no shutdown
         </div>
     `,
 
+    "ICMPv6 Messages": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">1.8.f: ICMPv6 Messages</h3>
+            <p>Internet Control Message Protocol version 6 (ICMPv6) is essential for IPv6 operation, providing error reporting and network discovery functions that replace both ICMP and ARP in IPv4 networks.</p>
+
+            <h4 style="color: #AF7AC5;">ICMPv6 Message Categories:</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Category</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Type Range</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Purpose</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Examples</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #ef4444;">Error Messages</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">0-127</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Report delivery problems</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Destination Unreachable, Time Exceeded</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #22c55e;">Informational</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">128-255</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Network discovery and maintenance</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Echo Request/Reply, Neighbor Discovery</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #AF7AC5;">Neighbor Discovery Protocol (NDP) Messages:</h4>
+            <p>NDP replaces ARP in IPv6 networks and provides additional functions like router discovery and parameter discovery.</p>
+
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Message Type</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">ICMPv6 Type</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Function</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Sent By</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #f59e0b;">Router Solicitation (RS)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">133</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Request router information</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Hosts</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #22c55e;">Router Advertisement (RA)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">134</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Provide network configuration</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Routers</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #8b5cf6;">Neighbor Solicitation (NS)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">135</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Resolve IPv6 to MAC address</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Any device</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #ec4899;">Neighbor Advertisement (NA)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">136</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Respond with MAC address</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Responding device</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold; color: #06b6d4;">Redirect</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">137</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Inform of better next hop</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Routers</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4 style="color: #AF7AC5;">Router Solicitation/Advertisement Process:</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Router Solicitation (RS) - Type 133</span>
+<span style="color: #DCDCAA;">Source:</span>      Link-local address or unspecified (::)
+<span style="color: #DCDCAA;">Destination:</span> All-routers multicast (FF02::2)
+<span style="color: #DCDCAA;">Purpose:</span>     Host requests router information
+<span style="color: #DCDCAA;">Trigger:</span>     Interface startup, no RA received
+
+<span style="color: #6A9955;"># Router Advertisement (RA) - Type 134</span>
+<span style="color: #DCDCAA;">Source:</span>      Router's link-local address
+<span style="color: #DCDCAA;">Destination:</span> All-nodes multicast (FF02::1) or unicast
+<span style="color: #DCDCAA;">Purpose:</span>     Provide network configuration parameters
+<span style="color: #DCDCAA;">Contains:</span>    Prefix info, default gateway, hop limit, flags
+
+<span style="color: #6A9955;"># RA Message Flags</span>
+<span style="color: #CE9178;">M Flag (Managed):</span>    Use DHCPv6 for address assignment
+<span style="color: #CE9178;">O Flag (Other):</span>      Use DHCPv6 for other configuration
+<span style="color: #CE9178;">Router Lifetime:</span>     Time router serves as default gateway
+</code>
+            </pre>
+
+            <h4 style="color: #AF7AC5;">Neighbor Solicitation/Advertisement Process:</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Neighbor Solicitation (NS) - Type 135</span>
+<span style="color: #DCDCAA;">Source:</span>      Sender's link-local or global address
+<span style="color: #DCDCAA;">Destination:</span> Solicited-node multicast address
+<span style="color: #DCDCAA;">Target:</span>      IPv6 address being resolved
+<span style="color: #DCDCAA;">Purpose:</span>     IPv6 equivalent of ARP request
+
+<span style="color: #6A9955;"># Solicited-Node Multicast Address</span>
+<span style="color: #CE9178;">Format:</span>      FF02::1:FF + last 24 bits of target address
+<span style="color: #CE9178;">Example:</span>     Target: 2001:DB8::1234:5678:9ABC:DEF0
+<span style="color: #CE9178;">Multicast:</span>   FF02::1:FFBC:DEF0
+
+<span style="color: #6A9955;"># Neighbor Advertisement (NA) - Type 136</span>
+<span style="color: #DCDCAA;">Source:</span>      Target's link-local or global address
+<span style="color: #DCDCAA;">Destination:</span> Sender's address or all-nodes multicast
+<span style="color: #DCDCAA;">Target:</span>      The advertised IPv6 address
+<span style="color: #DCDCAA;">Flags:</span>       Router, Solicited, Override flags
+</code>
+            </pre>
+
+            <h4 style="color: #AF7AC5;">ICMPv6 vs IPv4 Comparison:</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Function</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">IPv4 Protocol</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">IPv6 ICMPv6 Message</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Improvement</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Address Resolution</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">ARP (separate protocol)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Neighbor Solicitation/Advertisement</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Integrated, secure</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Router Discovery</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">ICMP Router Discovery</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Router Advertisement</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Enhanced functionality</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Ping</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">ICMP Echo Request/Reply</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Echo Request/Reply (128/129)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #3b82f6;">Same functionality</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Error Reporting</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">ICMP errors</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">ICMPv6 error messages</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Enhanced error codes</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4 style="color: #AF7AC5;">Duplicate Address Detection (DAD):</h4>
+            <ul style="margin-left: 20px; color: #B0B0B0;">
+                <li><strong>Process:</strong> Host sends NS for its own address before using it</li>
+                <li><strong>Destination:</strong> Solicited-node multicast of tentative address</li>
+                <li><strong>No Response:</strong> Address is unique and can be used</li>
+                <li><strong>Response Received:</strong> Address conflict detected, cannot use address</li>
+                <li><strong>Timing:</strong> Performed during SLAAC and manual configuration</li>
+            </ul>
+
+            <h4 style="color: #AF7AC5;">Troubleshooting ICMPv6:</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Debug ICMPv6 on Cisco router</span>
+Router# <span style="color: #DCDCAA;">debug ipv6 icmp</span>
+Router# <span style="color: #DCDCAA;">debug ipv6 nd</span>
+
+<span style="color: #6A9955;"># View neighbor discovery table</span>
+Router# <span style="color: #DCDCAA;">show ipv6 neighbors</span>
+IPv6 Address                     Age Link-layer Addr State Interface
+FE80::1                          0   0012.7f5a.0001  REACH Gi0/1
+
+<span style="color: #6A9955;"># Clear neighbor cache</span>
+Router# <span style="color: #DCDCAA;">clear ipv6 neighbors</span>
+
+<span style="color: #6A9955;"># Test IPv6 connectivity</span>
+Router# <span style="color: #DCDCAA;">ping ipv6 2001:db8::1</span>
+</code>
+            </pre>
+
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Know the four main NDP message types: RS (133), RA (134), NS (135), NA (136)</li>
+                    <li>Understand that ICMPv6 NS/NA replaces IPv4 ARP functionality</li>
+                    <li>Router Advertisements provide automatic configuration parameters</li>
+                    <li>Solicited-node multicast addresses optimize neighbor discovery</li>
+                    <li>Duplicate Address Detection prevents address conflicts</li>
+                    <li>ICMPv6 is mandatory for IPv6 operation, unlike ICMP in IPv4</li>
+                </ul>
+            </div>
+        </div>
+    `,
+
     // 1.10 Verify IP Parameters
     "Windows Client Verification": `
         <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
@@ -4377,6 +5264,132 @@ R1(config-if)# no shutdown
                     <li>Personal uses PSK (pre-shared key), Enterprise uses 802.1X</li>
                     <li>Enterprise authentication requires RADIUS server</li>
                     <li>802.1X has three components: supplicant, authenticator, auth server</li>
+                </ul>
+            </div>
+        </div>
+    `,
+
+    "Wireless Encryption Standards": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">1.11.d: Wireless Encryption Standards</h3>
+            <p>Wireless encryption protocols protect data transmitted over Wi-Fi networks. TKIP was designed for legacy hardware compatibility, while AES provides modern, robust encryption.</p>
+
+            <h4 style="color: #AF7AC5;">TKIP (Temporal Key Integrity Protocol):</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Feature</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Details</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Cipher Type</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">RC4 stream cipher with key mixing</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Key Size</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">128-bit encryption key</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Key Management</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Temporal key rotation every packet</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Integrity Check</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Michael MIC (Message Integrity Check)</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Usage</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #f59e0b;">WPA only - legacy compatibility</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #AF7AC5;">AES (Advanced Encryption Standard):</h4>
+            <table style="border-collapse: collapse; width: 100%; margin: 10px 0;">
+                <tr style="background-color: #374151;">
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Feature</th>
+                    <th style="border: 1px solid #4B5563; padding: 8px; color: #F3F4F6;">Details</th>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Cipher Type</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Block cipher with CCMP mode</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Key Size</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">128/192/256-bit encryption key</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Mode</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Counter Mode with CBC-MAC</td>
+                </tr>
+                <tr style="background-color: #374151;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Integrity Check</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px;">Built-in authentication and integrity</td>
+                </tr>
+                <tr style="background-color: #1F2937;">
+                    <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Usage</td>
+                    <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">WPA2/WPA3 standard</td>
+                </tr>
+            </table>
+
+            <h4 style="color: #AF7AC5;">Performance and Security Comparison:</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #374151;">
+                        <th style="border: 1px solid #4B5563; padding: 8px;">Aspect</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px; color: #f59e0b;">TKIP</th>
+                        <th style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">AES-CCMP</th>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Security Level</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Moderate (RC4 vulnerabilities)</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">High (Government grade)</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Performance</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Lower throughput</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Higher throughput</td>
+                    </tr>
+                    <tr style="background-color: #1F2937;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Hardware Support</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Legacy devices</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px;">Modern devices required</td>
+                    </tr>
+                    <tr style="background-color: #374151;">
+                        <td style="border: 1px solid #4B5563; padding: 8px; font-weight: bold;">Recommendation</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #ef4444;">Avoid if possible</td>
+                        <td style="border: 1px solid #4B5563; padding: 8px; color: #22c55e;">Preferred choice</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4 style="color: #AF7AC5;">Implementation in WPA Versions:</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># WPA Configuration (Legacy)</span>
+Router(config)# <span style="color: #DCDCAA;">interface dot11radio0</span>
+Router(config-if)# <span style="color: #9CDCFE;">ssid MyNetwork</span>
+Router(config-if-ssid)# <span style="color: #C586C0;">wpa-psk ascii MyPassword</span>
+Router(config-if-ssid)# <span style="color: #CE9178;">authentication open</span>
+Router(config-if-ssid)# <span style="color: #DCDCAA;">authentication key-management wpa</span>
+
+<span style="color: #6A9955;"># WPA2 Configuration (Current Standard)</span>
+Router(config)# <span style="color: #DCDCAA;">interface dot11radio0</span>
+Router(config-if)# <span style="color: #9CDCFE;">ssid MyNetwork</span>
+Router(config-if-ssid)# <span style="color: #C586C0;">wpa-psk ascii MyPassword</span>
+Router(config-if-ssid)# <span style="color: #CE9178;">authentication open</span>
+Router(config-if-ssid)# <span style="color: #DCDCAA;">authentication key-management wpa version 2</span>
+Router(config-if-ssid)# <span style="color: #22c55e;">encryption aes-ccmp</span>
+</code>
+            </pre>
+
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>TKIP uses RC4 stream cipher with temporal key mixing</li>
+                    <li>AES uses block cipher with CCMP (Counter mode with CBC-MAC)</li>
+                    <li>AES provides better security and performance than TKIP</li>
+                    <li>WPA uses TKIP, WPA2/WPA3 use AES-CCMP</li>
+                    <li>Mixed mode supports both TKIP and AES for compatibility</li>
+                    <li>AES requires dedicated hardware or software implementation</li>
                 </ul>
             </div>
         </div>

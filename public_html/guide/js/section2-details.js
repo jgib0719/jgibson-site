@@ -251,6 +251,178 @@ Switch# show spanning-tree vlan 10
             </div>
         </div>
     `,
+
+    "VTP Modes": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">2.2b: VLAN Trunking Protocol (VTP) Modes</h3>
+            <p><strong>VTP (VLAN Trunking Protocol)</strong> is a Cisco proprietary protocol that manages VLAN information across multiple switches in a domain. It synchronizes VLAN configuration changes, reducing administrative overhead in large switched networks.</p>
+            
+            <h4 style="color: #F5B041;">VTP Operating Modes</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="border-bottom: 2px solid #F39C12;">
+                        <th style="padding: 10px; text-align: left; color: #F39C12;">Mode</th>
+                        <th style="padding: 10px; text-align: left; color: #F39C12;">Create VLANs</th>
+                        <th style="padding: 10px; text-align: left; color: #F39C12;">Modify VLANs</th>
+                        <th style="padding: 10px; text-align: left; color: #F39C12;">Forward Advertisements</th>
+                        <th style="padding: 10px; text-align: left; color: #F39C12;">Sync from Advertisements</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #444;">
+                        <td style="padding: 8px; font-weight: bold; color: #10b981;">Server</td>
+                        <td style="padding: 8px;">✓ Yes</td>
+                        <td style="padding: 8px;">✓ Yes</td>
+                        <td style="padding: 8px;">✓ Yes</td>
+                        <td style="padding: 8px;">✓ Yes</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #444;">
+                        <td style="padding: 8px; font-weight: bold; color: #6366f1;">Client</td>
+                        <td style="padding: 8px;">✗ No</td>
+                        <td style="padding: 8px;">✗ No</td>
+                        <td style="padding: 8px;">✓ Yes</td>
+                        <td style="padding: 8px;">✓ Yes</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #444;">
+                        <td style="padding: 8px; font-weight: bold; color: #f59e0b;">Transparent</td>
+                        <td style="padding: 8px;">✓ Local Only</td>
+                        <td style="padding: 8px;">✓ Local Only</td>
+                        <td style="padding: 8px;">✓ Yes</td>
+                        <td style="padding: 8px;">✗ No</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4 style="color: #F5B041;">VTP Configuration</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Configure VTP Domain and Mode</span>
+Switch(config)# <span style="color: #DCDCAA;">vtp mode server</span>
+Switch(config)# <span style="color: #DCDCAA;">vtp domain COMPANY</span>
+Switch(config)# <span style="color: #DCDCAA;">vtp password cisco123</span>
+
+<span style="color: #6A9955;"># Verify VTP Configuration</span>
+Switch# <span style="color: #DCDCAA;">show vtp status</span>
+Switch# <span style="color: #DCDCAA;">show vtp counters</span>
+
+<span style="color: #6A9955;"># Client Mode Configuration</span>
+Switch(config)# <span style="color: #DCDCAA;">vtp mode client</span>
+Switch(config)# <span style="color: #DCDCAA;">vtp domain COMPANY</span>
+Switch(config)# <span style="color: #DCDCAA;">vtp password cisco123</span>
+</code>
+</pre>
+
+            <h4 style="color: #F5B041;">VTP Security Considerations</h4>
+            <div style="background-color: #2d1b1b; padding: 15px; border-radius: 8px; border-left: 4px solid #f87171; margin: 15px 0;">
+                <h5 style="color: #f87171; margin-top: 0;">⚠️ Critical VTP Risks:</h5>
+                <ul style="color: #E0E0E0; margin: 0;">
+                    <li><strong>VLAN Deletion:</strong> Server with higher revision number can delete all VLANs</li>
+                    <li><strong>Network Outage:</strong> Incorrect VTP configuration can bring down entire network</li>
+                    <li><strong>Password Mismatch:</strong> Different passwords prevent synchronization</li>
+                    <li><strong>Domain Mismatch:</strong> Switches must be in same VTP domain to sync</li>
+                </ul>
+            </div>
+
+            <h4 style="color: #F5B041;">Best Practices</h4>
+            <ul style="color: #E0E0E0;">
+                <li><strong>Use Transparent Mode:</strong> Recommended for most modern networks</li>
+                <li><strong>Set Passwords:</strong> Always use VTP passwords for security</li>
+                <li><strong>Monitor Revision Numbers:</strong> Higher revision overwrites lower</li>
+                <li><strong>Backup Configuration:</strong> Before adding new switches to domain</li>
+                <li><strong>Test in Lab:</strong> Verify VTP behavior before production deployment</li>
+            </ul>
+
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand VTP mode capabilities and limitations</li>
+                    <li>Know VTP security risks and mitigation strategies</li>
+                    <li>Configure VTP domain, mode, and password</li>
+                    <li>Troubleshoot VTP synchronization issues</li>
+                </ul>
+            </div>
+        </div>
+    `,
+
+    "VTP Pruning": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #E74C3C; border-bottom: 2px solid #E74C3C; padding-bottom: 5px;">2.2c: VTP Pruning</h3>
+            <p><strong>VTP Pruning</strong> is an optimization feature that enhances network efficiency by preventing unnecessary VLAN traffic from being sent across trunk links where the VLAN has no active ports.</p>
+            
+            <h4 style="color: #EC7063;">How VTP Pruning Works</h4>
+            <p>By default, trunk ports carry traffic for all VLANs in the VTP domain, even if a switch has no active ports in certain VLANs. VTP Pruning intelligently removes (prunes) VLANs from trunk links when they're not needed, reducing bandwidth consumption and broadcast traffic.</p>
+            
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #E74C3C;">
+                <h5 style="color: #EC7063; margin-top: 0;">Pruning Benefits:</h5>
+                <ul style="color: #E0E0E0; margin: 0;">
+                    <li><strong>Bandwidth Optimization:</strong> Reduces unnecessary broadcast and multicast traffic</li>
+                    <li><strong>Improved Performance:</strong> Less CPU processing on switches for irrelevant VLANs</li>
+                    <li><strong>Automatic Operation:</strong> Dynamically adjusts as VLANs are added/removed</li>
+                    <li><strong>Scalability:</strong> Becomes more beneficial in large switched networks</li>
+                </ul>
+            </div>
+
+            <h4 style="color: #EC7063;">VTP Pruning Configuration</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Enable VTP Pruning (Server Mode Only)</span>
+Switch(config)# <span style="color: #DCDCAA;">vtp pruning</span>
+
+<span style="color: #6A9955;"># Verify Pruning Status</span>
+Switch# <span style="color: #DCDCAA;">show vtp status</span>
+VTP Pruning Mode         : Enabled
+
+<span style="color: #6A9955;"># View Pruning Information per Interface</span>
+Switch# <span style="color: #DCDCAA;">show interfaces trunk</span>
+
+<span style="color: #6A9955;"># Configure Pruning-Eligible VLANs</span>
+Switch(config)# <span style="color: #DCDCAA;">interface gigabitethernet0/1</span>
+Switch(config-if)# <span style="color: #DCDCAA;">switchport trunk pruning vlan add 10-20</span>
+Switch(config-if)# <span style="color: #DCDCAA;">switchport trunk pruning vlan remove 30</span>
+</code>
+</pre>
+
+            <h4 style="color: #EC7063;">Pruning Verification</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+Switch# <span style="color: #DCDCAA;">show interfaces gigabitethernet0/1 pruning</span>
+
+Port    Vlans pruned for lack of request by neighbor
+Gi0/1   3-4,6,8-9,11-99,101-1001
+
+<span style="color: #6A9955;"># VLANs 3-4, 6, 8-9, etc. are pruned because</span>
+<span style="color: #6A9955;"># the neighboring switch has no active ports in these VLANs</span>
+</code>
+</pre>
+
+            <h4 style="color: #EC7063;">Pruning Considerations</h4>
+            <div style="background-color: #2d1f1b; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b; margin: 15px 0;">
+                <h5 style="color: #f59e0b; margin-top: 0;">⚠️ Important Notes:</h5>
+                <ul style="color: #E0E0E0; margin: 0;">
+                    <li><strong>Server Mode Required:</strong> Only VTP servers can enable pruning</li>
+                    <li><strong>VLAN 1 Exception:</strong> VLAN 1 is never pruned (management traffic)</li>
+                    <li><strong>VLANs 1002-1005:</strong> Default token ring VLANs cannot be pruned</li>
+                    <li><strong>Dynamic Operation:</strong> Pruning changes as ports become active/inactive</li>
+                </ul>
+            </div>
+
+            <h4 style="color: #EC7063;">Troubleshooting VTP Pruning</h4>
+            <ul style="color: #E0E0E0;">
+                <li><strong>Check VTP Mode:</strong> Ensure server mode for pruning configuration</li>
+                <li><strong>Verify Trunk Status:</strong> Pruning only works on trunk ports</li>
+                <li><strong>Monitor VLAN Activity:</strong> Pruning reflects actual VLAN usage</li>
+                <li><strong>Review Pruning-Eligible Lists:</strong> Some VLANs may be excluded</li>
+            </ul>
+
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand pruning benefits and operation</li>
+                    <li>Know which VLANs cannot be pruned</li>
+                    <li>Configure and verify VTP pruning</li>
+                    <li>Troubleshoot pruning-related connectivity issues</li>
+                </ul>
+            </div>
+        </div>
+    `,
     
     // 2.3 Discovery Protocols
     "CDP": `
@@ -1430,6 +1602,141 @@ Switch# show spanning-tree summary
                 <h5 style="color: #58D68D; margin-bottom: 5px;">Study Resources:</h5>
                 <em style="font-size: 0.9em;"><a href="https://www.cisco.com/c/en/us/tech/lan-switching/spanning-tree-protocol/products-tech-notes09186a008009482f.html" target="_blank" style="color: #66B2FF;">Read: STP Protection Features (Cisco)</a></em><br>
                 <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=japdEY1UKe4" target="_blank" style="color: #66B2FF;">Watch: STP Security (Jeremy's IT Lab)</a></em>
+            </div>
+        </div>
+    `,
+
+    "MST (Multiple Spanning Tree)": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #9B59B6; border-bottom: 2px solid #9B59B6; padding-bottom: 5px;">2.5e: Multiple Spanning Tree (MST)</h3>
+            <p><strong>Multiple Spanning Tree (MST)</strong> is an advanced spanning tree implementation that maps multiple VLANs to fewer spanning tree instances, providing superior scalability and load balancing compared to traditional PVST+ or Rapid PVST+.</p>
+            
+            <h4 style="color: #AF7AC5;">MST Fundamentals</h4>
+            <p>While Rapid PVST+ runs a separate spanning tree instance for each VLAN (potentially hundreds), MST groups multiple VLANs into a single spanning tree instance, dramatically reducing CPU overhead and memory consumption on switches.</p>
+            
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #9B59B6;">
+                <h5 style="color: #AF7AC5; margin-top: 0;">MST Key Concepts:</h5>
+                <ul style="color: #E0E0E0; margin: 0;">
+                    <li><strong>MST Region:</strong> Collection of switches with identical MST configuration</li>
+                    <li><strong>MST Instance (MSTI):</strong> Single spanning tree calculation for multiple VLANs</li>
+                    <li><strong>Internal Spanning Tree (IST):</strong> Instance 0, equivalent to Common Spanning Tree</li>
+                    <li><strong>Regional Root:</strong> Root bridge for an MST instance within the region</li>
+                </ul>
+            </div>
+
+            <h4 style="color: #AF7AC5;">MST vs Rapid PVST+ Comparison</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="border-bottom: 2px solid #9B59B6;">
+                        <th style="padding: 10px; text-align: left; color: #9B59B6;">Feature</th>
+                        <th style="padding: 10px; text-align: left; color: #9B59B6;">Rapid PVST+</th>
+                        <th style="padding: 10px; text-align: left; color: #9B59B6;">MST</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #444;">
+                        <td style="padding: 8px; font-weight: bold;">Instances per VLAN</td>
+                        <td style="padding: 8px; color: #f87171;">One per VLAN</td>
+                        <td style="padding: 8px; color: #10b981;">Multiple VLANs per instance</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #444;">
+                        <td style="padding: 8px; font-weight: bold;">CPU Usage</td>
+                        <td style="padding: 8px; color: #f87171;">High (many VLANs)</td>
+                        <td style="padding: 8px; color: #10b981;">Low (few instances)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #444;">
+                        <td style="padding: 8px; font-weight: bold;">Memory Usage</td>
+                        <td style="padding: 8px; color: #f87171;">High</td>
+                        <td style="padding: 8px; color: #10b981;">Low</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #444;">
+                        <td style="padding: 8px; font-weight: bold;">Load Balancing</td>
+                        <td style="padding: 8px; color: #10b981;">Per-VLAN</td>
+                        <td style="padding: 8px; color: #10b981;">Per-Instance</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #444;">
+                        <td style="padding: 8px; font-weight: bold;">Interoperability</td>
+                        <td style="padding: 8px; color: #10b981;">Cisco only</td>
+                        <td style="padding: 8px; color: #10b981;">IEEE 802.1s standard</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4 style="color: #AF7AC5;">MST Configuration</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Enter MST Configuration Mode</span>
+Switch(config)# <span style="color: #DCDCAA;">spanning-tree mode mst</span>
+Switch(config)# <span style="color: #DCDCAA;">spanning-tree mst configuration</span>
+
+<span style="color: #6A9955;"># Configure MST Region</span>
+Switch(config-mst)# <span style="color: #DCDCAA;">name ENTERPRISE</span>
+Switch(config-mst)# <span style="color: #DCDCAA;">revision 1</span>
+
+<span style="color: #6A9955;"># Map VLANs to MST Instances</span>
+Switch(config-mst)# <span style="color: #DCDCAA;">instance 1 vlan 10,20,30</span>
+Switch(config-mst)# <span style="color: #DCDCAA;">instance 2 vlan 40,50,60</span>
+Switch(config-mst)# <span style="color: #DCDCAA;">instance 3 vlan 70-99</span>
+
+<span style="color: #6A9955;"># Exit and activate configuration</span>
+Switch(config-mst)# <span style="color: #DCDCAA;">exit</span>
+
+<span style="color: #6A9955;"># Configure Root Bridge per Instance</span>
+Switch(config)# <span style="color: #DCDCAA;">spanning-tree mst 1 root primary</span>
+Switch(config)# <span style="color: #DCDCAA;">spanning-tree mst 2 root secondary</span>
+</code>
+</pre>
+
+            <h4 style="color: #AF7AC5;">MST Verification</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Verify MST Configuration</span>
+Switch# <span style="color: #DCDCAA;">show spanning-tree mst configuration</span>
+Name      [ENTERPRISE]
+Revision  1     Instances configured 3
+
+Instance  Vlans mapped
+--------  -------------
+0         1-9,11-19,21-29,31-39,41-49,51-59,61-69,100-4094
+1         10,20,30
+2         40,50,60
+3         70-99
+
+<span style="color: #6A9955;"># View MST Instance Status</span>
+Switch# <span style="color: #DCDCAA;">show spanning-tree mst</span>
+Switch# <span style="color: #DCDCAA;">show spanning-tree mst 1</span>
+
+<span style="color: #6A9955;"># Check MST Interface Status</span>
+Switch# <span style="color: #DCDCAA;">show spanning-tree mst interface gigabitethernet0/1</span>
+</code>
+</pre>
+
+            <h4 style="color: #AF7AC5;">MST Design Considerations</h4>
+            <div style="background-color: #2d1f1b; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b; margin: 15px 0;">
+                <h5 style="color: #f59e0b; margin-top: 0;">MST Best Practices:</h5>
+                <ul style="color: #E0E0E0; margin: 0;">
+                    <li><strong>Region Planning:</strong> All switches in region must have identical configuration</li>
+                    <li><strong>Instance Mapping:</strong> Distribute VLANs across instances for load balancing</li>
+                    <li><strong>Root Bridge Placement:</strong> Configure different root bridges per instance</li>
+                    <li><strong>Interoperability:</strong> MST regions appear as single switch to PVST+ domains</li>
+                </ul>
+            </div>
+
+            <h4 style="color: #AF7AC5;">When to Use MST</h4>
+            <ul style="color: #E0E0E0;">
+                <li><strong>Large Networks:</strong> Many VLANs (50+) causing PVST+ scalability issues</li>
+                <li><strong>Resource Optimization:</strong> CPU and memory constraints on older switches</li>
+                <li><strong>Standards Compliance:</strong> IEEE 802.1s requirement in multi-vendor environments</li>
+                <li><strong>Load Balancing:</strong> Distribute traffic across multiple root bridges efficiently</li>
+                <li><strong>WAN Integration:</strong> Provider networks requiring MST for service provider STP</li>
+            </ul>
+
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand MST benefits over PVST+ in large networks</li>
+                    <li>Know MST region configuration requirements</li>
+                    <li>Configure VLAN to instance mapping</li>
+                    <li>Verify MST operation and troubleshoot issues</li>
+                </ul>
             </div>
         </div>
     `,

@@ -512,6 +512,44 @@ const CCNAConfig = {
         
         // CSS Classes - centralize all class names used in JavaScript
         cssClasses: {
+            // State classes
+            states: {
+                hidden: 'hidden',
+                visible: 'visible'
+            },
+            
+            // Feedback classes
+            feedback: {
+                correct: {
+                    background: 'bg-green-100',
+                    border: 'border-green-300',
+                    text: 'text-green-800'
+                },
+                incorrect: {
+                    background: 'bg-red-100',
+                    border: 'border-red-300', 
+                    text: 'text-red-800'
+                }
+            },
+            
+            // Button classes
+            buttons: {
+                option: 'w-full text-center p-4 mb-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-100 hover:border-blue-500 transition duration-200',
+                optionLabel: 'font-semibold mr-2',
+                submit: 'bg-green-500 text-white font-bold py-2 px-4 rounded-lg mt-4 shadow hover:bg-green-600 transition',
+                submitDisabled: 'bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded-lg mt-4 shadow cursor-not-allowed',
+                submitReady: 'bg-blue-600 text-white font-bold py-2 px-4 rounded-lg mt-4 shadow hover:bg-blue-700 transition',
+                sizeSelected: 'bg-blue-100 border-blue-500',
+                selectedMultiple: 'bg-blue-100 border-2 border-blue-500 text-blue-900'
+            },
+            
+            // Text classes
+            text: {
+                questionNumber: 'text-sm text-gray-600 mb-2',
+                questionTitle: 'text-xl font-semibold text-gray-900 mb-4'
+            },
+            
+            // Legacy classes for backward compatibility
             hidden: 'hidden',
             correct: 'correct',
             incorrect: 'incorrect',
@@ -519,22 +557,22 @@ const CCNAConfig = {
             optionBtn: 'option-btn',
             sizeBtn: 'size-btn',
             
-            // State classes
+            // State classes (legacy)
             selected: 'bg-blue-100 border-blue-500',
             unselected: 'bg-white border-gray-300',
             
-            // Feedback classes
+            // Feedback classes (legacy)
             correctFeedback: 'bg-green-100 border-green-300 text-green-800',
             incorrectFeedback: 'bg-red-100 border-red-300 text-red-800',
             neutralFeedback: 'bg-slate-100 border-slate-300 text-slate-800',
             
-            // Button classes
+            // Button classes (legacy)
             primaryBtn: 'primary-btn',
             secondaryBtn: 'secondary-btn',
             successBtn: 'success-btn',
             submitBtn: 'bg-green-500 text-white font-bold py-2 px-4 rounded-lg mt-4 shadow hover:bg-green-600 transition',
             
-            // Layout classes
+            // Layout classes (legacy)
             loading: 'loading-container',
             questionContainer: 'question-area',
             optionButton: 'w-full text-center p-4 mb-3 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-100 hover:border-blue-500 transition duration-200'
@@ -611,8 +649,32 @@ const CCNAConfig = {
             
             // API endpoints
             endpoints: {
-                ciscoQuestions: '/quiz/questions.json',
-                wileyQuestions: '/quiz/wiley_questions.json'
+                ciscoQuestions: '/api/questions?category=cisco',
+                wileyQuestions: '/api/questions?category=wiley'
+            }
+        },
+        
+        // Text content constants for UI elements
+        textContent: {
+            feedback: {
+                correct: 'Correct!',
+                incorrect: 'Incorrect.'
+            },
+            buttons: {
+                submitAnswer: 'Submit Answer',
+                nextQuestion: 'Next Question',
+                startQuiz: 'Start Quiz',
+                restartQuiz: 'Restart Quiz',
+                resumeQuiz: 'Resume Saved Quiz',
+                home: 'Home'
+            },
+            messages: {
+                noHighScores: 'No high scores yet. Take a quiz!',
+                noPastAttempts: 'No past attempts recorded.',
+                loadingQuiz: 'Loading Quiz...',
+                quizComplete: 'Quiz Complete!',
+                failedToLoad: 'Failed to load quiz questions. Please try again later.',
+                savedQuizMissing: 'Saved quiz could not be restored. Questions missing.'
             }
         },
         

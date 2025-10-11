@@ -2724,10 +2724,21 @@ a:focus {
 .breadcrumb {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: space-between;
     margin-bottom: 1.5rem;
     font-size: 0.875rem;
     color: #cbd5e1;
+}
+
+.breadcrumb-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.breadcrumb-right {
+    display: flex;
+    align-items: center;
 }
 
 .breadcrumb a {
@@ -2774,6 +2785,12 @@ a:focus {
 
 .back-button i {
     font-size: 0.75rem;
+}
+
+.back-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
 }
 
 /* Progress Save Notification */

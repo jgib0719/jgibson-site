@@ -892,6 +892,76 @@ const SECTION4_DATA = {
             </svg>`
         }
     ],
+    hsrp: [
+        {
+            title: "HSRP Configuration",
+            icon: "fa-route",
+            description: "Configure Hot Standby Router Protocol for first hop redundancy. HSRP provides automatic failover between multiple routers, ensuring continuous network connectivity for end devices.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>HSRP Redundancy Configuration</title>
+                <rect x="50" y="60" width="60" height="30" rx="3" fill="#10b981"/>
+                <text x="80" y="80" text-anchor="middle" fill="white" font-size="9">Active</text>
+                <text x="80" y="45" text-anchor="middle" fill="#10b981" font-size="8">Priority: 110</text>
+                <rect x="50" y="110" width="60" height="30" rx="3" fill="#64748b"/>
+                <text x="80" y="130" text-anchor="middle" fill="white" font-size="9">Standby</text>
+                <text x="80" y="155" text-anchor="middle" fill="#64748b" font-size="8">Priority: 100</text>
+                <circle cx="200" cy="100" r="15" fill="#3b82f6"/>
+                <text x="200" y="105" text-anchor="middle" fill="white" font-size="8">VIP</text>
+                <text x="200" y="75" text-anchor="middle" fill="#3b82f6" font-size="8">.254</text>
+                <rect x="290" y="85" width="60" height="30" rx="3" fill="#334155"/>
+                <text x="320" y="105" text-anchor="middle" fill="white" font-size="9">Clients</text>
+                <path d="M120,75 Q160,75 185,85" stroke="#10b981" stroke-width="2" fill="none"/>
+                <path d="M120,125 Q160,125 185,115" stroke="#64748b" stroke-width="2" stroke-dasharray="2,2" fill="none"/>
+                <path d="M215,100 h70" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+                <text x="250" y="95" text-anchor="middle" fill="#94a3b8" font-size="8">Default GW</text>
+                <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker></defs>
+            </svg>`
+        }
+    ],
+    netflow: [
+        {
+            title: "NetFlow Fundamentals",
+            icon: "fa-chart-line",
+            description: "NetFlow provides detailed network traffic analysis and monitoring. Collect flow records to understand network utilization, security patterns, and performance characteristics.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>NetFlow Data Collection</title>
+                <rect x="50" y="80" width="60" height="40" rx="3" fill="#6366f1"/>
+                <text x="80" y="105" text-anchor="middle" fill="white" font-size="9">Router</text>
+                <text x="80" y="60" text-anchor="middle" fill="#6366f1" font-size="8">NetFlow</text>
+                <rect x="180" y="70" width="80" height="60" rx="5" fill="#10b981"/>
+                <text x="220" y="95" text-anchor="middle" fill="white" font-size="9">Collector</text>
+                <text x="220" y="110" text-anchor="middle" fill="white" font-size="9">Server</text>
+                <text x="220" y="125" text-anchor="middle" fill="#94a3b8" font-size="8">UDP 2055</text>
+                <rect x="300" y="80" width="60" height="40" rx="3" fill="#f59e0b"/>
+                <text x="330" y="105" text-anchor="middle" fill="white" font-size="9">Analysis</text>
+                <path d="M115,100 h60" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+                <text x="145" y="95" text-anchor="middle" fill="#3b82f6" font-size="8">Flow Data</text>
+                <path d="M265,100 h30" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+                <rect x="60" y="140" width="280" height="40" rx="3" fill="#1e293b"/>
+                <text x="200" y="165" text-anchor="middle" fill="#10b981" font-size="9">Traffic Patterns • Bandwidth Usage • Security Analysis</text>
+            </svg>`
+        },
+        {
+            title: "NetFlow Configuration",
+            icon: "fa-cogs",
+            description: "Configure NetFlow on router interfaces and specify collector destinations. Enable flow monitoring for inbound/outbound traffic with appropriate sampling and export settings.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>NetFlow Configuration</title>
+                <rect x="50" y="50" width="300" height="100" rx="5" fill="#1e293b"/>
+                <text x="70" y="75" font-family="monospace" font-size="10" fill="#6A9955"># Configure NetFlow on interface</text>
+                <text x="70" y="95" font-family="monospace" font-size="10" fill="#DCDCAA">interface gigabitethernet0/0</text>
+                <text x="70" y="110" font-family="monospace" font-size="10" fill="#9CDCFE">ip flow ingress</text>
+                <text x="70" y="125" font-family="monospace" font-size="10" fill="#9CDCFE">ip flow egress</text>
+                <text x="200" y="75" font-family="monospace" font-size="10" fill="#6A9955"># Export destination</text>
+                <text x="200" y="95" font-family="monospace" font-size="10" fill="#DCDCAA">ip flow-export destination</text>
+                <text x="200" y="110" font-family="monospace" font-size="10" fill="#C586C0">192.168.1.100 2055</text>
+                <text x="200" y="125" font-family="monospace" font-size="10" fill="#9CDCFE">ip flow-export version 9</text>
+                <circle cx="330" cy="100" r="15" fill="#10b981"/>
+                <text x="330" y="105" text-anchor="middle" fill="white" font-size="10">✓</text>
+                <text x="200" y="175" text-anchor="middle" fill="#94a3b8" font-size="9">Interface-based Flow Monitoring</text>
+            </svg>`
+        }
+    ],
     // Section metadata
     metadata: {
         sectionNumber: 4,
@@ -905,7 +975,9 @@ const SECTION4_DATA = {
             dhcpClient: { title: "4.6 DHCP Client & Relay", count: 2 },
             qos: { title: "4.7 QoS Concepts", count: 6 },
             ssh: { title: "4.8 SSH Remote Access", count: 5 },
-            tftp: { title: "4.9 TFTP/FTP Functions", count: 5 }
+            tftp: { title: "4.9 TFTP/FTP Functions", count: 5 },
+            hsrp: { title: "4.10 HSRP Configuration", count: 1 },
+            netflow: { title: "4.11 NetFlow Monitoring", count: 2 }
         },
         // Dynamic calculation of total topics from subsections
         get totalTopics() {

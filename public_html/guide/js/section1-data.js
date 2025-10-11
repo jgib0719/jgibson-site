@@ -714,6 +714,55 @@ const SECTION1_DATA = {
                 <text x="280" y="120" font-size="12" fill="#9CA3AF">Low</text>
             </svg>`
         },
+        {
+            title: "TCP Sliding Window", 
+            icon: "fa-window-maximize",
+            description: "Flow control mechanism allowing dynamic adjustment of data transmission rate based on receiver capacity and network conditions.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>TCP Sliding Window Mechanism</title>
+                <rect x="20" y="20" width="360" height="160" fill="#0f172a" rx="5"/>
+                <text x="200" y="40" text-anchor="middle" font-size="14" fill="#e2e8f0" font-weight="bold">TCP Sliding Window</text>
+                
+                <!-- Sender Buffer -->
+                <text x="70" y="65" font-size="12" fill="#22c55e">Sender Buffer</text>
+                <rect x="30" y="70" width="30" height="20" fill="#dc2626" rx="2"/>
+                <text x="45" y="83" text-anchor="middle" font-size="8" fill="white">Sent</text>
+                <rect x="60" y="70" width="30" height="20" fill="#f59e0b" rx="2"/>
+                <text x="75" y="83" text-anchor="middle" font-size="8" fill="white">Wait</text>
+                <rect x="90" y="70" width="60" height="20" fill="#22c55e" rx="2"/>
+                <text x="120" y="83" text-anchor="middle" font-size="8" fill="white">Can Send</text>
+                <rect x="150" y="70" width="30" height="20" fill="#6b7280" rx="2"/>
+                <text x="165" y="83" text-anchor="middle" font-size="8" fill="white">Future</text>
+                
+                <!-- Window Size Indicator -->
+                <rect x="60" y="65" width="90" height="5" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                <text x="105" y="60" text-anchor="middle" font-size="10" fill="#3b82f6">Window Size</text>
+                
+                <!-- Flow Control -->
+                <text x="70" y="115" font-size="12" fill="#22c55e">Flow Control Process</text>
+                <rect x="30" y="120" width="150" height="20" fill="#1e293b" stroke="#22c55e" rx="2"/>
+                <text x="45" y="133" font-size="9" fill="#22c55e">1. Send data within window</text>
+                <rect x="30" y="145" width="150" height="20" fill="#1e293b" stroke="#f59e0b" rx="2"/>
+                <text x="45" y="158" font-size="9" fill="#f59e0b">2. Receive ACK & window update</text>
+                
+                <!-- Receiver Window -->
+                <text x="270" y="65" font-size="12" fill="#8b5cf6">Receiver Window</text>
+                <rect x="220" y="70" width="40" height="20" fill="#6366f1" rx="2"/>
+                <text x="240" y="83" text-anchor="middle" font-size="8" fill="white">Buffer</text>
+                <rect x="260" y="70" width="80" height="20" fill="#22c55e" rx="2"/>
+                <text x="300" y="83" text-anchor="middle" font-size="8" fill="white">Available</text>
+                
+                <!-- Window Advertisement -->
+                <path d="M 180 140 Q 200 160 220 140" stroke="#8b5cf6" stroke-width="2" fill="none" marker-end="url(#arrow-window)"/>
+                <text x="200" y="175" text-anchor="middle" font-size="10" fill="#8b5cf6">Window Advertisement</text>
+                
+                <defs>
+                    <marker id="arrow-window" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b5cf6"/>
+                    </marker>
+                </defs>
+            </svg>`
+        },
     ],
 
     // IPV4
@@ -1186,6 +1235,53 @@ const SECTION1_DATA = {
                 <text y="160" x="200" text-anchor="middle" font-weight="bold" font-family="monospace" font-size="12">EUI-64: 021A:2BFF:FE3C:4D5E</text>
             </svg>`
         },
+        {
+            title: "ICMPv6 Messages", 
+            icon: "fa-comments",
+            description: "Internet Control Message Protocol v6 provides essential IPv6 functions: Router Solicitation/Advertisement and Neighbor Solicitation/Advertisement for address resolution.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>ICMPv6 Neighbor Discovery Messages</title>
+                <rect x="20" y="20" width="360" height="160" fill="#0f172a" rx="5"/>
+                <text x="200" y="40" text-anchor="middle" font-size="14" fill="#e2e8f0" font-weight="bold">ICMPv6 Neighbor Discovery</text>
+                
+                <!-- Router and Host -->
+                <rect x="50" y="60" width="80" height="40" fill="#166534" rx="5"/>
+                <text x="90" y="85" text-anchor="middle" font-size="12" fill="white">Router</text>
+                
+                <rect x="270" y="60" width="80" height="40" fill="#1e40af" rx="5"/>
+                <text x="310" y="85" text-anchor="middle" font-size="12" fill="white">Host</text>
+                
+                <!-- Message Arrows -->
+                <defs>
+                    <marker id="arrow-icmp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b"/>
+                    </marker>
+                    <marker id="arrow-icmp-rev" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 10 0 L 0 5 L 10 10 z" fill="#22c55e"/>
+                    </marker>
+                </defs>
+                
+                <!-- Router Solicitation -->
+                <path d="M270 115 L130 115" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-icmp-rev)"/>
+                <text x="200" y="110" text-anchor="middle" font-size="10" fill="#f59e0b">Router Solicitation (RS)</text>
+                <text x="200" y="123" text-anchor="middle" font-size="8" fill="#fbbf24">Type 133 - "Where are routers?"</text>
+                
+                <!-- Router Advertisement -->
+                <path d="M130 135 L270 135" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow-icmp)"/>
+                <text x="200" y="130" text-anchor="middle" font-size="10" fill="#22c55e">Router Advertisement (RA)</text>
+                <text x="200" y="143" text-anchor="middle" font-size="8" fill="#86efac">Type 134 - "I'm here, prefix info"</text>
+                
+                <!-- Neighbor Solicitation -->
+                <path d="M270 155 L130 155" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow-icmp-rev)"/>
+                <text x="200" y="150" text-anchor="middle" font-size="10" fill="#8b5cf6">Neighbor Solicitation (NS)</text>
+                <text x="200" y="163" text-anchor="middle" font-size="8" fill="#c4b5fd">Type 135 - "What's your MAC?"</text>
+                
+                <!-- Neighbor Advertisement -->
+                <path d="M130 175 L270 175" stroke="#ec4899" stroke-width="2" marker-end="url(#arrow-icmp)"/>
+                <text x="200" y="170" text-anchor="middle" font-size="10" fill="#ec4899">Neighbor Advertisement (NA)</text>
+                <text x="200" y="183" text-anchor="middle" font-size="8" fill="#f9a8d4">Type 136 - "Here's my MAC"</text>
+            </svg>`
+        },
     ],
 
     // CLIENTOS
@@ -1483,6 +1579,44 @@ const SECTION1_DATA = {
                 
                 <circle cx="70" cy="60" r="25" fill="none" stroke="#10b981" stroke-width="2"/>
                 <text x="70" y="10" text-anchor="middle" font-size="8" fill="#10b981">SSID: MyWiFi</text>
+            </svg>`
+        },
+        {
+            title: "Wireless Encryption Standards", 
+            icon: "fa-lock",
+            description: "TKIP (Temporal Key Integrity Protocol) uses RC4 with key mixing. AES (Advanced Encryption Standard) uses CCMP mode for superior security.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>TKIP vs AES Encryption Comparison</title>
+                <rect x="20" y="20" width="360" height="160" fill="#0f172a" rx="5"/>
+                <text x="200" y="40" text-anchor="middle" font-size="14" fill="#e2e8f0">Wireless Encryption Standards</text>
+                
+                <!-- TKIP Section -->
+                <rect x="40" y="60" width="150" height="110" fill="#1e293b" stroke="#f59e0b" stroke-width="2" rx="5"/>
+                <text x="115" y="80" text-anchor="middle" font-size="12" fill="#f59e0b" font-weight="bold">TKIP</text>
+                <text x="115" y="95" text-anchor="middle" font-size="10" fill="#e2e8f0">Temporal Key Integrity Protocol</text>
+                
+                <text x="50" y="115" font-size="9" fill="#94a3b8">• RC4 Stream Cipher</text>
+                <text x="50" y="125" font-size="9" fill="#94a3b8">• 128-bit Key</text>
+                <text x="50" y="135" font-size="9" fill="#94a3b8">• Key Mixing Function</text>
+                <text x="50" y="145" font-size="9" fill="#94a3b8">• Message Integrity Check</text>
+                <text x="50" y="155" font-size="9" fill="#f59e0b">• Legacy WPA Support</text>
+                
+                <!-- AES Section -->
+                <rect x="210" y="60" width="150" height="110" fill="#1e293b" stroke="#22c55e" stroke-width="2" rx="5"/>
+                <text x="285" y="80" text-anchor="middle" font-size="12" fill="#22c55e" font-weight="bold">AES</text>
+                <text x="285" y="95" text-anchor="middle" font-size="10" fill="#e2e8f0">Advanced Encryption Standard</text>
+                
+                <text x="220" y="115" font-size="9" fill="#94a3b8">• Block Cipher (CCMP)</text>
+                <text x="220" y="125" font-size="9" fill="#94a3b8">• 128/192/256-bit Key</text>
+                <text x="220" y="135" font-size="9" fill="#94a3b8">• Counter Mode</text>
+                <text x="220" y="145" font-size="9" fill="#94a3b8">• CBC-MAC Authentication</text>
+                <text x="220" y="155" font-size="9" fill="#22c55e">• WPA2/WPA3 Standard</text>
+                
+                <!-- Performance Comparison -->
+                <rect x="60" y="175" width="20" height="15" fill="#f59e0b"/>
+                <text x="90" y="185" font-size="8" fill="#f59e0b">TKIP: Slower, Legacy</text>
+                <rect x="220" y="175" width="20" height="15" fill="#22c55e"/>
+                <text x="250" y="185" font-size="8" fill="#22c55e">AES: Faster, Secure</text>
             </svg>`
         },
     ],
@@ -1791,13 +1925,13 @@ const SECTION1_DATA = {
             topology: { title: "1.2 Network Topology Architectures", count: 6 },
             cabling: { title: "1.3 Physical Interface and Cabling", count: 6 },
             issues: { title: "1.4 Interface and Cable Issues", count: 6 },
-            tcpUdp: { title: "1.5 Compare TCP to UDP", count: 6 },
+            tcpUdp: { title: "1.5 Compare TCP to UDP", count: 7 },
             ipv4: { title: "1.6 Configure and verify IPv4", count: 6 },
             privateIpv4: { title: "1.7 Private IPv4 addressing", count: 3 },
-            ipv6: { title: "1.8 Configure and verify IPv6", count: 5 },
+            ipv6: { title: "1.8 Configure and verify IPv6", count: 6 },
             ipv6Types: { title: "1.9 Describe IPv6 address types", count: 5 },
             clientOs: { title: "1.10 Verify IP parameters", count: 4 },
-            wireless: { title: "1.11 Describe wireless principles", count: 5 },
+            wireless: { title: "1.11 Describe wireless principles", count: 6 },
             virtualization: { title: "1.12 Virtualization fundamentals", count: 4 },
             switching: { title: "1.13 Describe switching concepts", count: 4 }
         },

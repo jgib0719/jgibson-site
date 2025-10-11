@@ -7804,6 +7804,205 @@ Router(config-if-ssid)# <span style="color: #9CDCFE;">authentication network-eap
                 <em style="font-size: 0.9em;"><a href="https://www.youtube.com/watch?v=8R5EDyWPbX8" target="_blank" style="color: #66B2FF;">Watch: Wireless Security Policy Framework (SANS)</a></em>
             </div>
         </div>
+    `,
+
+    // 5.1 Firewall Types
+    "Firewall Types": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #E74C3C; border-bottom: 2px solid #E74C3C; padding-bottom: 5px;">5.1.f: Firewall Types and Architectures</h3>
+            <p>Firewalls are critical network security devices that control traffic flow between network segments. Understanding different firewall types and their capabilities is essential for designing secure network architectures.</p>
+            
+            <h4 style="color: #EC7063;">Stateless Packet Filtering Firewalls</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #3b82f6;">
+                <p><strong>Operation:</strong> Examine individual packets against static rules without considering connection state.</p>
+                <ul style="list-style-type: square; margin-left: 20px;">
+                    <li><strong>Filtering Criteria:</strong> Source/destination IP, port numbers, protocol type</li>
+                    <li><strong>Performance:</strong> Fast processing due to simple rule evaluation</li>
+                    <li><strong>Limitations:</strong> Cannot track connection state or detect sophisticated attacks</li>
+                    <li><strong>Use Case:</strong> Basic perimeter filtering, high-speed environments</li>
+                </ul>
+                <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Example stateless ACL rules</span>
+<span style="color: #DCDCAA;">permit tcp any any eq 80</span>
+<span style="color: #DCDCAA;">permit tcp any any eq 443</span>
+<span style="color: #C586C0;">deny ip any any</span>
+</code>
+                </pre>
+            </div>
+            
+            <h4 style="color: #EC7063;">Stateful Inspection Firewalls</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #10b981;">
+                <p><strong>Operation:</strong> Track connection state and context, maintaining session tables for ongoing connections.</p>
+                <ul style="list-style-type: square; margin-left: 20px;">
+                    <li><strong>Connection Tracking:</strong> Monitors TCP handshakes, session establishment</li>
+                    <li><strong>Dynamic Rules:</strong> Automatically allows return traffic for established connections</li>
+                    <li><strong>Enhanced Security:</strong> Prevents session hijacking and connection-based attacks</li>
+                    <li><strong>Memory Usage:</strong> Requires state tables for active connections</li>
+                </ul>
+                <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                    <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                        <tr style="background-color: #1e1e1e;"><td style="padding: 8px; border-bottom: 1px solid #444; color: #10b981; font-weight: bold;">Connection State</td><td style="padding: 8px; border-bottom: 1px solid #444;">Action</td></tr>
+                        <tr><td style="padding: 8px; border-bottom: 1px solid #444;">NEW</td><td style="padding: 8px; border-bottom: 1px solid #444;">Evaluate against security policy</td></tr>
+                        <tr><td style="padding: 8px; border-bottom: 1px solid #444;">ESTABLISHED</td><td style="padding: 8px; border-bottom: 1px solid #444;">Allow based on existing session</td></tr>
+                        <tr><td style="padding: 8px; border-bottom: 1px solid #444;">RELATED</td><td style="padding: 8px; border-bottom: 1px solid #444;">Allow if related to established connection</td></tr>
+                        <tr><td style="padding: 8px;">INVALID</td><td style="padding: 8px;">Drop malformed or suspicious packets</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <h4 style="color: #EC7063;">Next-Generation Firewalls (NGFW)</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #ef4444;">
+                <p><strong>Advanced Features:</strong> Combine traditional firewall capabilities with application-layer inspection and threat intelligence.</p>
+                <ul style="list-style-type: square; margin-left: 20px;">
+                    <li><strong>Application Control:</strong> Identify and control applications regardless of port/protocol</li>
+                    <li><strong>Deep Packet Inspection:</strong> Analyze packet content beyond headers</li>
+                    <li><strong>Intrusion Prevention:</strong> Built-in IPS capabilities with signature matching</li>
+                    <li><strong>Threat Intelligence:</strong> Real-time updates on emerging threats and IOCs</li>
+                    <li><strong>User Identity:</strong> Integration with directory services for user-based policies</li>
+                    <li><strong>SSL Inspection:</strong> Decrypt and inspect encrypted traffic</li>
+                </ul>
+            </div>
+            
+            <h4 style="color: #EC7063;">Firewall Deployment Models</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #1e1e1e;"><td style="padding: 8px; border-bottom: 1px solid #444; color: #EC7063; font-weight: bold;">Deployment Type</td><td style="padding: 8px; border-bottom: 1px solid #444;">Description</td><td style="padding: 8px; border-bottom: 1px solid #444;">Use Case</td></tr>
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444;">Network Firewall</td><td style="padding: 8px; border-bottom: 1px solid #444;">Perimeter protection between networks</td><td style="padding: 8px; border-bottom: 1px solid #444;">Internet edge, DMZ segmentation</td></tr>
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444;">Host-based Firewall</td><td style="padding: 8px; border-bottom: 1px solid #444;">Software firewall on individual devices</td><td style="padding: 8px; border-bottom: 1px solid #444;">Endpoint protection, servers</td></tr>
+                    <tr><td style="padding: 8px;">Cloud Firewall</td><td style="padding: 8px;">Virtual firewall services in cloud</td><td style="padding: 8px;">Cloud workload protection, FWaaS</td></tr>
+                </table>
+            </div>
+            
+            <h4 style="color: #EC7063;">Firewall Selection Criteria</h4>
+            <ul style="margin-left: 20px; color: #B0B0B0;">
+                <li><strong style="color: #3b82f6;">Performance Requirements:</strong> Throughput, concurrent connections, latency</li>
+                <li><strong style="color: #10b981;">Security Features:</strong> IPS, application control, threat intelligence</li>
+                <li><strong style="color: #f59e0b;">Management:</strong> Centralized management, automation, reporting</li>
+                <li><strong style="color: #ef4444;">Integration:</strong> SIEM compatibility, API support, vendor ecosystem</li>
+            </ul>
+            
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand the differences between stateless and stateful firewalls</li>
+                    <li>Know the advanced features of next-generation firewalls</li>
+                    <li>Identify appropriate firewall types for different security requirements</li>
+                    <li>Understand firewall deployment models and use cases</li>
+                </ul>
+            </div>
+        </div>
+    `,
+
+    // 5.1 Cryptography Basics
+    "Cryptography Basics": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #E74C3C; border-bottom: 2px solid #E74C3C; padding-bottom: 5px;">5.1.g: Cryptography Fundamentals</h3>
+            <p>Cryptography provides the mathematical foundation for secure communications and data protection. Understanding encryption methods, key management, and hashing is essential for implementing secure network solutions.</p>
+            
+            <h4 style="color: #EC7063;">Symmetric Encryption</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #6366f1;">
+                <p><strong>Concept:</strong> Same key used for both encryption and decryption. Fast and efficient for large amounts of data.</p>
+                <ul style="list-style-type: square; margin-left: 20px;">
+                    <li><strong>AES (Advanced Encryption Standard):</strong> Most widely used, 128/192/256-bit keys</li>
+                    <li><strong>DES/3DES:</strong> Legacy algorithms, being phased out due to weak key lengths</li>
+                    <li><strong>Key Distribution Challenge:</strong> Secure key exchange between parties</li>
+                    <li><strong>Performance:</strong> Very fast encryption/decryption operations</li>
+                </ul>
+                <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Symmetric encryption example</span>
+<span style="color: #DCDCAA;">Plaintext:</span> <span style="color: #CE9178;">"Hello World"</span>
+<span style="color: #DCDCAA;">Key:</span>      <span style="color: #CE9178;">256-bit AES key</span>
+<span style="color: #DCDCAA;">Ciphertext:</span> <span style="color: #CE9178;">U2FsdGVkX1+vupppZksvRf5pq5g5XjFRIipRkwB0K1Y=</span>
+</code>
+                </pre>
+            </div>
+            
+            <h4 style="color: #EC7063;">Asymmetric Encryption</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #8b5cf6;">
+                <p><strong>Concept:</strong> Uses mathematically related key pairs (public/private). Solves key distribution problem but computationally intensive.</p>
+                <ul style="list-style-type: square; margin-left: 20px;">
+                    <li><strong>RSA:</strong> Most common, based on prime factorization, 2048+ bit keys recommended</li>
+                    <li><strong>ECC (Elliptic Curve):</strong> Smaller keys with equivalent security, more efficient</li>
+                    <li><strong>Key Pairs:</strong> Public key for encryption, private key for decryption</li>
+                    <li><strong>Digital Signatures:</strong> Private key signs, public key verifies</li>
+                </ul>
+                <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                    <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                        <tr style="background-color: #1e1e1e;"><td style="padding: 8px; border-bottom: 1px solid #444; color: #8b5cf6; font-weight: bold;">Operation</td><td style="padding: 8px; border-bottom: 1px solid #444;">Key Used</td><td style="padding: 8px; border-bottom: 1px solid #444;">Purpose</td></tr>
+                        <tr><td style="padding: 8px; border-bottom: 1px solid #444;">Encryption</td><td style="padding: 8px; border-bottom: 1px solid #444;">Recipient's Public Key</td><td style="padding: 8px; border-bottom: 1px solid #444;">Confidentiality</td></tr>
+                        <tr><td style="padding: 8px; border-bottom: 1px solid #444;">Decryption</td><td style="padding: 8px; border-bottom: 1px solid #444;">Recipient's Private Key</td><td style="padding: 8px; border-bottom: 1px solid #444;">Access encrypted data</td></tr>
+                        <tr><td style="padding: 8px; border-bottom: 1px solid #444;">Digital Signature</td><td style="padding: 8px; border-bottom: 1px solid #444;">Sender's Private Key</td><td style="padding: 8px; border-bottom: 1px solid #444;">Authentication, non-repudiation</td></tr>
+                        <tr><td style="padding: 8px;">Signature Verification</td><td style="padding: 8px;">Sender's Public Key</td><td style="padding: 8px;">Verify authenticity</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <h4 style="color: #EC7063;">Hashing Algorithms</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #f59e0b;">
+                <p><strong>Purpose:</strong> Create fixed-length digest of variable-length input. Used for integrity verification and password storage.</p>
+                <ul style="list-style-type: square; margin-left: 20px;">
+                    <li><strong>SHA-256:</strong> Secure Hash Algorithm, 256-bit output, widely trusted</li>
+                    <li><strong>SHA-1:</strong> Deprecated due to collision vulnerabilities</li>
+                    <li><strong>MD5:</strong> Cryptographically broken, only for non-security applications</li>
+                    <li><strong>Properties:</strong> One-way function, avalanche effect, collision resistance</li>
+                </ul>
+                <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Hash function examples</span>
+<span style="color: #DCDCAA;">Input:</span>  <span style="color: #CE9178;">"password123"</span>
+<span style="color: #DCDCAA;">MD5:</span>    <span style="color: #CE9178;">482c811da5d5b4bc6d497ffa98491e38</span>
+<span style="color: #DCDCAA;">SHA-256:</span> <span style="color: #CE9178;">ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f</span>
+</code>
+                </pre>
+            </div>
+            
+            <h4 style="color: #EC7063;">Hybrid Cryptography</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #EC7063;">
+                <p><strong>Best of Both Worlds:</strong> Combines symmetric and asymmetric encryption to achieve both security and performance.</p>
+                <ol style="margin-left: 20px;">
+                    <li>Generate random symmetric key (session key)</li>
+                    <li>Encrypt data with symmetric algorithm (fast)</li>
+                    <li>Encrypt session key with recipient's public key</li>
+                    <li>Send encrypted data + encrypted session key</li>
+                    <li>Recipient decrypts session key with private key</li>
+                    <li>Use session key to decrypt the actual data</li>
+                </ol>
+                <p><strong>Examples:</strong> TLS/SSL, IPsec, PGP encryption</p>
+            </div>
+            
+            <h4 style="color: #EC7063;">Key Management Principles</h4>
+            <ul style="margin-left: 20px; color: #B0B0B0;">
+                <li><strong style="color: #3b82f6;">Key Generation:</strong> Use cryptographically secure random number generators</li>
+                <li><strong style="color: #10b981;">Key Distribution:</strong> Secure channels for symmetric key exchange</li>
+                <li><strong style="color: #f59e0b;">Key Storage:</strong> Hardware Security Modules (HSMs), secure key stores</li>
+                <li><strong style="color: #ef4444;">Key Rotation:</strong> Regular key updates, key lifecycle management</li>
+                <li><strong style="color: #8b5cf6;">Key Escrow:</strong> Backup keys for data recovery scenarios</li>
+            </ul>
+            
+            <h4 style="color: #EC7063;">Common Cryptographic Applications</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr style="background-color: #1e1e1e;"><td style="padding: 8px; border-bottom: 1px solid #444; color: #EC7063; font-weight: bold;">Application</td><td style="padding: 8px; border-bottom: 1px solid #444;">Encryption Type</td><td style="padding: 8px; border-bottom: 1px solid #444;">Purpose</td></tr>
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444;">HTTPS/TLS</td><td style="padding: 8px; border-bottom: 1px solid #444;">Hybrid (RSA + AES)</td><td style="padding: 8px; border-bottom: 1px solid #444;">Web security</td></tr>
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444;">IPsec VPN</td><td style="padding: 8px; border-bottom: 1px solid #444;">Hybrid (DH + AES)</td><td style="padding: 8px; border-bottom: 1px solid #444;">Network tunnels</td></tr>
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444;">SSH</td><td style="padding: 8px; border-bottom: 1px solid #444;">Asymmetric + Symmetric</td><td style="padding: 8px; border-bottom: 1px solid #444;">Secure remote access</td></tr>
+                    <tr><td style="padding: 8px;">File Integrity</td><td style="padding: 8px;">Hashing (SHA-256)</td><td style="padding: 8px;">Change detection</td></tr>
+                </table>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand differences between symmetric and asymmetric encryption</li>
+                    <li>Know common algorithms: AES, RSA, SHA-256</li>
+                    <li>Understand the purpose and properties of hash functions</li>
+                    <li>Recognize how hybrid cryptography combines both methods</li>
+                    <li>Understand basic key management principles</li>
+                </ul>
+            </div>
+        </div>
     `
 };
 

@@ -1008,9 +1008,360 @@ Router# show ip route 10.1.1.0
         </div>
     `,
 
+    // 3.2 Policy-Based Routing (PBR) Components  
+    "PBR Fundamentals": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #E67E22; border-bottom: 2px solid #E67E22; padding-bottom: 5px;">3.2.a: Policy-Based Routing Fundamentals</h3>
+            <p><strong>Policy-Based Routing (PBR)</strong> allows network administrators to override the normal destination-based routing and make routing decisions based on defined policies. PBR enables routing based on source address, packet size, application, or other packet characteristics.</p>
+            
+            <h4 style="color: #F7C52D;">PBR Key Concepts</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Policy Override:</strong> Overrides normal routing table lookup</li>
+                <li><strong>Granular Control:</strong> Route based on multiple packet attributes</li>
+                <li><strong>Traffic Engineering:</strong> Direct traffic over specific paths</li>
+                <li><strong>Quality of Service:</strong> Route different applications through different paths</li>
+                <li><strong>Load Distribution:</strong> Distribute traffic across multiple links</li>
+            </ul>
+
+            <h4 style="color: #F7C52D;">PBR Use Cases</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Source-Based Routing:</strong> Route traffic based on source IP or subnet</li>
+                <li><strong>Application Routing:</strong> Route specific applications through dedicated paths</li>
+                <li><strong>ISP Selection:</strong> Direct traffic to specific ISPs based on criteria</li>
+                <li><strong>Bandwidth Management:</strong> Route high-bandwidth traffic through appropriate links</li>
+                <li><strong>Security Policies:</strong> Route traffic through security appliances</li>
+            </ul>
+
+            <h4 style="color: #F7C52D;">PBR Components</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Route-Map:</strong> Defines the policy with match and set statements</li>
+                <li><strong>Access Lists:</strong> Define traffic to be matched</li>
+                <li><strong>Next-Hop:</strong> Specifies where to forward matched traffic</li>
+                <li><strong>Interface Application:</strong> Apply policy to incoming interface</li>
+            </ul>
+
+            <h4 style="color: #F7C52D;">Basic PBR Configuration</h4>
+            <div style="background-color: #2C3E50; padding: 15px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #E67E22;">
+                <div style="color: #E8E8E8; font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div style="color: #7FB3D3; margin-bottom: 5px;">// Create access list to match traffic</div>
+                    <div style="color: #82E0AA;">access-list 100 permit ip 192.168.1.0 0.0.0.255 any</div>
+                    <div style="margin-top: 10px; color: #7FB3D3;">// Create route-map policy</div>
+                    <div style="color: #82E0AA;">route-map PBR-POLICY permit 10</div>
+                    <div style="color: #82E0AA;"> match ip address 100</div>
+                    <div style="color: #82E0AA;"> set ip next-hop 10.1.1.1</div>
+                    <div style="margin-top: 10px; color: #7FB3D3;">// Apply to interface</div>
+                    <div style="color: #82E0AA;">interface gigabitethernet0/0</div>
+                    <div style="color: #82E0AA;"> ip policy route-map PBR-POLICY</div>
+                </div>
+            </div>
+
+            <h4 style="color: #F7C52D;">PBR Processing Order</h4>
+            <ol style="margin-left: 20px;">
+                <li><strong>Check PBR Policy:</strong> If packet matches PBR policy, use policy routing</li>
+                <li><strong>Check Routing Table:</strong> If no PBR match, use normal routing table</li>
+                <li><strong>Default Route:</strong> If no route exists, use default route</li>
+                <li><strong>Drop Packet:</strong> If no routing path available, drop packet</li>
+            </ol>
+
+            <div style="background-color: #1B4F72; padding: 12px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #3498DB;">
+                <h5 style="color: #85C1E9; margin-bottom: 8px;">💡 PBR Best Practices:</h5>
+                <ul style="margin-left: 20px; color: #AED6F1;">
+                    <li>Use specific access lists to avoid unintended matches</li>
+                    <li>Test PBR policies thoroughly before production deployment</li>
+                    <li>Monitor PBR performance and routing efficiency</li>
+                    <li>Document PBR policies for troubleshooting</li>
+                </ul>
+            </div>
+
+            <div style="background-color: #0F4C75; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #3DAEE9;">
+                <h5 style="color: #58D68D; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand PBR concepts and use cases</li>
+                    <li>Know basic route-map and access-list syntax</li>
+                    <li>Understand PBR vs normal routing table lookup</li>
+                    <li>Practice basic PBR configuration commands</li>
+                </ul>
+            </div>
+        </div>
+    `,
+
+    "Route-Map Policies": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #E67E22; border-bottom: 2px solid #E67E22; padding-bottom: 5px;">3.2.b: Route-Map Policies</h3>
+            <p><strong>Route-maps</strong> are the foundation of Policy-Based Routing, providing the logic to match traffic and set routing policies. They use match and set statements to define complex routing behaviors.</p>
+            
+            <h4 style="color: #F7C52D;">Route-Map Structure</h4>
+            <div style="background-color: #2C3E50; padding: 15px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #E67E22;">
+                <div style="color: #E8E8E8; font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div style="color: #F4D03F;">route-map [name] [permit|deny] [sequence-number]</div>
+                    <div style="color: #7FB3D3; margin-top: 5px;">// Match statements define traffic criteria</div>
+                    <div style="color: #82E0AA;"> match ip address [access-list]</div>
+                    <div style="color: #82E0AA;"> match length [min] [max]</div>
+                    <div style="color: #7FB3D3; margin-top: 5px;">// Set statements define routing action</div>
+                    <div style="color: #82E0AA;"> set ip next-hop [ip-address]</div>
+                    <div style="color: #82E0AA;"> set interface [interface]</div>
+                </div>
+            </div>
+
+            <h4 style="color: #F7C52D;">Common Match Statements</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>match ip address:</strong> Match source/destination based on ACL</li>
+                <li><strong>match length:</strong> Match packet size (bytes)</li>
+                <li><strong>match interface:</strong> Match incoming interface</li>
+                <li><strong>match ip next-hop:</strong> Match next-hop IP address</li>
+                <li><strong>match metric:</strong> Match route metric</li>
+            </ul>
+
+            <h4 style="color: #F7C52D;">Common Set Statements</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>set ip next-hop:</strong> Set specific next-hop IP</li>
+                <li><strong>set ip default next-hop:</strong> Set next-hop only if no route exists</li>
+                <li><strong>set interface:</strong> Set outgoing interface</li>
+                <li><strong>set ip precedence:</strong> Set IP precedence bits</li>
+                <li><strong>set ip tos:</strong> Set Type of Service bits</li>
+            </ul>
+
+            <h4 style="color: #F7C52D;">Advanced PBR Configuration</h4>
+            <div style="background-color: #2C3E50; padding: 15px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #E67E22;">
+                <div style="color: #E8E8E8; font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div style="color: #7FB3D3;">// Multiple criteria route-map</div>
+                    <div style="color: #82E0AA;">access-list 101 permit ip 192.168.1.0 0.0.0.255 any</div>
+                    <div style="color: #82E0AA;">access-list 102 permit ip 192.168.2.0 0.0.0.255 any</div>
+                    <div style="margin-top: 10px;">
+                    <div style="color: #82E0AA;">route-map MULTI-PBR permit 10</div>
+                    <div style="color: #82E0AA;"> match ip address 101</div>
+                    <div style="color: #82E0AA;"> match length 64 1500</div>
+                    <div style="color: #82E0AA;"> set ip next-hop 10.1.1.1</div>
+                    <div style="margin-top: 5px;">
+                    <div style="color: #82E0AA;">route-map MULTI-PBR permit 20</div>
+                    <div style="color: #82E0AA;"> match ip address 102</div>
+                    <div style="color: #82E0AA;"> set ip next-hop 10.2.2.1</div>
+                    <div style="color: #82E0AA;"> set ip precedence 5</div>
+                </div>
+            </div>
+
+            <h4 style="color: #F7C52D;">Load Balancing with PBR</h4>
+            <div style="background-color: #2C3E50; padding: 15px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #E67E22;">
+                <div style="color: #E8E8E8; font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div style="color: #7FB3D3;">// Multiple next-hop load balancing</div>
+                    <div style="color: #82E0AA;">route-map LOAD-BALANCE permit 10</div>
+                    <div style="color: #82E0AA;"> match ip address 100</div>
+                    <div style="color: #82E0AA;"> set ip next-hop 10.1.1.1 10.1.1.2</div>
+                    <div style="margin-top: 10px; color: #7FB3D3;">// Verify next-hop reachability</div>
+                    <div style="color: #82E0AA;"> set ip next-hop verify-availability</div>
+                </div>
+            </div>
+
+            <h4 style="color: #F7C52D;">PBR Verification Commands</h4>
+            <div style="background-color: #2C3E50; padding: 15px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #E67E22;">
+                <div style="color: #E8E8E8; font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div style="color: #7FB3D3;">// Show PBR configuration</div>
+                    <div style="color: #82E0AA;">show ip policy</div>
+                    <div style="color: #82E0AA;">show route-map</div>
+                    <div style="margin-top: 10px; color: #7FB3D3;">// Debug PBR operation</div>
+                    <div style="color: #82E0AA;">debug ip policy</div>
+                    <div style="color: #82E0AA;">show ip route policy</div>
+                    <div style="margin-top: 10px; color: #7FB3D3;">// Test PBR with traceroute</div>
+                    <div style="color: #82E0AA;">traceroute 8.8.8.8 source 192.168.1.10</div>
+                </div>
+            </div>
+
+            <h4 style="color: #F7C52D;">PBR Troubleshooting</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>ACL Matching:</strong> Verify access lists match intended traffic</li>
+                <li><strong>Route-Map Logic:</strong> Check permit/deny logic and sequence numbers</li>
+                <li><strong>Next-Hop Reachability:</strong> Ensure next-hop addresses are reachable</li>
+                <li><strong>Interface Application:</strong> Verify PBR is applied to correct interface</li>
+                <li><strong>Processing Order:</strong> Remember PBR processes before routing table</li>
+            </ul>
+
+            <div style="background-color: #1B4F72; padding: 12px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #3498DB;">
+                <h5 style="color: #85C1E9; margin-bottom: 8px;">💡 Route-Map Design Tips:</h5>
+                <ul style="margin-left: 20px; color: #AED6F1;">
+                    <li>Use descriptive route-map names for clarity</li>
+                    <li>Leave gaps in sequence numbers for future additions</li>
+                    <li>Include explicit deny statements for security</li>
+                    <li>Test policies with debug commands before production</li>
+                </ul>
+            </div>
+
+            <div style="background-color: #0F4C75; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #3DAEE9;">
+                <h5 style="color: #58D68D; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand route-map syntax and sequence numbers</li>
+                    <li>Know common match and set statement options</li>
+                    <li>Practice PBR verification commands</li>
+                    <li>Understand PBR troubleshooting methodology</li>
+                </ul>
+            </div>
+        </div>
+    `,
+
     // Remove old entries
     "Static Routes": ``,
     "Floating Static Route": ``,
+
+    // 3.3 EIGRP Components
+    "EIGRP Fundamentals": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #AF7AC5; border-bottom: 2px solid #AF7AC5; padding-bottom: 5px;">3.3.a: EIGRP Fundamentals</h3>
+            <p><strong>EIGRP (Enhanced Interior Gateway Routing Protocol)</strong> is Cisco's proprietary distance-vector routing protocol that combines the best features of distance-vector and link-state protocols. It's known for fast convergence and efficient bandwidth utilization.</p>
+            
+            <h4 style="color: #C39BD3;">EIGRP Key Characteristics</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Hybrid Protocol:</strong> Combines distance-vector and link-state features</li>
+                <li><strong>Fast Convergence:</strong> Uses DUAL algorithm for loop-free paths</li>
+                <li><strong>Unequal Cost Load Balancing:</strong> Can use multiple paths with different metrics</li>
+                <li><strong>Classless Routing:</strong> Supports VLSM and CIDR</li>
+                <li><strong>Incremental Updates:</strong> Only sends changes, not full routing table</li>
+            </ul>
+
+            <h4 style="color: #C39BD3;">EIGRP Tables</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Neighbor Table:</strong> Lists directly connected EIGRP routers</li>
+                <li><strong>Topology Table:</strong> Contains all learned routes (feasible successors)</li>
+                <li><strong>Routing Table:</strong> Contains best paths selected by DUAL algorithm</li>
+            </ul>
+
+            <h4 style="color: #C39BD3;">Basic EIGRP Configuration</h4>
+            <div style="background-color: #2C3E50; padding: 15px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #AF7AC5;">
+                <div style="color: #E8E8E8; font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div style="color: #7FB3D3; margin-bottom: 5px;">// Enable EIGRP and configure networks</div>
+                    <div style="color: #82E0AA;">router eigrp 100</div>
+                    <div style="color: #82E0AA;"> network 192.168.1.0 0.0.0.255</div>
+                    <div style="color: #82E0AA;"> network 10.0.0.0 0.255.255.255</div>
+                    <div style="color: #82E0AA;"> no auto-summary</div>
+                    <div style="margin-top: 10px; color: #7FB3D3;">// Interface configuration</div>
+                    <div style="color: #82E0AA;">interface gigabitethernet0/0</div>
+                    <div style="color: #82E0AA;"> ip address 192.168.1.1 255.255.255.0</div>
+                    <div style="color: #82E0AA;"> ip hello-interval eigrp 100 5</div>
+                    <div style="color: #82E0AA;"> ip hold-time eigrp 100 15</div>
+                </div>
+            </div>
+
+            <h4 style="color: #C39BD3;">EIGRP Hello Protocol</h4>
+            <p>EIGRP routers discover neighbors and maintain adjacencies using Hello packets:</p>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Hello Interval:</strong> Default 5 seconds on high-speed links</li>
+                <li><strong>Hold Time:</strong> 3x Hello interval (15 seconds by default)</li>
+                <li><strong>Multicast Address:</strong> 224.0.0.10 for neighbor discovery</li>
+                <li><strong>Authentication:</strong> Supports MD5 and SHA authentication</li>
+            </ul>
+
+            <div style="background-color: #1B4F72; padding: 12px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #3498DB;">
+                <h5 style="color: #85C1E9; margin-bottom: 8px;">💡 EIGRP Best Practices:</h5>
+                <ul style="margin-left: 20px; color: #AED6F1;">
+                    <li>Use process ID consistently across your network</li>
+                    <li>Disable auto-summary for modern networks</li>
+                    <li>Configure authentication for security</li>
+                    <li>Use passive-interface for non-routing segments</li>
+                </ul>
+            </div>
+
+            <div style="background-color: #0F4C75; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #3DAEE9;">
+                <h5 style="color: #58D68D; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand EIGRP hybrid nature and key features</li>
+                    <li>Know default Hello and Hold timers</li>
+                    <li>Practice basic EIGRP configuration commands</li>
+                    <li>Understand neighbor discovery process</li>
+                </ul>
+            </div>
+        </div>
+    `,
+
+    "EIGRP Metric Calculation": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #AF7AC5; border-bottom: 2px solid #AF7AC5; padding-bottom: 5px;">3.3.b: EIGRP Metric Calculation</h3>
+            <p><strong>EIGRP metric calculation</strong> uses a composite metric based on bandwidth, delay, reliability, load, and MTU. By default, only bandwidth and delay are used in the calculation.</p>
+            
+            <h4 style="color: #C39BD3;">EIGRP Metric Formula</h4>
+            <p>The EIGRP metric is calculated using this formula:</p>
+            <div style="background-color: #2C3E50; padding: 15px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #AF7AC5;">
+                <div style="color: #E8E8E8; font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div style="color: #F4D03F;">Metric = [K1*Bandwidth + (K2*Bandwidth)/(256-Load) + K3*Delay] * [K5/(Reliability + K4)]</div>
+                    <div style="margin-top: 10px; color: #7FB3D3;">// Default K values:</div>
+                    <div style="color: #82E0AA;">K1 = 1 (Bandwidth)</div>
+                    <div style="color: #82E0AA;">K2 = 0 (Load)</div>
+                    <div style="color: #82E0AA;">K3 = 1 (Delay)</div>
+                    <div style="color: #82E0AA;">K4 = 0 (Reliability)</div>
+                    <div style="color: #82E0AA;">K5 = 0 (MTU)</div>
+                </div>
+            </div>
+
+            <h4 style="color: #C39BD3;">Simplified Default Calculation</h4>
+            <p>With default K values, the formula simplifies to:</p>
+            <div style="background-color: #2C3E50; padding: 15px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #AF7AC5;">
+                <div style="color: #E8E8E8; font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div style="color: #F4D03F;">Metric = (Bandwidth + Delay) × 256</div>
+                    <div style="margin-top: 10px; color: #7FB3D3;">Where:</div>
+                    <div style="color: #82E0AA;">Bandwidth = (10^7 / slowest_link_bw_kbps)</div>
+                    <div style="color: #82E0AA;">Delay = sum_of_delays_microseconds / 10</div>
+                </div>
+            </div>
+
+            <h4 style="color: #C39BD3;">Metric Components</h4>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Bandwidth:</strong> Inverse of slowest link bandwidth (10^7/kbps)</li>
+                <li><strong>Delay:</strong> Cumulative delay in tens of microseconds</li>
+                <li><strong>Reliability:</strong> Packet success rate (0-255, higher is better)</li>
+                <li><strong>Load:</strong> Link utilization (0-255, lower is better)</li>
+                <li><strong>MTU:</strong> Maximum Transmission Unit (not used in metric by default)</li>
+            </ul>
+
+            <h4 style="color: #C39BD3;">Viewing EIGRP Metrics</h4>
+            <div style="background-color: #2C3E50; padding: 15px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #AF7AC5;">
+                <div style="color: #E8E8E8; font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div style="color: #7FB3D3;">// View EIGRP topology with metrics</div>
+                    <div style="color: #82E0AA;">show ip eigrp topology</div>
+                    <div style="margin-top: 10px; color: #7FB3D3;">// View interface delay and bandwidth</div>
+                    <div style="color: #82E0AA;">show interface gigabitethernet0/0</div>
+                    <div style="margin-top: 10px; color: #7FB3D3;">// Configure manual bandwidth</div>
+                    <div style="color: #82E0AA;">interface gigabitethernet0/0</div>
+                    <div style="color: #82E0AA;"> bandwidth 1000</div>
+                    <div style="color: #82E0AA;"> delay 100</div>
+                </div>
+            </div>
+
+            <h4 style="color: #C39BD3;">Load Balancing</h4>
+            <p>EIGRP supports both equal and unequal cost load balancing:</p>
+            <ul style="list-style-type: square; margin-left: 20px;">
+                <li><strong>Equal Cost:</strong> Routes with identical metrics (default up to 4 paths)</li>
+                <li><strong>Unequal Cost:</strong> Uses variance multiplier for feasible successors</li>
+                <li><strong>Maximum Paths:</strong> Configure maximum-paths (1-32)</li>
+                <li><strong>Variance:</strong> Multiplier for unequal cost paths (1-128)</li>
+            </ul>
+
+            <div style="background-color: #2C3E50; padding: 15px; border-radius: 5px; margin: 10px 0; border-left: 4px solid #AF7AC5;">
+                <div style="color: #E8E8E8; font-family: 'Courier New', monospace; font-size: 14px;">
+                    <div style="color: #7FB3D3;">// Configure unequal cost load balancing</div>
+                    <div style="color: #82E0AA;">router eigrp 100</div>
+                    <div style="color: #82E0AA;"> variance 2</div>
+                    <div style="color: #82E0AA;"> maximum-paths 6</div>
+                </div>
+            </div>
+
+            <div style="background-color: #1B4F72; padding: 12px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #3498DB;">
+                <h5 style="color: #85C1E9; margin-bottom: 8px;">💡 Metric Optimization Tips:</h5>
+                <ul style="margin-left: 20px; color: #AED6F1;">
+                    <li>Manually configure bandwidth on serial interfaces</li>
+                    <li>Adjust delay for path manipulation (more predictable than bandwidth)</li>
+                    <li>Use variance carefully to avoid suboptimal routing</li>
+                    <li>Monitor load balancing with show ip route eigrp</li>
+                </ul>
+            </div>
+
+            <div style="background-color: #0F4C75; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #3DAEE9;">
+                <h5 style="color: #58D68D; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand default K values and simplified metric calculation</li>
+                    <li>Know how bandwidth and delay affect path selection</li>
+                    <li>Practice viewing metrics with show commands</li>
+                    <li>Understand equal vs unequal cost load balancing concepts</li>
+                </ul>
+            </div>
+        </div>
+    `,
 
     // 3.4 Single Area OSPFv2 Components
     "Neighbor Adjacencies": `

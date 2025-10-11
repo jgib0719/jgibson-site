@@ -3,8 +3,8 @@
 venv/
 env/
 
-# Quiz folder (excluded from repository)
-public_html/quiz/
+# Archive folder (excluded from repository)
+.archive/
 
 # IDE and editor files
 .vscode/

@@ -7,7 +7,9 @@
 
 class UnifiedCCNAProgressTracker {
     constructor(currentChapter = null) {
-        this.userId = this.getOrCreateUserId();
+        // Initialize user identity manager
+        this.userIdentity = new CCNAUserIdentity();
+        this.userId = this.userIdentity.getOrCreateCCNAUserId();
         this.userStatsKey = 'ccna_user_stats';
         this.currentChapter = currentChapter;
         this.storageKey = `ccna_progress_${this.userId}`;
@@ -16,9 +18,9 @@ class UnifiedCCNAProgressTracker {
         // Cache for topic totals to prevent multiple API calls
         this._cachedTopicTotals = null;
         
-        // CRITICAL: Each chapter defines ONLY its own topics
-        // This prevents the cross-contamination issue
-        this.chapterTopics = this.getChapterTopicsFromDOM();
+        // IMPROVED: Accept topics from external source instead of DOM extraction
+        // This decouples progress tracking from DOM dependencies
+        this.chapterTopics = {};
         
         this.checkDataVersion();
         this.migrateLegacyData();
@@ -44,29 +46,30 @@ class UnifiedCCNAProgressTracker {
     }
 
     /**
-     * SOLUTION: Dynamically detect topics from DOM instead of hardcoded arrays
-     * This ensures each chapter only counts its actual rendered topics
+     * Set topics for current chapter from external source (SectionLoader)
+     * This replaces DOM extraction with explicit topic provision
+     * @param {number} chapterNumber - Chapter/section number
+     * @param {Array<string>} topicTitles - Array of topic titles
      */
-    getChapterTopicsFromDOM() {
-        const topics = {};
-        
-        if (this.currentChapter) {
-            // Count actual topic cards on current page
-            const topicCards = document.querySelectorAll('.topic-card h3');
-            const currentChapterTopics = Array.from(topicCards).map(h3 => h3.textContent.trim());
-            topics[this.currentChapter] = currentChapterTopics;
+    setChapterTopics(chapterNumber, topicTitles) {
+        if (Array.isArray(topicTitles)) {
+            this.chapterTopics[chapterNumber] = topicTitles;
+            this.updateTopicCountCache();
+            console.log(`Set ${topicTitles.length} topics for chapter ${chapterNumber}`);
+        } else {
+            console.warn(`Invalid topic titles provided for chapter ${chapterNumber}:`, topicTitles);
         }
-        
-        // Load topic counts for other chapters from localStorage cache
-        const cachedTopics = this.getCachedChapterTopics();
-        Object.assign(topics, cachedTopics);
-        
-        return topics;
     }
 
     /**
-     * Cache topic counts to prevent having to load all chapters
+     * Get topics for a specific chapter
+     * @param {number} chapterNumber - Chapter/section number
+     * @returns {Array<string>} Array of topic titles
      */
+    getChapterTopics(chapterNumber) {
+        return this.chapterTopics[chapterNumber] || [];
+    }
+
     /**
      * Get cached chapter topics with dynamic totals from section registry
      */
@@ -77,45 +80,29 @@ class UnifiedCCNAProgressTracker {
         }
         
         try {
-            // First try to get from section registry (dynamic)
+            // Get from section registry (the single source of truth)
             if (window.CCNA_SECTION_REGISTRY) {
                 const dynamicTotals = window.CCNA_SECTION_REGISTRY.getAllTopicTotals();
                 console.log('Using dynamic topic totals from section registry:', dynamicTotals);
+                
+                // Clear any stale localStorage cache when we have fresh registry data
+                const totalFromRegistry = Object.values(dynamicTotals).reduce((sum, count) => sum + count, 0);
+                if (totalFromRegistry > 200) { // We expect ~260, so anything > 200 is likely correct
+                    localStorage.removeItem('ccna_chapter_topic_counts');
+                    console.log('Cleared stale localStorage cache, using fresh registry data');
+                }
+                
                 this._cachedTopicTotals = dynamicTotals;
                 return dynamicTotals;
             }
             
-            // Fallback to localStorage cache
-            const cached = localStorage.getItem('ccna_chapter_topic_counts');
-            if (cached) {
-                const parsedCache = JSON.parse(cached);
-                this._cachedTopicTotals = parsedCache;
-                return parsedCache;
-            }
-            
-            // Final fallback to hardcoded defaults
-            const defaults = this.getDefaultTopicCounts();
-            this._cachedTopicTotals = defaults;
-            return defaults;
+            // If registry not available, throw error - no fallbacks
+            throw new Error('Section registry not available - cannot determine topic counts');
         } catch (e) {
-            console.warn('Error loading topic counts, using defaults:', e);
-            return this.getDefaultTopicCounts();
+            console.error('Cannot load topic counts without section registry:', e);
+            // Return empty object rather than incorrect hardcoded values
+            return {};
         }
-    }
-
-    /**
-     * Fallback topic counts - only used when registry is unavailable
-     * These should match actual content but are now dynamically updated
-     */
-    getDefaultTopicCounts() {
-        return {
-            1: 35, // Network Fundamentals - keeping current value
-            2: 13, // Network Access - corrected to match section2-data.js
-            3: 11, // IP Connectivity - corrected from subsection counts
-            4: 10, // IP Services - corrected from subsection counts
-            5: 11, // Security Fundamentals - corrected from subsection counts
-            6: 7   // Network Automation - correct value
-        };
     }
 
     /**
@@ -149,89 +136,6 @@ class UnifiedCCNAProgressTracker {
         } catch (e) {
             console.warn('Could not update topic count cache:', e);
         }
-    }
-
-    /**
-     * Get cookie value by name
-     */
-    getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-    }
-
-    /**
-     * Set cookie with long expiration
-     */
-    setCookie(name, value, days = 3650) { // 10 years
-        const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        const expires = `expires=${date.toUTCString()}`;
-        document.cookie = `${name}=${value};${expires};path=/;SameSite=Strict`;
-    }
-
-    /**
-     * Generate browser fingerprint for fallback identification
-     */
-    generateBrowserFingerprint() {
-        const nav = navigator;
-        const screen = window.screen;
-
-        const fingerprint = [
-            nav.userAgent,
-            nav.language,
-            screen.colorDepth,
-            screen.width + 'x' + screen.height,
-            new Date().getTimezoneOffset(),
-            !!window.sessionStorage,
-            !!window.localStorage
-        ].join('|');
-
-        let hash = 0;
-        for (let i = 0; i < fingerprint.length; i++) {
-            const char = fingerprint.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash;
-        }
-
-        return 'fp_' + Math.abs(hash).toString(36);
-    }
-
-    getOrCreateUserId() {
-        // Try cookie first (survives cache clears)
-        let userId = this.getCookie('ccna_user_id');
-
-        if (!userId) {
-            // Try localStorage second
-            userId = localStorage.getItem('ccna_user_id');
-        }
-
-        if (!userId) {
-            // Try browser fingerprint as fallback
-            const fingerprint = this.generateBrowserFingerprint();
-            userId = localStorage.getItem(`ccna_uid_${fingerprint}`);
-
-            if (userId) {
-                console.log('Recovered CCNA user ID from browser fingerprint');
-            }
-        }
-
-        if (!userId) {
-            // Generate new user ID
-            userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            console.log(`Generated new CCNA user ID: ${userId}`);
-        }
-
-        // Store in all locations for maximum persistence
-        this.setCookie('ccna_user_id', userId);
-        localStorage.setItem('ccna_user_id', userId);
-
-        // Also store with fingerprint mapping for recovery
-        const fingerprint = this.generateBrowserFingerprint();
-        localStorage.setItem(`ccna_uid_${fingerprint}`, userId);
-
-        return userId;
     }
 
     /**
@@ -494,7 +398,32 @@ class UnifiedCCNAProgressTracker {
         }
     }
 
+    /**
+     * Get completion status for visual synchronization
+     * Returns completion data instead of directly manipulating DOM
+     * @returns {Object} Object mapping topic titles to completion status
+     */
+    getTopicCompletionStates() {
+        const completionStates = {};
+        
+        // Get all topics for current chapter
+        if (this.currentChapter && this.chapterTopics[this.currentChapter]) {
+            this.chapterTopics[this.currentChapter].forEach(title => {
+                completionStates[title] = this.isTopicCompleted(title);
+            });
+        }
+        
+        return completionStates;
+    }
+
+    /**
+     * Legacy method for backward compatibility
+     * @deprecated Use getTopicCompletionStates() instead and handle DOM updates externally
+     */
     syncVisualState() {
+        console.warn('syncVisualState() is deprecated. Use getTopicCompletionStates() and handle DOM updates in SectionLoader.');
+        
+        // Fallback to DOM manipulation for backward compatibility
         document.querySelectorAll('.topic-card').forEach(card => {
             const title = card.querySelector('h3') ? card.querySelector('h3').textContent : '';
             if (title && this.isTopicCompleted(title)) {

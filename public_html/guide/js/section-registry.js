@@ -7,16 +7,50 @@
 
 const CCNA_SECTION_REGISTRY = {
     /**
-     * Section topic totals - dynamically populated from section data files
+     * Section topic totals - dynamically calculated from section data files
      * This registry provides a lightweight way to get topic counts
      */
-    topicTotals: {
-        1: 35,  // Network Fundamentals
-        2: 13,  // Network Access  
-        3: 11,  // IP Connectivity
-        4: 12,  // IP Services
-        5: 11,  // Security Fundamentals
-        6: 7    // Network Automation & Programmability
+    topicTotals: {},  // Will be populated dynamically as section data loads
+
+    /**
+     * Register section data and calculate topic totals dynamically
+     * Called by each section data file when it loads
+     */
+    registerSectionData: function(sectionNumber, sectionData) {
+        if (sectionData && sectionData.metadata && typeof sectionData.metadata.totalTopics !== 'undefined') {
+            // Use the section's own totalTopics calculation
+            if (typeof sectionData.metadata.totalTopics === 'function') {
+                this.topicTotals[sectionNumber] = sectionData.metadata.totalTopics();
+            } else {
+                this.topicTotals[sectionNumber] = sectionData.metadata.totalTopics;
+            }
+        }
+        console.log(`Registered section ${sectionNumber} with ${this.topicTotals[sectionNumber]} topics`);
+    },
+
+    /**
+     * Get total topics for a specific section
+     */
+    getTopicTotal: function(sectionNumber) {
+        return this.topicTotals[sectionNumber] || 0;
+    },
+
+    /**
+     * Get total topics across all sections
+     */
+    getTotalTopics: function() {
+        return Object.values(this.topicTotals).reduce((total, count) => total + count, 0);
+    },
+
+    /**
+     * Update topic total for a specific section (called when section data changes)
+     */
+    updateTopicTotal: function(sectionNumber, totalTopics) {
+        this.topicTotals[sectionNumber] = totalTopics;
+        // Dispatch event for progress trackers to update
+        window.dispatchEvent(new CustomEvent('topicCountsUpdated', {
+            detail: { sectionNumber, totalTopics, allTotals: this.topicTotals }
+        }));
     },
 
     /**
@@ -76,6 +110,13 @@ const CCNA_SECTION_REGISTRY = {
     },
 
     /**
+     * Get total topics across all sections
+     */
+    getTotalTopics() {
+        return Object.values(this.topicTotals).reduce((total, count) => total + count, 0);
+    },
+
+    /**
      * Get section information
      */
     getSectionInfo(sectionNumber) {
@@ -108,8 +149,23 @@ const CCNA_SECTION_REGISTRY = {
      * Register section data when a section data file loads
      */
     registerSectionData(sectionNumber, sectionData) {
-        if (sectionData && sectionData.metadata && sectionData.metadata.totalTopics) {
-            this.updateTopicTotal(sectionNumber, sectionData.metadata.totalTopics);
+        if (sectionData && sectionData.metadata) {
+            let totalTopics = 0;
+            
+            // Handle both getter functions and direct values
+            if (typeof sectionData.metadata.totalTopics === 'function') {
+                totalTopics = sectionData.metadata.totalTopics();
+            } else if (typeof sectionData.metadata.totalTopics === 'number') {
+                totalTopics = sectionData.metadata.totalTopics;
+            } else if (sectionData.metadata.subsections) {
+                // Calculate from subsections if totalTopics is not available
+                totalTopics = Object.values(sectionData.metadata.subsections)
+                    .reduce((total, section) => total + (section.count || 0), 0);
+            }
+            
+            if (totalTopics > 0) {
+                this.updateTopicTotal(sectionNumber, totalTopics);
+            }
         }
     },
 

@@ -17,9 +17,19 @@
     <div class="page-container">
         <!-- Breadcrumb Navigation -->
         <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="/">Home</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current" aria-current="page">Sections</span>
+            <div class="breadcrumb-left">
+                <a href="/">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current" aria-current="page">Sections</span>
+            </div>
+            <div class="breadcrumb-right">
+                <a href="/" class="back-button">
+                    <svg class="back-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 12H5m7-7l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Back to Home
+                </a>
+            </div>
         </nav>
 
         <header class="page-header">
@@ -42,10 +52,13 @@
                 <div class="section-content">
                     <h3>Core Topics Covered:</h3>
                     <ul class="section-list">
-                        <li>Network Components & Topologies</li>
-                        <li>Cabling, TCP & UDP</li>
-                        <li>IPv4 and IPv6 Addressing</li>
-                        <li>Virtualization Fundamentals</li>
+                        <li>Network Components & Device Types</li>
+                        <li>Network Topology Architectures</li>
+                        <li>Physical Interface & Cabling Types</li>
+                        <li>TCP vs UDP Transport Protocols</li>
+                        <li>IPv4 & IPv6 Addressing + VLSM</li>
+                        <li>Wireless Principles & RF Fundamentals</li>
+                        <li>Virtualization & Switching Concepts</li>
                     </ul>
                     <a href="section1.html" class="section-button">Review Section</a>
                 </div>
@@ -65,8 +78,12 @@
                 <div class="section-content">
                     <h3>Core Topics Covered:</h3>
                     <ul class="section-list">
-                        <li>Ethernet, STP, VLANs & Trunking</li>
-                        <li>EtherChannel & Wireless</li>
+                        <li>VLANs & Inter-switch Connectivity</li>
+                        <li>Layer 2 Discovery Protocols</li>
+                        <li>EtherChannel Link Aggregation</li>
+                        <li>Rapid PVST+ Spanning Tree</li>
+                        <li>Wireless Architecture & Infrastructure</li>
+                        <li>AP Management & WLAN Configuration</li>
                     </ul>
                     <a href="section2.html" class="section-button">Review Section</a>
                 </div>
@@ -86,9 +103,12 @@
                 <div class="section-content">
                     <h3>Core Topics Covered:</h3>
                     <ul class="section-list">
-                        <li>Routing concepts & IP routing table</li>
-                        <li>Configure and verify static routing</li>
-                        <li>OSPF & First hop redundancy protocols</li>
+                        <li>Routing Table Components & Analysis</li>
+                        <li>Forwarding Decision Process</li>
+                        <li>Static Routing Configuration</li>
+                        <li>Policy-Based Routing (PBR)</li>
+                        <li>Single Area OSPFv2 Implementation</li>
+                        <li>EIGRP & First Hop Redundancy</li>
                     </ul>
                     <a href="section3.html" class="section-button">Review Section</a>
                 </div>
@@ -108,10 +128,12 @@
                 <div class="section-content">
                     <h3>Core Topics Covered:</h3>
                     <ul class="section-list">
-                        <li>Configure and verify inside source NAT</li>
-                        <li>Configure and verify NTP</li>
-                        <li>Configure and verify DHCP</li>
-                        <li>Explain the role of DHCP and DNS</li>
+                        <li>NAT & NTP Configuration</li>
+                        <li>DHCP & DNS Services</li>
+                        <li>SNMP Operations & Syslog Features</li>
+                        <li>QoS Concepts & SSH Remote Access</li>
+                        <li>TFTP/FTP Functions</li>
+                        <li>HSRP Configuration & NetFlow Monitoring</li>
                     </ul>
                     <a href="section4.html" class="section-button">Review Section</a>
                 </div>
@@ -131,10 +153,12 @@
                 <div class="section-content">
                     <h3>Core Topics Covered:</h3>
                     <ul class="section-list">
-                        <li>Configure device access control</li>
-                        <li>Configure and verify ACLs</li>
-                        <li>Configure Layer 2 security features</li>
-                        <li>Describe wireless security protocols</li>
+                        <li>Key Security Concepts & Program Elements</li>
+                        <li>Device Access Control & Password Policies</li>
+                        <li>IPsec VPNs & Access Control Lists</li>
+                        <li>Layer 2 Security Features</li>
+                        <li>AAA Concepts & Wireless Security</li>
+                        <li>Firewall Types & Cryptography Basics</li>
                     </ul>
                     <a href="section5.html" class="section-button">Review Section</a>
                 </div>
@@ -154,10 +178,12 @@
                 <div class="section-content">
                     <h3>Core Topics Covered:</h3>
                     <ul class="section-list">
-                        <li>Explain how automation impacts network management</li>
-                        <li>Compare traditional networks with controller-based networking</li>
-                        <li>Describe controller-based and software defined architectures</li>
-                        <li>Compare traditional campus device management with Cisco DNA Center</li>
+                        <li>Automation Impact on Network Management</li>
+                        <li>Traditional vs Controller-Based Networking</li>
+                        <li>Software-Defined Architecture Concepts</li>
+                        <li>AI & Machine Learning in Networking</li>
+                        <li>REST API Characteristics & Usage</li>
+                        <li>Configuration Management & JSON Data</li>
                     </ul>
                     <a href="section6.html" class="section-button">Review Section</a>
                 </div>

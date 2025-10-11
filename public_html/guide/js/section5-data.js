@@ -227,6 +227,79 @@ const SECTION5_DATA = {
                 <rect x="150" y="140" width="100" height="25" rx="3" fill="#64748b"/>
                 <text x="200" y="157" text-anchor="middle" fill="white" font-size="10">Risk Assessment</text>
             </svg>`
+        },
+        {
+            title: "Firewall Types",
+            icon: "fa-fire-alt",
+            description: "Understanding different firewall architectures: stateless packet filters, stateful inspection firewalls, and next-generation firewalls (NGFWs) with their distinct security capabilities and roles.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Firewall Types Comparison</title>
+                <rect x="30" y="50" width="100" height="100" rx="5" fill="#3b82f6"/>
+                <text x="80" y="35" text-anchor="middle" fill="#3b82f6" font-size="10" font-weight="bold">Stateless</text>
+                <text x="80" y="75" text-anchor="middle" fill="white" font-size="9">Packet Filter</text>
+                <text x="80" y="90" text-anchor="middle" fill="white" font-size="8">• IP/Port Rules</text>
+                <text x="80" y="105" text-anchor="middle" fill="white" font-size="8">• No Connection State</text>
+                <text x="80" y="120" text-anchor="middle" fill="white" font-size="8">• Fast Processing</text>
+                <text x="80" y="135" text-anchor="middle" fill="white" font-size="8">• Basic Security</text>
+                
+                <rect x="150" y="50" width="100" height="100" rx="5" fill="#10b981"/>
+                <text x="200" y="35" text-anchor="middle" fill="#10b981" font-size="10" font-weight="bold">Stateful</text>
+                <text x="200" y="75" text-anchor="middle" fill="white" font-size="9">Inspection</text>
+                <text x="200" y="90" text-anchor="middle" fill="white" font-size="8">• Connection Tracking</text>
+                <text x="200" y="105" text-anchor="middle" fill="white" font-size="8">• Session State</text>
+                <text x="200" y="120" text-anchor="middle" fill="white" font-size="8">• Context Aware</text>
+                <text x="200" y="135" text-anchor="middle" fill="white" font-size="8">• Enhanced Security</text>
+                
+                <rect x="270" y="50" width="100" height="100" rx="5" fill="#ef4444"/>
+                <text x="320" y="35" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="bold">NGFW</text>
+                <text x="320" y="75" text-anchor="middle" fill="white" font-size="9">Next-Generation</text>
+                <text x="320" y="90" text-anchor="middle" fill="white" font-size="8">• Application Control</text>
+                <text x="320" y="105" text-anchor="middle" fill="white" font-size="8">• Deep Inspection</text>
+                <text x="320" y="120" text-anchor="middle" fill="white" font-size="8">• Threat Intelligence</text>
+                <text x="320" y="135" text-anchor="middle" fill="white" font-size="8">• Advanced Security</text>
+                
+                <text x="200" y="175" text-anchor="middle" fill="#E0E0E0" font-size="9">Firewall Evolution: Basic → Advanced Security Controls</text>
+            </svg>`
+        },
+        {
+            title: "Cryptography Basics",
+            icon: "fa-key",
+            description: "Fundamental cryptographic concepts including symmetric and asymmetric encryption, key management, and hashing algorithms. Essential foundation for understanding VPNs and secure communications.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>Cryptography Fundamentals</title>
+                <rect x="30" y="40" width="120" height="120" rx="5" fill="#6366f1"/>
+                <text x="90" y="30" text-anchor="middle" fill="#6366f1" font-size="11" font-weight="bold">Symmetric</text>
+                <circle cx="90" cy="70" r="15" fill="#3b82f6"/>
+                <text x="90" y="75" text-anchor="middle" fill="white" font-size="8">Key</text>
+                <rect x="65" y="90" width="50" height="15" rx="2" fill="#10b981"/>
+                <text x="90" y="100" text-anchor="middle" fill="white" font-size="8">Encrypt</text>
+                <rect x="65" y="110" width="50" height="15" rx="2" fill="#f59e0b"/>
+                <text x="90" y="120" text-anchor="middle" fill="white" font-size="8">Decrypt</text>
+                <text x="90" y="140" text-anchor="middle" fill="white" font-size="8">AES, DES</text>
+                <text x="90" y="152" text-anchor="middle" fill="white" font-size="8">Same Key</text>
+                
+                <rect x="170" y="40" width="120" height="120" rx="5" fill="#8b5cf6"/>
+                <text x="230" y="30" text-anchor="middle" fill="#8b5cf6" font-size="11" font-weight="bold">Asymmetric</text>
+                <circle cx="210" cy="70" r="12" fill="#10b981"/>
+                <text x="210" y="75" text-anchor="middle" fill="white" font-size="7">Public</text>
+                <circle cx="250" cy="70" r="12" fill="#ef4444"/>
+                <text x="250" y="75" text-anchor="middle" fill="white" font-size="7">Private</text>
+                <rect x="205" y="90" width="50" height="15" rx="2" fill="#10b981"/>
+                <text x="230" y="100" text-anchor="middle" fill="white" font-size="8">Encrypt</text>
+                <rect x="205" y="110" width="50" height="15" rx="2" fill="#ef4444"/>
+                <text x="230" y="120" text-anchor="middle" fill="white" font-size="8">Decrypt</text>
+                <text x="230" y="140" text-anchor="middle" fill="white" font-size="8">RSA, ECC</text>
+                <text x="230" y="152" text-anchor="middle" fill="white" font-size="8">Key Pairs</text>
+                
+                <rect x="310" y="60" width="70" height="80" rx="5" fill="#f59e0b"/>
+                <text x="345" y="50" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="bold">Hashing</text>
+                <text x="345" y="80" text-anchor="middle" fill="white" font-size="8">MD5</text>
+                <text x="345" y="95" text-anchor="middle" fill="white" font-size="8">SHA-1</text>
+                <text x="345" y="110" text-anchor="middle" fill="white" font-size="8">SHA-256</text>
+                <text x="345" y="125" text-anchor="middle" fill="white" font-size="8">Integrity</text>
+                
+                <text x="200" y="185" text-anchor="middle" fill="#E0E0E0" font-size="9">Cryptographic Methods for Data Protection</text>
+            </svg>`
         }
     ],
     // 5.3 - Configure and verify device access control using local passwords
@@ -1417,7 +1490,7 @@ const SECTION5_DATA = {
         sectionNumber: 5,
         title: "Security Fundamentals",
         subsections: {
-            securityConcepts: { title: "5.1 Key Security Concepts", count: 5 },
+            securityConcepts: { title: "5.1 Key Security Concepts", count: 7 },
             securityProgram: { title: "5.2 Security Program Elements", count: 6 },
             localPasswords: { title: "5.3 Device Access Control", count: 5 },
             passwordPolicies: { title: "5.4 Password Policy Elements", count: 5 },

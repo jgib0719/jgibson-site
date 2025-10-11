@@ -21,7 +21,7 @@ app.set('trust proxy', 1);
 // Security middleware
 app.use(helmet());
 app.use(cors({
-    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:3000', 'http://127.0.0.1:3000'],
+    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['https://jgibson.site', 'http://jgibson.site'],
     credentials: false // No cookies/sessions needed for anonymous tracking
 }));
 
@@ -93,6 +93,28 @@ db.serialize(() => {
 
     // Create index for api_stats table
     db.run(`CREATE INDEX IF NOT EXISTS idx_stats_created_at ON api_stats(created_at)`);
+
+    // Questions table for quiz engine
+    db.run(`
+        CREATE TABLE IF NOT EXISTS questions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            number INTEGER NOT NULL,
+            category TEXT NOT NULL,              -- 'cisco' or 'wiley'
+            question TEXT NOT NULL,
+            options TEXT NOT NULL,               -- JSON array of options
+            answer TEXT NOT NULL,                -- JSON array of correct answers
+            explanation TEXT NOT NULL,
+            image TEXT,                          -- Image path/filename, nullable
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(number, category)
+        )
+    `);
+
+    // Create indexes for questions table
+    db.run(`CREATE INDEX IF NOT EXISTS idx_questions_category ON questions(category)`);
+    db.run(`CREATE INDEX IF NOT EXISTS idx_questions_number ON questions(number)`);
+    db.run(`CREATE INDEX IF NOT EXISTS idx_questions_category_number ON questions(category, number)`);
 
     console.log('Database tables initialized');
 });
@@ -282,6 +304,82 @@ app.get('/api/stats', (req, res) => {
         res.json({
             timestamp: new Date().toISOString(),
             sections: rows
+        });
+    });
+});
+
+// Get questions for quiz (supports filtering by category and limiting count)
+app.get('/api/questions', (req, res) => {
+    const { category, count, random } = req.query;
+    
+    // Validate category parameter
+    if (category && !['cisco', 'wiley'].includes(category)) {
+        return res.status(400).json({
+            error: 'Invalid category. Must be "cisco" or "wiley"'
+        });
+    }
+    
+    // Validate count parameter
+    let limitClause = '';
+    let countLimit = null;
+    if (count) {
+        countLimit = parseInt(count, 10);
+        if (isNaN(countLimit) || countLimit < 1 || countLimit > 1000) {
+            return res.status(400).json({
+                error: 'Invalid count. Must be a number between 1 and 1000'
+            });
+        }
+        limitClause = `LIMIT ${countLimit}`;
+    }
+    
+    // Build query
+    let query = 'SELECT * FROM questions';
+    const params = [];
+    
+    if (category) {
+        query += ' WHERE category = ?';
+        params.push(category);
+    }
+    
+    // Add random ordering if requested
+    if (random === 'true') {
+        query += ' ORDER BY RANDOM()';
+    } else {
+        query += ' ORDER BY category, number';
+    }
+    
+    if (limitClause) {
+        query += ` ${limitClause}`;
+    }
+    
+    console.log(`Fetching questions: category=${category || 'all'}, count=${countLimit || 'all'}, random=${random}`);
+    
+    db.all(query, params, (err, rows) => {
+        if (err) {
+            console.error('Database error:', err.message);
+            res.status(500).json({ error: 'Failed to load questions' });
+            return;
+        }
+        
+        // Parse JSON fields for each question
+        const questions = rows.map(row => ({
+            id: row.id,
+            number: row.number,
+            category: row.category,
+            question: row.question,
+            options: JSON.parse(row.options),
+            answer: JSON.parse(row.answer),
+            explanation: row.explanation,
+            image: row.image,
+            created_at: row.created_at,
+            updated_at: row.updated_at
+        }));
+        
+        res.json({
+            success: true,
+            count: questions.length,
+            category: category || 'all',
+            questions: questions
         });
     });
 });

@@ -4154,6 +4154,261 @@ Router(config-line)# <span style="color: #DCDCAA;">transport input ssh</span>
                 </ul>
             </div>
         </div>
+    `,
+
+    // 4.10 HSRP Configuration
+    "HSRP Configuration": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #00A8FF; border-bottom: 2px solid #00A8FF; padding-bottom: 5px;">4.10: HSRP Configuration</h3>
+            <p>Hot Standby Router Protocol (HSRP) provides first hop redundancy by creating a virtual router with shared IP and MAC addresses. Multiple physical routers work together to ensure continuous connectivity for end devices.</p>
+            
+            <h4 style="color: #58D4FF;">Basic HSRP Configuration</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Router 1 (Active) Configuration</span>
+Router1(config)# <span style="color: #DCDCAA;">interface gigabitethernet0/0</span>
+Router1(config-if)# <span style="color: #DCDCAA;">ip address 192.168.1.1 255.255.255.0</span>
+Router1(config-if)# <span style="color: #DCDCAA;">standby 1 ip 192.168.1.254</span>
+Router1(config-if)# <span style="color: #DCDCAA;">standby 1 priority 110</span>
+Router1(config-if)# <span style="color: #DCDCAA;">standby 1 preempt</span>
+
+<span style="color: #6A9955;"># Router 2 (Standby) Configuration</span>
+Router2(config)# <span style="color: #DCDCAA;">interface gigabitethernet0/0</span>
+Router2(config-if)# <span style="color: #DCDCAA;">ip address 192.168.1.2 255.255.255.0</span>
+Router2(config-if)# <span style="color: #DCDCAA;">standby 1 ip 192.168.1.254</span>
+Router2(config-if)# <span style="color: #C586C0;">standby 1 priority 100</span>
+</code>
+            </pre>
+            
+            <h4 style="color: #58D4FF;">HSRP States and Operation</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444; color: #10b981; font-weight: bold;">Active</td><td style="padding: 8px; border-bottom: 1px solid #444;">Forwards traffic for virtual IP</td><td style="padding: 8px; border-bottom: 1px solid #444;">Highest priority router</td></tr>
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444; color: #3b82f6; font-weight: bold;">Standby</td><td style="padding: 8px; border-bottom: 1px solid #444;">Monitors active router</td><td style="padding: 8px; border-bottom: 1px solid #444;">Ready to take over</td></tr>
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444; color: #6366f1; font-weight: bold;">Listen</td><td style="padding: 8px; border-bottom: 1px solid #444;">Monitors HSRP messages</td><td style="padding: 8px; border-bottom: 1px solid #444;">Lower priority routers</td></tr>
+                    <tr><td style="padding: 8px; color: #f59e0b; font-weight: bold;">Learn</td><td style="padding: 8px;">Discovers virtual IP</td><td style="padding: 8px;">Initial state</td></tr>
+                </table>
+            </div>
+            
+            <h4 style="color: #58D4FF;">Advanced HSRP Features</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Interface tracking for automatic failover</span>
+Router1(config-if)# <span style="color: #DCDCAA;">standby 1 track serial0/0/0</span>
+Router1(config-if)# <span style="color: #DCDCAA;">standby 1 track serial0/0/0 20</span>
+
+<span style="color: #6A9955;"># Authentication for security</span>
+Router1(config-if)# <span style="color: #DCDCAA;">standby 1 authentication md5 key-string cisco123</span>
+
+<span style="color: #6A9955;"># Custom timers for faster convergence</span>
+Router1(config-if)# <span style="color: #DCDCAA;">standby 1 timers 1 3</span>
+
+<span style="color: #6A9955;"># Multiple HSRP groups</span>
+Router1(config-if)# <span style="color: #DCDCAA;">standby 2 ip 192.168.1.253</span>
+Router1(config-if)# <span style="color: #C586C0;">standby 2 priority 90</span>
+</code>
+            </pre>
+            
+            <h4 style="color: #58D4FF;">Load Balancing with Multiple Groups</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #58D4FF;">
+                <p><strong>Group 1:</strong> Router A (Active), Router B (Standby) - VLANs 10, 30, 50</p>
+                <p><strong>Group 2:</strong> Router B (Active), Router A (Standby) - VLANs 20, 40, 60</p>
+                <p>This configuration distributes traffic load across both routers while maintaining redundancy.</p>
+            </div>
+            
+            <h4 style="color: #58D4FF;">Verification and Troubleshooting</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+Router# <span style="color: #DCDCAA;">show standby</span>
+Router# <span style="color: #DCDCAA;">show standby brief</span>
+Router# <span style="color: #DCDCAA;">show standby group 1</span>
+Router# <span style="color: #DCDCAA;">debug standby</span>
+Router# <span style="color: #DCDCAA;">debug standby events</span>
+</code>
+            </pre>
+            
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Configure basic HSRP with virtual IP and priority settings</li>
+                    <li>Understand preemption and when to use it</li>
+                    <li>Implement interface tracking for automatic failover</li>
+                    <li>Configure multiple HSRP groups for load balancing</li>
+                    <li>Use verification commands to troubleshoot HSRP operations</li>
+                </ul>
+            </div>
+        </div>
+    `,
+
+    // 4.11 NetFlow Fundamentals
+    "NetFlow Fundamentals": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #2ECC71; border-bottom: 2px solid #2ECC71; padding-bottom: 5px;">4.11.a: NetFlow Fundamentals</h3>
+            <p>NetFlow is a network protocol for collecting IP traffic information and monitoring network flow data. It provides detailed visibility into network traffic patterns, bandwidth utilization, and security analysis.</p>
+            
+            <h4 style="color: #58D68D;">NetFlow Components</h4>
+            <div style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; margin: 10px 0;">
+                <table style="width: 100%; color: #E0E0E0; border-collapse: collapse;">
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444; color: #10b981; font-weight: bold;">Flow Cache</td><td style="padding: 8px; border-bottom: 1px solid #444;">Stores active flow records in router memory</td></tr>
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444; color: #3b82f6; font-weight: bold;">Flow Record</td><td style="padding: 8px; border-bottom: 1px solid #444;">Contains flow information (5-tuple + stats)</td></tr>
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #444; color: #6366f1; font-weight: bold;">Flow Exporter</td><td style="padding: 8px; border-bottom: 1px solid #444;">Sends flow data to collector</td></tr>
+                    <tr><td style="padding: 8px; color: #f59e0b; font-weight: bold;">Flow Collector</td><td style="padding: 8px;">Receives and processes flow data</td></tr>
+                </table>
+            </div>
+            
+            <h4 style="color: #58D68D;">Flow Definition (5-tuple)</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Flow identification parameters</span>
+<span style="color: #DCDCAA;">Source IP Address:</span>    <span style="color: #CE9178;">192.168.1.10</span>
+<span style="color: #DCDCAA;">Destination IP Address:</span> <span style="color: #CE9178;">203.0.113.5</span>
+<span style="color: #DCDCAA;">Source Port:</span>          <span style="color: #CE9178;">49152</span>
+<span style="color: #DCDCAA;">Destination Port:</span>     <span style="color: #CE9178;">80</span>
+<span style="color: #DCDCAA;">Protocol:</span>             <span style="color: #CE9178;">TCP (6)</span>
+
+<span style="color: #6A9955;"># Additional flow information</span>
+<span style="color: #9CDCFE;">Input Interface:</span>      <span style="color: #CE9178;">GigabitEthernet0/0</span>
+<span style="color: #9CDCFE;">Output Interface:</span>     <span style="color: #CE9178;">GigabitEthernet0/1</span>
+<span style="color: #9CDCFE;">ToS/DSCP:</span>             <span style="color: #CE9178;">0x00</span>
+<span style="color: #9CDCFE;">Packet Count:</span>         <span style="color: #CE9178;">150</span>
+<span style="color: #9CDCFE;">Byte Count:</span>           <span style="color: #CE9178;">98,432</span>
+</code>
+            </pre>
+            
+            <h4 style="color: #58D68D;">NetFlow Versions</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #58D68D;">
+                <ul style="list-style-type: square; margin-left: 20px;">
+                    <li><strong>Version 5:</strong> Most common, fixed format, IPv4 only</li>
+                    <li><strong>Version 9:</strong> Template-based, flexible, supports IPv6</li>
+                    <li><strong>IPFIX:</strong> Internet standard based on NetFlow v9</li>
+                    <li><strong>Flexible NetFlow:</strong> Cisco's advanced implementation</li>
+                </ul>
+            </div>
+            
+            <h4 style="color: #58D68D;">Flow Export Triggers</h4>
+            <ul style="margin-left: 20px; color: #B0B0B0;">
+                <li><strong style="color: #10b981;">Flow Timeout:</strong> Active flows expire after 30 minutes (default)</li>
+                <li><strong style="color: #3b82f6;">Inactive Timeout:</strong> Idle flows expire after 15 seconds</li>
+                <li><strong style="color: #6366f1;">TCP FIN/RST:</strong> Connection termination triggers export</li>
+                <li><strong style="color: #f59e0b;">Cache Full:</strong> Oldest flows exported when cache fills</li>
+                <li><strong style="color: #ef4444;">Interface Change:</strong> Route change triggers export</li>
+            </ul>
+            
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Understand the 5-tuple flow identification mechanism</li>
+                    <li>Know the difference between NetFlow versions (v5, v9, IPFIX)</li>
+                    <li>Recognize flow export triggers and timeout values</li>
+                    <li>Identify NetFlow components and their roles</li>
+                </ul>
+            </div>
+        </div>
+    `,
+
+    // 4.11 NetFlow Configuration
+    "NetFlow Configuration": `
+        <div style="font-family: 'Inter', sans-serif; color: #E0E0E0;">
+            <h3 style="color: #F39C12; border-bottom: 2px solid #F39C12; padding-bottom: 5px;">4.11.b: NetFlow Configuration</h3>
+            <p>Configure NetFlow to monitor network traffic patterns and export flow data to collectors for analysis. Proper configuration enables effective network monitoring and security analysis.</p>
+            
+            <h4 style="color: #F5B041;">Traditional NetFlow Configuration</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Configure NetFlow export destination</span>
+Router(config)# <span style="color: #DCDCAA;">ip flow-export destination 192.168.1.100 2055</span>
+Router(config)# <span style="color: #DCDCAA;">ip flow-export version 9</span>
+Router(config)# <span style="color: #DCDCAA;">ip flow-export source loopback0</span>
+
+<span style="color: #6A9955;"># Configure cache parameters</span>
+Router(config)# <span style="color: #DCDCAA;">ip flow-cache timeout active 1</span>
+Router(config)# <span style="color: #DCDCAA;">ip flow-cache timeout inactive 15</span>
+
+<span style="color: #6A9955;"># Enable NetFlow on interfaces</span>
+Router(config)# <span style="color: #DCDCAA;">interface gigabitethernet0/0</span>
+Router(config-if)# <span style="color: #DCDCAA;">ip flow ingress</span>
+Router(config-if)# <span style="color: #C586C0;">ip flow egress</span>
+</code>
+            </pre>
+            
+            <h4 style="color: #F5B041;">Flexible NetFlow Configuration</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Define flow record</span>
+Router(config)# <span style="color: #DCDCAA;">flow record CUSTOM_RECORD</span>
+Router(config-flow-record)# <span style="color: #DCDCAA;">match ipv4 source address</span>
+Router(config-flow-record)# <span style="color: #DCDCAA;">match ipv4 destination address</span>
+Router(config-flow-record)# <span style="color: #DCDCAA;">match transport source-port</span>
+Router(config-flow-record)# <span style="color: #DCDCAA;">match transport destination-port</span>
+Router(config-flow-record)# <span style="color: #DCDCAA;">match ip protocol</span>
+Router(config-flow-record)# <span style="color: #DCDCAA;">collect counter bytes</span>
+Router(config-flow-record)# <span style="color: #C586C0;">collect counter packets</span>
+
+<span style="color: #6A9955;"># Define flow exporter</span>
+Router(config)# <span style="color: #DCDCAA;">flow exporter NETFLOW_EXPORTER</span>
+Router(config-flow-exporter)# <span style="color: #DCDCAA;">destination 192.168.1.100</span>
+Router(config-flow-exporter)# <span style="color: #DCDCAA;">transport udp 2055</span>
+Router(config-flow-exporter)# <span style="color: #C586C0;">version 9</span>
+
+<span style="color: #6A9955;"># Define flow monitor</span>
+Router(config)# <span style="color: #DCDCAA;">flow monitor NETFLOW_MONITOR</span>
+Router(config-flow-monitor)# <span style="color: #DCDCAA;">record CUSTOM_RECORD</span>
+Router(config-flow-monitor)# <span style="color: #C586C0;">exporter NETFLOW_EXPORTER</span>
+
+<span style="color: #6A9955;"># Apply to interface</span>
+Router(config)# <span style="color: #DCDCAA;">interface gigabitethernet0/0</span>
+Router(config-if)# <span style="color: #C586C0;">ip flow monitor NETFLOW_MONITOR input</span>
+</code>
+            </pre>
+            
+            <h4 style="color: #F5B041;">NetFlow Sampling</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+<span style="color: #6A9955;"># Configure sampling to reduce CPU load</span>
+Router(config)# <span style="color: #DCDCAA;">flow-sampler-map SAMPLER</span>
+Router(config-sampler)# <span style="color: #DCDCAA;">mode random one-out-of 100</span>
+
+<span style="color: #6A9955;"># Apply sampling to interface</span>
+Router(config)# <span style="color: #DCDCAA;">interface gigabitethernet0/0</span>
+Router(config-if)# <span style="color: #C586C0;">ip flow-sampler SAMPLER</span>
+</code>
+            </pre>
+            
+            <h4 style="color: #F5B041;">Verification Commands</h4>
+            <pre style="background-color: #2D2D2D; padding: 15px; border-radius: 8px; border: 1px solid #444; font-size: 0.9em;">
+<code style="color: #9CDCFE;">
+Router# <span style="color: #DCDCAA;">show ip flow export</span>
+Router# <span style="color: #DCDCAA;">show ip cache flow</span>
+Router# <span style="color: #DCDCAA;">show flow monitor NETFLOW_MONITOR</span>
+Router# <span style="color: #DCDCAA;">show flow record CUSTOM_RECORD</span>
+Router# <span style="color: #DCDCAA;">show flow exporter NETFLOW_EXPORTER</span>
+Router# <span style="color: #DCDCAA;">show ip flow interface</span>
+</code>
+            </pre>
+            
+            <h4 style="color: #F5B041;">NetFlow Applications</h4>
+            <div style="background-color: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #F5B041;">
+                <ul style="list-style-type: square; margin-left: 20px;">
+                    <li><strong>Network Monitoring:</strong> Real-time visibility into traffic patterns</li>
+                    <li><strong>Capacity Planning:</strong> Historical analysis for infrastructure sizing</li>
+                    <li><strong>Security Analysis:</strong> Detect anomalous traffic and potential threats</li>
+                    <li><strong>Billing and Accounting:</strong> Usage-based billing for service providers</li>
+                    <li><strong>Quality of Service:</strong> Application identification and QoS enforcement</li>
+                    <li><strong>Troubleshooting:</strong> Identify performance bottlenecks and issues</li>
+                </ul>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #444;">
+                <h5 style="color: #00CFFF; margin-bottom: 5px;">CCNA Exam Focus:</h5>
+                <ul style="margin-left: 20px; color: #B0B0B0;">
+                    <li>Configure basic NetFlow export destination and version</li>
+                    <li>Enable NetFlow on router interfaces (ingress/egress)</li>
+                    <li>Understand flow cache timeout parameters</li>
+                    <li>Use verification commands to validate NetFlow operation</li>
+                    <li>Recognize NetFlow applications in network monitoring</li>
+                </ul>
+            </div>
+        </div>
     `
 };
 

@@ -6,7 +6,9 @@
 
 class AnonymousProgressTracker {
     constructor(apiBase = '/api/progress') {
-        this.userId = this.getOrCreateAnonymousId();
+        // Initialize user identity manager
+        this.userIdentity = new CCNAUserIdentity();
+        this.userId = this.userIdentity.getOrCreateAnonymousUserId();
         this.apiBase = apiBase;
         this.isOnline = navigator.onLine;
         this.syncQueue = [];
@@ -16,97 +18,6 @@ class AnonymousProgressTracker {
         this.setupNetworkListeners();
         
         console.log(`AnonymousProgressTracker initialized for user: ${this.userId}`);
-    }
-
-    /**
-     * Generate browser fingerprint for fallback identification
-     */
-    generateBrowserFingerprint() {
-        const nav = navigator;
-        const screen = window.screen;
-
-        // Collect browser characteristics
-        const fingerprint = [
-            nav.userAgent,
-            nav.language,
-            screen.colorDepth,
-            screen.width + 'x' + screen.height,
-            new Date().getTimezoneOffset(),
-            !!window.sessionStorage,
-            !!window.localStorage
-        ].join('|');
-
-        // Simple hash function
-        let hash = 0;
-        for (let i = 0; i < fingerprint.length; i++) {
-            const char = fingerprint.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash; // Convert to 32bit integer
-        }
-
-        return 'fp_' + Math.abs(hash).toString(36);
-    }
-
-    /**
-     * Get cookie value by name
-     */
-    getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-    }
-
-    /**
-     * Set cookie with long expiration
-     */
-    setCookie(name, value, days = 3650) { // 10 years
-        const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        const expires = `expires=${date.toUTCString()}`;
-        document.cookie = `${name}=${value};${expires};path=/;SameSite=Strict`;
-    }
-
-    /**
-     * Generate or retrieve anonymous user ID
-     * Priority: 1) Cookie, 2) localStorage, 3) Browser fingerprint, 4) Generate new
-     */
-    getOrCreateAnonymousId() {
-        // Try cookie first (survives cache clears)
-        let userId = this.getCookie('anonymous_user_id');
-
-        if (!userId) {
-            // Try localStorage second
-            userId = localStorage.getItem('anonymous_user_id');
-        }
-
-        if (!userId) {
-            // Try browser fingerprint as fallback
-            const fingerprint = this.generateBrowserFingerprint();
-            userId = localStorage.getItem(`anon_id_${fingerprint}`);
-
-            if (userId) {
-                console.log('Recovered user ID from browser fingerprint');
-            }
-        }
-
-        if (!userId) {
-            // Generate new UUID v4
-            userId = 'user_' + ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-            );
-            console.log(`Generated new anonymous user ID: ${userId}`);
-        }
-
-        // Store in all locations for maximum persistence
-        this.setCookie('anonymous_user_id', userId);
-        localStorage.setItem('anonymous_user_id', userId);
-
-        // Also store with fingerprint mapping for recovery
-        const fingerprint = this.generateBrowserFingerprint();
-        localStorage.setItem(`anon_id_${fingerprint}`, userId);
-
-        return userId;
     }
 
     /**

@@ -51,6 +51,9 @@ class SectionLoader {
             // Populate grids with topic cards
             this.populateGrids();
             
+            // Extract and provide topics to progress tracker
+            this.provideTopicsToProgressTracker();
+            
             // Setup event listeners
             this.setupEventListeners();
             
@@ -60,7 +63,7 @@ class SectionLoader {
             // Auto-visual sync
             setTimeout(() => {
                 try {
-                    this.progressTracker.syncVisualState();
+                    this.syncVisualState();
                 } catch (error) {
                     console.warn('Progress sync failed:', error);
                 }
@@ -106,6 +109,35 @@ class SectionLoader {
     handleDataError(message) {
         console.error(message);
         this.showErrorMessage(`Failed to load section data: ${message}`, true);
+    }
+    
+    /**
+     * Synchronize visual state of topic cards based on completion status
+     * This replaces the DOM-dependent method in UnifiedCCNAProgressTracker
+     */
+    syncVisualState() {
+        if (!this.progressTracker || typeof this.progressTracker.getTopicCompletionStates !== 'function') {
+            console.warn('Cannot sync visual state: progress tracker not available or missing method');
+            return;
+        }
+        
+        try {
+            const completionStates = this.progressTracker.getTopicCompletionStates();
+            
+            document.querySelectorAll('.topic-card').forEach(card => {
+                const titleElement = card.querySelector('h3');
+                if (titleElement) {
+                    const title = titleElement.textContent.trim();
+                    if (completionStates[title]) {
+                        card.classList.add('studied');
+                    } else {
+                        card.classList.remove('studied');
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('Error syncing visual state:', error);
+        }
     }
     
     handleInitError(error) {
@@ -169,6 +201,42 @@ class SectionLoader {
         });
     }
     
+    /**
+     * Extract topic titles and provide them to the progress tracker
+     * This makes SectionLoader responsible for topic extraction instead of progress tracker
+     */
+    provideTopicsToProgressTracker() {
+        if (!this.progressTracker || !this.data) {
+            console.warn('Cannot provide topics: progress tracker or data not available');
+            return;
+        }
+        
+        try {
+            // Extract all topic titles from the section data
+            const topicTitles = [];
+            
+            Object.keys(this.data.metadata.subsections).forEach(key => {
+                if (this.data[key] && Array.isArray(this.data[key])) {
+                    this.data[key].forEach(topic => {
+                        if (topic && topic.title) {
+                            topicTitles.push(topic.title);
+                        }
+                    });
+                }
+            });
+            
+            // Provide topics to progress tracker
+            if (typeof this.progressTracker.setChapterTopics === 'function') {
+                this.progressTracker.setChapterTopics(this.sectionNumber, topicTitles);
+                console.log(`Provided ${topicTitles.length} topics to progress tracker for section ${this.sectionNumber}`);
+            } else {
+                console.warn('Progress tracker does not support setChapterTopics method');
+            }
+        } catch (error) {
+            console.error('Error providing topics to progress tracker:', error);
+        }
+    }
+    
     openStudyModal(topic, cardElement) {
         this.currentTopic = topic;
         this.currentCardElement = cardElement;
@@ -176,10 +244,22 @@ class SectionLoader {
         document.getElementById('modalTitle').textContent = topic.title;
         document.getElementById('modalDescription').textContent = topic.description || 'Click to study this topic.';
         
+        const modalSvgContainer = document.getElementById('modalSvg');
+        
         if (topic.visual) {
-            document.getElementById('modalSvg').innerHTML = topic.visual;
+            // Clear existing content safely
+            modalSvgContainer.textContent = '';
+            
+            // Create a temporary container to parse SVG safely
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = topic.visual;
+            
+            // Move SVG elements to the modal container
+            while (tempDiv.firstChild) {
+                modalSvgContainer.appendChild(tempDiv.firstChild);
+            }
         } else {
-            document.getElementById('modalSvg').innerHTML = '';
+            modalSvgContainer.textContent = '';
         }
         
         const modal = document.getElementById('studyModal');
@@ -219,10 +299,8 @@ class SectionLoader {
 
     initializeProgressTracking() {
         try {
-            // Sync visual state with stored progress
-            if (this.progressTracker && typeof this.progressTracker.syncVisualState === 'function') {
-                this.progressTracker.syncVisualState();
-            }
+            // Sync visual state with stored progress using SectionLoader's method
+            this.syncVisualState();
         } catch (error) {
             console.warn('Failed to initialize progress tracking:', error);
         }

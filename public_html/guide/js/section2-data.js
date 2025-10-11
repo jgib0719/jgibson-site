@@ -118,6 +118,94 @@ const SECTION2_DATA = {
                 <text x="200" y="140" fill="#f59e0b" font-size="10" text-anchor="middle">VLAN 99 Traffic (Native - Untagged)</text>
                 <line x1="140" y1="125" x2="260" y2="125" stroke="#f59e0b" stroke-width="2"/>
             </svg>`
+        },
+        {
+            title: "VTP Modes",
+            icon: "fa-server",
+            description: "VLAN Trunking Protocol (VTP) synchronizes VLAN information across switches in a domain. Server mode creates/modifies VLANs, Client mode receives updates, Transparent mode forwards advertisements without participating.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>VTP Domain Operation</title>
+                <!-- VTP Server -->
+                <rect x="50" y="80" width="80" height="40" rx="5" fill="#10b981" stroke="#059669" stroke-width="2"/>
+                <text x="90" y="95" font-size="10" fill="white" text-anchor="middle" font-weight="bold">VTP Server</text>
+                <text x="90" y="108" font-size="8" fill="white" text-anchor="middle">Create/Modify</text>
+                <text x="90" y="118" font-size="8" fill="white" text-anchor="middle">VLANs</text>
+                
+                <!-- VTP Client -->
+                <rect x="270" y="40" width="80" height="40" rx="5" fill="#6366f1" stroke="#4f46e5" stroke-width="2"/>
+                <text x="310" y="55" font-size="10" fill="white" text-anchor="middle" font-weight="bold">VTP Client</text>
+                <text x="310" y="68" font-size="8" fill="white" text-anchor="middle">Receive Only</text>
+                <text x="310" y="78" font-size="8" fill="white" text-anchor="middle">No Modify</text>
+                
+                <!-- VTP Transparent -->
+                <rect x="270" y="120" width="80" height="40" rx="5" fill="#f59e0b" stroke="#d97706" stroke-width="2"/>
+                <text x="310" y="135" font-size="10" fill="white" text-anchor="middle" font-weight="bold">Transparent</text>
+                <text x="310" y="148" font-size="8" fill="white" text-anchor="middle">Forward Only</text>
+                <text x="310" y="158" font-size="8" fill="white" text-anchor="middle">No Sync</text>
+                
+                <!-- VTP Advertisements -->
+                <path d="M 130 100 Q 200 70 270 60" stroke="#10b981" stroke-width="2" fill="none"/>
+                <text x="200" y="65" font-size="9" fill="#10b981" text-anchor="middle">VTP Advertisements</text>
+                
+                <path d="M 130 100 Q 200 130 270 140" stroke="#10b981" stroke-width="2" fill="none"/>
+                <text x="200" y="125" font-size="9" fill="#10b981" text-anchor="middle">Forward Through</text>
+                
+                <!-- Domain Information -->
+                <ellipse cx="200" cy="170" rx="120" ry="20" fill="none" stroke="#94a3b8" stroke-dasharray="3,3"/>
+                <text x="200" y="175" font-size="10" fill="#94a3b8" text-anchor="middle">VTP Domain: COMPANY</text>
+                
+                <!-- Security Warning -->
+                <rect x="100" y="25" width="200" height="15" rx="3" fill="#f87171" fill-opacity="0.2" stroke="#f87171"/>
+                <text x="200" y="35" font-size="9" fill="#f87171" text-anchor="middle">⚠ Server mode can delete all VLANs</text>
+            </svg>`
+        },
+        {
+            title: "VTP Pruning",
+            icon: "fa-cut",
+            description: "VTP Pruning optimizes bandwidth by restricting VLAN traffic on trunk links. Only sends VLAN traffic on trunks where the VLAN has active ports, reducing unnecessary broadcasts and improving performance.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>VTP Pruning Operation</title>
+                <!-- Switch Network -->
+                <rect x="50" y="80" width="60" height="40" rx="5" fill="#334155"/>
+                <text x="80" y="105" font-size="10" fill="white" text-anchor="middle">SW1</text>
+                
+                <rect x="170" y="80" width="60" height="40" rx="5" fill="#334155"/>
+                <text x="200" y="105" font-size="10" fill="white" text-anchor="middle">SW2</text>
+                
+                <rect x="290" y="80" width="60" height="40" rx="5" fill="#334155"/>
+                <text x="320" y="105" font-size="10" fill="white" text-anchor="middle">SW3</text>
+                
+                <!-- Trunk Links -->
+                <line x1="110" y1="100" x2="170" y2="100" stroke="#6366f1" stroke-width="3"/>
+                <line x1="230" y1="100" x2="290" y2="100" stroke="#6366f1" stroke-width="3"/>
+                
+                <!-- VLAN 10 Active (Green) -->
+                <circle cx="80" cy="140" r="12" fill="#10b981"/>
+                <text x="80" y="144" font-size="8" fill="white" text-anchor="middle">V10</text>
+                <text x="80" y="160" font-size="8" fill="#10b981" text-anchor="middle">Active</text>
+                
+                <circle cx="200" cy="140" r="12" fill="#10b981"/>
+                <text x="200" y="144" font-size="8" fill="white" text-anchor="middle">V10</text>
+                <text x="200" y="160" font-size="8" fill="#10b981" text-anchor="middle">Active</text>
+                
+                <!-- VLAN 20 Pruned (Red) -->
+                <circle cx="320" cy="140" r="12" fill="#f87171" stroke="#f87171" stroke-dasharray="2,2" fill-opacity="0.3"/>
+                <text x="320" y="144" font-size="8" fill="#f87171" text-anchor="middle">V20</text>
+                <text x="320" y="160" font-size="8" fill="#f87171" text-anchor="middle">Pruned</text>
+                
+                <!-- Traffic Flow Visualization -->
+                <path d="M 125 90 L 155 90" stroke="#10b981" stroke-width="2" fill="none"/>
+                <text x="140" y="85" font-size="8" fill="#10b981" text-anchor="middle">VLAN 10</text>
+                
+                <path d="M 245 90 L 275 90" stroke="#f87171" stroke-width="2" fill="none" stroke-dasharray="3,3"/>
+                <text x="260" y="85" font-size="8" fill="#f87171" text-anchor="middle">VLAN 20</text>
+                <text x="260" y="75" font-size="7" fill="#f87171" text-anchor="middle">Blocked</text>
+                
+                <!-- Pruning Benefits -->
+                <text x="200" y="40" font-size="12" fill="#e2e8f0" text-anchor="middle" font-weight="bold">VTP Pruning Benefits</text>
+                <text x="100" y="185" font-size="9" fill="#94a3b8" text-anchor="middle">Reduced bandwidth usage</text>
+                <text x="300" y="185" font-size="9" fill="#94a3b8" text-anchor="middle">Optimized trunk utilization</text>
+            </svg>`
         }
     ],
     discovery: [
@@ -527,6 +615,50 @@ const SECTION2_DATA = {
                 <!-- Security Note -->
                 <rect x="50" y="175" width="300" height="15" rx="3" fill="#1e293b" stroke="#475569"/>
                 <text x="200" y="186" font-size="9" fill="#e2e8f0" text-anchor="middle">🛡️ Essential for preventing STP manipulation attacks</text>
+            </svg>`
+        },
+        {
+            title: "MST (Multiple Spanning Tree)",
+            icon: "fa-sitemap",
+            description: "Multiple Spanning Tree (MST) maps multiple VLANs to a single spanning tree instance, reducing CPU overhead. Uses regions and instances for scalability in large networks, offering better load balancing than Rapid PVST+.",
+            visual: `<svg viewBox="0 0 400 200">
+                <title>MST Instances and VLAN Mapping</title>
+                <!-- MST Region -->
+                <rect x="50" y="30" width="300" height="140" rx="10" fill="none" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,5"/>
+                <text x="200" y="25" font-size="12" fill="#9b59b6" text-anchor="middle" font-weight="bold">MST Region: ENTERPRISE</text>
+                
+                <!-- MST Instance 1 -->
+                <rect x="70" y="50" width="120" height="50" rx="5" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="2"/>
+                <text x="130" y="65" font-size="10" fill="#10b981" text-anchor="middle" font-weight="bold">MST Instance 1</text>
+                <text x="130" y="78" font-size="8" fill="#10b981" text-anchor="middle">VLANs: 10, 20, 30</text>
+                <text x="130" y="90" font-size="8" fill="#10b981" text-anchor="middle">Root: Switch A</text>
+                
+                <!-- MST Instance 2 -->
+                <rect x="210" y="50" width="120" height="50" rx="5" fill="#6366f1" fill-opacity="0.2" stroke="#6366f1" stroke-width="2"/>
+                <text x="270" y="65" font-size="10" fill="#6366f1" text-anchor="middle" font-weight="bold">MST Instance 2</text>
+                <text x="270" y="78" font-size="8" fill="#6366f1" text-anchor="middle">VLANs: 40, 50, 60</text>
+                <text x="270" y="90" font-size="8" fill="#6366f1" text-anchor="middle">Root: Switch B</text>
+                
+                <!-- Load Balancing Arrows -->
+                <path d="M 130 110 Q 150 125 170 110" stroke="#10b981" stroke-width="2" fill="none"/>
+                <path d="M 270 110 Q 250 125 230 110" stroke="#6366f1" stroke-width="2" fill="none"/>
+                <text x="200" y="130" font-size="9" fill="#94a3b8" text-anchor="middle">Load Balancing</text>
+                
+                <!-- Switches in Region -->
+                <circle cx="100" cy="140" r="15" fill="#334155"/>
+                <text x="100" y="145" font-size="8" fill="white" text-anchor="middle">SW-A</text>
+                
+                <circle cx="150" cy="140" r="15" fill="#334155"/>
+                <text x="150" y="145" font-size="8" fill="white" text-anchor="middle">SW-B</text>
+                
+                <circle cx="250" cy="140" r="15" fill="#334155"/>
+                <text x="250" y="145" font-size="8" fill="white" text-anchor="middle">SW-C</text>
+                
+                <circle cx="300" cy="140" r="15" fill="#334155"/>
+                <text x="300" y="145" font-size="8" fill="white" text-anchor="middle">SW-D</text>
+                
+                <!-- Benefits Text -->
+                <text x="200" y="185" font-size="10" fill="#94a3b8" text-anchor="middle">Reduced CPU • Better Convergence • VLAN Load Balancing</text>
             </svg>`
         }
     ],
@@ -1156,10 +1288,10 @@ const SECTION2_DATA = {
         title: "Network Access",
         subsections: {
             vlans: { title: "2.1 VLANs", count: 3 },
-            trunks: { title: "2.2 Interswitch Connectivity", count: 3 },
+            trunks: { title: "2.2 Interswitch Connectivity", count: 5 },
             discovery: { title: "2.3 Layer 2 Discovery Protocols", count: 3 },
             etherchannel: { title: "2.4 EtherChannel", count: 3 },
-            spanningTree: { title: "2.5 Rapid PVST+", count: 4 },
+            spanningTree: { title: "2.5 Rapid PVST+", count: 5 },
             wirelessArchitecture: { title: "2.6 Wireless Architecture", count: 2 },
             wlanInfrastructure: { title: "2.7 WLAN Infrastructure", count: 2 },
             apManagement: { title: "2.8 AP Management", count: 4 },
