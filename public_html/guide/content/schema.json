@@ -1,0 +1,163 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CCNA Section Content Schema",
+  "description": "Unified content structure for CCNA study guide sections",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "sectionNumber": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        },
+        "title": {
+          "type": "string",
+          "description": "Section title (e.g., 'Network Fundamentals')"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Semantic version for content tracking"
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "author": {
+          "type": "string"
+        },
+        "examFocus": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Key exam topics for this section"
+        }
+      },
+      "required": ["sectionNumber", "title", "version", "lastModified"]
+    },
+    "subsections": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z][a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Subsection title (e.g., '1.1 Network Components')"
+            },
+            "description": {
+              "type": "string",
+              "description": "Brief subsection description"
+            },
+            "topics": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$",
+                    "description": "Unique topic identifier"
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "Topic title for cards"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "pattern": "^fa-[a-z0-9-]+$",
+                    "description": "FontAwesome icon class"
+                  },
+                  "summary": {
+                    "type": "string",
+                    "description": "Brief summary for topic card"
+                  },
+                  "visual": {
+                    "type": "string",
+                    "description": "SVG content for visual representation"
+                  },
+                  "content": {
+                    "type": "object",
+                    "properties": {
+                      "overview": {
+                        "type": "string",
+                        "description": "Detailed explanation (HTML)"
+                      },
+                      "examTips": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "CCNA exam-specific tips"
+                      },
+                      "commands": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "command": {
+                              "type": "string",
+                              "description": "CLI command"
+                            },
+                            "description": {
+                              "type": "string",
+                              "description": "What the command does"
+                            },
+                            "example": {
+                              "type": "string",
+                              "description": "Usage example"
+                            }
+                          },
+                          "required": ["command", "description"]
+                        }
+                      },
+                      "references": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "url": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "type": {
+                              "type": "string",
+                              "enum": ["cisco-doc", "rfc", "book", "video", "practice"]
+                            }
+                          },
+                          "required": ["title", "url", "type"]
+                        }
+                      }
+                    },
+                    "required": ["overview"]
+                  },
+                  "difficulty": {
+                    "type": "string",
+                    "enum": ["beginner", "intermediate", "advanced"],
+                    "description": "Difficulty level for learning progression"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Search and categorization tags"
+                  }
+                },
+                "required": ["id", "title", "icon", "summary", "visual", "content"]
+              }
+            }
+          },
+          "required": ["title", "topics"]
+        }
+      }
+    }
+  },
+  "required": ["metadata", "subsections"]
+}

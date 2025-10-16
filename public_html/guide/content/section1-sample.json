@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "sectionNumber": 1,
+    "title": "Network Fundamentals",
+    "version": "2.0.0",
+    "lastModified": "2025-10-16T03:30:00Z",
+    "author": "CCNA Study Guide Team",
+    "examFocus": [
+      "Network components and topology architectures",
+      "Physical interfaces and cabling types", 
+      "TCP vs UDP characteristics",
+      "IPv4 and IPv6 addressing schemes",
+      "Wireless principles and standards",
+      "Virtualization fundamentals"
+    ]
+  },
+  "subsections": {
+    "components": {
+      "title": "1.1 Network Components",
+      "description": "Essential hardware devices that form network infrastructure",
+      "topics": [
+        {
+          "id": "routers",
+          "title": "Routers",
+          "icon": "fa-route", 
+          "summary": "Forward data packets between different computer networks. Operates at Layer 3 (Network). Makes decisions based on IP addresses.",
+          "visual": "<svg viewBox=\"0 0 400 200\"><title>Router connecting two LANs</title><rect x=\"20\" y=\"60\" width=\"120\" height=\"80\" rx=\"10\" fill=\"#334155\"/><text x=\"80\" y=\"110\" text-anchor=\"middle\" font-size=\"16\" fill=\"#94a3b8\" font-family=\"sans-serif\">LAN A</text><circle cx=\"200\" cy=\"100\" r=\"30\" fill=\"#6366f1\"/><text x=\"200\" y=\"108\" text-anchor=\"middle\" font-size=\"24\" fill=\"white\" font-family=\"sans-serif\" font-weight=\"bold\">R</text><rect x=\"260\" y=\"60\" width=\"120\" height=\"80\" rx=\"10\" fill=\"#334155\"/><text x=\"320\" y=\"110\" text-anchor=\"middle\" font-size=\"16\" fill=\"#94a3b8\" font-family=\"sans-serif\">LAN B</text><line x1=\"140\" y1=\"100\" x2=\"170\" y2=\"100\" stroke=\"#64748b\" stroke-width=\"3\"/><line x1=\"230\" y1=\"100\" x2=\"260\" y2=\"100\" stroke=\"#64748b\" stroke-width=\"3\"/></svg>",
+          "content": {
+            "overview": "<div class=\"topic-content\"><h3 class=\"topic-primary\">1.1.a: Routers (The Traffic Cops of the Network)</h3><p>At its core, a <strong>Router</strong> is a Layer 3 device that connects different networks. Its primary job is to examine the destination IP address of a packet and use a <strong>routing table</strong> to determine the best path to forward it.</p><h4 class=\"section-technical\">Route Selection Process</h4><p>When a router has multiple paths to the same destination, it decides which route to install in the routing table using this logic:</p><ol><li><strong>Longest Prefix Match:</strong> The router always prefers the most specific route. A route to 192.168.10.0/26 is more specific than 192.168.10.0/24.</li><li><strong>Administrative Distance (AD):</strong> If multiple routing protocols provide a route to the same destination with the same prefix length, the router trusts the protocol with the lower AD. This is a measure of trustworthiness.</li><li><strong>Metric:</strong> If the AD is the same, the router uses the protocol's metric to break the tie. The lowest metric wins.</li></ol><h4 class=\"section-technical\">Key Administrative Distances (Lower is Better)</h4><ul><li><strong>Directly Connected:</strong> 0</li><li><strong>Static Route:</strong> 1</li><li><strong>EIGRP:</strong> 90</li><li><strong>OSPF:</strong> 110</li><li><strong>RIP:</strong> 120</li></ul><div class=\"exam-focus\"><h5 class=\"meta-info\">CCNA Exam Focus:</h5><ul><li>Routers operate at Layer 3 and make forwarding decisions based on IP addresses</li><li>Longest prefix match is always the first tiebreaker in route selection</li><li>Administrative Distance determines trustworthiness: Connected (0), Static (1), EIGRP (90), OSPF (110), RIP (120)</li><li>Metric is used as tiebreaker when AD values are equal</li><li>Routing table contains best routes only, not all available routes</li><li>Default route (0.0.0.0/0) is used when no specific route matches</li></ul></div></div>",
+            "examTips": [
+              "Remember AD values: Connected (0), Static (1), EIGRP (90), OSPF (110), RIP (120)",
+              "Longest prefix match always wins regardless of AD or metric",
+              "Default route is the gateway of last resort",
+              "Administrative distance can be manually adjusted to override defaults"
+            ],
+            "commands": [
+              {
+                "command": "show ip route",
+                "description": "Display the routing table with all known routes",
+                "example": "Router# show ip route\nCodes: C - connected, S - static, R - RIP, O - OSPF, E - EIGRP"
+              },
+              {
+                "command": "ip route [destination] [mask] [next-hop]",
+                "description": "Configure a static route",
+                "example": "Router(config)# ip route 192.168.1.0 255.255.255.0 10.0.0.1"
+              },
+              {
+                "command": "show ip protocols",
+                "description": "Display routing protocol information and timers",
+                "example": "Router# show ip protocols"
+              }
+            ],
+            "references": [
+              {
+                "title": "Cisco IOS IP Routing Configuration Guide",
+                "url": "https://www.cisco.com/c/en/us/support/docs/ip/ip-routing/13769-5.html",
+                "type": "cisco-doc"
+              },
+              {
+                "title": "RFC 1812 - Requirements for IP Version 4 Routers",
+                "url": "https://tools.ietf.org/rfc/rfc1812.txt",
+                "type": "rfc"
+              }
+            ]
+          },
+          "difficulty": "intermediate",
+          "tags": ["layer3", "routing", "protocols", "administrative-distance", "forwarding"]
+        },
+        {
+          "id": "l2-l3-switches",
+          "title": "L2 and L3 Switches", 
+          "icon": "fa-network-wired",
+          "summary": "L2 Switch: Forwards frames using MAC addresses. L3 Switch: Combines switching with routing capabilities for inter-VLAN communication.",
+          "visual": "<svg viewBox=\"0 0 400 200\"><title>L2 Switch in a LAN vs L3 Switch for VLANs</title><rect x=\"40\" y=\"120\" width=\"100\" height=\"30\" rx=\"4\" fill=\"#4f46e5\"/><text x=\"90\" y=\"140\" text-anchor=\"middle\" font-size=\"14\" fill=\"#c7d2fe\" font-family=\"sans-serif\">L2 Switch</text><line x1=\"50\" y1=\"70\" x2=\"50\" y2=\"120\" stroke=\"#64748b\" stroke-width=\"3\"/><rect x=\"40\" y=\"50\" width=\"20\" height=\"20\" rx=\"2\" fill=\"#475569\"/><line x1=\"90\" y1=\"70\" x2=\"90\" y2=\"120\" stroke=\"#64748b\" stroke-width=\"3\"/><rect x=\"80\" y=\"50\" width=\"20\" height=\"20\" rx=\"2\" fill=\"#475569\"/><line x1=\"130\" y1=\"70\" x2=\"130\" y2=\"120\" stroke=\"#64748b\" stroke-width=\"3\"/><rect x=\"120\" y=\"50\" width=\"20\" height=\"20\" rx=\"2\" fill=\"#475569\"/><rect x=\"240\" y=\"120\" width=\"100\" height=\"30\" rx=\"4\" fill=\"#818cf8\"/><text x=\"290\" y=\"140\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1e1b4b\" font-family=\"sans-serif\">L3 Switch</text><rect x=\"200\" y=\"50\" width=\"80\" height=\"40\" rx=\"6\" fill=\"#334155\" stroke=\"#f59e0b\" stroke-width=\"2\"/><text x=\"240\" y=\"76\" text-anchor=\"middle\" font-size=\"12\" font-family=\"sans-serif\" fill=\"#f59e0b\">VLAN 10</text><line x1=\"220\" y1=\"90\" x2=\"270\" y2=\"120\" stroke=\"#64748b\" stroke-width=\"3\"/><rect x=\"300\" y=\"50\" width=\"80\" height=\"40\" rx=\"6\" fill=\"#334155\" stroke=\"#10b981\" stroke-width=\"2\"/><text x=\"340\" y=\"76\" text-anchor=\"middle\" font-size=\"12\" font-family=\"sans-serif\" fill=\"#10b981\">VLAN 20</text><line x1=\"320\" y1=\"90\" x2=\"310\" y2=\"120\" stroke=\"#64748b\" stroke-width=\"3\"/></svg>",
+          "content": {
+            "overview": "<div class=\"topic-content\"><h3 class=\"topic-primary\">1.1.b: Layer 2 vs. Layer 3 Switches</h3><p>Layer 2 switches operate at the Data Link layer using MAC addresses, while Layer 3 switches add routing capabilities for inter-VLAN communication and IP-based forwarding decisions.</p><h4 class=\"section-technical\">Layer 2 Switch Characteristics:</h4><table class=\"comparison-table\"><tr><th>Feature</th><th>Description</th><th>Functionality</th></tr><tr><td>Forwarding Method</td><td>MAC address table lookup</td><td>Layer 2 frame switching only</td></tr><tr><td>VLAN Support</td><td>Creates separate broadcast domains</td><td>No inter-VLAN routing</td></tr><tr><td>ARP Handling</td><td>Floods ARP requests within VLAN</td><td>No ARP processing or caching</td></tr><tr><td>IP Awareness</td><td>None - purely Layer 2</td><td>Transparent to IP traffic</td></tr></table><h4 class=\"section-technical\">Layer 3 Switch (Multilayer Switch) Capabilities:</h4><table class=\"comparison-table\"><tr><th>Feature</th><th>Description</th><th>Benefit</th></tr><tr><td>Dual Operation</td><td>Layer 2 switching + Layer 3 routing</td><td>Best of both worlds</td></tr><tr><td>Inter-VLAN Routing</td><td>Route between VLANs at wire speed</td><td>No external router needed</td></tr><tr><td>Hardware ASICs</td><td>Specialized routing hardware</td><td>Near wire-speed routing</td></tr></table><div class=\"exam-focus\"><h5 class=\"meta-info\">CCNA Exam Focus:</h5><ul><li>L2 switches use MAC address tables for forwarding decisions</li><li>L3 switches combine switching and routing in one device</li><li>SVI (Switched Virtual Interface) enables inter-VLAN routing</li><li>Hardware-based forwarding provides better performance than software routing</li></ul></div></div>",
+            "examTips": [
+              "L2 switches flood unknown unicast frames",
+              "L3 switches can route between VLANs without external router", 
+              "SVI configuration enables VLAN routing",
+              "Hardware ASICs provide wire-speed performance"
+            ],
+            "commands": [
+              {
+                "command": "show mac address-table",
+                "description": "Display the MAC address table on a switch",
+                "example": "Switch# show mac address-table"
+              },
+              {
+                "command": "interface vlan [vlan-id]",
+                "description": "Configure a Switched Virtual Interface for inter-VLAN routing",
+                "example": "Switch(config)# interface vlan 10\nSwitch(config-if)# ip address 192.168.10.1 255.255.255.0"
+              },
+              {
+                "command": "ip routing",
+                "description": "Enable IP routing on a Layer 3 switch",
+                "example": "Switch(config)# ip routing"
+              }
+            ]
+          },
+          "difficulty": "intermediate",
+          "tags": ["layer2", "layer3", "switching", "vlans", "inter-vlan-routing", "mac-table"]
+        }
+      ]
+    }
+  }
+}

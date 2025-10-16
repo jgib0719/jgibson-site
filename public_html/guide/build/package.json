@@ -1,0 +1,45 @@
+{
+  "name": "ccna-content-pipeline",
+  "version": "1.0.0",
+  "description": "Content build pipeline for CCNA Study Guide - validates, compiles, and indexes unified JSON content",
+  "main": "build-pipeline.js",
+  "scripts": {
+    "build": "node build-pipeline.js build",
+    "watch": "node build-pipeline.js watch", 
+    "validate": "node content-validator.js",
+    "compile": "node content-compiler.js",
+    "index": "node search-indexer.js",
+    "clean": "rm -rf ../js/section*-data.js ../js/section*-details.js ../js/search-index.js ../js/topic-directory.js reports/*.json",
+    "test": "npm run validate && npm run build"
+  },
+  "dependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1", 
+    "html-minifier-terser": "^7.2.0",
+    "chokidar": "^3.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "ccna",
+    "content-management",
+    "build-pipeline",
+    "validation",
+    "search-indexing"
+  ],
+  "author": "CCNA Study Guide Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "local"
+  },
+  "files": [
+    "*.js",
+    "../content/schema.json",
+    "README.md"
+  ]
+}

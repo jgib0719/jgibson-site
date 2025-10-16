@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCNA Section Reviews - Interactive Study Guides</title>
+    <meta name="description" content="Browse all 6 CCNA 200-301 sections. Interactive study guides covering Network Fundamentals, Network Access, IP Connectivity, IP Services, Security, and Automation.">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Skip link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="page-container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <div class="breadcrumb-left">
+                <a href="/">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current" aria-current="page">Sections</span>
+            </div>
+            <div class="breadcrumb-right">
+                <a href="/" class="back-button">
+                    <svg class="back-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 12H5m7-7l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Back to Home
+                </a>
+            </div>
+        </nav>
+
+        <header class="page-header">
+            <h1 class="page-title">CCNA Study Portal</h1>
+            <p class="page-subtitle">Interactive study guides for each section of the CCNA 200-301 exam.</p>
+        </header>
+
+        <!-- Overall Progress Bar -->
+        <div id="master-progress">
+            <div id="master-progress-card">
+                <div id="master-progress-header">
+                    <span id="master-progress-title">CCNA 200-301 Overall Progress</span>
+                    <span id="progressText">0%</span>
+                </div>
+                <div id="master-progress-bar-container">
+                    <div id="progressBar"></div>
+                </div>
+                <div id="master-progress-footer">
+                    <span>All Sections</span>
+                    <span id="progressDetails">0 of 260 topics completed</span>
+                </div>
+            </div>
+        </div>
+
+        <main class="sections-grid" id="main-content">
+            <!-- Section 1 Card -->
+            <div class="section-card" tabindex="0" role="button" aria-label="Section 1: Network Fundamentals">
+                <div class="brand-gradient p-1">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Section 1</h2>
+                            <div class="section-subtitle">Network Fundamentals</div>
+                        </div>
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" stroke="currentColor" stroke-width="1.6"/><path d="M2 12h20M12 2v20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <h3>Core Topics Covered:</h3>
+                    <ul class="section-list">
+                        <li>Network Components & Device Types</li>
+                        <li>Network Topology Architectures</li>
+                        <li>Physical Interface & Cabling Types</li>
+                        <li>TCP vs UDP Transport Protocols</li>
+                        <li>IPv4 & IPv6 Addressing + VLSM</li>
+                        <li>Wireless Principles & RF Fundamentals</li>
+                        <li>Virtualization & Switching Concepts</li>
+                    </ul>
+                    <a href="section.html?section=1" class="section-button">Review Section</a>
+                </div>
+            </div>
+
+            <!-- Section 2 Card -->
+            <div class="section-card" tabindex="0" role="button" aria-label="Section 2: Network Access">
+                <div class="brand-gradient p-1">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Section 2</h2>
+                            <div class="section-subtitle">Network Access</div>
+                        </div>
+                         <svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M10 22v-4a4 4 0 0 0-4-4H2V2h20v12h-4a4 4 0 0 0-4 4v4h-2zM7 2v4h10V2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 14h4v4h12v-4h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <h3>Core Topics Covered:</h3>
+                    <ul class="section-list">
+                        <li>VLANs & Inter-switch Connectivity</li>
+                        <li>Layer 2 Discovery Protocols</li>
+                        <li>EtherChannel Link Aggregation</li>
+                        <li>Rapid PVST+ Spanning Tree</li>
+                        <li>Wireless Architecture & Infrastructure</li>
+                        <li>AP Management & WLAN Configuration</li>
+                    </ul>
+                    <a href="section.html?section=2" class="section-button">Review Section</a>
+                </div>
+            </div>
+
+            <!-- Section 3 Card -->
+            <div class="section-card" tabindex="0" role="button" aria-label="Section 3: IP Connectivity">
+                <div class="brand-gradient p-1">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Section 3</h2>
+                            <div class="section-subtitle">IP Connectivity</div>
+                        </div>
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M12 18v-5m0-4V4m0 9c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm8 0a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <h3>Core Topics Covered:</h3>
+                    <ul class="section-list">
+                        <li>Routing Table Components & Analysis</li>
+                        <li>Forwarding Decision Process</li>
+                        <li>Static Routing Configuration</li>
+                        <li>Policy-Based Routing (PBR)</li>
+                        <li>Single Area OSPFv2 Implementation</li>
+                        <li>EIGRP & First Hop Redundancy</li>
+                    </ul>
+                    <a href="section.html?section=3" class="section-button">Review Section</a>
+                </div>
+            </div>
+
+            <!-- Section 4 Card -->
+            <div class="section-card" tabindex="0" role="button" aria-label="Section 4: IP Services">
+                <div class="brand-gradient p-1">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Section 4</h2>
+                            <div class="section-subtitle">IP Services</div>
+                        </div>
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <h3>Core Topics Covered:</h3>
+                    <ul class="section-list">
+                        <li>NAT & NTP Configuration</li>
+                        <li>DHCP & DNS Services</li>
+                        <li>SNMP Operations & Syslog Features</li>
+                        <li>QoS Concepts & SSH Remote Access</li>
+                        <li>TFTP/FTP Functions</li>
+                        <li>HSRP Configuration & NetFlow Monitoring</li>
+                    </ul>
+                    <a href="section.html?section=4" class="section-button">Review Section</a>
+                </div>
+            </div>
+
+            <!-- Section 5 Card -->
+             <div class="section-card" tabindex="0" role="button" aria-label="Section 5: Security Fundamentals">
+                <div class="brand-gradient p-1">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Section 5</h2>
+                            <div class="section-subtitle">Security Fundamentals</div>
+                        </div>
+                         <svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <h3>Core Topics Covered:</h3>
+                    <ul class="section-list">
+                        <li>Key Security Concepts & Program Elements</li>
+                        <li>Device Access Control & Password Policies</li>
+                        <li>IPsec VPNs & Access Control Lists</li>
+                        <li>Layer 2 Security Features</li>
+                        <li>AAA Concepts & Wireless Security</li>
+                        <li>Firewall Types & Cryptography Basics</li>
+                    </ul>
+                    <a href="section.html?section=5" class="section-button">Review Section</a>
+                </div>
+            </div>
+
+            <!-- Section 6 Card -->
+             <div class="section-card" tabindex="0" role="button" aria-label="Section 6: Automation &amp; Programmability">
+                <div class="brand-gradient p-1">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Section 6</h2>
+                            <div class="section-subtitle">Automation & Programmability</div>
+                        </div>
+                         <svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M16 18l6-6-6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6L2 12l6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <h3>Core Topics Covered:</h3>
+                    <ul class="section-list">
+                        <li>Automation Impact on Network Management</li>
+                        <li>Traditional vs Controller-Based Networking</li>
+                        <li>Software-Defined Architecture Concepts</li>
+                        <li>AI & Machine Learning in Networking</li>
+                        <li>REST API Characteristics & Usage</li>
+                        <li>Configuration Management & JSON Data</li>
+                    </ul>
+                    <a href="section.html?section=6" class="section-button">Review Section</a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="page-footer">
+            <p>&copy; 2024 J. Gibson. All Rights Reserved.</p>
+        </footer>
+    </div>
+    
+    <!-- Core functionality bundle -->
+    <script src="js/bundle.min.js"></script>
+    
+    <!-- Load all section data files to calculate total topics -->
+    <script src="js/section1-data.js"></script>
+    <script src="js/section2-data.js"></script>
+    <script src="js/section3-data.js"></script>
+    <script src="js/section4-data.js"></script>
+    <script src="js/section5-data.js"></script>
+    <script src="js/section6-data.js"></script>
+    
+    <!-- Overall progress initialization -->
+    <script src="js/overall-progress-init.js"></script>
+    <script src="js/accessibility-enhancements.js"></script>
+</body>
+</html>

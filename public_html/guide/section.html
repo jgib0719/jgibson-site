@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="dynamic-title">CCNA Study Guide</title>
+    <meta id="dynamic-description" name="description" content="Interactive CCNA study guide with progress tracking.">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="main-container">
+        <!-- Breadcrumb & Back Button -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <div class="breadcrumb-left">
+                <a href="/">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="/guide/sections.html">Sections</a>
+                <span class="breadcrumb-separator">/</span>
+                <span id="dynamic-breadcrumb" class="breadcrumb-current" aria-current="page">Section</span>
+            </div>
+            <div class="breadcrumb-right">
+                <a href="/guide/sections.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Sections
+                </a>
+            </div>
+        </nav>
+
+        <!-- Master Progress Bar -->
+        <div id="master-progress">
+            <div id="master-progress-card">
+                <div id="master-progress-header">
+                    <span id="master-progress-title">CCNA 200-301 Progress</span>
+                    <span id="progressText"></span>
+                </div>
+                <div id="master-progress-bar-container">
+                    <div id="progressBar"></div>
+                </div>
+                <div id="master-progress-footer">
+                    <span>Sections 1-6</span>
+                    <span id="progressDetails">0 of 30 topics completed</span>
+                </div>
+            </div>
+        </div>
+
+        <header id="page-header">
+            <h1 id="page-title">
+                <i id="page-icon"></i><span id="dynamic-section-title">CCNA - Section</span>
+            </h1>
+            <p id="page-subtitle">Interactive Study Guide for Exam 200-301</p>
+            <p id="page-description">Select a topic to begin your training module.</p>
+            <a href="sections.html" id="back-button" class="btn btn-secondary btn-sm">
+                <i id="back-icon"></i>Back to Sections
+            </a>
+        </header>
+
+        <div id="progress-container">
+            <div id="progress-header">
+                <span id="progress-label">Section Progress</span>
+                <span id="progress-text"></span>
+            </div>
+            <div id="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+        </div>
+
+        <main>
+            <!-- Content sections will be dynamically generated here -->
+        </main>
+    </div>
+
+    <!-- Study Modal - Uses Global Config -->
+    <div id="studyModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div id="modalContent">
+            <div id="modalVisual">
+                <div id="modalSvg"></div>
+            </div>
+            <div id="modalMainArea">
+                <button id="closeModal">&times;</button>
+                <h2 id="modalTitle"></h2>
+                <p id="modalDescription"></p>
+
+                <div class="modal-buttons flex gap-3 mt-4">
+                    <button id="viewDetails" class="btn btn-primary btn-md">
+                        <i class="fas fa-info-circle mr-2"></i>Details
+                    </button>
+                    <button id="markCompleted" class="btn btn-secondary btn-md">
+                        Mark as Studied
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Modal - Uses Global Config -->
+    <div id="detailsModal" role="dialog" aria-modal="true" aria-labelledby="detailsModalTitle">
+        <div id="detailsModalContent">
+            <div id="detailsModalMain">
+                <button id="closeDetails">&times;</button>
+                <h2 id="detailsModalTitle"></h2>
+                <div id="detailsModalBody"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core functionality bundle -->
+    <script src="js/bundle.min.js"></script>
+    
+    <!-- Dynamic section loading (external script for CSP compliance) -->
+    <script src="js/section-dynamic-loader.js"></script>
+</body>
+</html>
